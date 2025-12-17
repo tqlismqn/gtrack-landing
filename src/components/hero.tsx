@@ -21,7 +21,7 @@ export function Hero() {
             <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">G</span>
             </div>
-            <span className="text-blue-500 font-semibold">G-Track TMS</span>
+            <span className="text-blue-500 font-semibold">G-Track</span>
           </div>
         </motion.div>
 
@@ -44,8 +44,9 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto"
         >
-          Modern TMS for fleet operators. Track drivers, manage documents,
-          and optimize your transport operations — all in one place.
+          G-Track is a cloud-based Transport Management System designed for fleet operators.
+          Manage your drivers, track documents and licenses, monitor vehicle compliance,
+          and streamline your transport operations — all from one intuitive dashboard.
         </motion.p>
 
         {/* CTA Buttons */}

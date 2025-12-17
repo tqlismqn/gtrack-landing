@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "G-Track TMS - Transport Management System",
+  title: "G-Track - Transport Management System",
   description:
     "Modern transport management system for fleet operators. Track drivers, manage documents, and optimize operations.",
   keywords: [
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "G-Track" }],
   openGraph: {
-    title: "G-Track TMS",
-    description: "Modern transport management system for fleet operators",
+    title: "G-Track",
+    description: "Cloud-based transport management system for fleet operators. Manage drivers, documents, and vehicle compliance.",
     url: "https://g-track.eu",
     siteName: "G-Track",
     type: "website",
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "G-Track TMS",
-    description: "Modern transport management system for fleet operators",
+    title: "G-Track",
+    description: "Cloud-based transport management system for fleet operators. Manage drivers, documents, and vehicle compliance.",
   },
   robots: {
     index: true,
