@@ -7,7 +7,7 @@ import { AnimatedGradient } from "./animated-gradient";
 
 export function Hero() {
   return (
-    <div className="flex flex-col overflow-hidden relative">
+    <div className="flex flex-col overflow-hidden relative pt-[200px] pb-[100px]">
       <AnimatedGradient />
 
       <ContainerScroll
