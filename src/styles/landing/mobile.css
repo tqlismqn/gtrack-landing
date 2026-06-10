@@ -1,0 +1,115 @@
+/* ============================================================================
+   G-Track Landing — мобильный проход (320–767px)
+   Цель: ноль горизонтального скролла, всё читабельно. Загружается последним.
+   ============================================================================ */
+
+/* CTA-свопы в nav: полный текст ≥768, короткий <768, минимальный ≤400 */
+.cta-short, .cta-tiny { display: none; }
+
+@media (max-width: 767px) {
+  .nav-inner { padding: 0 16px; gap: 12px; }
+  .lang-stub, .nav-login { display: none; }
+  .cta-full { display: none; }
+  .cta-short { display: inline; }
+}
+
+@media (max-width: 400px) {
+  .nav-inner { padding: 0 12px; gap: 10px; }
+  .cta-short { display: none; }
+  .cta-tiny { display: inline; }
+  .nav .btn.sm { padding: 0 13px; }
+}
+
+/* секции с декоративными абсолютами не должны рожать overflow */
+.pain { overflow: hidden; }
+main { overflow-x: clip; }
+
+/* флаг Латвии (используется в hero-борде) */
+.flag.lv { background: linear-gradient(to bottom, #9E3039 40%, #FFFFFF 40% 60%, #9E3039 60%); }
+
+/* ---- hero board compact ---------------------------------------------------- */
+@media (max-width: 600px) {
+  .board { padding: 4px 6px 10px; }
+  .pwin-kpis { padding: 10px 8px 0; gap: 6px; }
+  .kpi { padding: 6px 8px; }
+  .kpi .kv { font-size: 14px; }
+  .kpi .kl { font-size: 9px; }
+  .board-head, .board-row, .board-row .cellbg { grid-template-columns: 112px repeat(5, minmax(0, 1fr)); }
+  .drv { gap: 0; padding: 0 4px; }
+  .drv .avatar { display: none; }
+  .dname { font-size: 11.5px; }
+  .dtags { flex-wrap: wrap; gap: 3px; }
+  .drv .ringbox { display: none; }
+  .tripbar { font-size: 8.5px; padding: 0 6px; gap: 4px; }
+  .tripbar .ocount { display: none; }
+  .tripbar .tic { display: none; }
+  .btoast { width: 208px; }
+  .pwin-week { display: none; }
+  .scene-board .board-head, .scene-board .board-row, .scene-board .board-row .cellbg { grid-template-columns: 104px repeat(5, minmax(0, 1fr)); }
+}
+
+/* ---- боль: коллаж в одну колонку -------------------------------------------- */
+@media (max-width: 720px) {
+  .pain-collage { height: auto; display: flex; flex-direction: column; gap: 14px; }
+  .pain-card, .pc-excel, .pc-chat, .pc-folder {
+    position: static; width: 100%; opacity: 1;
+  }
+  .pc-excel { transform: rotate(-1.2deg); }
+  .pc-chat { transform: rotate(1.1deg); }
+  .pc-folder { transform: rotate(-0.8deg); }
+  .pain-order { position: static; transform: none; opacity: 1; margin-top: 8px; left: auto; right: auto; }
+  .xls td { white-space: normal; }
+  .order-row { flex-wrap: wrap; }
+}
+
+/* ---- тарифы: переключатель периодов на узких ------------------------------- */
+@media (max-width: 430px) {
+  .period-toggle { gap: 2px; padding: 3px; }
+  .period-btn { padding: 0 9px; font-size: 12px; height: 34px; gap: 4px; }
+  .period-btn .disc { font-size: 9.5px; }
+  .tier { padding: 22px 18px 20px; }
+}
+
+/* ---- прочее ------------------------------------------------------------------ */
+@media (max-width: 480px) {
+  .wrap { padding-left: 18px; padding-right: 18px; }
+  .hero { padding-top: 110px; }
+  .hero-ctas .btn { width: 100%; }
+  .vid-tag { top: 12px; right: 14px; font-size: 9px; }
+  .btoast { right: 8px; }
+  .footer-grid { gap: 20px; }
+  .scene-card { padding: 16px; }
+  .ai-row { padding: 8px 10px; gap: 8px; }
+  .ai-row .k { width: 84px; font-size: 10.5px; }
+  .ai-row .v { font-size: 11px; }
+}
+
+/* ---- сверхузкие (320–379px): ужимаем сцены сторителлинга ------------------- */
+@media (max-width: 379px) {
+  .scene-card { padding: 14px; }
+  .scene-driver { gap: 10px; }
+  .scene-driver .avatar { width: 36px; height: 36px; font-size: 11px; }
+  .scene-card .ring { width: 44px; height: 44px; }
+  .scene-card .ring svg { width: 44px; height: 44px; }
+  .scene-driver .who .nm { font-size: 14px; }
+  .scene-driver .ppill { font-size: 9px; padding: 0 5px; }
+  .scene-board .board-head, .scene-board .board-row, .scene-board .board-row .cellbg { grid-template-columns: 88px repeat(5, minmax(0, 1fr)); }
+  .scene-board .dname { font-size: 10.5px; }
+  .scene-upload { font-size: 10.5px; padding: 9px 10px; }
+}
+
+/* ---- новые элементы итерации 3 на узких ------------------------------- */
+@media (max-width: 720px) {
+  .dc-head { flex-wrap: wrap; }
+  .dc-stats { width: 100%; padding-top: 10px; border-top: 1px dashed var(--p-border); }
+  .dc-tabs { overflow-x: auto; scrollbar-width: none; }
+  .audit-row .by { display: none; }
+  .lang-pill { transform: scale(1.25); }
+  .lang-pill-stage { padding: 28px 14px; }
+}
+@media (max-width: 480px) {
+  .dc-name { font-size: 16px; }
+  .docrow .dchip { height: 18px; font-size: 8.5px; padding: 0 5px; }
+  .iban-row .v { font-size: 11px; letter-spacing: 0.02em; }
+  .ai-row .rectag { font-size: 7.5px; padding: 2px 4px; }
+}

@@ -1,0 +1,315 @@
+/* ============================================================================
+   G-Track Landing — base layer
+   Tokens mirror gtrack-tms/src/index.css (dark = zinc-950, hue 240, low chroma).
+   Dark editorial base. Color carries data only (emerald/amber/rose/sky/violet).
+   Fonts: Onest (everything) + IBM Plex Mono (technical digits).
+   Motion is gated on html.motion-ok — without JS everything is fully visible.
+   ============================================================================ */
+
+:root {
+  /* surfaces — dark zinc (repo dark tokens) */
+  --canvas: oklch(12% 0.004 240);
+  --bg: oklch(13% 0.004 240);
+  --card: oklch(17% 0.004 240);
+  --raised: oklch(20% 0.004 240);
+  --sunken: oklch(10% 0.004 240);
+
+  /* text */
+  --text-1: oklch(96% 0.003 240);
+  --text-2: oklch(72% 0.005 240);
+  --text-3: oklch(58% 0.005 240);
+
+  /* brand (dark-theme brand from repo) */
+  --brand: #60A5FA;
+  --brand-hover: #93C5FD;
+  --brand-deep: #2563EB;
+  --brand-subtle: oklch(28% 0.06 250);
+
+  /* borders */
+  --border-1: oklch(25% 0.004 240);
+  --border-2: oklch(33% 0.004 240);
+
+  /* data colors — dark-theme legible variants */
+  --ok: #34D399;        /* emerald — валидно/активен */
+  --warn: #FBBF24;      /* amber — истекает/внимание */
+  --bad: #FB7185;       /* rose — просрочено/ошибка */
+  --info: #38BDF8;      /* sky — ссылки/акцент/EU */
+  --violet: #A78BFA;    /* кандидат/обучение */
+  --trip: #60A5FA;      /* blue — рейс */
+
+  --shadow-lift: 0 1px 2px rgb(0 0 0 / 0.5), 0 12px 32px -14px rgb(0 0 0 / 0.7), 0 0 0 1px var(--border-1);
+  --shadow-lift-hover: 0 2px 4px rgb(0 0 0 / 0.5), 0 28px 56px -18px rgb(0 0 0 / 0.85), 0 0 0 1px var(--border-2);
+  --glow-brand: color-mix(in oklch, var(--brand) 22%, transparent);
+  --grid-line: oklch(80% 0.02 250 / 0.045);
+
+  /* next/font (layout.tsx) выставляет --font-onest / --font-plex-mono;
+     имена 'Onest' / 'IBM Plex Mono' оставлены как фоллбэк прототипа */
+  --font-sans: var(--font-onest, 'Onest'), 'Onest', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono, 'IBM Plex Mono'), 'IBM Plex Mono', ui-monospace, monospace;
+
+  --maxw: 1180px;
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --btn-accent-fg: #07111C;
+  --blobA: oklch(38% 0.115 255 / 0.55);
+  --blobB: oklch(32% 0.105 295 / 0.5);
+  --blobC: oklch(30% 0.09 230 / 0.42);
+
+  /* Product-window palette — мокапы приложения СЛЕДУЮТ теме сайта (здесь: dark) */
+  --p-bg: oklch(17% 0.004 240);
+  --p-raised: oklch(20% 0.004 240);
+  --p-sunken: oklch(14% 0.004 240);
+  --p-border: oklch(27% 0.004 240);
+  --p-t1: oklch(96% 0.003 240);
+  --p-t2: oklch(72% 0.005 240);
+  --p-t3: oklch(58% 0.005 240);
+  --p-ok: #34D399;   --p-ok-bg: oklch(28% 0.05 152);  --p-ok-tx: #6EE7B7;
+  --p-warn: #FBBF24; --p-warn-bg: oklch(28% 0.05 80); --p-warn-tx: #FCD34D;
+  --p-bad: #FB7185;  --p-bad-bg: oklch(28% 0.06 20);  --p-bad-tx: #FDA4AF;
+  --p-trip: #60A5FA; --p-trip-bg: oklch(28% 0.06 250);--p-trip-tx: #93C5FD;
+  --p-violet: #A78BFA; --p-violet-bg: oklch(28% 0.06 295); --p-violet-tx: #C4B5FD;
+  --p-shadow: 0 1px 2px rgb(0 0 0 / 0.5), 0 24px 64px -24px rgb(0 0 0 / 0.8), 0 0 0 1px var(--border-2);
+  color-scheme: dark;
+}
+
+/* ---- светлая тема всего лендинга (переключатель в nav; мокапы следуют) ---- */
+html[data-theme="light"] {
+  --canvas: oklch(97.6% 0.003 240);
+  --bg: oklch(98.6% 0.002 240);
+  --card: #FFFFFF;
+  --raised: oklch(95.5% 0.005 240);
+  --sunken: oklch(96.4% 0.004 240);
+  --text-1: oklch(21% 0.02 250);
+  --text-2: oklch(43% 0.012 250);
+  --text-3: oklch(57% 0.01 250);
+  --brand: #2563EB;
+  --brand-hover: #1D4ED8;
+  --brand-deep: #2563EB;
+  --brand-subtle: oklch(93% 0.04 250);
+  --border-1: oklch(91% 0.004 250);
+  --border-2: oklch(85% 0.006 250);
+  --ok: #059669; --warn: #D97706; --bad: #E11D48; --info: #0284C7; --violet: #7C3AED; --trip: #2563EB;
+  --shadow-lift: 0 1px 2px rgb(16 24 40 / 0.06), 0 12px 32px -14px rgb(16 24 40 / 0.16), 0 0 0 1px var(--border-1);
+  --shadow-lift-hover: 0 2px 4px rgb(16 24 40 / 0.07), 0 28px 56px -18px rgb(16 24 40 / 0.22), 0 0 0 1px var(--border-2);
+  --glow-brand: color-mix(in oklch, var(--brand) 18%, transparent);
+  --grid-line: oklch(30% 0.02 250 / 0.06);
+  --btn-accent-fg: #FFFFFF;
+  --blobA: oklch(88% 0.06 255 / 0.8);
+  --blobB: oklch(89% 0.055 295 / 0.65);
+  --blobC: oklch(91% 0.045 230 / 0.6);
+  --p-bg: #FFFFFF;
+  --p-raised: oklch(99% 0.003 240);
+  --p-sunken: oklch(95.5% 0.005 240);
+  --p-border: oklch(90% 0.005 250);
+  --p-t1: oklch(20% 0.02 250);
+  --p-t2: oklch(45% 0.01 250);
+  --p-t3: oklch(62% 0.01 250);
+  --p-ok: #2BA56B;       --p-ok-bg: oklch(95% 0.04 152);  --p-ok-tx: #0F5C3B;
+  --p-warn: #F59E0B;     --p-warn-bg: oklch(95% 0.05 80); --p-warn-tx: #92400E;
+  --p-bad: #DC2626;      --p-bad-bg: oklch(95% 0.05 25);  --p-bad-tx: #7F1D1D;
+  --p-trip: #2563EB;     --p-trip-bg: oklch(95% 0.04 250);--p-trip-tx: #1E3A8A;
+  --p-violet: #7C3AED;   --p-violet-bg: oklch(95% 0.04 295); --p-violet-tx: #4C1D95;
+  --p-shadow: 0 1px 2px rgb(16 24 40 / 0.08), 0 24px 64px -24px rgb(16 24 40 / 0.28), 0 0 0 1px oklch(0% 0 0 / 0.05);
+  color-scheme: light;
+}
+
+/* ---- base ---------------------------------------------------------------- */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+html.motion-ok { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--text-1);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  letter-spacing: -0.006em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4, p, ul, ol, figure, blockquote { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+button { font-family: inherit; }
+img, svg { display: block; }
+
+.mono { font-family: var(--font-mono); font-feature-settings: "tnum" 1, "lnum" 1; }
+.tnum { font-variant-numeric: tabular-nums lining-nums; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+@media (min-width: 768px) { .wrap { padding-left: 40px; padding-right: 40px; } }
+
+.overline {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.16em; color: var(--info);
+}
+.h2 {
+  font-size: clamp(30px, 4.4vw, 46px);
+  font-weight: 600; letter-spacing: -0.025em; line-height: 1.12;
+  text-wrap: balance; margin-top: 14px;
+}
+.sect-sub { color: var(--text-2); font-size: clamp(16px, 1.6vw, 18px); max-width: 62ch; margin-top: 16px; text-wrap: pretty; }
+
+a:focus-visible, button:focus-visible {
+  outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 6px;
+}
+
+::selection { background: color-mix(in oklch, var(--brand) 35%, transparent); }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: oklch(35% 0.005 240 / 0.7); border-radius: 10px;
+  border: 2px solid transparent; background-clip: padding-box;
+}
+
+/* ---- buttons -------------------------------------------------------------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 48px; padding: 0 24px; border-radius: 11px;
+  font-size: 15px; font-weight: 500; letter-spacing: -0.005em;
+  cursor: pointer; white-space: nowrap; text-decoration: none;
+  border: 1px solid var(--border-2); background: var(--card); color: var(--text-1);
+  transition: transform 160ms var(--ease-soft), background 160ms var(--ease-soft),
+              border-color 160ms var(--ease-soft), box-shadow 160ms var(--ease-soft);
+}
+.btn.sm { height: 38px; padding: 0 16px; font-size: 14px; border-radius: 9px; }
+.btn.accent {
+  background: var(--info); border-color: var(--info); color: var(--btn-accent-fg); font-weight: 600;
+  box-shadow: 0 0 0 1px color-mix(in oklch, var(--info) 50%, transparent),
+              0 8px 28px -8px color-mix(in oklch, var(--info) 55%, transparent);
+}
+.btn.ghost { background: transparent; border-color: var(--border-2); color: var(--text-1); }
+html.motion-ok .btn:hover { transform: translateY(-1px); }
+html.motion-ok .btn:active { transform: translateY(0); }
+.btn.accent:hover { background: color-mix(in oklch, var(--info) 88%, white); }
+html[data-theme="light"] .btn.accent:hover { background: color-mix(in oklch, var(--info) 86%, black); }
+.btn.ghost:hover, .btn:not(.accent):hover { background: var(--raised); border-color: var(--border-2); }
+
+/* ---- status pills (DS vocabulary) ----------------------------------------- */
+.pill {
+  display: inline-flex; align-items: center; gap: 6px; border-radius: 999px;
+  font-size: 12px; font-weight: 500; height: 24px; padding: 0 10px; line-height: 1;
+  border: 1px solid transparent; white-space: nowrap;
+}
+.pill .pdot { width: 6px; height: 6px; border-radius: 999px; flex: none; }
+.pill.green  { background: color-mix(in oklch, var(--ok) 13%, transparent);    color: var(--ok);    border-color: color-mix(in oklch, var(--ok) 28%, transparent); }
+.pill.amber  { background: color-mix(in oklch, var(--warn) 13%, transparent);  color: var(--warn);  border-color: color-mix(in oklch, var(--warn) 28%, transparent); }
+.pill.rose   { background: color-mix(in oklch, var(--bad) 13%, transparent);   color: var(--bad);   border-color: color-mix(in oklch, var(--bad) 28%, transparent); }
+.pill.blue   { background: color-mix(in oklch, var(--trip) 13%, transparent);  color: var(--trip);  border-color: color-mix(in oklch, var(--trip) 28%, transparent); }
+.pill.sky    { background: color-mix(in oklch, var(--info) 13%, transparent);  color: var(--info);  border-color: color-mix(in oklch, var(--info) 28%, transparent); }
+.pill.violet { background: color-mix(in oklch, var(--violet) 13%, transparent);color: var(--violet);border-color: color-mix(in oklch, var(--violet) 28%, transparent); }
+.pill.zinc   { background: var(--raised); color: var(--text-3); border-color: var(--border-2); }
+.pdot.green { background: var(--ok); } .pdot.amber { background: var(--warn); }
+.pdot.rose { background: var(--bad); } .pdot.blue { background: var(--trip); }
+.pdot.sky { background: var(--info); } .pdot.violet { background: var(--violet); }
+.pdot.zinc { background: var(--text-3); }
+
+/* ---- nav ------------------------------------------------------------------ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  border-bottom: 1px solid transparent;
+  transition: background 240ms var(--ease-soft), border-color 240ms var(--ease-soft);
+}
+.nav.scrolled {
+  background: color-mix(in oklch, var(--canvas) 78%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+  border-bottom-color: var(--border-1);
+}
+.nav-inner {
+  max-width: var(--maxw); margin: 0 auto; padding: 0 24px;
+  height: 64px; display: flex; align-items: center; gap: 28px;
+}
+@media (min-width: 768px) { .nav-inner { padding: 0 40px; } }
+.logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 17px; letter-spacing: -0.01em; }
+.logo-mark {
+  width: 26px; height: 26px; border-radius: 7px; flex: none;
+  background: linear-gradient(135deg, var(--brand-deep), var(--info));
+  display: grid; place-items: center; color: #fff;
+  font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+}
+.nav-links { display: none; align-items: center; gap: 4px; flex: 1; }
+@media (min-width: 880px) { .nav-links { display: flex; } }
+.nav-link {
+  padding: 8px 12px; border-radius: 8px; font-size: 14px; color: var(--text-2);
+  transition: color 140ms, background 140ms;
+}
+.nav-link:hover { color: var(--text-1); background: var(--raised); }
+.nav-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.lang-stub {
+  display: inline-flex; align-items: center; gap: 5px; height: 34px; padding: 0 11px;
+  border-radius: 8px; border: 1px solid var(--border-1); background: transparent;
+  color: var(--text-2); font-size: 13px; font-family: var(--font-mono); cursor: pointer;
+}
+.lang-stub:hover { color: var(--text-1); border-color: var(--border-2); }
+.nav-login { font-size: 14px; color: var(--text-2); padding: 8px 10px; border-radius: 8px; }
+.nav-login:hover { color: var(--text-1); }
+
+/* тема-тогл и меню языков */
+.icon-ctl {
+  width: 34px; height: 34px; border-radius: 8px; flex: none;
+  border: 1px solid var(--border-1); background: transparent; color: var(--text-2);
+  display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: background 140ms, color 140ms, border-color 140ms;
+}
+.icon-ctl:hover { color: var(--text-1); border-color: var(--border-2); background: var(--raised); }
+.icon-ctl svg { width: 16px; height: 16px; }
+html[data-theme="light"] .ic-sun { display: none; }
+html:not([data-theme="light"]) .ic-moon { display: none; }
+
+.lang-wrap { position: relative; }
+.lang-menu {
+  position: absolute; top: calc(100% + 8px); right: 0; min-width: 168px; z-index: 60;
+  background: var(--card); border: 1px solid var(--border-2); border-radius: 12px;
+  padding: 6px; box-shadow: var(--shadow-lift-hover); display: none;
+}
+.lang-wrap.open .lang-menu { display: block; }
+.lang-opt {
+  display: flex; width: 100%; align-items: center; gap: 9px;
+  padding: 8px 10px; border-radius: 8px; border: 0; background: transparent;
+  color: var(--text-2); font-size: 13.5px; cursor: pointer; text-align: left;
+}
+.lang-opt:hover { background: var(--raised); color: var(--text-1); }
+.lang-opt[aria-pressed="true"] { color: var(--text-1); background: var(--raised); font-weight: 500; }
+.lang-opt .lc { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); width: 22px; flex: none; }
+.lang-note {
+  padding: 8px 10px 5px; margin-top: 4px; border-top: 1px solid var(--border-1);
+  font-family: var(--font-mono); font-size: 10.5px; color: var(--text-3);
+}
+
+/* ---- reveal primitive ------------------------------------------------------
+   Resting state is VISIBLE. Motion only when html.motion-ok (JS alive,
+   no reduced-motion). A JS failure can never leave content hidden. */
+html.motion-ok .reveal {
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 700ms var(--ease-soft), transform 700ms var(--ease-soft);
+  will-change: opacity, transform;
+}
+html.motion-ok .reveal.is-in { opacity: 1; transform: none; }
+/* «frozen paint» guard: после фейда фиксируем конечное состояние без transition,
+   чтобы троттлённые iframe/headless никогда не зависали на opacity:0 */
+html.motion-ok .reveal.committed { transition: none; will-change: auto; }
+
+/* ---- section rhythm -------------------------------------------------------- */
+section[data-screen-label] { position: relative; }
+.sect { padding: clamp(88px, 11vw, 150px) 0; }
+.sect-tight { padding: clamp(64px, 8vw, 110px) 0; }
+
+/* ---- footer ----------------------------------------------------------------- */
+.footer { border-top: 1px solid var(--border-1); padding: 48px 0 64px; background: var(--sunken); }
+.footer-grid { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px; justify-content: space-between; }
+.footer-left { display: flex; flex-direction: column; gap: 14px; }
+.footer-mail { font-family: var(--font-mono); font-size: 14px; color: var(--text-2); }
+.footer-mail:hover { color: var(--info); }
+.footer-links { display: flex; gap: 22px; font-size: 14px; color: var(--text-2); }
+.footer-links a:hover { color: var(--text-1); }
+.footer-trust {
+  margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--border-1);
+  display: flex; flex-wrap: wrap; gap: 8px 24px;
+  font-size: 13px; color: var(--text-3); font-family: var(--font-mono);
+}

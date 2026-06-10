@@ -1,5 +1,17 @@
+/* Порядок слоёв: gt-landing (стили лендинга) сидит МЕЖДУ base и components,
+   чтобы перекрывать Tailwind preflight, но проигрывать utility-классам
+   легальных страниц (/privacy, /terms). Должен быть объявлен ДО import. */
+@layer theme, base, gt-landing, components, utilities;
+
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+/* Классы лендинга «ring» (кольцо готовности) и «overline» (надзаголовок)
+   совпадают с одноимёнными Tailwind-утилитами — блокируем их генерацию,
+   иначе utilities-слой перекрашивает мокапы. На страницах репо эти
+   утилиты не используются. */
+@source not inline("ring");
+@source not inline("overline");
 
 :root {
   --background: #ffffff;
@@ -26,8 +38,11 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+/* В слое base, чтобы стили лендинга (gt-landing) могли перекрыть body */
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  }
 }

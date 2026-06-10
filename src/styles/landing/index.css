@@ -1,0 +1,18 @@
+/* ============================================================================
+   G-Track Landing — сборка стилей прототипа (bundle3, 2026-06-10).
+   Файлы перенесены 1:1; порядок = порядку <link> в G-Track Landing.html.
+   Слой gt-landing объявлен в globals.css МЕЖДУ base и components/utilities:
+   лендинг перекрывает Tailwind preflight, но НЕ ломает utility-классы
+   легальных страниц (/privacy, /terms).
+   ============================================================================ */
+@import "./base.css" layer(gt-landing);
+@import "./hero.css" layer(gt-landing);
+@import "./story.css" layer(gt-landing);
+@import "./scenes.css" layer(gt-landing);
+@import "./fx.css" layer(gt-landing);
+@import "./mobile.css" layer(gt-landing);
+
+/* из инлайн-<style> прототипа: якоря не прячутся под fixed-nav */
+@layer gt-landing {
+  [id] { scroll-margin-top: 76px; }
+}

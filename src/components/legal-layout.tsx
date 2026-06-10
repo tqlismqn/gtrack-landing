@@ -8,7 +8,9 @@ interface LegalLayoutProps {
 
 export function LegalLayout({ title, lastUpdated, children }: LegalLayoutProps) {
   return (
-    <main className="min-h-screen py-16 px-4">
+    /* Принудительно светлая поверхность: глобальные стили лендинга (тёмные
+       токены на body) не должны влиять на читабельность легальных страниц */
+    <main className="min-h-screen py-16 px-4 bg-white text-slate-900">
       <div className="max-w-3xl mx-auto">
         {/* Back link */}
         <Link
@@ -23,17 +25,17 @@ export function LegalLayout({ title, lastUpdated, children }: LegalLayoutProps) 
 
         {/* Header */}
         <h1 className="text-3xl md:text-4xl font-bold mb-4">{title}</h1>
-        <p className="text-slate-500 dark:text-slate-400 mb-8">
+        <p className="text-slate-500 mb-8">
           Last updated: {lastUpdated}
         </p>
 
         {/* Content */}
-        <article className="prose prose-slate dark:prose-invert max-w-none">
+        <article className="prose prose-slate max-w-none">
           {children}
         </article>
 
         {/* Footer */}
-        <div className="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800">
+        <div className="mt-16 pt-8 border-t border-slate-200">
           <p className="text-sm text-slate-500">
             Questions? Contact us at{" "}
             <a href="mailto:it@g-track.eu" className="text-blue-500 hover:underline">
