@@ -1,0 +1,294 @@
+/* ============================================================================
+   G-Track Landing — hero + atmosphere + animated product board + trust strip
+   Борд собран из настоящих UI-паттернов G-Track: KPI-карты, строки
+   аватар+имя+флаг+«к рейсу %», бары рейс(SPZ)/отпуск/больничный.
+   ============================================================================ */
+
+/* ---- atmosphere (CSS stand-in for the prod shader gradient) --------------- */
+.hero { position: relative; overflow: hidden; padding: clamp(140px, 16vh, 190px) 0 clamp(72px, 9vw, 120px); }
+.atmo { position: absolute; inset: 0; pointer-events: none; }
+.atmo .blob {
+  position: absolute; border-radius: 999px; filter: blur(90px);
+  will-change: transform; opacity: 0.85;
+}
+.atmo .blob.b1 {
+  width: 56vw; height: 56vw; min-width: 560px; min-height: 560px;
+  left: -14vw; top: -28vw;
+  background: radial-gradient(circle at 35% 35%, var(--blobA), transparent 62%);
+}
+.atmo .blob.b2 {
+  width: 44vw; height: 44vw; min-width: 460px; min-height: 460px;
+  right: -12vw; top: -8vw;
+  background: radial-gradient(circle at 60% 40%, var(--blobB), transparent 64%);
+}
+.atmo .blob.b3 {
+  width: 38vw; height: 38vw; min-width: 420px; min-height: 420px;
+  left: 30vw; top: 4vw;
+  background: radial-gradient(circle at 50% 50%, var(--blobC), transparent 66%);
+}
+@keyframes atmo-a { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(5vw, 3vw, 0) scale(1.12); } }
+@keyframes atmo-b { from { transform: translate3d(0,0,0) scale(1.06); } to { transform: translate3d(-4vw, 4vw, 0) scale(0.95); } }
+@keyframes atmo-c { from { transform: translate3d(0,0,0) scale(0.96); } to { transform: translate3d(3vw, -2vw, 0) scale(1.1); } }
+html.motion-ok .atmo .blob.b1 { animation: atmo-a 26s ease-in-out infinite alternate; }
+html.motion-ok .atmo .blob.b2 { animation: atmo-b 32s ease-in-out infinite alternate; }
+html.motion-ok .atmo .blob.b3 { animation: atmo-c 38s ease-in-out infinite alternate; }
+
+.atmo .grid-layer {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 64% at 50% 0%, #000, transparent 74%);
+  mask-image: radial-gradient(ellipse 80% 64% at 50% 0%, #000, transparent 74%);
+}
+.atmo .fade {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 28%;
+  background: linear-gradient(to bottom, transparent, var(--canvas));
+}
+
+/* ---- hero layout ----------------------------------------------------------- */
+.hero-grid { position: relative; display: grid; gap: 56px; align-items: center; }
+@media (min-width: 1060px) { .hero-grid { grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr); gap: 48px; } }
+
+.hero-kicker { display: inline-flex; align-items: center; gap: 10px; }
+.hero h1 {
+  font-size: clamp(40px, 5.8vw, 68px);
+  font-weight: 600; letter-spacing: -0.032em; line-height: 1.04;
+  margin-top: 22px; text-wrap: balance;
+}
+.hero h1 .dim { color: var(--text-3); }
+.hero-sub {
+  margin-top: 22px; color: var(--text-2);
+  font-size: clamp(16px, 1.7vw, 19px); line-height: 1.6; max-width: 56ch; text-wrap: pretty;
+}
+.hero-ctas { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-micro {
+  margin-top: 18px; font-family: var(--font-mono); font-size: 12.5px;
+  color: var(--text-3); letter-spacing: 0.01em;
+  display: flex; flex-wrap: wrap; gap: 6px 14px;
+}
+.hero-micro span { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+.hero-micro .mdot { width: 3px; height: 3px; border-radius: 99px; background: var(--text-3); }
+
+/* ============================================================================
+   Product window — точная диспетчерская доска
+   Phases via [data-phase="0..4"] on .hero-board. transform/opacity/clip only.
+   ============================================================================ */
+.pwin {
+  background: var(--p-bg); color: var(--p-t1);
+  border-radius: 16px; box-shadow: var(--p-shadow);
+  font-size: 13px; line-height: 1.4; letter-spacing: -0.004em;
+}
+.pwin-bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px; border-bottom: 1px solid var(--p-border);
+}
+.pwin-title { font-weight: 600; font-size: 13px; color: var(--p-t1); display: inline-flex; align-items: center; gap: 8px; }
+.pwin-title .ic { width: 15px; height: 15px; color: var(--p-t3); }
+.pwin-bar .spacer { flex: 1; }
+.pwin-week { font-family: var(--font-mono); font-size: 11.5px; color: var(--p-t3); }
+
+.hero-board { position: relative; }
+@media (min-width: 1060px) {
+  .hero-board { transform: perspective(1600px) rotateY(-4deg) rotateX(1.5deg); }
+}
+
+/* ---- KPI-карты над доской --------------------------------------------------- */
+.pwin-kpis { display: flex; gap: 8px; padding: 12px 14px 2px; }
+.kpi {
+  flex: 1; display: flex; flex-direction: column; gap: 2px;
+  border: 1px solid var(--p-border); border-radius: 9px; padding: 8px 11px;
+  background: var(--p-raised); min-width: 0;
+}
+.kpi .kv { font-family: var(--font-mono); font-size: 17px; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.kpi .kv.blue { color: var(--p-trip); }
+.kpi .kv.amber { color: var(--p-warn); }
+.kpi .kv.rose { color: var(--p-bad); }
+.kpi .kl { font-size: 10px; color: var(--p-t3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ---- board grid -------------------------------------------------------------- */
+.board { padding: 6px 10px 12px; }
+.board-head, .board-row {
+  display: grid; grid-template-columns: 256px repeat(5, minmax(0, 1fr));
+  align-items: center;
+}
+.board-head { padding: 6px 6px 4px; }
+.bh {
+  font-family: var(--font-mono); font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--p-t3); text-align: center; font-weight: 500;
+  min-width: 0; overflow: hidden; white-space: nowrap;
+}
+.bh.today { color: var(--p-trip); font-weight: 600; }
+.bh:first-child { text-align: left; padding-left: 6px; }
+.board-row {
+  position: relative; height: 58px;
+  border-top: 1px solid var(--p-border);
+}
+.board-row .cellbg { position: absolute; inset: 0; display: grid; grid-template-columns: 256px repeat(5, minmax(0, 1fr)); pointer-events: none; }
+.board-row .cellbg i { border-left: 1px solid color-mix(in oklch, var(--p-border) 60%, transparent); }
+.board-row .cellbg i:first-child { border-left: 0; }
+
+.drv { display: flex; align-items: center; gap: 9px; padding: 0 10px 0 6px; min-width: 0; position: relative; z-index: 1; }
+.avatar {
+  width: 30px; height: 30px; border-radius: 999px; flex: none;
+  display: grid; place-items: center;
+  background: var(--p-sunken); color: var(--p-t2);
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 600;
+}
+.avatar.lg { width: 52px; height: 52px; font-size: 15px; }
+.dmeta { min-width: 0; display: flex; flex-direction: column; gap: 2px; flex: 1; }
+.dname { font-weight: 600; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dname-row { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.dtags { display: flex; align-items: center; gap: 4px; flex-wrap: nowrap; overflow: hidden; }
+
+/* ---- флаги (CSS-аппроксимация, в проде — спрайт) ---------------------------- */
+.flag {
+  display: inline-block; width: 14px; height: 10px; border-radius: 2px; flex: none;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.12);
+}
+.flag.cz { background: linear-gradient(105deg, #11457E 30%, transparent 30%), linear-gradient(to bottom, #FFFFFF 50%, #D7141A 50%); }
+.flag.ua { background: linear-gradient(to bottom, #005BBB 50%, #FFD500 50%); }
+.flag.pl { background: linear-gradient(to bottom, #FFFFFF 50%, #DC143C 50%); }
+.flag.ro { background: linear-gradient(to right, #002B7F 33%, #FCD116 33% 66%, #CE1126 66%); }
+
+/* ---- статус-пилюли продукта --------------------------------------------------- */
+.ppill {
+  display: inline-flex; align-items: center; gap: 4px; height: 17px; padding: 0 6px;
+  border-radius: 999px; font-size: 9.5px; font-weight: 600; line-height: 1; white-space: nowrap;
+}
+.ppill .d { width: 4px; height: 4px; border-radius: 99px; background: currentColor; flex: none; }
+.ppill .spz { font-family: var(--font-mono); font-weight: 600; opacity: 0.85; }
+.ppill.ok   { background: var(--p-ok-bg);   color: var(--p-ok-tx); }
+.ppill.warn { background: var(--p-warn-bg); color: var(--p-warn-tx); }
+.ppill.trip { background: var(--p-trip-bg); color: var(--p-trip-tx); }
+.ppill.md { height: 22px; font-size: 11px; padding: 0 9px; gap: 6px; }
+
+/* ---- doc-чипы: valid solid · missing dashed · expired red · expiring amber ---- */
+.dchip {
+  display: inline-flex; align-items: center; height: 17px; padding: 0 5px;
+  border-radius: 4px; font-family: var(--font-mono); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase; line-height: 1; border: 1px solid transparent; white-space: nowrap;
+}
+.dchip.ok   { background: var(--p-ok-bg);   color: var(--p-ok-tx);   border-color: color-mix(in oklch, var(--p-ok) 35%, transparent); }
+.dchip.warn { background: var(--p-warn-bg); color: var(--p-warn-tx); border-color: color-mix(in oklch, var(--p-warn) 40%, transparent); }
+.dchip.bad  { background: var(--p-bad-bg);  color: var(--p-bad-tx);  border-color: color-mix(in oklch, var(--p-bad) 35%, transparent); }
+.dchip.miss { background: transparent; color: var(--p-bad); border: 1px dashed color-mix(in oklch, var(--p-bad) 45%, transparent); }
+
+/* swap pairs (crossfade between two stacked states) */
+.swap { position: relative; display: inline-grid; }
+.swap > * { grid-area: 1 / 1; transition: opacity 450ms var(--ease-soft), transform 450ms var(--ease-soft); }
+.swap .alt { opacity: 0; transform: translateY(4px); }
+
+/* ---- кольцо готовности: в строке списка справа, подпись «к рейсу NN%» -------- */
+.ringbox { display: flex; flex-direction: column; align-items: center; gap: 1px; flex: none; margin-left: auto; }
+.ring { position: relative; width: 30px; height: 30px; flex: none; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); display: block; }
+.ring .track { stroke: var(--p-sunken); }
+.ring .val { stroke: var(--p-ok); transition: stroke-dashoffset 900ms var(--ease-soft), stroke 450ms; }
+.ring.mid .val { stroke: var(--p-warn); }
+.ring-num {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-family: var(--font-mono); font-size: 8px; font-weight: 600; color: var(--p-t2);
+}
+.ring-cap { font-size: 7.5px; color: var(--p-t3); white-space: nowrap; letter-spacing: 0.02em; }
+.ring.big { width: 52px; height: 52px; }
+.ring.big .ring-num { font-size: 12px; }
+
+/* ---- бары таймлайна: рейс=синий+SPZ · отпуск=amber · больничный=rose --------- */
+.lane { position: relative; grid-column: 2 / 7; height: 100%; }
+.tripbar {
+  position: absolute; top: 50%; height: 26px; transform: translateY(-50%);
+  border-radius: 7px; display: flex; align-items: center; gap: 5px; padding: 0 8px;
+  font-family: var(--font-mono); font-size: 9.5px; font-weight: 600; white-space: nowrap; overflow: hidden;
+  background: var(--p-trip-bg); color: var(--p-trip-tx);
+  border: 1px solid color-mix(in oklch, var(--p-trip) 38%, transparent);
+  box-shadow: inset 2px 0 0 var(--p-trip);
+}
+.tripbar .tic { width: 11px; height: 11px; flex: none; opacity: 0.8; }
+.tripbar .ocount {
+  margin-left: auto; display: inline-flex; align-items: center; gap: 3px;
+  background: var(--p-trip); color: var(--p-bg);
+  border-radius: 99px; padding: 1.5px 6px; font-size: 8.5px; font-weight: 600;
+}
+.tripbar.vac {
+  background: var(--p-warn-bg); color: var(--p-warn-tx);
+  border-color: color-mix(in oklch, var(--p-warn) 42%, transparent);
+  box-shadow: inset 2px 0 0 var(--p-warn);
+  font-family: var(--font-sans); font-weight: 500; font-size: 10px;
+}
+.tripbar.sick {
+  background: var(--p-bad-bg); color: var(--p-bad-tx);
+  border-color: color-mix(in oklch, var(--p-bad) 40%, transparent);
+  box-shadow: inset 2px 0 0 var(--p-bad);
+  font-family: var(--font-sans); font-weight: 500; font-size: 10px;
+}
+.tripbar.oth {
+  background: var(--p-violet-bg); color: var(--p-violet-tx);
+  border-color: color-mix(in oklch, var(--p-violet) 40%, transparent);
+  box-shadow: inset 2px 0 0 var(--p-violet);
+  font-family: var(--font-sans); font-weight: 500; font-size: 10px;
+}
+
+/* the appearing trip bar (phase 3) */
+.tripbar.appear { clip-path: inset(0 100% 0 0 round 7px); transition: clip-path 800ms var(--ease-soft); }
+
+/* ---- toasts: плавают над верхним правым углом окна, не накрывая строки ------- */
+.btoast {
+  position: absolute; right: 12px; top: -18px; z-index: 3;
+  display: flex; align-items: flex-start; gap: 9px;
+  background: var(--p-raised); border: 1px solid var(--p-border); border-radius: 11px;
+  padding: 10px 13px; box-shadow: 0 12px 32px -12px rgb(0 0 0 / 0.45), 0 0 0 1px rgb(0 0 0 / 0.03);
+  width: 252px; opacity: 0; transform: translateY(-8px);
+  transition: opacity 420ms var(--ease-soft), transform 420ms var(--ease-soft);
+  pointer-events: none;
+}
+.btoast .tic { width: 16px; height: 16px; flex: none; margin-top: 1px; }
+.btoast.warn .tic { color: var(--p-warn); }
+.btoast.ok .tic { color: var(--p-ok); }
+.btoast b { display: block; font-size: 12px; font-weight: 600; color: var(--p-t1); }
+.btoast span { display: block; font-size: 11px; color: var(--p-t2); margin-top: 2px; text-wrap: pretty; }
+
+/* ---- phase choreography --------------------------------------------------------
+   0 rest · 1 alert · 2 cursor-in · 3 click · 4 minicard · 5 resolve · 6 trip · 7 hold */
+.hero-board[data-phase="1"] .btoast.warn { opacity: 1; transform: translateY(0); }
+.hero-board[data-phase="1"] .dchip.visa-warn,
+.hero-board[data-phase="2"] .dchip.visa-warn { animation: chip-pulse 1.1s var(--ease-soft) infinite; }
+@keyframes chip-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+.hero-board[data-phase="5"] .swap.visa .base,
+.hero-board[data-phase="6"] .swap.visa .base,
+.hero-board[data-phase="7"] .swap.visa .base { opacity: 0; transform: translateY(-4px); }
+.hero-board[data-phase="5"] .swap.visa .alt,
+.hero-board[data-phase="6"] .swap.visa .alt,
+.hero-board[data-phase="7"] .swap.visa .alt { opacity: 1; transform: translateY(0); }
+.hero-board[data-phase="6"] .swap.status .base,
+.hero-board[data-phase="7"] .swap.status .base { opacity: 0; transform: translateY(-4px); }
+.hero-board[data-phase="6"] .swap.status .alt,
+.hero-board[data-phase="7"] .swap.status .alt { opacity: 1; transform: translateY(0); }
+.hero-board[data-phase="6"] .tripbar.appear,
+.hero-board[data-phase="7"] .tripbar.appear { clip-path: inset(0 0 0 0 round 7px); }
+
+/* static (no-motion) end state: everything resolved, bar laid, chip green */
+html:not(.motion-ok) .hero-board .swap .base { opacity: 0; }
+html:not(.motion-ok) .hero-board .swap .alt { opacity: 1; transform: none; }
+html:not(.motion-ok) .hero-board .tripbar.appear { clip-path: none; }
+html:not(.motion-ok) .hero-board .btoast { display: none; }
+
+/* board caption */
+.board-caption {
+  margin-top: 14px; text-align: center;
+  font-family: var(--font-mono); font-size: 11.5px; color: var(--text-3); letter-spacing: 0.02em;
+}
+
+/* ---- trust strip (живые метрики вместо лого-стены) ------------------------- */
+.trust { border-top: 1px solid var(--border-1); border-bottom: 1px solid var(--border-1); background: var(--bg); }
+.trust-grid { display: grid; gap: 28px; padding: 40px 0; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .trust-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+.metric { text-align: center; }
+.metric .num {
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: clamp(30px, 3.6vw, 42px); font-weight: 600; letter-spacing: -0.02em;
+  color: var(--text-1);
+}
+.metric .num .suffix { color: var(--info); }
+.metric .lbl { margin-top: 6px; font-size: 13.5px; color: var(--text-3); }

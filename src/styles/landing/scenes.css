@@ -1,0 +1,127 @@
+/* ============================================================================
+   G-Track Landing — точные сцены scrollytelling + секция «12 языков»
+   Карточка водителя, диалог «Добавить документ», аудит-история — по реальным
+   паттернам приложения. Все тексты — через [data-i] (mock-i18n.js).
+   ============================================================================ */
+
+/* ---- карточка водителя (кадр 1) -------------------------------------------- */
+.dc-head { display: flex; gap: 14px; align-items: flex-start; }
+.dc-id { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.dc-eyebrow {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.1em; color: var(--p-t3);
+}
+.dc-eyebrow > * { white-space: nowrap; }
+.regpill {
+  display: inline-flex; align-items: center; height: 16px; padding: 0 6px;
+  border-radius: 999px; font-family: var(--font-mono); font-size: 8.5px; font-weight: 600;
+  letter-spacing: 0.06em; white-space: nowrap; flex: none;
+  background: var(--p-warn-bg); color: var(--p-warn-tx);
+  border: 1px solid color-mix(in oklch, var(--p-warn) 38%, transparent);
+}
+.dc-name { font-size: 18px; font-weight: 600; letter-spacing: -0.015em; display: flex; align-items: center; gap: 8px; }
+.dc-name .flag { width: 16px; height: 11px; }
+.dc-pills { display: flex; gap: 6px; }
+.dc-stats { display: flex; gap: 20px; flex: none; }
+.dc-stat { display: flex; flex-direction: column; gap: 4px; }
+.dc-l {
+  font-size: 9px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--p-t3);
+}
+.dc-v { font-family: var(--font-mono); font-size: 15px; font-weight: 500; color: var(--p-t1); }
+.dc-v .dim { color: var(--p-t3); font-weight: 400; }
+.dc-v .up { color: var(--p-warn); }
+.dc-v .down { color: var(--p-bad); margin-left: 8px; }
+
+.dc-tabs {
+  display: flex; gap: 2px; margin-top: 16px;
+  border-bottom: 1px solid var(--p-border);
+}
+.dc-tab {
+  padding: 7px 11px; font-size: 12px; color: var(--p-t3);
+  border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap;
+}
+.dc-tab.active { color: var(--p-t1); font-weight: 600; border-bottom-color: var(--p-trip); }
+
+.docrow { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 14px; }
+.docrow .dchip { height: 20px; font-size: 9.5px; padding: 0 7px; border-radius: 5px; }
+
+.dc-confid { margin-top: 16px; border-top: 1px solid var(--p-border); padding-top: 14px; }
+.dc-confid-h {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 9px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--p-t3); margin-bottom: 9px;
+}
+.dc-confid-h .tic { width: 11px; height: 11px; }
+.iban-row {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--p-sunken); border-radius: 9px; padding: 9px 12px;
+}
+.iban-row .k { font-size: 11.5px; color: var(--p-t3); width: 48px; flex: none; }
+.iban-row .v { font-family: var(--font-mono); font-size: 12.5px; color: var(--p-t2); letter-spacing: 0.06em; flex: 1; min-width: 0; }
+.iban-row .tic { width: 14px; height: 14px; color: var(--p-t3); flex: none; }
+.dc-note { font-size: 11.5px; color: var(--p-t3); margin-top: 9px; text-wrap: pretty; }
+
+/* ---- диалог «Добавить документ» (кадр 3) ------------------------------------ */
+.dlg-head {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 14px; font-weight: 600; margin-bottom: 14px;
+}
+.dlg-head span:first-child { white-space: nowrap; }
+.dlg-head .dlg-x { color: var(--p-t3); font-size: 13px; font-weight: 400; }
+.dlg-quick {
+  border: 1px dashed color-mix(in oklch, var(--p-trip) 45%, transparent);
+  background: color-mix(in oklch, var(--p-trip) 5%, transparent);
+  border-radius: 11px; padding: 12px 14px;
+}
+.dlg-quick-h {
+  font-size: 11px; font-weight: 600; color: var(--p-trip-tx);
+  margin-bottom: 9px; display: flex; align-items: center; gap: 7px; white-space: nowrap;
+}
+.dlg-quick-h .tic { width: 13px; height: 13px; color: var(--p-trip); }
+.dlg-quick .scene-upload { margin-top: 0; border: 0; background: var(--p-bg); padding: 9px 12px; border-radius: 8px; }
+.rectag {
+  margin-left: auto; flex: none;
+  font-family: var(--font-mono); font-size: 8.5px; font-weight: 600;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--p-ok-tx); background: var(--p-ok-bg);
+  border: 1px solid color-mix(in oklch, var(--p-ok) 35%, transparent);
+  border-radius: 4px; padding: 2.5px 6px;
+}
+
+/* ---- аудит-история (кадр 4) --------------------------------------------------- */
+.dc-hist { margin-top: 14px; border-top: 1px solid var(--p-border); padding-top: 12px; }
+.audit-row {
+  display: flex; align-items: baseline; gap: 10px;
+  padding: 6px 0; font-size: 11.5px; min-width: 0;
+}
+.audit-row .ts { font-family: var(--font-mono); font-size: 10px; color: var(--p-t3); flex: none; width: 86px; }
+.audit-row .ev { color: var(--p-t1); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.audit-row .by { font-size: 10.5px; color: var(--p-t3); flex: none; }
+
+/* ---- секция «12 языков» -------------------------------------------------------- */
+.langs { border-top: 1px solid var(--border-1); background: var(--bg); }
+.langs-grid { display: grid; gap: 40px; align-items: center; }
+@media (min-width: 920px) { .langs-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: 64px; } }
+.langs-demo { display: flex; flex-direction: column; gap: 18px; }
+.lang-pill-stage {
+  display: grid; place-items: center; padding: 36px 20px;
+  background: var(--p-bg); border-radius: 16px; box-shadow: var(--p-shadow);
+}
+.lang-pill {
+  transform: scale(1.55); transform-origin: center;
+  transition: opacity 220ms var(--ease-soft);
+}
+.lang-pill.swap-out { opacity: 0; }
+.lang-codes { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.lcode {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  color: var(--text-3); border: 1px solid var(--border-1); border-radius: 7px;
+  padding: 5px 9px; letter-spacing: 0.06em;
+  transition: color 220ms, border-color 220ms, background 220ms;
+}
+.lcode.active {
+  color: var(--info); border-color: color-mix(in oklch, var(--info) 50%, transparent);
+  background: color-mix(in oklch, var(--info) 9%, transparent);
+}

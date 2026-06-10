@@ -1,0 +1,221 @@
+/* ============================================================================
+   G-Track Landing — выразительность (итерация 4)
+   1) Курсор-сценарий на hero-борде (ghost cursor + minicard)
+   2) Морф «Excel → G-Track» (fly-cells, driven by --decay)
+   3) Секция «Вся Европа на одной доске» (SVG-карта + draw + collapse)
+   4) Лого-морф G-Track ↔ G-Truck
+   5) Видео-постер: диагональные фары + зерно
+   Только transform/opacity/clip-path; всё гейтится html.motion-ok.
+   ============================================================================ */
+
+/* ---- 1. ghost cursor + minicard на hero-борде ------------------------------- */
+.gcursor {
+  position: absolute; left: 0; top: 0; z-index: 5; pointer-events: none;
+  width: 18px; height: 18px; opacity: 0;
+  transform: translate(var(--cx0, 480px), var(--cy0, 340px));
+  transition: transform 900ms var(--ease-soft), opacity 400ms var(--ease-soft);
+  will-change: transform, opacity;
+}
+.gcursor svg { width: 18px; height: 18px; display: block; filter: drop-shadow(0 2px 5px rgb(0 0 0 / 0.45)); }
+.gcursor .ripple {
+  position: absolute; left: -7px; top: -7px; width: 30px; height: 30px;
+  border-radius: 999px; border: 2px solid var(--p-trip);
+  opacity: 0; transform: scale(0.3);
+}
+.hero-board[data-phase="2"] .gcursor,
+.hero-board[data-phase="3"] .gcursor,
+.hero-board[data-phase="4"] .gcursor { opacity: 1; transform: translate(var(--cx, 200px), var(--cy, 120px)); }
+.hero-board[data-phase="3"] .gcursor svg.ptr { animation: gc-click 500ms var(--ease-pop); }
+.hero-board[data-phase="3"] .gcursor .ripple { animation: gc-ripple 550ms var(--ease-soft); }
+@keyframes gc-click { 0%,100% { transform: scale(1); } 40% { transform: scale(0.82); } }
+@keyframes gc-ripple { 0% { opacity: 0.8; transform: scale(0.3); } 100% { opacity: 0; transform: scale(1.6); } }
+
+.minicard {
+  position: absolute; z-index: 4; width: 272px;
+  left: var(--mx, 40px); top: var(--my, 150px);
+  background: var(--p-raised); border: 1px solid var(--p-border); border-radius: 12px;
+  padding: 11px 13px; box-shadow: 0 18px 44px -14px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(0 0 0 / 0.04);
+  opacity: 0; transform: translateY(8px) scale(0.97); pointer-events: none;
+  transition: opacity 380ms var(--ease-soft), transform 380ms var(--ease-soft);
+}
+.minicard .mc-h {
+  display: flex; align-items: center; gap: 7px;
+  font-family: var(--font-mono); font-size: 9.5px; font-weight: 600;
+  letter-spacing: 0.08em; color: var(--p-t3); text-transform: uppercase; margin-bottom: 8px;
+}
+.mc-row {
+  display: flex; gap: 8px; align-items: flex-start;
+  padding: 5px 0; font-size: 11.5px; color: var(--p-t1); line-height: 1.4;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity 360ms var(--ease-soft), transform 360ms var(--ease-soft);
+}
+.mc-row .tic { width: 13px; height: 13px; flex: none; margin-top: 1px; color: var(--p-t3); }
+.mc-row.tg .tic { color: #2AABEE; }
+.mc-row.rec .tic { color: var(--p-violet); }
+.mc-row.ok .tic { color: var(--p-ok); }
+.mc-row .mono-sub { display: block; font-family: var(--font-mono); font-size: 9.5px; color: var(--p-t3); margin-top: 2px; }
+.hero-board[data-phase="4"] .minicard { opacity: 1; transform: none; }
+.hero-board[data-phase="4"] .mc-row { opacity: 1; transform: none; }
+.hero-board[data-phase="4"] .mc-row:nth-child(2) { transition-delay: 250ms; }
+.hero-board[data-phase="4"] .mc-row:nth-child(3) { transition-delay: 1050ms; }
+.hero-board[data-phase="4"] .mc-row:nth-child(4) { transition-delay: 1900ms; }
+html:not(.motion-ok) .gcursor, html:not(.motion-ok) .minicard { display: none; }
+
+/* warn-тост виден в фазах 1–2 (определения в hero.css перекрываем тут) */
+.hero-board[data-phase="2"] .btoast.warn { opacity: 1; transform: translateY(0); }
+
+/* ---- курсор-призрак в кадрах scrollytelling --------------------------------- */
+.scursor {
+  position: absolute; z-index: 5; width: 16px; height: 16px; pointer-events: none;
+  opacity: 0; transform: translateY(6px) scale(0.9);
+}
+.scursor svg { width: 16px; height: 16px; filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.4)); }
+html.motion-ok .frame.active .scursor {
+  opacity: 1; transform: none;
+  transition: opacity 420ms var(--ease-soft) 900ms, transform 420ms var(--ease-soft) 900ms;
+}
+html:not(.motion-ok) .scursor { display: none; }
+.frame { position: relative; }
+.frame .scene-card { position: relative; }
+
+/* ---- 2. морф «Excel → G-Track»: fly-cells ------------------------------------ */
+.fly-cell { position: absolute; z-index: 4; pointer-events: none; }
+.fly-cell .ff, .fly-cell .ft { display: block; }
+.fly-cell .ff {
+  font-family: var(--font-mono); font-size: 10.5px; padding: 4px 8px;
+  background: var(--card); border: 1px solid var(--border-2); border-radius: 3px;
+  color: var(--bad); white-space: nowrap;
+  opacity: calc(1 - var(--decay, 0) * 1.4);
+}
+.fly-cell .ft {
+  position: absolute; left: 0; top: 0;
+  opacity: calc(var(--decay, 0) * 1.6 - 0.45);
+}
+.fly-cell { transform: translate(calc(var(--decay, 0) * var(--fx, 0px)), calc(var(--decay, 0) * var(--fy, 0px))) rotate(calc((1 - var(--decay, 0)) * var(--fr, 0deg))); }
+@media (max-width: 720px) { .fly-cell { display: none; } }
+
+/* ---- 3. «Вся Европа на одной доске» ------------------------------------------ */
+.euro { background: var(--sunken); border-top: 1px solid var(--border-1); border-bottom: 1px solid var(--border-1); overflow: hidden; }
+.euro-head { max-width: 60ch; }
+.euro-stage { position: relative; margin-top: 44px; }
+.euro-map { display: block; width: 100%; height: auto; }
+.euro-map .land {
+  fill: color-mix(in oklch, var(--text-3) 5%, transparent);
+  stroke: var(--border-2); stroke-width: 1;
+  stroke-linejoin: round;
+}
+.euro-map .route {
+  fill: none; stroke-width: 1.5; stroke-linecap: round;
+  stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0.85;
+}
+.euro-map .route.sky { stroke: var(--info); }
+.euro-map .route.vio { stroke: var(--violet); }
+.euro-stage.draw .route {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1300ms var(--ease-soft);
+  transition-delay: var(--rd, 0ms);
+}
+.euro-map .node { fill: var(--info); transform-box: fill-box; transform-origin: center; }
+.euro-map .halo {
+  fill: none; stroke: var(--info); stroke-width: 1; opacity: 0;
+  transform-box: fill-box; transform-origin: center;
+}
+html.motion-ok .euro-stage.draw .halo { animation: node-pulse 2.8s var(--ease-soft) infinite; animation-delay: var(--nd, 0ms); }
+@keyframes node-pulse {
+  0% { opacity: 0; transform: scale(0.4); }
+  25% { opacity: 0.7; }
+  60%, 100% { opacity: 0; transform: scale(2.6); }
+}
+
+/* перетекание: карта сжимается к доске, доска проявляется */
+.euro-map, .euro-board {
+  transition: opacity 800ms var(--ease-soft), transform 800ms var(--ease-soft);
+  will-change: opacity, transform;
+}
+.euro-map { transform-origin: 76% 82%; }
+.euro-stage.collapsed .euro-map { opacity: 0.22; transform: scale(0.94); }
+.euro-board {
+  position: absolute; right: 3%; bottom: 4%; width: min(420px, 64%);
+  opacity: 0; transform: translateY(18px) scale(0.95); transform-origin: 76% 82%;
+  pointer-events: none;
+}
+.euro-stage.collapsed .euro-board { opacity: 1; transform: none; }
+/* гард «frozen paint»: после завершения хореографии фиксируем конечное
+   состояние без transition — троттленные вкладки не зависнут на полпути */
+.euro-stage.settled .route,
+.euro-stage.settled .euro-map,
+.euro-stage.settled .euro-board { transition: none; }
+.euro-caption {
+  margin-top: 20px; text-align: center;
+  font-size: 15px; color: var(--text-2);
+}
+.euro-caption b { color: var(--text-1); }
+/* статичный фоллбэк: маршруты нарисованы, доска видна, карта приглушена */
+html:not(.motion-ok) .euro-map .route { stroke-dashoffset: 0; }
+html:not(.motion-ok) .euro-map { opacity: 0.35; }
+html:not(.motion-ok) .euro-board { opacity: 1; transform: none; }
+@media (max-width: 640px) {
+  .euro-board { position: static; width: 100%; margin-top: 16px; }
+  .euro-stage.collapsed .euro-map { opacity: 0.6; transform: none; }
+}
+
+/* ---- 4. лого-морф G-Track ↔ G-Truck ------------------------------------------ */
+.wm { position: relative; display: inline-block; white-space: nowrap; }
+.wm-m { display: inline-grid; vertical-align: baseline; }
+.wm-m .g {
+  grid-area: 1 / 1;
+  transition: opacity 360ms var(--ease-soft), transform 360ms var(--ease-soft);
+}
+.wm-m .g.u { opacity: 0; transform: translateY(34%); }
+.wm.as-u .g.a { opacity: 0; transform: translateY(-34%); }
+.wm.as-u .g.u { opacity: 1; transform: none; }
+.wm-truck {
+  position: absolute; left: 0; bottom: -0.18em; width: 1.15em; height: auto;
+  color: var(--info); opacity: 0; pointer-events: none;
+}
+html.motion-ok .wm.driving .wm-truck { animation: wm-drive 820ms linear; }
+@keyframes wm-drive {
+  0% { transform: translateX(-1.4em); opacity: 0; }
+  18% { opacity: 1; }
+  82% { opacity: 1; }
+  100% { transform: translateX(4.6em); opacity: 0; }
+}
+html:not(.motion-ok) .wm .g.u, html:not(.motion-ok) .wm-truck { opacity: 0 !important; }
+html:not(.motion-ok) .wm .g.a { opacity: 1 !important; transform: none !important; }
+
+/* ---- 5. видео-постер: диагональные фары + зерно ------------------------------ */
+.vid-beam {
+  position: absolute; width: 150%; height: 110px; left: -25%;
+  filter: blur(46px); opacity: 0; pointer-events: none;
+  will-change: transform, opacity;
+}
+.vid-beam.bm1 {
+  top: 28%;
+  background: linear-gradient(90deg, transparent, oklch(78% 0.06 250 / 0.22), oklch(90% 0.03 90 / 0.3), transparent);
+  transform: rotate(-14deg) translate3d(-18%, 0, 0);
+}
+.vid-beam.bm2 {
+  top: 52%; height: 80px;
+  background: linear-gradient(90deg, transparent, oklch(60% 0.12 25 / 0.2), oklch(70% 0.08 295 / 0.18), transparent);
+  transform: rotate(-12deg) translate3d(18%, 0, 0);
+}
+@keyframes beam-a { 0% { transform: rotate(-14deg) translate3d(-22%, 4%, 0); opacity: 0; } 18% { opacity: 0.8; } 82% { opacity: 0.65; } 100% { transform: rotate(-14deg) translate3d(24%, -4%, 0); opacity: 0; } }
+@keyframes beam-b { 0% { transform: rotate(-12deg) translate3d(22%, -3%, 0); opacity: 0; } 18% { opacity: 0.6; } 82% { opacity: 0.5; } 100% { transform: rotate(-12deg) translate3d(-24%, 4%, 0); opacity: 0; } }
+html.motion-ok .vid-beam.bm1 { animation: beam-a 19s linear infinite; }
+html.motion-ok .vid-beam.bm2 { animation: beam-b 27s linear infinite; animation-delay: 7s; }
+html:not(.motion-ok) .vid-beam.bm1 { opacity: 0.4; }
+html:not(.motion-ok) .vid-beam.bm2 { opacity: 0.3; }
+
+.vid-grain {
+  position: absolute; inset: -60px; pointer-events: none; z-index: 1;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxODAnIGhlaWdodD0nMTgwJz48ZmlsdGVyIGlkPSduJz48ZmVUdXJidWxlbmNlIHR5cGU9J2ZyYWN0YWxOb2lzZScgYmFzZUZyZXF1ZW5jeT0nMC44NScgbnVtT2N0YXZlcz0nMicgc3RpdGNoVGlsZXM9J3N0aXRjaCcvPjxmZUNvbG9yTWF0cml4IHR5cGU9J3NhdHVyYXRlJyB2YWx1ZXM9JzAnLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0nMTgwJyBoZWlnaHQ9JzE4MCcgZmlsdGVyPSd1cmwoI24pJyBvcGFjaXR5PScwLjU1Jy8+PC9zdmc+");
+  opacity: 0.07; mix-blend-mode: overlay;
+  will-change: transform;
+}
+html.motion-ok .vid-grain { animation: grain-shift 850ms steps(3) infinite; }
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  33% { transform: translate(-14px, 9px); }
+  66% { transform: translate(11px, -13px); }
+  100% { transform: translate(0, 0); }
+}
