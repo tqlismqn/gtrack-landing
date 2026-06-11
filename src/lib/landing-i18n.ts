@@ -7,7 +7,62 @@
    (SPZ, IBAN-маска, имена файлов).
    ============================================================================ */
 
-export type Lang = "ru" | "en";
+/* 10 локалей сверх ru/en — файлы в landing-locales/, типизированы LandingDict
+   (type-only импорт в обратную сторону, циклов в рантайме нет) */
+import { de } from "./landing-locales/de";
+import { fr } from "./landing-locales/fr";
+import { cs } from "./landing-locales/cs";
+import { pl } from "./landing-locales/pl";
+import { it } from "./landing-locales/it";
+import { lv } from "./landing-locales/lv";
+import { lt } from "./landing-locales/lt";
+import { uk } from "./landing-locales/uk";
+import { es } from "./landing-locales/es";
+import { ro } from "./landing-locales/ro";
+
+export type Lang =
+  | "en"
+  | "ru"
+  | "de"
+  | "fr"
+  | "cs"
+  | "pl"
+  | "it"
+  | "lv"
+  | "lt"
+  | "uk"
+  | "es"
+  | "ro";
+
+/* порядок = порядок в переключателе языка (en первым как канонический) */
+export const LOCALES: readonly Lang[] = [
+  "en", "ru", "de", "fr", "cs", "pl", "it", "lv", "lt", "uk", "es", "ro",
+];
+
+/* нативные названия языков для переключателя */
+export const LANG_NAMES: Record<Lang, string> = {
+  en: "English",
+  ru: "Русский",
+  de: "Deutsch",
+  fr: "Français",
+  cs: "Čeština",
+  pl: "Polski",
+  it: "Italiano",
+  lv: "Latviešu",
+  lt: "Lietuvių",
+  uk: "Українська",
+  es: "Español",
+  ro: "Română",
+};
+
+export function isLang(value: string): value is Lang {
+  return (LOCALES as readonly string[]).includes(value);
+}
+
+/* путь локали: en живёт на корне */
+export function localePath(lang: Lang): string {
+  return lang === "en" ? "/" : `/${lang}`;
+}
 
 const ru = {
   meta: {
@@ -526,13 +581,28 @@ const en: LandingDict = {
   },
 };
 
-export const LANDING_DICT: Record<Lang, LandingDict> = { ru, en };
+export const LANDING_DICT: Record<Lang, LandingDict> = {
+  en,
+  ru,
+  de,
+  fr,
+  cs,
+  pl,
+  it,
+  lv,
+  lt,
+  uk,
+  es,
+  ro,
+};
 
 /* Статус «В рейсе» на 12 локалях прода (секция «12 языков», mock-i18n.js) */
+/* термины сверены с app-локалями gtrack-tms (driverPill.on_trip):
+   FR «En tournée» и ES «En viaje» — как в приложении, не как в прототипе */
 export const TRIP12: ReadonlyArray<readonly [string, string]> = [
-  ["RU", "В рейсе"], ["EN", "On trip"], ["DE", "Auf Tour"], ["FR", "En route"],
+  ["RU", "В рейсе"], ["EN", "On trip"], ["DE", "Auf Tour"], ["FR", "En tournée"],
   ["CS", "Na cestě"], ["PL", "W trasie"], ["IT", "In viaggio"], ["LV", "Reisā"],
-  ["LT", "Kelyje"], ["UK", "У рейсі"], ["ES", "En ruta"], ["RO", "În cursă"],
+  ["LT", "Kelyje"], ["UK", "У рейсі"], ["ES", "En viaje"], ["RO", "În cursă"],
 ];
 
 /* формат чисел: группы по 3, разделитель — narrow no-break space (как formatNum

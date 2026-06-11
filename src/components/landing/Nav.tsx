@@ -7,6 +7,7 @@
    ============================================================================ */
 
 import { useEffect, useRef, useState } from "react";
+import { LANG_NAMES, LOCALES } from "@/lib/landing-i18n";
 import { useLanding } from "./LandingProvider";
 import { ROADMAP_URL, APP_URL, SIGNUP_URL } from "./urls";
 
@@ -99,23 +100,18 @@ export function Nav() {
               <span>{lang.toUpperCase()}</span> <span style={{ opacity: 0.55 }}>▾</span>
             </button>
             <div className="lang-menu" role="menu">
-              <button
-                className="lang-opt"
-                type="button"
-                aria-pressed={lang === "ru"}
-                onClick={() => { setLang("ru"); setLangOpen(false); }}
-              >
-                <span className="lc">RU</span>{d.nav.langRu}
-              </button>
-              <button
-                className="lang-opt"
-                type="button"
-                aria-pressed={lang === "en"}
-                onClick={() => { setLang("en"); setLangOpen(false); }}
-              >
-                <span className="lc">EN</span>{d.nav.langEn}
-              </button>
-              <div className="lang-note">{d.nav.langNote}</div>
+              {LOCALES.map((l) => (
+                <button
+                  key={l}
+                  className="lang-opt"
+                  type="button"
+                  aria-pressed={lang === l}
+                  onClick={() => { setLang(l); setLangOpen(false); }}
+                >
+                  <span className="lc">{l.toUpperCase()}</span>
+                  {LANG_NAMES[l]}
+                </button>
+              ))}
             </div>
           </div>
           <a className="nav-login" href={APP_URL}>{d.nav.login}</a>

@@ -15,4 +15,10 @@
 /* из инлайн-<style> прототипа: якоря не прячутся под fixed-nav */
 @layer gt-landing {
   [id] { scroll-margin-top: 76px; }
+
+  /* 12 локалей в переключателе: меню скроллится, не вылезая за вьюпорт */
+  .lang-menu {
+    max-height: min(70vh, 420px);
+    overflow-y: auto;
+  }
 }

@@ -26,10 +26,10 @@ const plexMono = IBM_Plex_Mono({
   weight: ["400", "500", "600"],
 });
 
+/* title/description/OG/hreflang — per-locale в страницах (landing-metadata.ts);
+   здесь только общее */
 export const metadata: Metadata = {
-  title: "G-Track — EU-compliance и планирование рейсов для перевозчиков",
-  description:
-    "Водители, документы, планирование и парк — в одном браузерном приложении. Разворачивается за день. Цены — на этой странице.",
+  metadataBase: new URL("https://www.g-track.eu"),
   keywords: [
     "TMS",
     "transport management",
@@ -40,21 +40,6 @@ export const metadata: Metadata = {
     "G-Track",
   ],
   authors: [{ name: "G-Track" }],
-  openGraph: {
-    title: "G-Track — EU-compliance и планирование рейсов для перевозчиков",
-    description:
-      "Водители, документы, планирование и парк — в одном браузерном приложении. Разворачивается за день. Цены — на этой странице.",
-    url: "https://g-track.eu",
-    siteName: "G-Track",
-    type: "website",
-    locale: "ru_RU",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "G-Track — EU-compliance и планирование рейсов для перевозчиков",
-    description:
-      "Водители, документы, планирование и парк — в одном браузерном приложении. Разворачивается за день. Цены — на этой странице.",
-  },
   robots: {
     index: true,
     follow: true,
