@@ -222,6 +222,7 @@ export const lv: LandingDict = {
     legalHeading: "Juridiskā informācija",
     privacy: "Privātums",
     terms: "Lietošanas noteikumi",
+    dpa: "Datu apstrāde",
     securityHeading: "Datu drošība",
     trust1: "Dati tiek glabāti ES",
     trust2: "Atbilstība GDPR",

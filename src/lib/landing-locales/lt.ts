@@ -227,6 +227,7 @@ export const lt: LandingDict = {
     legalHeading: "Teisinė informacija",
     privacy: "Privatumas",
     terms: "Naudojimo sąlygos",
+    dpa: "Duomenų tvarkymas",
     securityHeading: "Duomenų sauga",
     trust1: "Duomenys saugomi ES",
     trust2: "Atitiktis BDAR",
