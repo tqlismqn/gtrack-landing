@@ -77,7 +77,8 @@ main { overflow-x: clip; }
   .hero-ctas .btn { width: 100%; }
   .vid-tag { top: 12px; right: 14px; font-size: 9px; }
   .btoast { right: 8px; }
-  .footer-grid { gap: 20px; }
+  .footer-top { gap: 28px; }
+  .footer-cols { gap: 20px 40px; }
   .scene-card { padding: 16px; }
   .ai-row { padding: 8px 10px; gap: 8px; }
   .ai-row .k { width: 84px; font-size: 10.5px; }

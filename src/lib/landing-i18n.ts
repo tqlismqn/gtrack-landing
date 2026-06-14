@@ -74,7 +74,7 @@ const ru = {
   nav: {
     product: "Продукт",
     pricing: "Тарифы",
-    roadmap: "Roadmap",
+    roadmap: "Дорожная карта",
     login: "Войти",
     ctaFull: "Попробовать 30 дней",
     ctaShort: "30 дней бесплатно",
@@ -275,12 +275,16 @@ const ru = {
   },
 
   footer: {
-    privacy: "Privacy",
-    terms: "Terms",
-    roadmap: "Roadmap",
-    trust1: "Данные хранятся в EU",
-    trust2: "GDPR",
+    tagline: "EU-compliance и планирование для перевозчиков",
+    legalHeading: "Правовое",
+    privacy: "Конфиденциальность",
+    terms: "Условия использования",
+    securityHeading: "Безопасность данных",
+    trust1: "Данные хранятся в ЕС",
+    trust2: "Соответствие GDPR",
     trust3: "Ролевой доступ",
+    langs: "12 языков",
+    rights: "© 2026 G-Track",
   },
 
   /* имена в мокапах (в прототипе захардкожены кириллицей; вынесены в словарь,
@@ -539,12 +543,16 @@ const en: LandingDict = {
   },
 
   footer: {
+    tagline: "EU compliance and planning for carriers",
+    legalHeading: "Legal",
     privacy: "Privacy",
     terms: "Terms",
-    roadmap: "Roadmap",
+    securityHeading: "Data security",
     trust1: "Data stored in the EU",
-    trust2: "GDPR",
+    trust2: "GDPR compliant",
     trust3: "Role-based access",
+    langs: "12 languages",
+    rights: "© 2026 G-Track",
   },
 
   names: {

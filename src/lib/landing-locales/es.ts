@@ -219,12 +219,16 @@ export const es: LandingDict = {
   },
 
   footer: {
-    privacy: "Privacy",
-    terms: "Terms",
-    roadmap: "Hoja de ruta",
-    trust1: "Datos almacenados en la UE",
-    trust2: "GDPR",
+    tagline: "Cumplimiento UE y planificación para transportistas",
+    legalHeading: "Información legal",
+    privacy: "Privacidad",
+    terms: "Términos de uso",
+    securityHeading: "Seguridad de datos",
+    trust1: "Datos alojados en la UE",
+    trust2: "Cumple el RGPD",
     trust3: "Acceso por roles",
+    langs: "12 idiomas",
+    rights: "© 2026 G-Track",
   },
 
   names: {

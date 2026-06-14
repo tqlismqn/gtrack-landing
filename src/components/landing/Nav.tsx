@@ -73,6 +73,7 @@ export function Nav() {
               <use href="#i-trucksil" />
             </svg>
           </span>
+          <span className="logo-tms">TMS</span>
         </a>
         <nav className="nav-links">
           <a className="nav-link" href="#product">{d.nav.product}</a>

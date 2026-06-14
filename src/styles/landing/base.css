@@ -301,15 +301,30 @@ section[data-screen-label] { position: relative; }
 .sect-tight { padding: clamp(64px, 8vw, 110px) 0; }
 
 /* ---- footer ----------------------------------------------------------------- */
-.footer { border-top: 1px solid var(--border-1); padding: 48px 0 64px; background: var(--sunken); }
-.footer-grid { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px; justify-content: space-between; }
-.footer-left { display: flex; flex-direction: column; gap: 14px; }
-.footer-mail { font-family: var(--font-mono); font-size: 14px; color: var(--text-2); }
+.footer { border-top: 1px solid var(--border-1); padding: clamp(48px, 6vw, 72px) 0 56px; background: var(--sunken); }
+.footer-top { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 40px 64px; justify-content: space-between; }
+.footer-brand { display: flex; flex-direction: column; gap: 12px; max-width: 34ch; }
+.footer-tagline { font-size: 14px; line-height: 1.5; color: var(--text-2); text-wrap: pretty; }
+.footer-mail { font-family: var(--font-mono); font-size: 14px; color: var(--text-2); width: fit-content; }
 .footer-mail:hover { color: var(--info); }
-.footer-links { display: flex; gap: 22px; font-size: 14px; color: var(--text-2); }
-.footer-links a:hover { color: var(--text-1); }
-.footer-trust {
-  margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--border-1);
-  display: flex; flex-wrap: wrap; gap: 8px 24px;
+.footer-cols { display: flex; flex-wrap: wrap; gap: 28px 56px; }
+.footer-col { display: flex; flex-direction: column; gap: 10px; }
+.footer-h {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-3);
+  margin-bottom: 2px;
+}
+.footer-col a { font-size: 14px; color: var(--text-2); width: fit-content; transition: color 140ms; }
+.footer-col a:hover { color: var(--text-1); }
+.footer-col span { font-size: 14px; color: var(--text-2); }
+.footer-bottom {
+  margin-top: clamp(32px, 5vw, 48px); padding-top: 20px; border-top: 1px solid var(--border-1);
+  display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between;
   font-size: 13px; color: var(--text-3); font-family: var(--font-mono);
+}
+.logo-tms {
+  flex: none; align-self: center; margin-left: -2px;
+  font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-3);
+  border: 1px solid var(--border-1); border-radius: 5px; padding: 2px 5px; line-height: 1;
 }

@@ -221,12 +221,16 @@ export const ro: LandingDict = {
   },
 
   footer: {
-    privacy: "Privacy",
-    terms: "Terms",
-    roadmap: "Roadmap",
+    tagline: "Conformitate UE și planificare pentru transportatori",
+    legalHeading: "Informații legale",
+    privacy: "Confidențialitate",
+    terms: "Termeni de utilizare",
+    securityHeading: "Securitatea datelor",
     trust1: "Date stocate în UE",
-    trust2: "GDPR",
-    trust3: "Acces pe bază de roluri",
+    trust2: "Conform GDPR",
+    trust3: "Acces bazat pe roluri",
+    langs: "12 limbi",
+    rights: "© 2026 G-Track",
   },
 
   names: {
