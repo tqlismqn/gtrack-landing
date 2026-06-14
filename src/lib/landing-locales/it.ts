@@ -116,7 +116,7 @@ export const it: LandingDict = {
   vid: {
     overline: "Mercato europeo",
     h2: "Fatto per i vettori europei.",
-    sub: "Cabotaggio 3/7, A1, posted workers, Code 95 — integrati, non aggiunti dopo.",
+    sub: "A1, posted workers, Code 95, visti — già sotto controllo oggi. Cabotaggio 3/7 — nella roadmap.",
     chip1: "Cabotaggio 3/7",
     chip2: "A1 / posted workers",
     chip3: "Code 95",
@@ -135,7 +135,7 @@ export const it: LandingDict = {
   europe: {
     overline: "Geografia",
     h2: "Tutta l’Europa su una sola lavagna",
-    sub: "Cabotaggio, A1, posted workers — il sistema vede ogni percorso.",
+    sub: "A1, posted workers, documenti dei conducenti — progettato secondo le regole UE. Ogni viaggio su una sola lavagna.",
     mapAria: "Mappa dei percorsi in Europa che confluisce in una lavagna di pianificazione",
     captionB: "Tutto questo caos si gestisce da qui",
     caption: " — da un’unica lavagna di disposizione.",

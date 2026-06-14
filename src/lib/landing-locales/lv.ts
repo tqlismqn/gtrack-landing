@@ -114,7 +114,7 @@ export const lv: LandingDict = {
   vid: {
     overline: "Eiropas tirgus",
     h2: "Radīts Eiropas pārvadātājiem.",
-    sub: "Kabotāža 3/7, A1, posted workers, Code 95 — iebūvēts, nevis pieskrūvēts.",
+    sub: "A1, posted workers, Code 95, vīzas — jau šodien kontrolē. Kabotāža 3/7 — attīstības plānā.",
     chip1: "Kabotāža 3/7",
     chip2: "A1 / posted workers",
     chip3: "Code 95",
@@ -133,7 +133,7 @@ export const lv: LandingDict = {
   europe: {
     overline: "Ģeogrāfija",
     h2: "Visa Eiropa uz viena dēļa",
-    sub: "Kabotāža, A1, posted workers — sistēma redz katru maršrutu.",
+    sub: "A1, posted workers, vadītāju dokumenti — veidots pēc ES noteikumiem. Katrs reiss uz viena dēļa.",
     mapAria: "Eiropas maršrutu karte, kas pārplūst plānošanas dēlī",
     captionB: "Viss šis haoss tiek vadīts no šejienes",
     caption: " — no vienas dispečerpults.",

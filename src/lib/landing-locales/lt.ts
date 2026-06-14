@@ -119,7 +119,7 @@ export const lt: LandingDict = {
   vid: {
     overline: "Europos rinka",
     h2: "Sukurta Europos vežėjams.",
-    sub: "Kabotažas 3/7, A1, posted workers, Code 95 — įmontuota, o ne prisukta.",
+    sub: "A1, posted workers, Code 95, vizos — jau šiandien suvaldyta. Kabotažas 3/7 — plėtros plane.",
     chip1: "Kabotažas 3/7",
     chip2: "A1 / posted workers",
     chip3: "Code 95",
@@ -138,7 +138,7 @@ export const lt: LandingDict = {
   europe: {
     overline: "Geografija",
     h2: "Visa Europa vienoje lentoje",
-    sub: "Kabotažas, A1, posted workers — sistema mato kiekvieną maršrutą.",
+    sub: "A1, posted workers, vairuotojų dokumentai — sukurta pagal ES taisykles. Kiekvienas reisas vienoje lentoje.",
     mapAria: "Europos maršrutų žemėlapis, pereinantis į planavimo lentą",
     captionB: "Visas šis chaosas valdomas iš čia",
     caption: " — iš vienos dispečerinės lentos.",

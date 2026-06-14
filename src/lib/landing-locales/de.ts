@@ -116,7 +116,7 @@ export const de: LandingDict = {
   vid: {
     overline: "Europäischer Markt",
     h2: "Gebaut für europäische Transportunternehmen.",
-    sub: "Kabotage 3/7, A1, posted workers, Kennziffer 95 — eingebaut, nicht angeschraubt.",
+    sub: "A1, posted workers, Kennziffer 95, Visa — schon heute im Griff. Kabotage 3/7 — auf der Roadmap.",
     chip1: "Kabotage 3/7",
     chip2: "A1 / posted workers",
     chip3: "Kennziffer 95",
@@ -135,7 +135,7 @@ export const de: LandingDict = {
   europe: {
     overline: "Geografie",
     h2: "Ganz Europa auf einem Board",
-    sub: "Kabotage, A1, posted workers — das System sieht jede Route.",
+    sub: "A1, posted workers, Fahrerdokumente — nach EU-Regeln konzipiert. Jede Tour auf einem Board.",
     mapAria: "Karte der Routen durch Europa, die in ein Planungsboard übergeht",
     captionB: "Dieses ganze Chaos wird von hier gesteuert",
     caption: " — über ein einziges Dispositionsboard.",
