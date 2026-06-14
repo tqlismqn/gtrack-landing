@@ -203,6 +203,10 @@ export const lv: LandingDict = {
     noteA: "Gads — tie ir ",
     noteB: "„2 mēneši bez maksas”",
     noteC: ". Bezmaksas datu migrācija no Excel agrīnajiem klientiem.",
+    anchorOverline: "Aprēķins",
+    anchorBig: "≈ €4,5",
+    anchorUnit: "par vienību/mēn. · 100 vienību parks",
+    anchorArg: "Viens kabotāžas sods — līdz €7 500. Viena nokavēta vīza — apturēts reiss. G-Track notur visu autoparku kontrolē lētāk, nekā maksā viena šāda kļūme.",
   },
 
   final: {

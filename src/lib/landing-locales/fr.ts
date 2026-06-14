@@ -208,6 +208,10 @@ export const fr: LandingDict = {
     noteA: "L’année, c’est ",
     noteB: "« 2 mois offerts »",
     noteC: ". Migration gratuite des données depuis Excel pour les premiers clients.",
+    anchorOverline: "Le calcul",
+    anchorBig: "≈ €4,5",
+    anchorUnit: "par camion/mois · flotte de 100 camions",
+    anchorArg: "Une amende pour infraction au cabotage — jusqu’à €7 500. Un visa expiré — une tournée à l’arrêt. G-Track garde toute la flotte sous contrôle pour moins que ne coûte un seul de ces incidents.",
   },
 
   final: {

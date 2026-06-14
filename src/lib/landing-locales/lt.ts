@@ -208,6 +208,10 @@ export const lt: LandingDict = {
     noteA: "Metai — tai ",
     noteB: "„2 mėnesiai nemokamai“",
     noteC: ". Nemokama duomenų migracija iš Excel ankstyviesiems klientams.",
+    anchorOverline: "Skaičiavimas",
+    anchorBig: "≈ €4,5",
+    anchorUnit: "už vienetą/mėn. · 100 vienetų parkas",
+    anchorArg: "Viena kabotažo bauda — iki €7 500. Viena pasibaigusi viza — sustabdytas reisas. G-Track laiko visą parką kontroliuojamą pigiau, nei kainuoja vienas toks sutrikimas.",
   },
 
   final: {

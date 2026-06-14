@@ -206,6 +206,10 @@ export const pl: LandingDict = {
     noteA: "Rok to ",
     noteB: "„2 miesiące gratis”",
     noteC: ". Bezpłatna migracja danych z Excel dla wczesnych klientów.",
+    anchorOverline: "Rachunek",
+    anchorBig: "≈ €4,5",
+    anchorUnit: "za pojazd/mies. · flota 100 pojazdów",
+    anchorArg: "Jedna kara za kabotaż — do €7 500. Jedna przeterminowana wiza — wstrzymany rejs. G-Track trzyma całą flotę pod kontrolą taniej, niż kosztuje jedno takie potknięcie.",
   },
 
   final: {

@@ -260,6 +260,10 @@ const ru = {
     noteA: "Год — это ",
     noteB: "«2 месяца в подарок»",
     noteC: ". Бесплатная миграция данных из Excel для ранних клиентов.",
+    anchorOverline: "Цена вопроса",
+    anchorBig: "≈ €4,5",
+    anchorUnit: "за машину в месяц · парк 100 машин",
+    anchorArg: "Один штраф за нарушение каботажа — до €7 500. Одна просроченная виза — рейс встал. G-Track держит весь парк под контролем дешевле, чем стоит один такой срыв.",
   },
 
   final: {
@@ -520,6 +524,10 @@ const en: LandingDict = {
     noteA: "A year means ",
     noteB: "“2 months free”",
     noteC: ". Free data migration from Excel for early customers.",
+    anchorOverline: "The math",
+    anchorBig: "≈ €4.5",
+    anchorUnit: "per truck/mo · 100-truck fleet",
+    anchorArg: "One cabotage violation fine — up to €7 500. One expired visa — a trip grounded. G-Track keeps the whole fleet under control for less than a single slip-up costs.",
   },
 
   final: {
