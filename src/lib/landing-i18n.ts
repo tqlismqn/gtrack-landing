@@ -171,7 +171,7 @@ const ru = {
   vid: {
     overline: "Европейский рынок",
     h2: "Сделано для европейских перевозчиков.",
-    sub: "Каботаж 3/7, A1, posted workers, Code 95 — встроено, не прикручено.",
+    sub: "A1, posted workers, Code 95, визы — под контролем уже сегодня. Каботаж 3/7 — в дорожной карте.",
     chip1: "Каботаж 3/7",
     chip2: "A1 / posted workers",
     chip3: "Code 95",
@@ -190,7 +190,7 @@ const ru = {
   europe: {
     overline: "География",
     h2: "Вся Европа на одной доске",
-    sub: "Каботаж, A1, posted workers — система видит каждый маршрут.",
+    sub: "A1, posted workers, документы водителей — спроектировано под правила ЕС. Каждый рейс — на одной доске.",
     mapAria: "Карта маршрутов по Европе, перетекающая в доску планирования",
     captionB: "Весь этот хаос управляется отсюда",
     caption: " — с одной диспетчерской доски.",
@@ -431,7 +431,7 @@ const en: LandingDict = {
   vid: {
     overline: "European market",
     h2: "Built for European carriers.",
-    sub: "Cabotage 3/7, A1, posted workers, Code 95 — built in, not bolted on.",
+    sub: "A1, posted workers, Code 95, visas — under control today. Cabotage 3/7 — on the roadmap.",
     chip1: "Cabotage 3/7",
     chip2: "A1 / posted workers",
     chip3: "Code 95",
@@ -450,7 +450,7 @@ const en: LandingDict = {
   europe: {
     overline: "Geography",
     h2: "All of Europe on one board",
-    sub: "Cabotage, A1, posted workers — the system sees every route.",
+    sub: "A1, posted workers, driver documents — designed around EU rules. Every trip on one board.",
     mapAria: "A map of routes across Europe flowing into a planning board",
     captionB: "All this chaos is managed from here",
     caption: " — from a single dispatch board.",

@@ -116,7 +116,7 @@ export const cs: LandingDict = {
   vid: {
     overline: "Evropský trh",
     h2: "Postaveno pro evropské dopravce.",
-    sub: "Kabotáž 3/7, A1, posted workers, Kód 95 — vestavěné, ne přišroubované.",
+    sub: "A1, posted workers, Kód 95, víza — pod kontrolou už dnes. Kabotáž 3/7 — v plánu rozvoje.",
     chip1: "Kabotáž 3/7",
     chip2: "A1 / posted workers",
     chip3: "Kód 95",
@@ -135,7 +135,7 @@ export const cs: LandingDict = {
   europe: {
     overline: "Geografie",
     h2: "Celá Evropa na jedné tabuli",
-    sub: "Kabotáž, A1, posted workers — systém vidí každou trasu.",
+    sub: "A1, posted workers, doklady řidičů — navrženo podle pravidel EU. Každá cesta na jedné tabuli.",
     mapAria: "Mapa tras napříč Evropou přecházející v plánovací tabuli",
     captionB: "Celý tenhle chaos se řídí odsud",
     caption: " — z jedné dispečerské tabule.",

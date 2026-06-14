@@ -119,7 +119,7 @@ export const fr: LandingDict = {
   vid: {
     overline: "Marché européen",
     h2: "Conçu pour les transporteurs européens.",
-    sub: "Cabotage 3/7, A1, posted-workers, Code 95 — intégrés, pas greffés.",
+    sub: "A1, posted-workers, Code 95, visas — déjà sous contrôle aujourd’hui. Cabotage 3/7 — sur la feuille de route.",
     chip1: "Cabotage 3/7",
     chip2: "A1 / posted-workers",
     chip3: "Code 95",
@@ -138,7 +138,7 @@ export const fr: LandingDict = {
   europe: {
     overline: "Géographie",
     h2: "Toute l’Europe sur un seul tableau",
-    sub: "Cabotage, A1, posted-workers — le système voit chaque itinéraire.",
+    sub: "A1, posted-workers, documents conducteurs — conçu selon les règles de l’UE. Chaque tournée sur un seul tableau.",
     mapAria: "Carte des itinéraires à travers l’Europe se fondant dans un tableau de planification",
     captionB: "Tout ce chaos se pilote d’ici",
     caption: " — depuis un seul tableau de planification.",

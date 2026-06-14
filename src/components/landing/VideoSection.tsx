@@ -29,11 +29,12 @@ export function VideoSection() {
         <h2 className="reveal" style={{ marginTop: 14 }}>{d.vid.h2}</h2>
         <p className="sect-sub reveal" data-delay="60">{d.vid.sub}</p>
         <div className="vid-chips reveal" data-delay="120">
-          <span className="pill sky"><span className="pdot sky"></span>{d.vid.chip1}</span>
           <span className="pill sky"><span className="pdot sky"></span>{d.vid.chip2}</span>
           <span className="pill sky"><span className="pdot sky"></span>{d.vid.chip3}</span>
           <span className="pill sky"><span className="pdot sky"></span>{d.vid.chip4}</span>
           <span className="pill sky"><span className="pdot sky"></span>{d.vid.chip5}</span>
+          {/* каботаж — ещё не реализован (нужен модуль «Заказы»): amber + «скоро», не sky */}
+          <span className="pill amber"><span className="pdot amber"></span>{d.vid.chip1} · {d.modules.soon}</span>
           <span className="pill zinc"><span className="pdot zinc"></span>{d.vid.chip6}</span>
         </div>
       </div>

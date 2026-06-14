@@ -117,7 +117,7 @@ export const pl: LandingDict = {
   vid: {
     overline: "Rynek europejski",
     h2: "Stworzony dla europejskich przewoźników.",
-    sub: "Kabotaż 3/7, A1, posted workers, Kod 95 — wbudowane, nie doklejone.",
+    sub: "A1, posted workers, Kod 95, wizy — już dziś pod kontrolą. Kabotaż 3/7 — w planie rozwoju.",
     chip1: "Kabotaż 3/7",
     chip2: "A1 / posted workers",
     chip3: "Kod 95",
@@ -136,7 +136,7 @@ export const pl: LandingDict = {
   europe: {
     overline: "Geografia",
     h2: "Cała Europa na jednej tablicy",
-    sub: "Kabotaż, A1, posted workers — system widzi każdą trasę.",
+    sub: "A1, posted workers, dokumenty kierowców — zaprojektowane zgodnie z przepisami UE. Każda trasa na jednej tablicy.",
     mapAria: "Mapa tras po Europie przechodząca w tablicę planowania",
     captionB: "Cały ten chaos jest zarządzany stąd",
     caption: " — z jednej tablicy dyspozytorskiej.",

@@ -117,7 +117,7 @@ export const ro: LandingDict = {
   vid: {
     overline: "Piața europeană",
     h2: "Construit pentru transportatorii europeni.",
-    sub: "Cabotaj 3/7, A1, lucrători detașați, Code 95 — încorporate, nu înșurubate ulterior.",
+    sub: "A1, lucrători detașați, Code 95, vize — sub control încă de azi. Cabotaj 3/7 — pe foaia de parcurs.",
     chip1: "Cabotaj 3/7",
     chip2: "A1 / lucrători detașați",
     chip3: "Code 95",
@@ -136,7 +136,7 @@ export const ro: LandingDict = {
   europe: {
     overline: "Geografie",
     h2: "Toată Europa pe un singur panou",
-    sub: "Cabotaj, A1, lucrători detașați — sistemul vede fiecare rută.",
+    sub: "A1, lucrători detașați, documentele șoferilor — proiectat după regulile UE. Fiecare cursă pe un singur panou.",
     mapAria: "Hartă a rutelor prin Europa care se transformă într-un panou de planificare",
     captionB: "Tot acest haos se gestionează de aici",
     caption: " — de pe un singur panou de dispecerat.",
