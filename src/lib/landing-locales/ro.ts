@@ -225,6 +225,7 @@ export const ro: LandingDict = {
     legalHeading: "Informații legale",
     privacy: "Confidențialitate",
     terms: "Termeni de utilizare",
+    dpa: "Prelucrarea datelor",
     securityHeading: "Securitatea datelor",
     trust1: "Date stocate în UE",
     trust2: "Conform GDPR",

@@ -227,6 +227,7 @@ export const fr: LandingDict = {
     legalHeading: "Mentions légales",
     privacy: "Confidentialité",
     terms: "Conditions d'utilisation",
+    dpa: "Traitement des données",
     securityHeading: "Sécurité des données",
     trust1: "Données hébergées dans l'UE",
     trust2: "Conforme au RGPD",

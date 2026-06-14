@@ -1,15 +1,20 @@
 "use client";
 
 /* ============================================================================
-   FOOTER — двухколоночный редизайн: бренд + tagline, секции «Правовое» и
-   «Безопасность данных» (trust-сигналы подписаны группой — больше не выглядят
-   кнопками), нижняя строка © + языки. Privacy/Terms ведут на /privacy и
-   /terms. Ссылка Roadmap убрана (она есть в шапке).
+   FOOTER — двухколоночный: бренд + tagline, секции «Правовое» и «Безопасность
+   данных» (trust-сигналы подписаны группой), нижняя строка © + языки.
+   Правовые ссылки ведут на app-legal (app.g-track.eu/legal?tab=…) — единый
+   источник (Privacy / Terms / DPA), решение Thomas 06-15: не дублируем legal.
    ============================================================================ */
 
-import Link from "next/link";
 import { useLanding } from "./LandingProvider";
-import { SALES_MAILTO, SALES_EMAIL } from "./urls";
+import {
+  SALES_MAILTO,
+  SALES_EMAIL,
+  LEGAL_PRIVACY_URL,
+  LEGAL_TERMS_URL,
+  LEGAL_DPA_URL,
+} from "./urls";
 
 export function Footer() {
   const { d } = useLanding();
@@ -28,8 +33,9 @@ export function Footer() {
           <div className="footer-cols">
             <div className="footer-col">
               <h3 className="footer-h">{d.footer.legalHeading}</h3>
-              <Link href="/privacy">{d.footer.privacy}</Link>
-              <Link href="/terms">{d.footer.terms}</Link>
+              <a href={LEGAL_PRIVACY_URL}>{d.footer.privacy}</a>
+              <a href={LEGAL_TERMS_URL}>{d.footer.terms}</a>
+              <a href={LEGAL_DPA_URL}>{d.footer.dpa}</a>
             </div>
             <div className="footer-col">
               <h3 className="footer-h">{d.footer.securityHeading}</h3>

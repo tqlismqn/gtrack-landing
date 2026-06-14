@@ -17,19 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     alternates: { languages },
   }));
 
-  return [
-    ...landingPages,
-    {
-      url: `${SITE_ORIGIN}/privacy`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.5,
-    },
-    {
-      url: `${SITE_ORIGIN}/terms`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.5,
-    },
-  ];
+  /* /privacy и /terms больше не страницы лендинга — редиректят на app-legal
+     (app.g-track.eu/legal), поэтому из sitemap лендинга исключены. */
+  return landingPages;
 }

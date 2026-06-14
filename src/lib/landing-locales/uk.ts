@@ -223,6 +223,7 @@ export const uk: LandingDict = {
     legalHeading: "Правова інформація",
     privacy: "Конфіденційність",
     terms: "Умови використання",
+    dpa: "Обробка даних",
     securityHeading: "Безпека даних",
     trust1: "Дані зберігаються в ЄС",
     trust2: "Відповідність GDPR",

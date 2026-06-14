@@ -223,6 +223,7 @@ export const es: LandingDict = {
     legalHeading: "Información legal",
     privacy: "Privacidad",
     terms: "Términos de uso",
+    dpa: "Tratamiento de datos",
     securityHeading: "Seguridad de datos",
     trust1: "Datos alojados en la UE",
     trust2: "Cumple el RGPD",
