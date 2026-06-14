@@ -223,12 +223,16 @@ export const lt: LandingDict = {
   },
 
   footer: {
-    privacy: "Privacy",
-    terms: "Terms",
-    roadmap: "Planas",
+    tagline: "ES atitiktis ir planavimas vežėjams",
+    legalHeading: "Teisinė informacija",
+    privacy: "Privatumas",
+    terms: "Naudojimo sąlygos",
+    securityHeading: "Duomenų sauga",
     trust1: "Duomenys saugomi ES",
-    trust2: "GDPR",
+    trust2: "Atitiktis BDAR",
     trust3: "Prieiga pagal vaidmenis",
+    langs: "12 kalbų",
+    rights: "© 2026 G-Track",
   },
 
   names: {

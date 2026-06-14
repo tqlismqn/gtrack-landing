@@ -23,7 +23,7 @@ export const fr: LandingDict = {
   nav: {
     product: "Produit",
     pricing: "Tarifs",
-    roadmap: "Roadmap",
+    roadmap: "Feuille de route",
     login: "Se connecter",
     ctaFull: "Essayer 30 jours",
     ctaShort: "30 jours gratuits",
@@ -223,12 +223,16 @@ export const fr: LandingDict = {
   },
 
   footer: {
+    tagline: "Conformité UE et planification pour transporteurs",
+    legalHeading: "Mentions légales",
     privacy: "Confidentialité",
-    terms: "Conditions",
-    roadmap: "Roadmap",
-    trust1: "Données hébergées dans l’UE",
-    trust2: "RGPD",
-    trust3: "Accès par rôles",
+    terms: "Conditions d'utilisation",
+    securityHeading: "Sécurité des données",
+    trust1: "Données hébergées dans l'UE",
+    trust2: "Conforme au RGPD",
+    trust3: "Accès basé sur les rôles",
+    langs: "12 langues",
+    rights: "© 2026 G-Track",
   },
 
   names: {

@@ -220,12 +220,16 @@ export const de: LandingDict = {
   },
 
   footer: {
+    tagline: "EU-Compliance und Planung für Transportunternehmen",
+    legalHeading: "Rechtliches",
     privacy: "Datenschutz",
     terms: "AGB",
-    roadmap: "Roadmap",
+    securityHeading: "Datensicherheit",
     trust1: "Daten werden in der EU gespeichert",
-    trust2: "DSGVO",
+    trust2: "DSGVO-konform",
     trust3: "Rollenbasierter Zugriff",
+    langs: "12 Sprachen",
+    rights: "© 2026 G-Track",
   },
 
   names: {

@@ -221,12 +221,16 @@ export const pl: LandingDict = {
   },
 
   footer: {
-    privacy: "Privacy",
-    terms: "Terms",
-    roadmap: "Roadmapa",
+    tagline: "Zgodność z UE i planowanie dla przewoźników",
+    legalHeading: "Informacje prawne",
+    privacy: "Prywatność",
+    terms: "Warunki korzystania",
+    securityHeading: "Bezpieczeństwo danych",
     trust1: "Dane przechowywane w UE",
-    trust2: "GDPR",
-    trust3: "Dostęp według ról",
+    trust2: "Zgodność z RODO",
+    trust3: "Dostęp oparty na rolach",
+    langs: "12 języków",
+    rights: "© 2026 G-Track",
   },
 
   names: {

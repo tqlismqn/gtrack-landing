@@ -218,12 +218,16 @@ export const lv: LandingDict = {
   },
 
   footer: {
-    privacy: "Privacy",
-    terms: "Terms",
-    roadmap: "Ceļvedis",
+    tagline: "ES atbilstība un plānošana pārvadātājiem",
+    legalHeading: "Juridiskā informācija",
+    privacy: "Privātums",
+    terms: "Lietošanas noteikumi",
+    securityHeading: "Datu drošība",
     trust1: "Dati tiek glabāti ES",
-    trust2: "GDPR",
+    trust2: "Atbilstība GDPR",
     trust3: "Piekļuve pēc lomām",
+    langs: "12 valodas",
+    rights: "© 2026 G-Track",
   },
 
   names: {

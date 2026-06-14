@@ -19,7 +19,7 @@ export const uk: LandingDict = {
   nav: {
     product: "Продукт",
     pricing: "Тарифи",
-    roadmap: "Roadmap",
+    roadmap: "Дорожня карта",
     login: "Увійти",
     ctaFull: "Спробувати 30 днів",
     ctaShort: "30 днів безкоштовно",
@@ -219,12 +219,16 @@ export const uk: LandingDict = {
   },
 
   footer: {
-    privacy: "Privacy",
-    terms: "Terms",
-    roadmap: "Roadmap",
-    trust1: "Дані зберігаються в EU",
-    trust2: "GDPR",
+    tagline: "EU-compliance і планування для перевізників",
+    legalHeading: "Правова інформація",
+    privacy: "Конфіденційність",
+    terms: "Умови використання",
+    securityHeading: "Безпека даних",
+    trust1: "Дані зберігаються в ЄС",
+    trust2: "Відповідність GDPR",
     trust3: "Рольовий доступ",
+    langs: "12 мов",
+    rights: "© 2026 G-Track",
   },
 
   names: {

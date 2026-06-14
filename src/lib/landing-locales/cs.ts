@@ -20,7 +20,7 @@ export const cs: LandingDict = {
   nav: {
     product: "Produkt",
     pricing: "Ceník",
-    roadmap: "Roadmap",
+    roadmap: "Roadmapa",
     login: "Přihlásit se",
     ctaFull: "Vyzkoušet na 30 dní",
     ctaShort: "30 dní zdarma",
@@ -220,12 +220,16 @@ export const cs: LandingDict = {
   },
 
   footer: {
-    privacy: "Privacy",
-    terms: "Terms",
-    roadmap: "Roadmap",
+    tagline: "EU compliance a plánování pro dopravce",
+    legalHeading: "Právní informace",
+    privacy: "Ochrana soukromí",
+    terms: "Podmínky použití",
+    securityHeading: "Zabezpečení dat",
     trust1: "Data uložená v EU",
-    trust2: "GDPR",
+    trust2: "Soulad s GDPR",
     trust3: "Přístup podle rolí",
+    langs: "12 jazyků",
+    rights: "© 2026 G-Track",
   },
 
   /* латинизированные имена — как в en (не переводятся) */
