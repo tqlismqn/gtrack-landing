@@ -301,10 +301,10 @@ html:not(.motion-ok) .scrolly-progress { display: none; }
   height: 1px; background: linear-gradient(90deg, transparent, oklch(60% 0.08 250 / 0.5), transparent);
   filter: blur(0.5px);
 }
-/* слот под прод-ролик: TODO добавить src + poster, тогда opacity → 1 */
+/* прод-ролик фур (дрон, Mixkit): muted/loop, poster до загрузки */
 .vid-video {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; opacity: 0;
+  object-fit: cover; opacity: 1;
 }
 /* ночная трасса: силуэт дорожного полотна у горизонта */
 .vid-road {
