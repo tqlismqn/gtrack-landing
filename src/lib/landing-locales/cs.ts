@@ -205,6 +205,10 @@ export const cs: LandingDict = {
     noteA: "Rok znamená ",
     noteB: "„2 měsíce zdarma“",
     noteC: ". Bezplatná migrace dat z Excelu pro první zákazníky.",
+    anchorOverline: "Spočítáno",
+    anchorBig: "≈ €4,5",
+    anchorUnit: "za vůz/měsíc · vozový park 100 vozů",
+    anchorArg: "Jedna pokuta za kabotáž — až €7 500. Jedno propadlé vízum — zastavená jízda. G-Track udrží celý vozový park pod kontrolou levněji, než stojí jediný takový výpadek.",
   },
 
   final: {

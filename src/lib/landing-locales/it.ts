@@ -205,6 +205,10 @@ export const it: LandingDict = {
     noteA: "Un anno vale ",
     noteB: "«2 mesi gratis»",
     noteC: ". Migrazione gratuita dei dati da Excel per i primi clienti.",
+    anchorOverline: "I conti",
+    anchorBig: "≈ €4,5",
+    anchorUnit: "per veicolo/mese · flotta da 100 veicoli",
+    anchorArg: "Una multa per cabotaggio — fino a €7 500. Un visto scaduto — un viaggio fermo. G-Track tiene tutta la flotta sotto controllo per meno di quanto costi un singolo imprevisto.",
   },
 
   final: {

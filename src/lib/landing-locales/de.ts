@@ -205,6 +205,10 @@ export const de: LandingDict = {
     noteA: "Ein Jahr heißt ",
     noteB: "„2 Monate gratis“",
     noteC: ". Kostenlose Datenmigration aus Excel für frühe Kunden.",
+    anchorOverline: "Die Rechnung",
+    anchorBig: "≈ €4,5",
+    anchorUnit: "pro Lkw/Monat · Flotte 100 Lkw",
+    anchorArg: "Eine Kabotage-Strafe — bis zu €7 500. Ein abgelaufenes Visum — eine gestoppte Tour. G-Track hält die ganze Flotte unter Kontrolle für weniger, als ein einziger solcher Ausfall kostet.",
   },
 
   final: {

@@ -445,6 +445,36 @@ html.motion-ok .tier:hover { transform: translateY(-3px); box-shadow: var(--shad
 .pricing-note { text-align: center; margin-top: 28px; font-size: 14px; color: var(--text-2); }
 .pricing-note b { color: var(--text-1); }
 
+/* ---- 4.85 cost-anchor: per-truck анти-возражение «цена = страховка» --------- */
+.cost-anchor {
+  margin-top: 36px;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 22px 40px;
+  border: 1px solid var(--border-1);
+  background: var(--card);
+  border-radius: 16px;
+  padding: 28px 32px;
+  box-shadow: 0 1px 3px color-mix(in oklch, black 6%, transparent);
+}
+.cost-anchor .ca-num { flex: none; min-width: 190px; }
+.cost-anchor .ca-big {
+  font-family: var(--font-mono);
+  font-size: clamp(40px, 6vw, 62px); font-weight: 700; line-height: 1;
+  letter-spacing: -0.03em; color: var(--brand); margin-top: 10px;
+}
+.cost-anchor .ca-unit { font-size: 13px; color: var(--text-2); margin-top: 8px; }
+.cost-anchor .ca-arg {
+  flex: 1 1 320px; font-size: 15px; line-height: 1.55; color: var(--text-2);
+  border-left: 2px solid color-mix(in oklch, var(--brand) 38%, transparent);
+  padding-left: 22px; margin: 0;
+}
+@media (max-width: 640px) {
+  .cost-anchor { padding: 22px; gap: 18px; }
+  .cost-anchor .ca-arg {
+    border-left: none; padding-left: 0; padding-top: 16px;
+    border-top: 2px solid color-mix(in oklch, var(--brand) 28%, transparent);
+  }
+}
+
 .founding-strip {
   margin-top: 36px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 18px;
   border: 1px solid color-mix(in oklch, var(--warn) 35%, transparent);

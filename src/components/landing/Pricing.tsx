@@ -151,6 +151,15 @@ export function Pricing() {
           </div>
         </div>
 
+        <div className="cost-anchor reveal" data-delay="60">
+          <div className="ca-num">
+            <span className="overline">{p.anchorOverline}</span>
+            <div className="ca-big">{p.anchorBig}</div>
+            <div className="ca-unit">{p.anchorUnit}</div>
+          </div>
+          <p className="ca-arg">{p.anchorArg}</p>
+        </div>
+
         <div className="founding-strip reveal">
           <svg className="tic"><use href="#i-lock" /></svg>
           <p><b>{p.foundingB}</b>{p.founding}</p>

@@ -206,6 +206,10 @@ export const ro: LandingDict = {
     noteA: "Un an înseamnă ",
     noteB: "„2 luni gratuite”",
     noteC: ". Migrare gratuită a datelor din Excel pentru primii clienți.",
+    anchorOverline: "Calculul",
+    anchorBig: "≈ €4,5",
+    anchorUnit: "pe vehicul/lună · flotă de 100 vehicule",
+    anchorArg: "O amendă pentru cabotaj — până la €7 500. O viză expirată — o cursă oprită. G-Track ține tot parcul sub control mai ieftin decât costă un singur astfel de incident.",
   },
 
   final: {
