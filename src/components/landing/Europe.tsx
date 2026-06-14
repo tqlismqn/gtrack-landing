@@ -10,13 +10,17 @@
 import { useEffect, useRef } from "react";
 import type { CSSProperties } from "react";
 import { useLanding } from "./LandingProvider";
+import { EUROPE_LAND } from "./europe-land-path";
 
+/* координаты городов — пиксели той же проекции, что и контур EUROPE_LAND
+   (Natural Earth equirectangular, viewBox 860×560), поэтому города стоят
+   географически верно на силуэте */
 const CITIES: Record<string, [number, number]> = {
-  MAD: [148, 398], BCN: [232, 372], PAR: [248, 274], LON: [256, 142],
-  AMS: [292, 222], HAM: [336, 198], BER: [374, 228], PRG: [412, 264],
-  MUC: [372, 296], MIL: [382, 330], ROM: [428, 398], VIE: [452, 296],
-  WAW: [474, 228], BUD: [482, 312], RIG: [522, 176], VIL: [542, 214],
-  KYI: [652, 240], BUC: [596, 330],
+  MAD: [241, 422], BCN: [316, 402], PAR: [319, 253], LON: [287, 200],
+  AMS: [352, 183], HAM: [417, 159], BER: [461, 180], PRG: [474, 228],
+  MUC: [437, 267], MIL: [407, 321], ROM: [449, 392], VIE: [499, 266],
+  WAW: [559, 185], BUD: [533, 280], RIG: [599, 91], VIL: [614, 136],
+  KYI: [681, 221], BUC: [624, 341],
 };
 const ROUTES: Array<[string, string]> = [
   ["PRG", "PAR"], ["WAW", "PAR"], ["RIG", "AMS"], ["VIL", "BER"], ["PRG", "MIL"],
@@ -132,9 +136,7 @@ export function Europe() {
         </div>
         <div className="euro-stage" ref={stageRef}>
           <svg className="euro-map" viewBox="0 0 860 560" role="img" aria-label={d.europe.mapAria}>
-            <path className="land" d="M 95 470 L 60 430 L 70 380 L 110 350 L 150 340 L 160 300 L 200 270 L 230 250 L 250 230 L 290 210 L 330 200 L 360 180 L 400 190 L 430 210 L 480 200 L 520 180 L 560 160 L 600 170 L 640 200 L 680 240 L 700 290 L 660 320 L 620 330 L 580 360 L 540 400 L 500 430 L 470 410 L 450 370 L 420 340 L 435 390 L 445 430 L 425 445 L 405 405 L 390 360 L 370 330 L 330 320 L 300 340 L 260 360 L 200 380 L 150 420 L 120 460 Z" />
-            <path className="land" d="M 230 130 L 250 90 L 270 60 L 290 90 L 285 130 L 265 170 L 240 175 Z" />
-            <path className="land" d="M 360 160 L 380 110 L 410 60 L 440 40 L 460 80 L 445 130 L 420 160 L 390 175 Z" />
+            <path className="land" d={EUROPE_LAND} />
             <g>
               {ROUTE_GEOMETRY.map((r, i) => (
                 <path
