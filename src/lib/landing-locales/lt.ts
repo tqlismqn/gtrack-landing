@@ -203,7 +203,7 @@ export const lt: LandingDict = {
     plusSeats: "dispečerio vietos",
     plusSla: "SLA",
     plusSlaSuffix: "ir prioritetinis palaikymas",
-    foundingB: "Founding kaina lieka su jumis 12–24 mėnesius po oficialaus paleidimo.",
+    foundingB: "Pradinė kaina lieka su jumis 12–24 mėnesius po oficialaus paleidimo.",
     founding: " Nauji klientai po paleidimo mokės daugiau — jūs ne.",
     noteA: "Metai — tai ",
     noteB: "„2 mėnesiai nemokamai“",
@@ -215,7 +215,7 @@ export const lt: LandingDict = {
   },
 
   final: {
-    overline: "Founding prieiga",
+    overline: "Kaina pirmiesiems",
     h2: "Pradėkite dabar — kaina keliauja su jumis.",
     ctaTrial: "Išbandyti 30 dienų",
     ctaPricing: "Pamatyti kainas",

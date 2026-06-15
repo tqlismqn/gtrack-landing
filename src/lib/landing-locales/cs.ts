@@ -200,7 +200,7 @@ export const cs: LandingDict = {
     plusSeats: "dispečerská místa",
     plusSla: "SLA",
     plusSlaSuffix: "a prioritní podpora",
-    foundingB: "Founding cena s vámi zůstává 12–24 měsíců po oficiálním spuštění.",
+    foundingB: "Startovní cena s vámi zůstává 12–24 měsíců po oficiálním spuštění.",
     founding: " Noví zákazníci po spuštění zaplatí víc — vy ne.",
     noteA: "Rok znamená ",
     noteB: "„2 měsíce zdarma“",
@@ -212,7 +212,7 @@ export const cs: LandingDict = {
   },
 
   final: {
-    overline: "Founding přístup",
+    overline: "Cena pro první",
     h2: "Začněte hned teď — cena jede s vámi.",
     ctaTrial: "Vyzkoušet na 30 dní",
     ctaPricing: "Zobrazit ceník",

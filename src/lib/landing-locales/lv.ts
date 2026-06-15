@@ -198,7 +198,7 @@ export const lv: LandingDict = {
     plusSeats: "dispatcher seats",
     plusSla: "SLA",
     plusSlaSuffix: "un prioritārais atbalsts",
-    foundingB: "Founding cena paliek ar tevi 12–24 mēnešus pēc oficiālās palaišanas.",
+    foundingB: "Sākuma cena paliek ar tevi 12–24 mēnešus pēc oficiālās palaišanas.",
     founding: " Jaunie klienti pēc palaišanas maksās vairāk — tu ne.",
     noteA: "Gads — tie ir ",
     noteB: "„2 mēneši bez maksas”",
@@ -210,7 +210,7 @@ export const lv: LandingDict = {
   },
 
   final: {
-    overline: "Founding piekļuve",
+    overline: "Cena pirmajiem",
     h2: "Sāc tagad — cena brauc tev līdzi.",
     ctaTrial: "Izmēģināt 30 dienas",
     ctaPricing: "Apskatīt cenas",

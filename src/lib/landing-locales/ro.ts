@@ -201,7 +201,7 @@ export const ro: LandingDict = {
     plusSeats: "locuri de dispecer",
     plusSla: "SLA",
     plusSlaSuffix: "și suport prioritar",
-    foundingB: "Prețul founding rămâne cu tine 12–24 de luni după lansarea oficială.",
+    foundingB: "Prețul inițial rămâne cu tine 12–24 de luni după lansarea oficială.",
     founding: " Clienții noi de după lansare vor plăti mai mult — tu nu.",
     noteA: "Un an înseamnă ",
     noteB: "„2 luni gratuite”",
@@ -213,7 +213,7 @@ export const ro: LandingDict = {
   },
 
   final: {
-    overline: "Acces founding",
+    overline: "Prețul pentru primii",
     h2: "Începe acum — prețul călătorește cu tine.",
     ctaTrial: "Încearcă 30 de zile",
     ctaPricing: "Vezi prețurile",
