@@ -16,7 +16,11 @@ export const SALES_EMAIL = "sales@g-track.eu";
 /* Юридические страницы ведём на app-legal (app.g-track.eu/legal) — единый
    источник, обновляется централизованно (решение Thomas 06-15: не дублировать
    legal на лендинге; контент-ревизия — отдельный бэклог). Роуты /privacy и
-   /terms лендинга редиректят сюда же (next.config). */
-export const LEGAL_PRIVACY_URL = "https://app.g-track.eu/legal?tab=privacy";
-export const LEGAL_TERMS_URL = "https://app.g-track.eu/legal?tab=terms";
-export const LEGAL_DPA_URL = "https://app.g-track.eu/legal?tab=dpa";
+   /terms лендинга редиректят сюда же (next.config). Язык сайта передаём
+   параметром ?lng= — app-legal читает его и открывается на этой локали
+   (deep-link, решение Thomas 06-15: «если сайт на русском — legal на русском»). */
+export type LegalTab = "privacy" | "terms" | "dpa";
+
+export function legalUrl(tab: LegalTab, lang: string): string {
+  return `https://app.g-track.eu/legal?tab=${tab}&lng=${lang}`;
+}

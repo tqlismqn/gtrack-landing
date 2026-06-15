@@ -8,16 +8,10 @@
    ============================================================================ */
 
 import { useLanding } from "./LandingProvider";
-import {
-  SALES_MAILTO,
-  SALES_EMAIL,
-  LEGAL_PRIVACY_URL,
-  LEGAL_TERMS_URL,
-  LEGAL_DPA_URL,
-} from "./urls";
+import { SALES_MAILTO, SALES_EMAIL, legalUrl } from "./urls";
 
 export function Footer() {
-  const { d } = useLanding();
+  const { d, lang } = useLanding();
   return (
     <footer className="footer" data-screen-label="Footer">
       <div className="wrap">
@@ -33,9 +27,9 @@ export function Footer() {
           <div className="footer-cols">
             <div className="footer-col">
               <h3 className="footer-h">{d.footer.legalHeading}</h3>
-              <a href={LEGAL_PRIVACY_URL}>{d.footer.privacy}</a>
-              <a href={LEGAL_TERMS_URL}>{d.footer.terms}</a>
-              <a href={LEGAL_DPA_URL}>{d.footer.dpa}</a>
+              <a href={legalUrl("privacy", lang)}>{d.footer.privacy}</a>
+              <a href={legalUrl("terms", lang)}>{d.footer.terms}</a>
+              <a href={legalUrl("dpa", lang)}>{d.footer.dpa}</a>
             </div>
             <div className="footer-col">
               <h3 className="footer-h">{d.footer.securityHeading}</h3>
