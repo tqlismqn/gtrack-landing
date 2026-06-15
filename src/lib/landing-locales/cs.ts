@@ -83,7 +83,7 @@ export const cs: LandingDict = {
     fact1b: "3 týdny před propadnutím",
     fact1c: " — náhodou, ve staré konverzaci.",
     fact2a: "Pokuta za porušení kabotáže — ",
-    fact2b: "až €7 500",
+    fact2b: "až 7 500 €",
     fact2c: " za jeden rejd. Víc než roční předplatné.",
     fact3a: "Dispečer drží ",
     fact3b: "40 řidičů v hlavě",
@@ -206,9 +206,9 @@ export const cs: LandingDict = {
     noteB: "„2 měsíce zdarma“",
     noteC: ". Bezplatná migrace dat z Excelu pro první zákazníky.",
     anchorOverline: "Spočítáno",
-    anchorBig: "≈ €4,5",
+    anchorBig: "≈ 4,5 €",
     anchorUnit: "za vůz/měsíc · vozový park 100 vozů",
-    anchorArg: "Jedna pokuta za kabotáž — až €7 500. Jedno propadlé vízum — zastavená jízda. G-Track udrží celý vozový park pod kontrolou levněji, než stojí jediný takový výpadek.",
+    anchorArg: "Jedna pokuta za kabotáž — až 7 500 €. Jedno propadlé vízum — zastavená jízda. G-Track udrží celý vozový park pod kontrolou levněji, než stojí jediný takový výpadek.",
   },
 
   final: {
@@ -230,7 +230,7 @@ export const cs: LandingDict = {
     trust2: "Soulad s GDPR",
     trust3: "Přístup podle rolí",
     langs: "12 jazyků",
-    rights: "© 2026 G-Track",
+    rights: "© 2026 G-Track Software s.r.o.",
   },
 
   /* латинизированные имена — как в en (не переводятся) */

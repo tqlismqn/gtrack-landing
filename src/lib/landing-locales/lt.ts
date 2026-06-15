@@ -86,7 +86,7 @@ export const lt: LandingDict = {
     fact1b: "likus 3 savaitėms iki galiojimo pabaigos",
     fact1c: " — atsitiktinai, senoje susirašinėjimo gijoje.",
     fact2a: "Bauda už kabotažo pažeidimą — ",
-    fact2b: "iki €7 500", // U+202F kaip ru/en šaltinyje
+    fact2b: "iki 7 500 €", // U+202F kaip ru/en šaltinyje
     fact2c: " už vieną reisą. Daugiau nei metinė prenumerata.",
     fact3a: "Dispečeris laiko ",
     fact3b: "40 vairuotojų galvoje",
@@ -209,9 +209,9 @@ export const lt: LandingDict = {
     noteB: "„2 mėnesiai nemokamai“",
     noteC: ". Nemokama duomenų migracija iš Excel ankstyviesiems klientams.",
     anchorOverline: "Skaičiavimas",
-    anchorBig: "≈ €4,5",
+    anchorBig: "≈ 4,5 €",
     anchorUnit: "už vienetą/mėn. · 100 vienetų parkas",
-    anchorArg: "Viena kabotažo bauda — iki €7 500. Viena pasibaigusi viza — sustabdytas reisas. G-Track laiko visą parką kontroliuojamą pigiau, nei kainuoja vienas toks sutrikimas.",
+    anchorArg: "Viena kabotažo bauda — iki 7 500 €. Viena pasibaigusi viza — sustabdytas reisas. G-Track laiko visą parką kontroliuojamą pigiau, nei kainuoja vienas toks sutrikimas.",
   },
 
   final: {
@@ -233,7 +233,7 @@ export const lt: LandingDict = {
     trust2: "Atitiktis BDAR",
     trust3: "Prieiga pagal vaidmenis",
     langs: "12 kalbų",
-    rights: "© 2026 G-Track",
+    rights: "© 2026 G-Track Software s.r.o.",
   },
 
   names: {

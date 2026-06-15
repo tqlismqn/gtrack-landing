@@ -47,7 +47,6 @@ export function Footer() {
         </div>
         <div className="footer-bottom">
           <span>{d.footer.rights}</span>
-          <span>{d.footer.langs}</span>
         </div>
       </div>
     </footer>

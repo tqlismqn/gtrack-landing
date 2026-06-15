@@ -84,7 +84,7 @@ export const ro: LandingDict = {
     fact1b: "cu 3 săptămâni înainte de expirare",
     fact1c: " — din întâmplare, într-o conversație veche.",
     fact2a: "Amenda pentru încălcarea cabotajului — ",
-    fact2b: "până la €7 500", //   = narrow no-break space, как в ru/en
+    fact2b: "până la 7 500 €", //   = narrow no-break space, как в ru/en
     fact2c: " pentru o singură cursă. Mai mult decât un an de abonament.",
     fact3a: "Dispecerul ține ",
     fact3b: "40 de șoferi în minte",
@@ -207,9 +207,9 @@ export const ro: LandingDict = {
     noteB: "„2 luni gratuite”",
     noteC: ". Migrare gratuită a datelor din Excel pentru primii clienți.",
     anchorOverline: "Calculul",
-    anchorBig: "≈ €4,5",
+    anchorBig: "≈ 4,5 €",
     anchorUnit: "pe vehicul/lună · flotă de 100 vehicule",
-    anchorArg: "O amendă pentru cabotaj — până la €7 500. O viză expirată — o cursă oprită. G-Track ține tot parcul sub control mai ieftin decât costă un singur astfel de incident.",
+    anchorArg: "O amendă pentru cabotaj — până la 7 500 €. O viză expirată — o cursă oprită. G-Track ține tot parcul sub control mai ieftin decât costă un singur astfel de incident.",
   },
 
   final: {
@@ -231,7 +231,7 @@ export const ro: LandingDict = {
     trust2: "Conform GDPR",
     trust3: "Acces bazat pe roluri",
     langs: "12 limbi",
-    rights: "© 2026 G-Track",
+    rights: "© 2026 G-Track Software s.r.o.",
   },
 
   names: {

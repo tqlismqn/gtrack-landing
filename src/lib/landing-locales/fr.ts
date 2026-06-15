@@ -86,7 +86,7 @@ export const fr: LandingDict = {
     fact1b: "3 semaines avant l’expiration",
     fact1c: " — par hasard, dans une vieille conversation.",
     fact2a: "L’amende pour infraction au cabotage — ",
-    fact2b: "jusqu’à €7 500", // U+202F как в RU/EN-базе
+    fact2b: "jusqu’à 7 500 €", // U+202F как в RU/EN-базе
     fact2c: " par trajet. Plus qu’un an d’abonnement.",
     fact3a: "Un dispatcher garde ",
     fact3b: "40 conducteurs en tête",
@@ -209,9 +209,9 @@ export const fr: LandingDict = {
     noteB: "« 2 mois offerts »",
     noteC: ". Migration gratuite des données depuis Excel pour les premiers clients.",
     anchorOverline: "Le calcul",
-    anchorBig: "≈ €4,5",
+    anchorBig: "≈ 4,5 €",
     anchorUnit: "par camion/mois · flotte de 100 camions",
-    anchorArg: "Une amende pour infraction au cabotage — jusqu’à €7 500. Un visa expiré — une tournée à l’arrêt. G-Track garde toute la flotte sous contrôle pour moins que ne coûte un seul de ces incidents.",
+    anchorArg: "Une amende pour infraction au cabotage — jusqu’à 7 500 €. Un visa expiré — une tournée à l’arrêt. G-Track garde toute la flotte sous contrôle pour moins que ne coûte un seul de ces incidents.",
   },
 
   final: {
@@ -233,7 +233,7 @@ export const fr: LandingDict = {
     trust2: "Conforme au RGPD",
     trust3: "Accès basé sur les rôles",
     langs: "12 langues",
-    rights: "© 2026 G-Track",
+    rights: "© 2026 G-Track Software s.r.o.",
   },
 
   names: {
