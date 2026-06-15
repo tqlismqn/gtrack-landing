@@ -58,8 +58,8 @@ export function Pricing() {
 
   const billedTxt = (amt: number): string => {
     if (period === "mo") return p.billedMo;
-    if (period === "q") return `€${formatNum(amt * 3)} ${p.billedQ}`;
-    return `€${formatNum(amt * 12)} ${p.billedY}`;
+    if (period === "q") return `${formatNum(amt * 3)} € ${p.billedQ}`;
+    return `${formatNum(amt * 12)} € ${p.billedY}`;
   };
 
   const tierName: Record<TierKey, string> = {
@@ -93,8 +93,8 @@ export function Pricing() {
         {opts.anchor && <div className="tier-flag">{p.fleetFlag}</div>}
         <div className="tier-name">{tierName[key]}</div>
         <div className="tier-blurb">{tierBlurb[key]}</div>
-        <div className="tier-price"><span className="cur">€</span><span className="amt">{amt}</span><span className="per">{p.perMonth}</span></div>
-        <div className="tier-ga">{p.afterLaunch} <s>€{GA[key]}</s></div>
+        <div className="tier-price"><span className="amt">{amt}</span><span className="cur">€</span><span className="per">{p.perMonth}</span></div>
+        <div className="tier-ga">{p.afterLaunch} <s>{GA[key]} €</s></div>
         <div className="tier-billed">{billedTxt(amt)}</div>
         <div className="tier-cta">
           <a className={`btn${opts.anchor ? " accent" : ""}`} href={SIGNUP_URL}>{p.choose} {tierName[key]}</a>
@@ -106,7 +106,7 @@ export function Pricing() {
           <div className="cap-row"><svg className="ic"><use href="#i-trailer" /></svg><span className="cap-val">{opts.caps[1]}</span> {p.capTrailers}</div>
           <div className="cap-row"><svg className="ic"><use href="#i-user" /></svg><span className="cap-val">{opts.caps[2]}</span> {p.capSeats}</div>
         </div>
-        <div className="tier-pertruck">≈ €{perTruckTxt(amt, TRUCKS[key])} {p.perTruck}</div>
+        <div className="tier-pertruck">≈ {perTruckTxt(amt, TRUCKS[key])} € {p.perTruck}</div>
       </div>
     );
   };

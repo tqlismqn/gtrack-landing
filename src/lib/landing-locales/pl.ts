@@ -5,7 +5,7 @@
    модули (Kierowcy / Planowanie / Pojazdy / Zlecenia / Fakturowanie /
    Ekonomia pojazdu), Kod 95, founding / cena zablokowana, /mc, pojazdy ·
    kierowcy · naczepy · miejsca dyspozytorów, jednostka dni («VIS · 30 dni»).
-   Цены и проценты — байт-в-байт с RU/EN (€7 500 с U+202F, минус U+2212;
+   Цены и проценты — байт-в-байт с RU/EN (7 500 € с U+202F, минус U+2212;
    десятичная точка как в app-локали pl: −6.7%).
    ============================================================================ */
 
@@ -84,7 +84,7 @@ export const pl: LandingDict = {
     fact1b: "3 tygodnie przed wygaśnięciem",
     fact1c: " — przypadkiem, w starej korespondencji.",
     fact2a: "Kara za naruszenie kabotażu — ",
-    fact2b: "do €7 500",
+    fact2b: "do 7 500 €",
     fact2c: " za jeden rejs. Więcej niż roczna subskrypcja.",
     fact3a: "Dyspozytor trzyma ",
     fact3b: "40 kierowców w głowie",
@@ -207,9 +207,9 @@ export const pl: LandingDict = {
     noteB: "„2 miesiące gratis”",
     noteC: ". Bezpłatna migracja danych z Excel dla wczesnych klientów.",
     anchorOverline: "Rachunek",
-    anchorBig: "≈ €4,5",
+    anchorBig: "≈ 4,5 €",
     anchorUnit: "za pojazd/mies. · flota 100 pojazdów",
-    anchorArg: "Jedna kara za kabotaż — do €7 500. Jedna przeterminowana wiza — wstrzymany rejs. G-Track trzyma całą flotę pod kontrolą taniej, niż kosztuje jedno takie potknięcie.",
+    anchorArg: "Jedna kara za kabotaż — do 7 500 €. Jedna przeterminowana wiza — wstrzymany rejs. G-Track trzyma całą flotę pod kontrolą taniej, niż kosztuje jedno takie potknięcie.",
   },
 
   final: {
@@ -231,7 +231,7 @@ export const pl: LandingDict = {
     trust2: "Zgodność z RODO",
     trust3: "Dostęp oparty na rolach",
     langs: "12 języków",
-    rights: "© 2026 G-Track",
+    rights: "© 2026 G-Track Software s.r.o.",
   },
 
   names: {

@@ -416,8 +416,8 @@ html.motion-ok .tier:hover { transform: translateY(-3px); box-shadow: var(--shad
   border-radius: 999px; padding: 4px 12px; white-space: nowrap;
 }
 .tier-name { font-size: 16px; font-weight: 600; }
-.tier-blurb { font-size: 13px; color: var(--text-3); margin-top: 5px; min-height: 38px; text-wrap: pretty; }
-.tier-price { margin-top: 18px; display: flex; align-items: baseline; gap: 3px; font-family: var(--font-mono); }
+.tier-blurb { font-size: 13px; color: var(--text-3); margin-top: 5px; min-height: 58px; text-wrap: pretty; }
+.tier-price { margin-top: 18px; min-height: 62px; display: flex; align-items: baseline; gap: 3px; font-family: var(--font-mono); }
 .tier-price .cur { font-size: 20px; color: var(--text-2); }
 .tier-price .amt { font-size: 40px; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 .tier-price .per { font-size: 13px; color: var(--text-3); margin-left: 3px; }

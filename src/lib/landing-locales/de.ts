@@ -83,7 +83,7 @@ export const de: LandingDict = {
     fact1b: "3 Wochen vor Ablauf",
     fact1c: " — durch Zufall, in einem alten Chatverlauf.",
     fact2a: "Bußgeld für einen Kabotage-Verstoß — ",
-    fact2b: "bis zu €7 500",
+    fact2b: "bis zu 7 500 €",
     fact2c: " pro Tour. Mehr als ein Jahresabo.",
     fact3a: "Ein Disponent behält ",
     fact3b: "40 Fahrer im Kopf",
@@ -206,9 +206,9 @@ export const de: LandingDict = {
     noteB: "„2 Monate gratis“",
     noteC: ". Kostenlose Datenmigration aus Excel für frühe Kunden.",
     anchorOverline: "Die Rechnung",
-    anchorBig: "≈ €4,5",
+    anchorBig: "≈ 4,5 €",
     anchorUnit: "pro Lkw/Monat · Flotte 100 Lkw",
-    anchorArg: "Eine Kabotage-Strafe — bis zu €7 500. Ein abgelaufenes Visum — eine gestoppte Tour. G-Track hält die ganze Flotte unter Kontrolle für weniger, als ein einziger solcher Ausfall kostet.",
+    anchorArg: "Eine Kabotage-Strafe — bis zu 7 500 €. Ein abgelaufenes Visum — eine gestoppte Tour. G-Track hält die ganze Flotte unter Kontrolle für weniger, als ein einziger solcher Ausfall kostet.",
   },
 
   final: {
@@ -230,7 +230,7 @@ export const de: LandingDict = {
     trust2: "DSGVO-konform",
     trust3: "Rollenbasierter Zugriff",
     langs: "12 Sprachen",
-    rights: "© 2026 G-Track",
+    rights: "© 2026 G-Track Software s.r.o.",
   },
 
   names: {

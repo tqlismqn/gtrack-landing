@@ -81,7 +81,7 @@ export const lv: LandingDict = {
     fact1b: "3 nedēļas pirms termiņa beigām",
     fact1c: " — nejauši, vecā sarakstē.",
     fact2a: "Sods par kabotāžas pārkāpumu — ",
-    fact2b: "līdz €7 500",
+    fact2b: "līdz 7 500 €",
     fact2c: " par vienu reisu. Vairāk nekā gada abonements.",
     fact3a: "Dispečers tur ",
     fact3b: "40 vadītājus galvā",
@@ -204,9 +204,9 @@ export const lv: LandingDict = {
     noteB: "„2 mēneši bez maksas”",
     noteC: ". Bezmaksas datu migrācija no Excel agrīnajiem klientiem.",
     anchorOverline: "Aprēķins",
-    anchorBig: "≈ €4,5",
+    anchorBig: "≈ 4,5 €",
     anchorUnit: "par vienību/mēn. · 100 vienību parks",
-    anchorArg: "Viens kabotāžas sods — līdz €7 500. Viena nokavēta vīza — apturēts reiss. G-Track notur visu autoparku kontrolē lētāk, nekā maksā viena šāda kļūme.",
+    anchorArg: "Viens kabotāžas sods — līdz 7 500 €. Viena nokavēta vīza — apturēts reiss. G-Track notur visu autoparku kontrolē lētāk, nekā maksā viena šāda kļūme.",
   },
 
   final: {
@@ -228,7 +228,7 @@ export const lv: LandingDict = {
     trust2: "Atbilstība GDPR",
     trust3: "Piekļuve pēc lomām",
     langs: "12 valodas",
-    rights: "© 2026 G-Track",
+    rights: "© 2026 G-Track Software s.r.o.",
   },
 
   names: {

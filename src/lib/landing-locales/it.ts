@@ -82,8 +82,8 @@ export const it: LandingDict = {
     fact1b: "3 settimane prima della scadenza",
     fact1c: " — per caso, in una vecchia chat.",
     fact2a: "Una multa per violazione del cabotaggio — ",
-    /*   = narrow no-break space — байт-в-байт с ru/en («€7 500») */
-    fact2b: "fino a €7 500",
+    /*   = narrow no-break space — байт-в-байт с ru/en («7 500 €») */
+    fact2b: "fino a 7 500 €",
     fact2c: " per un solo viaggio. Più di un anno di abbonamento.",
     fact3a: "Lo spedizioniere tiene ",
     fact3b: "40 autisti a memoria",
@@ -206,9 +206,9 @@ export const it: LandingDict = {
     noteB: "«2 mesi gratis»",
     noteC: ". Migrazione gratuita dei dati da Excel per i primi clienti.",
     anchorOverline: "I conti",
-    anchorBig: "≈ €4,5",
+    anchorBig: "≈ 4,5 €",
     anchorUnit: "per veicolo/mese · flotta da 100 veicoli",
-    anchorArg: "Una multa per cabotaggio — fino a €7 500. Un visto scaduto — un viaggio fermo. G-Track tiene tutta la flotta sotto controllo per meno di quanto costi un singolo imprevisto.",
+    anchorArg: "Una multa per cabotaggio — fino a 7 500 €. Un visto scaduto — un viaggio fermo. G-Track tiene tutta la flotta sotto controllo per meno di quanto costi un singolo imprevisto.",
   },
 
   final: {
@@ -230,7 +230,7 @@ export const it: LandingDict = {
     trust2: "Conforme al GDPR",
     trust3: "Accesso basato su ruoli",
     langs: "12 lingue",
-    rights: "© 2026 G-Track",
+    rights: "© 2026 G-Track Software s.r.o.",
   },
 
   names: {
