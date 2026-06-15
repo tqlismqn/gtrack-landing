@@ -322,6 +322,9 @@ section[data-screen-label] { position: relative; }
   display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between;
   font-size: 13px; color: var(--text-3); font-family: var(--font-mono);
 }
+.footer-madein { color: var(--text-3); }
+.footer-flag { display: inline-block; vertical-align: -1px; border-radius: 2px; box-shadow: 0 0 0 1px var(--border-1); }
+.footer-heart { color: #e11d48; }
 .logo-tms {
   flex: none; align-self: center; margin-left: -2px;
   font-family: var(--font-mono); font-size: 10px; font-weight: 600;

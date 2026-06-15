@@ -10,6 +10,24 @@
 import { useLanding } from "./LandingProvider";
 import { SALES_MAILTO, SALES_EMAIL, legalUrl } from "./urls";
 
+/* Чешский флаг — inline SVG (не emoji 🇨🇿: на Windows/Chrome emoji-флаг
+   рендерится как буквы «CZ»). Скруглённые углы через clip-path. */
+function CzFlag() {
+  return (
+    <svg className="footer-flag" width="18" height="12" viewBox="0 0 18 12" role="img" aria-label="Czechia">
+      <title>Czechia</title>
+      <defs>
+        <clipPath id="cz-flag-round"><rect width="18" height="12" rx="2" /></clipPath>
+      </defs>
+      <g clipPath="url(#cz-flag-round)">
+        <rect width="18" height="6" fill="#ffffff" />
+        <rect y="6" width="18" height="6" fill="#d7141a" />
+        <path d="M0 0 L9 6 L0 12 Z" fill="#11457e" />
+      </g>
+    </svg>
+  );
+}
+
 export function Footer() {
   const { d, lang } = useLanding();
   return (
@@ -41,6 +59,10 @@ export function Footer() {
         </div>
         <div className="footer-bottom">
           <span>{d.footer.rights}</span>
+          <span className="footer-madein">
+            from <CzFlag /> with{" "}
+            <span className="footer-heart" role="img" aria-label="love">{"❤︎"}</span>
+          </span>
         </div>
       </div>
     </footer>
