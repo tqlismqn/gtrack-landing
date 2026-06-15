@@ -203,7 +203,7 @@ export const fr: LandingDict = {
     plusSeats: "de postes de dispatcher",
     plusSla: "SLA",
     plusSlaSuffix: "et support prioritaire",
-    foundingB: "Votre prix founding reste avec vous 12–24 mois après le lancement officiel.",
+    foundingB: "Votre prix de départ reste avec vous 12–24 mois après le lancement officiel.",
     founding: " Les nouveaux clients après le lancement paieront plus — pas vous.",
     noteA: "L’année, c’est ",
     noteB: "« 2 mois offerts »",
@@ -215,7 +215,7 @@ export const fr: LandingDict = {
   },
 
   final: {
-    overline: "Accès founding",
+    overline: "Le prix des premiers",
     h2: "Commencez maintenant — le prix fait la route avec vous.",
     ctaTrial: "Essayer 30 jours",
     ctaPricing: "Voir les tarifs",

@@ -199,7 +199,7 @@ export const es: LandingDict = {
     plusSeats: "puestos de gestor de tráfico",
     plusSla: "SLA",
     plusSlaSuffix: "y soporte prioritario",
-    foundingB: "El precio founding le acompaña durante 12–24 meses después del lanzamiento oficial.",
+    foundingB: "El precio inicial le acompaña durante 12–24 meses después del lanzamiento oficial.",
     founding: " Los nuevos clientes pagarán más después del lanzamiento — usted no.",
     noteA: "Un año significa ",
     noteB: "«2 meses gratis»",
@@ -211,7 +211,7 @@ export const es: LandingDict = {
   },
 
   final: {
-    overline: "Acceso founding",
+    overline: "El precio de los primeros",
     h2: "Empiece ahora — el precio viaja con usted.",
     ctaTrial: "Pruébelo 30 días",
     ctaPricing: "Ver precios",

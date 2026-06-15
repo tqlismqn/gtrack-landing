@@ -199,7 +199,7 @@ export const uk: LandingDict = {
     plusSeats: "місця диспетчерів",
     plusSla: "SLA",
     plusSlaSuffix: "і пріоритетна підтримка",
-    foundingB: "Founding-ціна залишається з вами 12–24 місяці після офіційного запуску.",
+    foundingB: "Стартова ціна залишається з вами 12–24 місяці після офіційного запуску.",
     founding: " Нові клієнти після запуску платитимуть більше — ви ні.",
     noteA: "Рік — це ",
     noteB: "«2 місяці в подарунок»",
@@ -211,7 +211,7 @@ export const uk: LandingDict = {
   },
 
   final: {
-    overline: "Founding-доступ",
+    overline: "Ціна для перших",
     h2: "Почніть зараз — ціна їде з вами.",
     ctaTrial: "Спробувати 30 днів",
     ctaPricing: "Дивитися тарифи",
