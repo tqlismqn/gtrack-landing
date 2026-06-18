@@ -276,11 +276,67 @@ html:not([data-theme="light"]) .ic-moon { display: none; }
 }
 .lang-opt:hover { background: var(--raised); color: var(--text-1); }
 .lang-opt[aria-pressed="true"] { color: var(--text-1); background: var(--raised); font-weight: 500; }
-.lang-opt .lc { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); width: 22px; flex: none; }
 .lang-note {
   padding: 8px 10px 5px; margin-top: 4px; border-top: 1px solid var(--border-1);
   font-family: var(--font-mono); font-size: 10.5px; color: var(--text-3);
 }
+
+/* флаг в списке языков / стабе (SVG-спрайт #f-…, ratio 3:2) */
+.flag-svg {
+  width: 21px; height: 14px; flex: none; display: block;
+  border-radius: 2.5px; overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.18);
+}
+.lang-stub .flag-svg { width: 19px; height: 12.7px; }
+
+/* ---- бургер + мобильная панель (<880px) ----------------------------------- */
+.nav-burger {
+  display: none; width: 34px; height: 34px; border-radius: 8px; flex: none;
+  border: 1px solid var(--border-1); background: transparent; color: var(--text-2);
+  align-items: center; justify-content: center; cursor: pointer;
+  transition: background 140ms, color 140ms, border-color 140ms;
+}
+.nav-burger:hover { color: var(--text-1); border-color: var(--border-2); background: var(--raised); }
+.nav-burger svg { width: 19px; height: 19px; }
+
+/* при открытом меню сам бар тоже матовый — бар+панель читаются как одна шторка */
+.nav.menu-open {
+  background: color-mix(in oklch, var(--canvas) 93%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+
+.nav-mobile-panel {
+  position: absolute; top: 100%; left: 0; right: 0;
+  background: color-mix(in oklch, var(--canvas) 97%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  border-bottom: 1px solid var(--border-1);
+  box-shadow: 0 24px 48px -24px rgb(0 0 0 / 0.6);
+  padding: 10px 16px 16px;
+  max-height: calc(100dvh - 64px); overflow-y: auto;
+  display: flex; flex-direction: column;
+}
+html.motion-ok .nav-mobile-panel { animation: nmp-in 200ms var(--ease-soft); }
+@keyframes nmp-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+
+.nmp-links { display: flex; flex-direction: column; }
+.nmp-links a {
+  display: block; padding: 12px; border-radius: 9px;
+  font-size: 16px; font-weight: 500; color: var(--text-1);
+  transition: background 140ms, color 140ms;
+}
+.nmp-links a:hover, .nmp-links a:active { background: var(--raised); }
+.nmp-links .nmp-login {
+  margin-top: 6px; padding-top: 14px; border-radius: 0;
+  border-top: 1px solid var(--border-1); color: var(--text-2); font-weight: 400;
+}
+.nmp-langs {
+  margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--border-1);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+}
+.nmp-langs .lang-opt { font-size: 14.5px; padding: 11px 8px; gap: 7px; white-space: nowrap; }
+.nmp-langs .flag-svg { width: 18px; height: 12px; }
 
 /* ---- reveal primitive ------------------------------------------------------
    Resting state is VISIBLE. Motion only when html.motion-ok (JS alive,

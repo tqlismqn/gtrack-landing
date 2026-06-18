@@ -28,6 +28,7 @@ export const ro: LandingDict = {
     ctaTiny: "30 de zile",
     themeAria: "Comută tema site-ului",
     langAria: "Limba interfeței",
+    menuAria: "Meniu de navigare",
     langRu: "Русский",
     langEn: "English",
     langNote: "+10 limbi în producție",

@@ -27,6 +27,7 @@ export const cs: LandingDict = {
     ctaTiny: "30 dní",
     themeAria: "Přepnout motiv webu",
     langAria: "Jazyk rozhraní",
+    menuAria: "Navigační nabídka",
     langRu: "Русский",
     langEn: "English",
     langNote: "+10 jazyků v produkci",
