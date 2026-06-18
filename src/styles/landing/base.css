@@ -276,7 +276,6 @@ html:not([data-theme="light"]) .ic-moon { display: none; }
 }
 .lang-opt:hover { background: var(--raised); color: var(--text-1); }
 .lang-opt[aria-pressed="true"] { color: var(--text-1); background: var(--raised); font-weight: 500; }
-.lang-opt .lc { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); width: 22px; flex: none; }
 .lang-note {
   padding: 8px 10px 5px; margin-top: 4px; border-top: 1px solid var(--border-1);
   font-family: var(--font-mono); font-size: 10.5px; color: var(--text-3);
@@ -336,7 +335,8 @@ html.motion-ok .nav-mobile-panel { animation: nmp-in 200ms var(--ease-soft); }
   margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--border-1);
   display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
 }
-.nmp-langs .lang-opt { font-size: 14.5px; padding: 11px 10px; }
+.nmp-langs .lang-opt { font-size: 14.5px; padding: 11px 8px; gap: 7px; white-space: nowrap; }
+.nmp-langs .flag-svg { width: 18px; height: 12px; }
 
 /* ---- reveal primitive ------------------------------------------------------
    Resting state is VISIBLE. Motion only when html.motion-ok (JS alive,

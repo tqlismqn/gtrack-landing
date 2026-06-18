@@ -34,6 +34,8 @@ export function Nav() {
   const wmRef = useRef<HTMLSpanElement>(null);
   const langWrapRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+  const menuWasOpen = useRef(false);
 
   /* лого-морф: hover на nav-лого (порт morph() из fx.js) */
   const morphTimers = useRef<number[]>([]);
@@ -92,6 +94,17 @@ export function Nav() {
     };
   }, [menuOpen]);
 
+  /* возврат фокуса на кнопку-бургер при закрытии панели (не на первом рендере),
+     чтобы клавиатурные пользователи не теряли контекст */
+  useEffect(() => {
+    if (menuOpen) {
+      menuWasOpen.current = true;
+    } else if (menuWasOpen.current) {
+      menuWasOpen.current = false;
+      burgerRef.current?.focus();
+    }
+  }, [menuOpen]);
+
   return (
     <header className={`nav${menuOpen ? " menu-open" : ""}`} data-screen-label="Nav" ref={navRef}>
       <div className="nav-inner">
@@ -134,14 +147,15 @@ export function Nav() {
             <button
               className="lang-stub"
               type="button"
-              aria-haspopup="true"
+              aria-expanded={langOpen}
+              aria-controls="lang-menu"
               aria-label={d.nav.langAria}
               onClick={() => setLangOpen((v) => !v)}
             >
               <Flag lang={lang} />
               <span>{lang.toUpperCase()}</span> <span style={{ opacity: 0.55 }}>▾</span>
             </button>
-            <div className="lang-menu" role="menu">
+            <div className="lang-menu" id="lang-menu" role="group" aria-label={d.nav.langAria}>
               {LOCALES.map((l) => (
                 <button
                   key={l}
@@ -165,8 +179,8 @@ export function Nav() {
           <button
             className="nav-burger"
             type="button"
+            ref={burgerRef}
             aria-label={d.nav.menuAria}
-            aria-haspopup="true"
             aria-expanded={menuOpen}
             aria-controls="nav-mobile-panel"
             onClick={() => setMenuOpen((v) => !v)}
@@ -184,7 +198,7 @@ export function Nav() {
             <a href={ROADMAP_URL} onClick={() => setMenuOpen(false)}>{d.nav.roadmap}</a>
             <a href={APP_URL} className="nmp-login" onClick={() => setMenuOpen(false)}>{d.nav.login}</a>
           </nav>
-          <div className="nmp-langs" role="menu" aria-label={d.nav.langAria}>
+          <div className="nmp-langs" role="group" aria-label={d.nav.langAria}>
             {LOCALES.map((l) => (
               <button
                 key={l}
