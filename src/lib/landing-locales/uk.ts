@@ -26,6 +26,7 @@ export const uk: LandingDict = {
     ctaTiny: "30 днів",
     themeAria: "Перемкнути тему сайту",
     langAria: "Мова інтерфейсу",
+    menuAria: "Меню навігації",
     langRu: "Русский",
     langEn: "English",
     langNote: "+10 локалей у проді",

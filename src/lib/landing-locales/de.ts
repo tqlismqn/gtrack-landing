@@ -27,6 +27,7 @@ export const de: LandingDict = {
     ctaTiny: "30 Tage",
     themeAria: "Farbschema der Website umschalten",
     langAria: "Oberflächensprache",
+    menuAria: "Navigationsmenü",
     langRu: "Русский",
     langEn: "English",
     langNote: "+10 Sprachen in der App",

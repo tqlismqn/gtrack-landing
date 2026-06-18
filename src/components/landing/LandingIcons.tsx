@@ -32,6 +32,22 @@ export function LandingIcons() {
         <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" /></symbol>
         <symbol id="i-cursor" viewBox="0 0 24 24"><path fill="#FFFFFF" stroke="#1A1D21" strokeWidth="1.4" strokeLinejoin="round" d="M5 3l13 7.6-5.6 1.4 2.8 6.1-2.9 1.3-2.8-6.1L5 17.5z" /></symbol>
         <symbol id="i-trucksil" viewBox="0 0 40 20" fill="currentColor"><path d="M1 3.5h21a1 1 0 0 1 1 1V14H1z" /><path d="M25 7h5.2a2 2 0 0 1 1.5.68l3.8 3.4a2 2 0 0 1 .5 1.32V14H25z" /><circle cx="8" cy="16" r="2.4" /><circle cx="16" cy="16" r="2.4" /><circle cx="30.5" cy="16" r="2.4" /></symbol>
+        <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18M3 12h18M3 18h18" /></symbol>
+        <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12" /></symbol>
+
+        {/* ---- флаги переключателя языка (viewBox 3:2, заливки — не currentColor) ---- */}
+        <symbol id="f-gb" viewBox="0 0 60 40"><path d="M0 0h60v40H0z" fill="#012169" /><path d="M0 0 60 40M60 0 0 40" fill="none" stroke="#fff" strokeWidth="8" /><path d="M0 0 60 40M60 0 0 40" fill="none" stroke="#C8102E" strokeWidth="3.2" /><path d="M30 0v40M0 20h60" fill="none" stroke="#fff" strokeWidth="13.3" /><path d="M30 0v40M0 20h60" fill="none" stroke="#C8102E" strokeWidth="8" /></symbol>
+        <symbol id="f-ru" viewBox="0 0 3 2"><path d="M0 0h3v2H0z" fill="#fff" /><path d="M0 .667h3v1.333H0z" fill="#0039A6" /><path d="M0 1.333h3v.667H0z" fill="#D52B1E" /></symbol>
+        <symbol id="f-de" viewBox="0 0 3 2"><path d="M0 0h3v2H0z" fill="#000" /><path d="M0 .667h3v1.333H0z" fill="#D00" /><path d="M0 1.333h3v.667H0z" fill="#FFCE00" /></symbol>
+        <symbol id="f-fr" viewBox="0 0 3 2"><path d="M0 0h1v2H0z" fill="#0055A4" /><path d="M1 0h1v2H1z" fill="#fff" /><path d="M2 0h1v2H2z" fill="#EF4135" /></symbol>
+        <symbol id="f-cz" viewBox="0 0 3 2"><path d="M0 0h3v1H0z" fill="#fff" /><path d="M0 1h3v1H0z" fill="#D7141A" /><path d="M0 0 1.5 1 0 2z" fill="#11457E" /></symbol>
+        <symbol id="f-pl" viewBox="0 0 3 2"><path d="M0 0h3v1H0z" fill="#fff" /><path d="M0 1h3v1H0z" fill="#DC143C" /></symbol>
+        <symbol id="f-it" viewBox="0 0 3 2"><path d="M0 0h1v2H0z" fill="#009246" /><path d="M1 0h1v2H1z" fill="#fff" /><path d="M2 0h1v2H2z" fill="#CE2B37" /></symbol>
+        <symbol id="f-lv" viewBox="0 0 3 2"><path d="M0 0h3v2H0z" fill="#9E3039" /><path d="M0 .8h3v.4H0z" fill="#fff" /></symbol>
+        <symbol id="f-lt" viewBox="0 0 3 2"><path d="M0 0h3v2H0z" fill="#FDB913" /><path d="M0 .667h3v1.333H0z" fill="#006A44" /><path d="M0 1.333h3v.667H0z" fill="#C1272D" /></symbol>
+        <symbol id="f-ua" viewBox="0 0 3 2"><path d="M0 0h3v1H0z" fill="#0057B7" /><path d="M0 1h3v1H0z" fill="#FFD700" /></symbol>
+        <symbol id="f-es" viewBox="0 0 3 2"><path d="M0 0h3v2H0z" fill="#AA151B" /><path d="M0 .5h3v1H0z" fill="#F1BF00" /></symbol>
+        <symbol id="f-ro" viewBox="0 0 3 2"><path d="M0 0h1v2H0z" fill="#002B7F" /><path d="M1 0h1v2H1z" fill="#FCD116" /><path d="M2 0h1v2H2z" fill="#CE1126" /></symbol>
       </defs>
     </svg>
   );

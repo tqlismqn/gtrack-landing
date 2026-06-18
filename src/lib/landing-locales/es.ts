@@ -26,6 +26,7 @@ export const es: LandingDict = {
     ctaTiny: "30 días",
     themeAria: "Cambiar el tema del sitio",
     langAria: "Idioma de la interfaz",
+    menuAria: "Menú de navegación",
     langRu: "Русский",
     langEn: "English",
     langNote: "+10 idiomas en producción",

@@ -30,6 +30,7 @@ export const lt: LandingDict = {
     ctaTiny: "30 dienų",
     themeAria: "Perjungti svetainės temą",
     langAria: "Sąsajos kalba",
+    menuAria: "Navigacijos meniu",
     langRu: "Русский",
     langEn: "English",
     langNote: "+10 kalbų programoje",

@@ -28,6 +28,7 @@ export const pl: LandingDict = {
     ctaTiny: "30 dni",
     themeAria: "Przełącz motyw strony",
     langAria: "Język interfejsu",
+    menuAria: "Menu nawigacyjne",
     langRu: "Русский",
     langEn: "English",
     langNote: "+10 wersji językowych w aplikacji",

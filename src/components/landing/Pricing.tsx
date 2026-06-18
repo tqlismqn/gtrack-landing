@@ -29,6 +29,19 @@ function perTruckTxt(amt: number, trucks: number): string {
   return (Math.round(per * 10) / 10).toFixed(1).replace(/\.0$/, "");
 }
 
+/* «≈ 4,5 €» → число + уменьшенный знак валюты вплотную (локале-агностично:
+   во всех 12 локалях € стоит в хвосте после пробела) */
+function renderAnchorBig(text: string) {
+  const m = text.match(/^(.*?)\s*€\s*$/);
+  if (!m) return text;
+  return (
+    <>
+      {m[1]}
+      <span className="ca-cur">€</span>
+    </>
+  );
+}
+
 export function Pricing() {
   const { d } = useLanding();
   const p = d.pricing;
@@ -154,7 +167,7 @@ export function Pricing() {
         <div className="cost-anchor reveal" data-delay="60">
           <div className="ca-num">
             <span className="overline">{p.anchorOverline}</span>
-            <div className="ca-big">{p.anchorBig}</div>
+            <div className="ca-big">{renderAnchorBig(p.anchorBig)}</div>
             <div className="ca-unit">{p.anchorUnit}</div>
           </div>
           <p className="ca-arg">{p.anchorArg}</p>

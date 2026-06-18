@@ -25,6 +25,7 @@ export const lv: LandingDict = {
     ctaTiny: "30 dienas",
     themeAria: "Pārslēgt vietnes tēmu",
     langAria: "Saskarnes valoda",
+    menuAria: "Navigācijas izvēlne",
     langRu: "Русский",
     langEn: "English",
     langNote: "+10 valodu produkcijā",

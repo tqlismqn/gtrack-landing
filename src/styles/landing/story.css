@@ -461,6 +461,10 @@ html.motion-ok .tier:hover { transform: translateY(-3px); box-shadow: var(--shad
   font-size: clamp(40px, 6vw, 62px); font-weight: 700; line-height: 1;
   letter-spacing: -0.03em; color: var(--brand); margin-top: 10px;
 }
+/* знак валюты — меньше и вплотную к числу (≈ 4,5 €) */
+.cost-anchor .ca-big .ca-cur {
+  font-size: 0.5em; font-weight: 600; margin-left: 0.08em; vertical-align: 0.06em;
+}
 .cost-anchor .ca-unit { font-size: 13px; color: var(--text-2); margin-top: 8px; }
 .cost-anchor .ca-arg {
   flex: 1 1 320px; font-size: 15px; line-height: 1.55; color: var(--text-2);

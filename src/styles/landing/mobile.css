@@ -6,9 +6,15 @@
 /* CTA-свопы в nav: полный текст ≥768, короткий <768, минимальный ≤400 */
 .cta-short, .cta-tiny { display: none; }
 
+/* бургер появляется там же, где прячется десктоп-навигация (<880px):
+   ссылки .nav-links уже скрыты базой — прячем язык-дропдаун и «Войти», показываем ☰ */
+@media (max-width: 879px) {
+  .lang-wrap, .nav-login { display: none; }
+  .nav-burger { display: inline-flex; }
+}
+
 @media (max-width: 767px) {
   .nav-inner { padding: 0 16px; gap: 12px; }
-  .lang-stub, .nav-login { display: none; }
   .cta-full { display: none; }
   .cta-short { display: inline; }
 }
@@ -18,6 +24,12 @@
   .cta-short { display: none; }
   .cta-tiny { display: inline; }
   .nav .btn.sm { padding: 0 13px; }
+}
+
+/* сверхузкие (≤360px): прячем бейдж TMS, чтобы лого+CTA+бургер влезали без обрезки */
+@media (max-width: 360px) {
+  .nav-inner { gap: 8px; }
+  .logo-tms { display: none; }
 }
 
 /* секции с декоративными абсолютами не должны рожать overflow */
