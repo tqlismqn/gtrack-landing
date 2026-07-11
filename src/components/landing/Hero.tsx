@@ -10,7 +10,7 @@
 import { useEffect, useRef } from "react";
 import { useLanding } from "./LandingProvider";
 import { Ring } from "./Ring";
-import { SIGNUP_URL } from "./urls";
+import { appSignupUrl } from "./urls";
 
 const C = 97.39; /* 2π·15.5 */
 
@@ -28,7 +28,7 @@ const PHASES = [
 ] as const;
 
 export function Hero() {
-  const { d } = useLanding();
+  const { d, lang } = useLanding();
   const boardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -171,7 +171,7 @@ export function Hero() {
             G-Track{d.hero.sub}
           </p>
           <div className="hero-ctas reveal" data-delay="180">
-            <a className="btn accent" href={SIGNUP_URL}>{d.hero.ctaTrial}</a>
+            <a className="btn accent" href={appSignupUrl(lang)}>{d.hero.ctaTrial}</a>
             <a className="btn ghost" href="#pricing">{d.hero.ctaPricing}</a>
           </div>
           <div className="hero-micro reveal" data-delay="240">

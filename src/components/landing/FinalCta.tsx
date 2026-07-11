@@ -5,10 +5,10 @@
    ============================================================================ */
 
 import { useLanding } from "./LandingProvider";
-import { SIGNUP_URL, SALES_MAILTO, SALES_EMAIL } from "./urls";
+import { appSignupUrl, SALES_MAILTO, SALES_EMAIL } from "./urls";
 
 export function FinalCta() {
-  const { d } = useLanding();
+  const { d, lang } = useLanding();
   return (
     <section className="final" data-screen-label="Финальный CTA">
       <div className="atmo" aria-hidden="true">
@@ -29,7 +29,7 @@ export function FinalCta() {
         <span className="overline">{d.final.overline}</span>
         <h2 className="reveal" style={{ marginTop: 14 }}>{d.final.h2}</h2>
         <div className="final-ctas reveal" data-delay="80">
-          <a className="btn accent" href={SIGNUP_URL}>{d.final.ctaTrial}</a>
+          <a className="btn accent" href={appSignupUrl(lang)}>{d.final.ctaTrial}</a>
           <a className="btn ghost" href="#pricing">{d.final.ctaPricing}</a>
         </div>
         <p className="final-migrate reveal" data-delay="140">

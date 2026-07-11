@@ -10,7 +10,7 @@
 import { useEffect, useState } from "react";
 import { useLanding } from "./LandingProvider";
 import { formatNum } from "@/lib/landing-i18n";
-import { SIGNUP_URL, SALES_MAILTO } from "./urls";
+import { appSignupUrl, SALES_MAILTO } from "./urls";
 
 type PeriodKey = "mo" | "q" | "y";
 type TierKey = "starter" | "fleet" | "business";
@@ -43,7 +43,7 @@ function renderAnchorBig(text: string) {
 }
 
 export function Pricing() {
-  const { d } = useLanding();
+  const { d, lang } = useLanding();
   const p = d.pricing;
   const [period, setPeriod] = useState<PeriodKey>("mo");
 
@@ -110,7 +110,7 @@ export function Pricing() {
         <div className="tier-ga">{p.afterLaunch} <s>{GA[key]} €</s></div>
         <div className="tier-billed">{billedTxt(amt)}</div>
         <div className="tier-cta">
-          <a className={`btn${opts.anchor ? " accent" : ""}`} href={SIGNUP_URL}>{p.choose} {tierName[key]}</a>
+          <a className={`btn${opts.anchor ? " accent" : ""}`} href={appSignupUrl(lang)}>{p.choose} {tierName[key]}</a>
         </div>
         <div className="tier-lock"><svg className="ic"><use href="#i-lock" /></svg>{opts.lock}</div>
         <div className="tier-caps">
