@@ -24,3 +24,16 @@ export type LegalTab = "privacy" | "terms" | "dpa";
 export function legalUrl(tab: LegalTab, lang: string): string {
   return `https://app.g-track.eu/legal?tab=${tab}&lng=${lang}`;
 }
+
+/* Тот же принцип, что legalUrl: язык сайта уезжает в приложение параметром
+   ?lng= (решение Thomas 07-11: «форма логина/регистрации — на языке сайта»).
+   Login/Register/Roadmap приложения читают его так же, как app-legal. */
+export function appLoginUrl(lang: string): string {
+  return `${APP_URL}/login?lng=${lang}`;
+}
+export function appSignupUrl(lang: string): string {
+  return `${APP_URL}/register?lng=${lang}`;
+}
+export function appRoadmapUrl(lang: string): string {
+  return `${APP_URL}/roadmap?lng=${lang}`;
+}

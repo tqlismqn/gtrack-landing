@@ -5,10 +5,10 @@
    ============================================================================ */
 
 import { useLanding } from "./LandingProvider";
-import { ROADMAP_URL } from "./urls";
+import { appRoadmapUrl } from "./urls";
 
 export function Modules() {
-  const { d } = useLanding();
+  const { d, lang } = useLanding();
   const m = d.modules;
   return (
     <section className="sect" id="modules" data-screen-label="Модули и горизонт">
@@ -36,7 +36,7 @@ export function Modules() {
           </div>
         </div>
         <div className="mods-cta reveal">
-          <a className="link-arrow" href={ROADMAP_URL}>{m.cta} <span className="arr">→</span></a>
+          <a className="link-arrow" href={appRoadmapUrl(lang)}>{m.cta} <span className="arr">→</span></a>
         </div>
       </div>
     </section>

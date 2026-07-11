@@ -11,7 +11,7 @@
 import { useEffect, useRef, useState } from "react";
 import { LANG_NAMES, LOCALES, type Lang } from "@/lib/landing-i18n";
 import { useLanding } from "./LandingProvider";
-import { ROADMAP_URL, APP_URL, SIGNUP_URL } from "./urls";
+import { appLoginUrl, appSignupUrl, appRoadmapUrl } from "./urls";
 
 /* язык → код страны флага в SVG-спрайте (#f-…): en→GB, uk→UA, cs→CZ */
 const FLAG_CC: Record<Lang, string> = {
@@ -131,7 +131,7 @@ export function Nav() {
         <nav className="nav-links">
           <a className="nav-link" href="#product">{d.nav.product}</a>
           <a className="nav-link" href="#pricing">{d.nav.pricing}</a>
-          <a className="nav-link" href={ROADMAP_URL}>{d.nav.roadmap}</a>
+          <a className="nav-link" href={appRoadmapUrl(lang)}>{d.nav.roadmap}</a>
         </nav>
         <div className="nav-right">
           <button
@@ -170,8 +170,8 @@ export function Nav() {
               ))}
             </div>
           </div>
-          <a className="nav-login" href={APP_URL}>{d.nav.login}</a>
-          <a className="btn accent sm" href={SIGNUP_URL}>
+          <a className="nav-login" href={appLoginUrl(lang)}>{d.nav.login}</a>
+          <a className="btn accent sm" href={appSignupUrl(lang)}>
             <span className="cta-full">{d.nav.ctaFull}</span>
             <span className="cta-short">{d.nav.ctaShort}</span>
             <span className="cta-tiny">{d.nav.ctaTiny}</span>
@@ -195,8 +195,8 @@ export function Nav() {
           <nav className="nmp-links" aria-label={d.nav.menuAria}>
             <a href="#product" onClick={() => setMenuOpen(false)}>{d.nav.product}</a>
             <a href="#pricing" onClick={() => setMenuOpen(false)}>{d.nav.pricing}</a>
-            <a href={ROADMAP_URL} onClick={() => setMenuOpen(false)}>{d.nav.roadmap}</a>
-            <a href={APP_URL} className="nmp-login" onClick={() => setMenuOpen(false)}>{d.nav.login}</a>
+            <a href={appRoadmapUrl(lang)} onClick={() => setMenuOpen(false)}>{d.nav.roadmap}</a>
+            <a href={appLoginUrl(lang)} className="nmp-login" onClick={() => setMenuOpen(false)}>{d.nav.login}</a>
           </nav>
           <div className="nmp-langs" role="group" aria-label={d.nav.langAria}>
             {LOCALES.map((l) => (
