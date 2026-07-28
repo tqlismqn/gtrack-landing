@@ -23,6 +23,8 @@ export function Modules() {
               <div className="mod reveal" data-delay="60"><svg className="mic"><use href="#i-file" /></svg><span className="grow"><b>{m.m2}</b><span className="desc">{m.m2d}</span></span></div>
               <div className="mod reveal" data-delay="120"><svg className="mic"><use href="#i-board" /></svg><span className="grow"><b>{m.m3}</b><span className="desc">{m.m3d}</span></span></div>
               <div className="mod reveal" data-delay="180"><svg className="mic"><use href="#i-truck" /></svg><span className="grow"><b>{m.m4}</b><span className="desc">{m.m4d}</span></span></div>
+              <div className="mod reveal" data-delay="240"><svg className="mic"><use href="#i-send" /></svg><span className="grow"><b>{m.m8}</b><span className="desc">{m.m8d}</span></span></div>
+              <div className="mod reveal" data-delay="300"><svg className="mic"><use href="#i-chat" /></svg><span className="grow"><b>{m.m9}</b><span className="desc">{m.m9d}</span></span></div>
             </div>
           </div>
           <div>
@@ -31,7 +33,6 @@ export function Modules() {
               <div className="mod soon reveal"><svg className="mic"><use href="#i-package" /></svg><span className="grow"><b>{m.m5}</b><span className="desc">{m.m5d}</span></span></div>
               <div className="mod soon reveal" data-delay="60"><svg className="mic"><use href="#i-receipt" /></svg><span className="grow"><b>{m.m6}</b><span className="desc">{m.m6d}</span></span></div>
               <div className="mod soon reveal" data-delay="120"><svg className="mic"><use href="#i-chart" /></svg><span className="grow"><b>{m.m7}</b><span className="desc">{m.m7d}</span></span></div>
-              <div className="mod soon reveal" data-delay="180"><svg className="mic"><use href="#i-send" /></svg><span className="grow"><b>{m.m8}</b><span className="desc">{m.m8d}</span></span></div>
             </div>
           </div>
         </div>

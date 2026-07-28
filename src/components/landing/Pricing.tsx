@@ -2,9 +2,10 @@
 
 /* ============================================================================
    ТАРИФЫ — порт pricing-блока landing.js на React-state.
-   ЦИФРЫ СИНХРОНИЗИРОВАНЫ СО STRIPE LIVEMODE — НЕ МЕНЯТЬ:
-   150/450/900 (мес), −6,7% квартал, −16,7% год, GA-strike 249/699/1349,
-   ёмкости 25/100/250 машин.
+   ЦЕНЫ СИНХРОНИЗИРОВАНЫ СО STRIPE LIVEMODE — НЕ МЕНЯТЬ:
+   150/450/900 (мес), −6,7% квартал, −16,7% год, GA-strike 249/699/1349.
+   ЁМКОСТИ синхронизированы с `subscription_plans` (тарифы v2, 28.07.2026):
+   машины 50/200/500, водители ×2, прицепы ×1,5, места пользователей — безлимит.
    ============================================================================ */
 
 import { useEffect, useState } from "react";
@@ -21,12 +22,24 @@ const PRICING: Record<PeriodKey, Record<TierKey, number>> = {
   q: { starter: 140, fleet: 420, business: 840 },
   y: { starter: 125, fleet: 375, business: 750 },
 };
-const TRUCKS: Record<TierKey, number> = { starter: 25, fleet: 100, business: 250 };
+/* Ёмкости — тарифы v2 (28.07.2026), сверено с `subscription_plans` на проде. */
+const TRUCKS: Record<TierKey, number> = { starter: 50, fleet: 200, business: 500 };
+/* Business Plus: дефолт плана `enterprise`; сверх — персональный оверрайд по договору. */
+const PLUS_CAPS = { trucks: 1000, drivers: 2000, trailers: 1500 } as const;
+/* Пакет расширения `capacity_pack_50`: 225 €/мес, максимум 5 пакетов. */
+const PACK = { price: 225, trucks: 100, drivers: 200, trailers: 150, max: 5 } as const;
 const GA: Record<TierKey, number> = { starter: 249, fleet: 699, business: 1349 };
 
-function perTruckTxt(amt: number, trucks: number): string {
-  const per = amt / trucks;
-  return (Math.round(per * 10) / 10).toFixed(1).replace(/\.0$/, "");
+/* «≈ 2,25 €» — до двух знаков, хвостовые нули убираются, разделитель по локали.
+   Одного знака не хватает: 450/200 = 2,25 округлялось в 2,3 и расходилось
+   с ценовым якорем секции. Разделитель: en — точка, остальные 11 локалей — запятая. */
+function perTruckTxt(amt: number, trucks: number, dec: string): string {
+  const per = Math.round((amt / trucks) * 100) / 100;
+  return per
+    .toFixed(2)
+    .replace(/0+$/, "")
+    .replace(/\.$/, "")
+    .replace(".", dec);
 }
 
 /* «≈ 4,5 €» → число + уменьшенный знак валюты вплотную (локале-агностично:
@@ -45,6 +58,8 @@ function renderAnchorBig(text: string) {
 export function Pricing() {
   const { d, lang } = useLanding();
   const p = d.pricing;
+  /* десятичный разделитель: en — точка, остальные 11 локалей — запятая */
+  const dec = lang === "en" ? "." : ",";
   const [period, setPeriod] = useState<PeriodKey>("mo");
 
   useEffect(() => {
@@ -92,8 +107,8 @@ export function Pricing() {
       delay?: number;
       anchor?: boolean;
       lock: string;
-      /* [водители, прицепы, места диспетчеров] — машины берутся из TRUCKS */
-      caps: [string, string, string];
+      /* [водители, прицепы] — машины берутся из TRUCKS, места пользователей безлимитны */
+      caps: [string, string];
     },
   ) => {
     const amt = PRICING[period][key];
@@ -117,9 +132,9 @@ export function Pricing() {
           <div className="cap-row"><svg className="ic"><use href="#i-truck" /></svg><span className="cap-val">{p.upTo} {TRUCKS[key]}</span> {p.capTrucks}</div>
           <div className="cap-row"><svg className="ic"><use href="#i-users" /></svg><span className="cap-val">{opts.caps[0]}</span> {p.capDrivers}</div>
           <div className="cap-row"><svg className="ic"><use href="#i-trailer" /></svg><span className="cap-val">{opts.caps[1]}</span> {p.capTrailers}</div>
-          <div className="cap-row"><svg className="ic"><use href="#i-user" /></svg><span className="cap-val">{opts.caps[2]}</span> {p.capSeats}</div>
+          <div className="cap-row"><svg className="ic"><use href="#i-infinity" /></svg><span className="cap-val">{p.plusUnlim}</span> {p.capSeats}</div>
         </div>
-        <div className="tier-pertruck">≈ {perTruckTxt(amt, TRUCKS[key])} € {p.perTruck}</div>
+        <div className="tier-pertruck">≈ {perTruckTxt(amt, TRUCKS[key], dec)} € {p.perTruck}</div>
       </div>
     );
   };
@@ -142,9 +157,9 @@ export function Pricing() {
         </div>
 
         <div className="tiers">
-          {renderTier("starter", { lock: p.lock12, caps: ["50", "35", "5"] })}
-          {renderTier("fleet", { delay: 60, anchor: true, lock: p.lock24, caps: ["200", "130", "15"] })}
-          {renderTier("business", { delay: 120, lock: p.lock24, caps: ["500", "320", "40"] })}
+          {renderTier("starter", { lock: p.lock12, caps: ["100", "75"] })}
+          {renderTier("fleet", { delay: 60, anchor: true, lock: p.lock24, caps: ["400", "300"] })}
+          {renderTier("business", { delay: 120, lock: p.lock24, caps: [formatNum(1000), "750"] })}
 
           <div className="tier reveal" data-tier="plus" data-delay="180">
             <div className="tier-name">Business Plus</div>
@@ -155,14 +170,20 @@ export function Pricing() {
             <div className="tier-cta"><a className="btn" href={SALES_MAILTO}>{p.plusCta}</a></div>
             <div className="tier-lock"><svg className="ic"><use href="#i-lock" /></svg>{p.lockContract}</div>
             <div className="tier-caps">
-              <div className="cap-row"><svg className="ic"><use href="#i-truck" /></svg><span className="cap-val">250+</span> {p.plusTrucks}</div>
-              <div className="cap-row"><svg className="ic"><use href="#i-infinity" /></svg><span className="cap-val">{p.plusUnlim}</span> {p.plusUnlimSuffix}</div>
-              <div className="cap-row"><svg className="ic"><use href="#i-user" /></svg><span className="cap-val">{p.plusCustom}</span> {p.plusSeats}</div>
+              <div className="cap-row"><svg className="ic"><use href="#i-truck" /></svg><span className="cap-val">{formatNum(PLUS_CAPS.trucks)}+</span> {p.plusTrucks}</div>
+              <div className="cap-row"><svg className="ic"><use href="#i-users" /></svg><span className="cap-val">{formatNum(PLUS_CAPS.drivers)}</span> {p.capDrivers}</div>
+              <div className="cap-row"><svg className="ic"><use href="#i-trailer" /></svg><span className="cap-val">{formatNum(PLUS_CAPS.trailers)}</span> {p.capTrailers}</div>
+              <div className="cap-row"><svg className="ic"><use href="#i-infinity" /></svg><span className="cap-val">{p.plusUnlim}</span> {p.capSeats}</div>
               <div className="cap-row"><svg className="ic"><use href="#i-shield" /></svg><span className="cap-val">{p.plusSla}</span> {p.plusSlaSuffix}</div>
             </div>
             <div className="tier-pertruck">&nbsp;</div>
           </div>
         </div>
+
+        <p className="pricing-note reveal">
+          <b>{p.packLead}</b> +{PACK.trucks} {p.capTrucks} · +{PACK.drivers} {p.capDrivers} ·{" "}
+          +{PACK.trailers} {p.capTrailers} — {PACK.price} €{p.perMonth}, {p.packMax}
+        </p>
 
         <div className="cost-anchor reveal" data-delay="60">
           <div className="ca-num">
