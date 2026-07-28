@@ -5,7 +5,8 @@
    (порт TRIP12-блока mock-i18n.js). Цикл гейтится motion-ok; в статике
    пилюля показывает текущую локаль сайта. Как и в прототипе, пилюля
    обновляется императивно (textContent/classList) — React-разметка задаёт
-   только начальное состояние (RU, как в HTML прототипа).
+   только начальное состояние, и оно обязано быть языком страницы: это то,
+   что видит краулер и пользователь без JS.
    ============================================================================ */
 
 import { useEffect, useRef } from "react";
@@ -23,14 +24,17 @@ export function Languages() {
   const pillRef = useRef<HTMLSpanElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
   const codesRef = useRef<HTMLDivElement>(null);
-  const langRef = useRef<string>("ru");
+  const langRef = useRef<string>(lang);
+  /* стартовый индекс = язык страницы: он попадает в SSR-разметку, и без него
+     немецкая страница отдавала краулеру и no-JS русское «В рейсе» с активным RU */
+  const startIdx = localeIdx(lang);
   const syncRef = useRef<() => void>(() => {});
 
   useEffect(() => {
     const pillEl = pillRef.current;
     let langTimer: number | null = null;
     let swapT: number | null = null;
-    let idx = 0;
+    let idx = localeIdx(langRef.current);
 
     function renderLangDemo(i: number, animate: boolean) {
       const txt = textRef.current;
@@ -107,13 +111,13 @@ export function Languages() {
           <div className="lang-pill-stage">
             <span className="ppill trip md lang-pill" ref={pillRef}>
               <span className="d"></span>
-              <span ref={textRef}>{TRIP12[0][1]}</span>
+              <span ref={textRef}>{TRIP12[startIdx][1]}</span>
               <span className="spz">3QR 6671</span>
             </span>
           </div>
           <div className="lang-codes" ref={codesRef}>
             {TRIP12.map((pair, i) => (
-              <span key={pair[0]} className={`lcode${i === 0 ? " active" : ""}`}>
+              <span key={pair[0]} className={`lcode${i === startIdx ? " active" : ""}`}>
                 {pair[0]}
               </span>
             ))}

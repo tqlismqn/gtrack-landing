@@ -13,7 +13,7 @@ import type { LandingDict } from "../landing-i18n";
 
 export const ro: LandingDict = {
   meta: {
-    title: "G-Track — conformitate UE și planificarea curselor pentru transportatori",
+    title: "G-Track — conformitate UE și planificare de curse",
     description:
       "Șoferi, documente, planificare și flotă — într-o singură aplicație în browser. Funcțional într-o zi. Prețurile — pe această pagină.",
   },

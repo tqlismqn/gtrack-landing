@@ -11,7 +11,7 @@ import type { LandingDict } from "../landing-i18n";
 
 export const uk: LandingDict = {
   meta: {
-    title: "G-Track — EU-compliance та планування рейсів для перевізників",
+    title: "G-Track — EU-compliance та планування для перевізників",
     description:
       "Водії, документи, планування та парк — в одному браузерному застосунку. Розгортається за день. Ціни — на цій сторінці.",
   },

@@ -11,7 +11,7 @@ import type { LandingDict } from "../landing-i18n";
 
 export const it: LandingDict = {
   meta: {
-    title: "G-Track — EU-compliance e pianificazione dei viaggi per i vettori",
+    title: "G-Track — EU-compliance e pianificazione per vettori",
     description:
       "Autisti, documenti, pianificazione e flotta — in un’unica app nel browser. Operativo in un giorno. I prezzi sono su questa pagina.",
   },
