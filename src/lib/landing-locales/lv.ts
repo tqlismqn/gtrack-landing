@@ -2,7 +2,7 @@
    G-Track Landing — latviešu (lv) lokalizācija.
    Terminoloģija sinhronizēta ar lietotnes lokāli gtrack-tms/src/i18n/locales/lv.ts:
    driverPill («Reisā», «Aktīvs», «Atvaļinājums», «Slimības lapa»), «Gatavība
-   reisam», «attīstības plāns», «dispečerpults», «dispatcher seats», days_short
+   reisam», «attīstības plāns», «dispečerpults», «dispečeru vietas», days_short
    «d.», cenas/procenti — baits-baitā ar RU/EN (Stripe livemode).
    ============================================================================ */
 
@@ -35,7 +35,7 @@ export const lv: LandingDict = {
     kicker: "ES atbilstība · plānošana · autoparks",
     h1: "Katrs vadītājs gatavs reisam.",
     h1dim: "Vienmēr.",
-    sub: " — ES atbilstības un reisu plānošanas sistēma pārvadātājiem ar 25–250 mašīnām. Vadītāji, dokumenti, dispečerpults un autoparks — pārlūkā, bez aparatūras un ieviešanas konsultantiem. Darbam gatavs vienas dienas laikā.",
+    sub: " — ES atbilstības un reisu plānošanas sistēma pārvadātājiem ar 25 un vairāk mašīnām. Vadītāji, dokumenti, dispečerpults un autoparks — pārlūkā, bez aparatūras un ieviešanas konsultantiem. Darbam gatavs vienas dienas laikā.",
     ctaTrial: "Izmēģināt 30 dienas",
     ctaPricing: "Apskatīt cenas",
     micro1: "Bez kartes",
@@ -48,8 +48,8 @@ export const lv: LandingDict = {
   },
 
   trust: {
-    m1: "vadītāju kontrolē",
-    m2: "dokumentu uzraudzībā",
+    m1: "vadītāja dokumentu veidi",
+    m2: "demo dienas bez zvana",
     m3: "saskarnes valodas",
   },
 
@@ -153,6 +153,7 @@ export const lv: LandingDict = {
     m6: "Rēķinu izrakstīšana", m6d: "Rēķini no reisiem",
     m7: "Mašīnas ekonomika", m7d: "Cost-per-km katram vilcējam",
     m8: "Vadītāja Telegram lietotne", m8d: "Dokumenti un reisi kabatā",
+    m9: "Ziņas", m9d: "Tērzēšana ar vadītāju ar iebūvētu tulkojumu",
     cta: "Pilns attīstības plāns",
   },
 
@@ -177,7 +178,7 @@ export const lv: LandingDict = {
     starterBlurb: "Mazs autoparks, kas sakārto dokumentus",
     fleetBlurb: "Vidēja pārvadātāja darba zirgs ar dispečeru maiņu",
     businessBlurb: "Liels autoparks ar vairākiem dispečerpultiem",
-    plusBlurb: "Autoparks ārpus 250 mašīnām — nosacījumi pielāgoti taviem procesiem",
+    plusBlurb: "Autoparks ārpus 1000 mašīnām — nosacījumi pielāgoti taviem procesiem",
     fleetFlag: "Vairākuma izvēle",
     choose: "Izvēlēties",
     plusPrice: "Individuāla",
@@ -190,13 +191,12 @@ export const lv: LandingDict = {
     capTrucks: "transportlīdzekļiem",
     capDrivers: "vadītāji",
     capTrailers: "piekabes",
-    capSeats: "dispatcher seats",
+    capSeats: "dispečeru vietas",
     upTo: "līdz",
     plusTrucks: "transportlīdzekļi",
     plusUnlim: "neierobežots",
-    plusUnlimSuffix: "vadītāju un piekabju skaits",
-    plusCustom: "individuāli",
-    plusSeats: "dispatcher seats",
+    packLead: "Vajag vairāk?",
+    packMax: "līdz 5 paketēm",
     plusSla: "SLA",
     plusSlaSuffix: "un prioritārais atbalsts",
     foundingB: "Sākuma cena paliek ar tevi 12–24 mēnešus pēc oficiālās palaišanas.",
@@ -205,8 +205,8 @@ export const lv: LandingDict = {
     noteB: "„2 mēneši bez maksas”",
     noteC: ". Bezmaksas datu migrācija no Excel agrīnajiem klientiem.",
     anchorOverline: "Aprēķins",
-    anchorBig: "≈ 4,5 €",
-    anchorUnit: "par vienību/mēn. · 100 vienību parks",
+    anchorBig: "≈ 2,25 €",
+    anchorUnit: "par vienību/mēn. · 200 vienību parks",
     anchorArg: "Viens kabotāžas sods — līdz 7 500 €. Viena nokavēta vīza — apturēts reiss. G-Track notur visu autoparku kontrolē lētāk, nekā maksā viena šāda kļūme.",
   },
 
