@@ -110,6 +110,7 @@ export const lv: LandingDict = {
     cap4: " Reiss uz dēļa, katra izmaiņa — vēsturē.",
     outroB: "Viens vadītājs — desmitiem termiņu.",
     outro: " Tev to ir simts.",
+    skip: "Izlaist stāstu",
   },
 
   vid: {

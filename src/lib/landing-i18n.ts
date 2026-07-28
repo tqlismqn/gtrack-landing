@@ -167,6 +167,7 @@ const ru = {
     cap4: " Рейс на доске, каждое изменение — в истории.",
     outroB: "Один водитель — десятки сроков.",
     outro: " У вас их сто.",
+    skip: "Пропустить историю",
   },
 
   vid: {
@@ -437,6 +438,7 @@ const en: LandingDict = {
     cap4: " Trip on the board, every change in the history.",
     outroB: "One driver — dozens of deadlines.",
     outro: " You have a hundred of them.",
+    skip: "Skip the story",
   },
 
   vid: {

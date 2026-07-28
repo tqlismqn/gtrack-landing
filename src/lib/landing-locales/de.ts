@@ -112,6 +112,7 @@ export const de: LandingDict = {
     cap4: " Tour auf dem Board, jede Änderung im Verlauf.",
     outroB: "Ein Fahrer — Dutzende Fristen.",
     outro: " Bei Ihnen sind es hundert.",
+    skip: "Geschichte überspringen",
   },
 
   vid: {

@@ -115,6 +115,7 @@ export const fr: LandingDict = {
     cap4: " Le trajet sur le tableau, chaque modification dans l’historique.",
     outroB: "Un conducteur — des dizaines d’échéances.",
     outro: " Vous en avez cent.",
+    skip: "Passer l’histoire",
   },
 
   vid: {

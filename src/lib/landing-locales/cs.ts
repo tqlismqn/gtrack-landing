@@ -112,6 +112,7 @@ export const cs: LandingDict = {
     cap4: " Rejd na tabuli, každá změna v historii.",
     outroB: "Jeden řidič — desítky termínů.",
     outro: " Vy jich máte sto.",
+    skip: "Přeskočit příběh",
   },
 
   vid: {

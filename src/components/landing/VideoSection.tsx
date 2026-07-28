@@ -33,7 +33,7 @@ export function VideoSection() {
   }, []);
 
   return (
-    <section className="vid" data-screen-label="Для этого рынка">
+    <section className="vid" id="market" data-screen-label="Для этого рынка">
       <div className="vid-media" aria-hidden="true">
         <video
           ref={videoRef}
