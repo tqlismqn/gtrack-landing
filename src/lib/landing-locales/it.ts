@@ -112,6 +112,7 @@ export const it: LandingDict = {
     cap4: " Viaggio sulla lavagna, ogni modifica nella cronologia.",
     outroB: "Un autista — decine di scadenze.",
     outro: " Tu ne hai cento.",
+    skip: "Salta la storia",
   },
 
   vid: {

@@ -115,6 +115,7 @@ export const lt: LandingDict = {
     cap4: " Reisas lentoje, kiekvienas pakeitimas — istorijoje.",
     outroB: "Vienas vairuotojas — dešimtys terminų.",
     outro: " Jūs jų turite šimtą.",
+    skip: "Praleisti istoriją",
   },
 
   vid: {

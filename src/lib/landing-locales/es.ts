@@ -111,6 +111,7 @@ export const es: LandingDict = {
     cap4: " El viaje en el tablero, cada cambio en el historial.",
     outroB: "Un conductor — decenas de plazos.",
     outro: " Usted tiene cien.",
+    skip: "Saltar la historia",
   },
 
   vid: {

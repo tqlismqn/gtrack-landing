@@ -72,6 +72,11 @@ export function Scrolly() {
 
   return (
     <section className="scrolly" id="product" data-screen-label="История одного водителя" ref={sectionRef}>
+      {/* атмосфера секции: те же дрейфующие кляксы, что в hero, но медленнее и тише */}
+      <div className="scrolly-atmo" aria-hidden="true">
+        <span className="sblob s1"></span>
+        <span className="sblob s2"></span>
+      </div>
       <div className="scrolly-track">
         <div className="scrolly-stage">
           <div className="wrap">
@@ -229,6 +234,13 @@ export function Scrolly() {
             </div>
             <p className="scrolly-outro reveal"><b>{s.outroB}</b>{s.outro}</p>
             <div className="scrolly-progress" aria-hidden="true"><div className="fill"></div></div>
+            {/* Выход из пиннед-сцены: без него историю нельзя проскочить — страница
+                держит экран, пока не прокрутишь все четыре шага. Обычный якорь,
+                плавность даёт нативный scroll-behavior, ноль JS. */}
+            <a className="scrolly-skip" href="#market">
+              {s.skip}
+              <svg className="ic" aria-hidden="true"><use href="#i-arrow-down" /></svg>
+            </a>
           </div>
         </div>
       </div>

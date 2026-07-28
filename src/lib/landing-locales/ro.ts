@@ -113,6 +113,7 @@ export const ro: LandingDict = {
     cap4: " Cursa pe panou, fiecare modificare în istoric.",
     outroB: "Un șofer — zeci de termene.",
     outro: " Tu ai o sută.",
+    skip: "Sari peste poveste",
   },
 
   vid: {

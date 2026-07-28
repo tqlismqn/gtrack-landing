@@ -113,6 +113,7 @@ export const pl: LandingDict = {
     cap4: " Rejs na tablicy, każda zmiana — w historii.",
     outroB: "Jeden kierowca — dziesiątki terminów.",
     outro: " Ty masz ich stu.",
+    skip: "Pomiń historię",
   },
 
   vid: {
