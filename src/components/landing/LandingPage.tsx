@@ -22,10 +22,12 @@ import { Modules } from "./Modules";
 import { Pricing } from "./Pricing";
 import { FinalCta } from "./FinalCta";
 import { Footer } from "./Footer";
+import { JsonLd } from "./JsonLd";
 
 export function LandingPage({ locale }: { locale: Lang }) {
   return (
     <LandingProvider locale={locale}>
+      <JsonLd locale={locale} />
       <LandingIcons />
       <Nav />
       <main id="top">

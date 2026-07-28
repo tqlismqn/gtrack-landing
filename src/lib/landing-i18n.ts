@@ -66,7 +66,7 @@ export function localePath(lang: Lang): string {
 
 const ru = {
   meta: {
-    title: "G-Track — EU-compliance и планирование рейсов для перевозчиков",
+    title: "G-Track — EU-compliance и планирование для перевозчиков",
     description:
       "Водители, документы, планирование и парк — в одном браузерном приложении. Разворачивается за день. Цены — на этой странице.",
   },

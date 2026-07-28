@@ -8,6 +8,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const l of LOCALES) {
     languages[l] = `${SITE_ORIGIN}${localePath(l)}`;
   }
+  /* x-default обязан совпадать с тем, что отдаётся в <head>: при расхождении
+     сигналов Google выбирает страницу для безъязыковых запросов сам */
+  languages["x-default"] = SITE_ORIGIN;
 
   const landingPages: MetadataRoute.Sitemap = LOCALES.map((l) => ({
     url: `${SITE_ORIGIN}${localePath(l)}`,
