@@ -82,14 +82,16 @@ html[data-theme="light"] {
   --sunken: oklch(96.4% 0.004 240);
   --text-1: oklch(21% 0.02 250);
   --text-2: oklch(43% 0.012 250);
-  --text-3: oklch(57% 0.01 250);
+  /* 53%, не 57%: на --raised (самый тёмный из светлых фонов) 57% давало 3.92,
+     то есть весь мелкий текст сайта — .desc, .lbl, .tier-blurb — не проходил AA */
+  --text-3: oklch(53% 0.012 250);
   --brand: #2563EB;
   --brand-hover: #1D4ED8;
   --brand-deep: #2563EB;
   --brand-subtle: oklch(93% 0.04 250);
   --border-1: oklch(91% 0.004 250);
   --border-2: oklch(85% 0.006 250);
-  --ok: #059669; --warn: #D97706; --bad: #E11D48; --info: #0284C7; --violet: #7C3AED; --trip: #2563EB;
+  --ok: #059669; --warn: #D97706; --bad: #E11D48; --info: #066FB0; --violet: #7C3AED; --trip: #2563EB;
   --shadow-lift: 0 1px 2px rgb(16 24 40 / 0.06), 0 12px 32px -14px rgb(16 24 40 / 0.16), 0 0 0 1px var(--border-1);
   --shadow-lift-hover: 0 2px 4px rgb(16 24 40 / 0.07), 0 28px 56px -18px rgb(16 24 40 / 0.22), 0 0 0 1px var(--border-2);
   --glow-brand: color-mix(in oklch, var(--brand) 18%, transparent);
@@ -104,7 +106,7 @@ html[data-theme="light"] {
   --p-border: oklch(90% 0.005 250);
   --p-t1: oklch(20% 0.02 250);
   --p-t2: oklch(45% 0.01 250);
-  --p-t3: oklch(62% 0.01 250);
+  --p-t3: oklch(56% 0.012 250);
   --p-ok: #2BA56B;       --p-ok-bg: oklch(95% 0.04 152);  --p-ok-tx: #0F5C3B;
   --p-warn: #F59E0B;     --p-warn-bg: oklch(95% 0.05 80); --p-warn-tx: #92400E;
   --p-bad: #DC2626;      --p-bad-bg: oklch(95% 0.05 25);  --p-bad-tx: #7F1D1D;
