@@ -213,6 +213,60 @@ export const it: LandingDict = {
     anchorArg: "Una multa per cabotaggio — fino a 7 500 €. Un visto scaduto — un viaggio fermo. G-Track tiene tutta la flotta sotto controllo per meno di quanto costi un singolo imprevisto.",
   },
 
+  faq: {
+    overline: "Domande",
+    h2: "Cosa chiedono i vettori prima di aprire un account",
+    sub: "Risposte brevi, senza «contattaci». Qui c’è quello che ci chiedono più spesso — comprese le cose che non facciamo.",
+    askLead: "La tua domanda non c’è?",
+    askCta: "Scrivici — rispondiamo con la stessa brevità",
+
+    g1: "Scadenze e responsabilità",
+    g2: "Avvio e dati",
+    g3: "Accessi, flotta, prezzo",
+
+    q1: "Come mi avvisa il sistema che a un autista sta scadendo un documento?",
+    a1: "Ogni mattina alle 8:00 G-Track controlla i documenti di tutta la flotta. Il passaporto alza la bandierina 180 giorni prima, la dichiarazione 60, tutti gli altri 90. L’avviso parte su tre canali insieme: una email in ufficio, un contrassegno dentro l’app e un push all’autista su Telegram.",
+    a1b: "Canali e frequenza delle email li imposti tu, per ogni tipo di notifica. Così il promemoria non resta appeso a una sola persona e non svanisce mentre l’HR è in ferie.",
+
+    q2: "Chi risponde se un autista parte in viaggio con un documento scaduto?",
+    a2: "Nella maggior parte dei paesi UE il vettore, non solo l’autista: la sanzione arriva all’azienda e in diversi paesi anche al gestore dei trasporti in prima persona. Importi e procedura dipendono dal paese in cui avviene il controllo. Proprio per questo G-Track avvisa l’ufficio e non l’autista — chi mette il viaggio in programma.",
+
+    q3: "Dalla lavagna di pianificazione si vede chi non può partire per un documento?",
+    a3: "Sì, la lavagna riunisce persone, veicoli e scadenze in un unico posto: chi è in ferie, chi è in malattia, chi è senza veicolo, chi ha un documento non in ordine. Ogni modifica del piano finisce nella cronologia — vedi non solo la situazione attuale, ma anche chi l’ha cambiata e quando.",
+
+    q4: "Ho 40–60 autisti e anni di scansioni tra Excel e cartelle di carta. Chi le trasferisce?",
+    a4: "Si può partire senza l’archivio: inserisci gli autisti e i documenti con le scadenze più vicine — i promemoria funzionano già solo con questo. Le vecchie scansioni si caricano strada facendo e non bloccano nulla.",
+    a4b: "Ai primi clienti la migrazione da Excel la facciamo gratis. Mandaci il file com’è — con le note, le celle vuote e i «??» nelle date.",
+
+    q5: "Dove stanno fisicamente i dati e le scansioni? Firmate un DPA?",
+    a5: "Dati e file stanno nell’Unione europea, in un data center in Irlanda. Il documento sul trattamento dei dati è pubblicato, il link è nel piè di pagina; lo firmiamo. L’accesso ai campi riservati dentro la tua azienda è limitato dai ruoli, non da un’unica spunta generale.",
+
+    q6: "Se decido di andarmene — i dati me li porto via?",
+    a6: "I dati si esportano in CSV in qualsiasi momento e senza chiedere: elenco autisti, stati dei documenti, scadenze. Le scansioni restano tue: oggi si scaricano una per una, l’intero archivio lo consegniamo su richiesta. L’account lo cancelli da solo, senza telefonate del «responsabile fidelizzazione».",
+
+    q7: "Cosa deve fare l’autista? Deve installare qualcosa?",
+    a7: "Niente. L’autista lavora su Telegram, che ha già: vede i propri documenti e le proprie scadenze, il proprio turno e il proprio veicolo, e manda la foto di un documento nuovo direttamente in chat. La traduzione è integrata — l’autista scrive nella sua lingua, lo spedizioniere legge nella sua.",
+    a7b: "All’app serve internet. E non elimina l’obbligo di tenere gli originali in cabina.",
+
+    q8: "Uno spedizioniere può vedere la pianificazione ma non il passaporto e il certificato medico?",
+    a8: "Sì, ed è così di default. I permessi si assegnano uno per uno — sono più di trenta. Codice fiscale e numero di conto bancario stanno dietro un permesso a parte e si vedono mascherati. Quali tipi di documento considerare riservati lo decide ogni azienda per sé.",
+
+    q9: "Come gestite gli autisti dai paesi terzi — Ucraina, Serbia, Uzbekistan?",
+    a9: "Per i non cittadini UE l’elenco obbligatorio è diverso e più lungo: visto, passaporto, Codice 95, certificato di residenza. La preparazione al viaggio si calcola proprio su quell’elenco esteso — un autista non risulta pronto finché non sono a posto i suoi documenti, non quelli di un modello generico.",
+
+    q10: "Quanto costa per 40 veicoli e 45 rimorchi? Si paga per ogni utente?",
+    a10: "Il piano Starter costa 150 € al mese, 125 € con pagamento annuale. Comprende 50 veicoli, 100 autisti e 75 rimorchi, quindi la tua flotta ci sta con margine. Le postazioni di spedizionieri e HR non si contano: registra tutti quelli che servono.",
+    a10b: "Trenta giorni di demo senza carta e senza telefonate commerciali. I prezzi sono su questa stessa pagina, non «su richiesta».",
+
+    notHead: "Cosa G-Track non fa",
+    notSub: "Così non spendi trenta giorni di demo a cercare qualcosa che qui non c’è.",
+    not1: "Non analizza il tachigrafo. Non leggiamo i file DDD, non calcoliamo tempi di guida e riposo e non contiamo il cabotaggio 3/7.",
+    not2: "Non segue i veicoli. Nessuna traccia GPS, nessun percorso in tempo reale — quella è la tua telematica.",
+    not3: "Non gestisce ordini e noli. Ordini e fatture sono all’orizzonte, oggi non ci sono.",
+    not4: "Non calcola gli stipendi e non sostituisce la contabilità.",
+    notBridge: "Non sostituiamo il software del tachigrafo né la telematica. Copriamo quello che in loro non c’è: persone, documenti, scadenze e chi guida in quale giorno.",
+  },
+
   final: {
     overline: "Il prezzo dei primi",
     h2: "Inizia adesso — il prezzo viaggia con te.",

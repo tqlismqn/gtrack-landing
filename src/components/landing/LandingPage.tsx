@@ -2,7 +2,9 @@
    Сборка лендинга (общая для / и /[locale]).
    Порядок секций = порядку прототипа:
    hero → trust → pain → product(scrolly) → vid → languages → europe →
-   modules → pricing → final → footer.
+   modules → pricing → faq → final → footer.
+   Вопросы стоят между ценами и финальным призывом: возражения снимаются там,
+   где решение уже почти принято, но ещё не нажата кнопка.
    MotionRoot монтируется последним: к его эффекту секции уже подписаны.
    ============================================================================ */
 
@@ -20,6 +22,7 @@ import { Languages } from "./Languages";
 import { Europe } from "./Europe";
 import { Modules } from "./Modules";
 import { Pricing } from "./Pricing";
+import { Faq } from "./Faq";
 import { FinalCta } from "./FinalCta";
 import { Footer } from "./Footer";
 import { JsonLd } from "./JsonLd";
@@ -40,6 +43,7 @@ export function LandingPage({ locale }: { locale: Lang }) {
         <Europe />
         <Modules />
         <Pricing />
+        <Faq />
         <FinalCta />
       </main>
       <Footer />

@@ -214,6 +214,62 @@ export const pl: LandingDict = {
     anchorArg: "Jedna kara za kabotaż — do 7 500 €. Jedna przeterminowana wiza — wstrzymany rejs. G-Track trzyma całą flotę pod kontrolą taniej, niż kosztuje jedno takie potknięcie.",
   },
 
+  /* FAQ: nazwy typów dokumentów i „Gotowość do trasy” — z app-locale pl.
+     Kwot kar i odwołań do artykułów prawa świadomie nie podajemy. */
+  faq: {
+    overline: "Pytania",
+    h2: "O co pytają przewoźnicy, zanim założą konto",
+    sub: "Krótkie odpowiedzi bez „skontaktuj się z nami”. To pytania, które dostajemy najczęściej — łącznie z tymi o to, czego nie robimy.",
+    askLead: "Nie ma tu twojego pytania?",
+    askCta: "Napisz — odpowiemy równie krótko",
+
+    g1: "Terminy i odpowiedzialność",
+    g2: "Wdrożenie i dane",
+    g3: "Dostępy, flota, cena",
+
+    q1: "Jak system przypomni, że kierowcy kończy się dokument?",
+    a1: "Codziennie o 8:00 G-Track sprawdza dokumenty całej floty. Paszport odzywa się 180 dni wcześniej, oświadczenie 60, pozostałe 90. Powiadomienie idzie trzema kanałami jednocześnie: mailem do biura, oznaczeniem w samej aplikacji i pushem do kierowcy w Telegramie.",
+    a1b: "Kanały i częstotliwość maili ustawiasz sam dla każdego typu powiadomienia. Przypomnienie nie wisi więc na jednej osobie i nie ginie, kiedy kadry są na urlopie.",
+
+    q2: "Kto odpowiada, jeśli kierowca wyjedzie w trasę z nieważnym dokumentem?",
+    a2: "W większości krajów UE przewoźnik, a nie tylko kierowca: kara trafia do firmy, a w części krajów dodatkowo do osoby zarządzającej transportem. Konkretne kwoty i tryb zależą od kraju kontroli. Właśnie dlatego G-Track przypomina biuru, a nie kierowcy — temu, kto wstawia rejs do planu.",
+
+    q3: "Czy na tablicy planowania widać, kto nie może wyjechać z powodu dokumentu?",
+    a3: "Tak, tablica zbiera ludzi, pojazdy i terminy w jednym miejscu: kto jest na urlopie, kto na zwolnieniu, kto bez pojazdu, komu nie zgadza się dokument. Każda zmiana planu trafia do historii — widzisz nie tylko obecny stan, ale i kto go kiedy zmienił.",
+
+    q4: "Mam 40–60 kierowców i lata skanów w Excelu i w teczkach. Kto to przeniesie?",
+    a4: "Można zacząć bez archiwum: wprowadź kierowców i te dokumenty, którym termin mija najbliżej — przypomnienia działają już od tego. Stare skany dogrywasz na bieżąco i nic nie blokują.",
+    a4b: "Przeniesienie z Excela pierwszym klientom robimy bezpłatnie. Przyślij plik taki, jaki jest — z uwagami, pustymi komórkami i „??” w datach.",
+
+    q5: "Gdzie fizycznie leżą dane i skany? Podpiszecie DPA?",
+    a5: "Dane i pliki są w Unii Europejskiej, centrum danych w Irlandii. Dokument o przetwarzaniu danych jest opublikowany, link w stopce strony; podpisujemy go. Dostęp do wrażliwych pól wewnątrz twojej firmy ograniczają role, a nie jeden wspólny przełącznik.",
+
+    q6: "Jeśli zdecyduję się odejść — zabiorę dane?",
+    a6: "Dane wyeksportujesz do CSV w każdej chwili i bez pytania nas: lista kierowców, statusy dokumentów, terminy. Skany zostają twoje: na razie pobiera się je pojedynczo, całe archiwum wydajemy na życzenie. Konto usuwasz sam, bez rozmowy z „opiekunem od zatrzymywania klientów”.",
+
+    q7: "Co musi zrobić kierowca? Instaluje coś?",
+    a7: "Nic. Kierowca pracuje w Telegramie, którego już ma: widzi swoje dokumenty i terminy, swoją zmianę i pojazd, zdjęcie nowego dokumentu wysyła wprost na czat. Tłumaczenie jest wbudowane — kierowca pisze w swoim języku, dyspozytor czyta w swoim.",
+    a7b: "Aplikacja potrzebuje internetu. Oryginałów dokumentów w kabinie to nie zastępuje.",
+
+    q8: "Czy dyspozytor może widzieć grafik, ale nie paszport i zaświadczenie lekarskie?",
+    a8: "Tak, i tak jest domyślnie. Uprawnienia nadaje się punktowo — jest ich ponad trzydzieści. Numer identyfikacyjny i numer konta bankowego chroni osobne uprawnienie i pokazują się zamaskowane. Które typy dokumentów są poufne, każda firma decyduje sama.",
+
+    q9: "Jak radzicie sobie z kierowcami z krajów trzecich — Ukraina, Serbia, Uzbekistan?",
+    a9: "Dla osób spoza UE obowiązkowa lista jest inna i dłuższa: wiza, paszport, Kod 95, zaświadczenie o zameldowaniu. Gotowość do trasy liczy się według tej rozszerzonej listy, a nie ogólnego szablonu: dopóki kierowcy brakuje jego dokumentów, nie pokaże się jako gotowy.",
+
+    q10: "Ile to kosztuje dla 40 pojazdów i 45 naczep? Płaci się za każdego użytkownika?",
+    a10: "Plan Starter — 150 € miesięcznie, przy płatności rocznej 125 €. Obejmuje 50 pojazdów, 100 kierowców i 75 naczep, więc twoja flota mieści się z zapasem. Miejsca dyspozytorów i kadr nie są liczone: zakładaj konta wszystkim, którzy ich potrzebują.",
+    a10b: "Trzydzieści dni demo bez karty i bez rozmowy z handlowcem. Ceny — na tej stronie, a nie „na zapytanie”.",
+
+    notHead: "Czego G-Track nie robi",
+    notSub: "Żebyś nie stracił trzydziestu dni demo na szukanie czegoś, czego tu nie ma.",
+    not1: "Nie analizuje tachografu. Nie czytamy plików DDD, nie liczymy czasu pracy i odpoczynku ani kabotażu 3/7.",
+    not2: "Nie śledzi pojazdów. Żadnego śladu GPS, żadnych tras na żywo — to twoja telematyka.",
+    not3: "Nie prowadzi zleceń i frachtu. Zlecenia i faktury są na horyzoncie, dziś ich nie ma.",
+    not4: "Nie liczy wynagrodzeń i nie zastępuje księgowości.",
+    notBridge: "Nie zastępujemy oprogramowania do tachografów ani telematyki. Domykamy to, czego w nich nie ma: ludzi, dokumenty, terminy i kto którego dnia jedzie.",
+  },
+
   final: {
     overline: "Cena dla pierwszych",
     h2: "Zacznij teraz — cena jedzie z tobą.",

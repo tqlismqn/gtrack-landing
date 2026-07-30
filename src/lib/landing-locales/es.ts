@@ -212,6 +212,60 @@ export const es: LandingDict = {
     anchorArg: "Una multa por cabotaje — hasta 7 500 €. Un visado caducado — un viaje detenido. G-Track mantiene toda la flota bajo control por menos de lo que cuesta un solo contratiempo.",
   },
 
+  faq: {
+    overline: "Preguntas",
+    h2: "Lo que preguntan los transportistas antes de abrir una cuenta",
+    sub: "Respuestas cortas, sin «contacte con nosotros». Aquí está lo que más nos preguntan — incluido lo que no hacemos.",
+    askLead: "¿No encuentra su pregunta?",
+    askCta: "Escríbanos — le contestamos igual de corto",
+
+    g1: "Plazos y responsabilidad",
+    g2: "Puesta en marcha y sus datos",
+    g3: "Acceso, flota, precio",
+
+    q1: "¿Cómo me avisa el sistema de que a un conductor le caduca un documento?",
+    a1: "Cada mañana a las 8:00 G-Track revisa los documentos de toda la flota. El pasaporte levanta la bandera 180 días antes; la declaración, 60; el resto, 90. El aviso sale por tres canales a la vez: un correo a la oficina, una marca dentro de la propia aplicación y un push al conductor por Telegram.",
+    a1b: "Los canales y la frecuencia de los correos los configura usted mismo, para cada tipo de aviso. Así el recordatorio no depende de una sola persona y no se pierde mientras RR. HH. está de vacaciones.",
+
+    q2: "¿Quién responde si un conductor sale de viaje con un documento caducado?",
+    a2: "En la mayoría de los países de la UE, el transportista y no solo el conductor: la sanción recae en la empresa y en varios países también en el gestor de transporte a título personal. Los importes y el procedimiento dependen del país donde se haga el control. Precisamente por eso G-Track avisa a la oficina y no al conductor — a quien pone el viaje en el plan.",
+
+    q3: "¿Se ve en el tablero de planificación quién no puede salir por un documento?",
+    a3: "Sí, el tablero reúne personas, vehículos y plazos en un solo lugar: quién está de vacaciones, quién de baja por enfermedad, quién se ha quedado sin vehículo, quién tiene un documento que no está en orden. Cada cambio del plan queda en el historial — no solo ve la foto actual, también quién la cambió y cuándo.",
+
+    q4: "Tengo 40–60 conductores y años de escaneos en Excel y carpetas de papel. ¿Quién traslada todo eso?",
+    a4: "Puede empezar sin el archivo: dé de alta a los conductores y los documentos con los plazos más cercanos — los recordatorios ya funcionan solo con eso. Los escaneos antiguos se van subiendo por el camino y no bloquean nada.",
+    a4b: "A los primeros clientes les hacemos la migración desde Excel gratis. Envíe el archivo tal como está — con notas, celdas vacías y «??» en las fechas.",
+
+    q5: "¿Dónde están físicamente los datos y los escaneos? ¿Firman un DPA?",
+    a5: "Los datos y los archivos están en la Unión Europea, en un centro de datos en Irlanda. El documento de tratamiento de datos está publicado, con el enlace en el pie de la página; lo firmamos. El acceso a los campos confidenciales dentro de su empresa se limita por roles, no con una casilla general.",
+
+    q6: "Si decido irme, ¿me llevo los datos?",
+    a6: "Los datos se exportan a CSV en cualquier momento y sin pedir permiso: lista de conductores, estados de los documentos, plazos. Los escaneos siguen siendo suyos: hoy se descargan uno por uno y el archivo completo lo entregamos a petición. La cuenta la borra usted mismo, sin llamada de ningún «responsable de retención».",
+
+    q7: "¿Qué tiene que hacer el conductor? ¿Tiene que instalar algo?",
+    a7: "Nada. El conductor trabaja en Telegram, que ya tiene instalado: ve sus documentos y sus plazos, su turno y su vehículo, y envía la foto de un documento nuevo directamente al chat. La traducción va integrada — el conductor escribe en su idioma y el gestor de tráfico lo lee en el suyo.",
+    a7b: "La aplicación necesita internet. Y no exime de llevar los originales en la cabina.",
+
+    q8: "¿Puede un gestor de tráfico ver la planificación pero no el pasaporte ni el certificado médico?",
+    a8: "Sí, y así es por defecto. Los permisos se conceden uno a uno — hay más de treinta. El número de identificación personal y la cuenta bancaria están detrás de un permiso aparte y se muestran enmascarados. Qué tipos de documento se consideran confidenciales lo decide cada empresa por su cuenta.",
+
+    q9: "¿Cómo lo llevan con los conductores de terceros países — Ucrania, Serbia, Uzbekistán?",
+    a9: "Para los no ciudadanos de la UE la lista obligatoria es distinta y más larga: visado, pasaporte, Code 95, certificado de empadronamiento. La preparación para viaje se calcula precisamente sobre esa lista ampliada — un conductor no aparece como listo hasta que están cerrados sus documentos, no los de una plantilla general.",
+
+    q10: "¿Cuánto cuesta para 40 camiones y 45 remolques? ¿Se paga por cada usuario?",
+    a10: "El plan Starter cuesta 150 € al mes, y 125 € con pago anual. Incluye 50 vehículos, 100 conductores y 75 remolques, así que su flota entra con margen. Los puestos de gestores de tráfico y de RR. HH. no se cuentan: dé de alta a todos los que lo necesiten.",
+    a10b: "Treinta días de demo sin tarjeta y sin llamada comercial. Los precios están en esta misma página, no «a petición».",
+
+    notHead: "Lo que G-Track no hace",
+    notSub: "Para que no gaste treinta días de demo comprobando algo que aquí no está.",
+    not1: "No analiza el tacógrafo. No leemos archivos DDD, no calculamos los tiempos de conducción y descanso y no contamos el cabotaje 3/7.",
+    not2: "No sigue a los vehículos. Ni traza GPS ni rutas en tiempo real — eso es su telemática.",
+    not3: "No gestiona pedidos ni fletes. Los pedidos y las facturas están en el horizonte, hoy no están.",
+    not4: "No calcula nóminas ni sustituye a la contabilidad.",
+    notBridge: "No sustituimos su software de tacógrafo ni su telemática. Cubrimos lo que en ellos no hay: personas, documentos, plazos y quién conduce cada día.",
+  },
+
   final: {
     overline: "El precio de los primeros",
     h2: "Empiece ahora — el precio viaja con usted.",

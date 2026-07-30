@@ -214,6 +214,64 @@ export const ro: LandingDict = {
     anchorArg: "O amendă pentru cabotaj — până la 7 500 €. O viză expirată — o cursă oprită. G-Track ține tot parcul sub control mai ieftin decât costă un singur astfel de incident.",
   },
 
+  /* FAQ: termeni din app-локаль ro — «Pregătire pentru cursă», «Pașaport»,
+     «Declarație», «Code 95», «Certificat medical», «Adeverință de reședință»,
+     «Concediu / Concediu medical», «istoric», «Export CSV».
+     Sumele amenzilor și articolele de lege NU se adaugă (vezi comentariul ru). */
+  faq: {
+    overline: "Întrebări",
+    h2: "Ce ne întreabă transportatorii înainte să deschidă un cont",
+    sub: "Răspunsuri scurte, fără „contactați-ne”. Aici sunt întrebările pe care le primim cel mai des — inclusiv cele despre ce nu facem.",
+    askLead: "Nu ți-ai găsit întrebarea?",
+    askCta: "Scrie-ne — răspundem la fel de scurt",
+
+    g1: "Termene și răspundere",
+    g2: "Implementare și date",
+    g3: "Acces, flotă, preț",
+
+    q1: "Cum mă anunță sistemul că unui șofer îi expiră un document?",
+    a1: "În fiecare dimineață la 8:00 G-Track verifică documentele întregii flote. Pentru pașaport avertismentul apare cu 180 de zile înainte, pentru declarație cu 60, pentru restul cu 90. Notificarea pleacă pe trei canale simultan: e-mail la birou, marcaj în aplicație și push pe Telegram către șofer.",
+    a1b: "Canalele și frecvența e-mailurilor le configurezi tu, separat pentru fiecare tip de notificare. Astfel, memento-ul nu atârnă de un singur om și nu dispare cât timp colegul de la HR e în concediu.",
+
+    q2: "Cine răspunde dacă un șofer pleacă în cursă cu un document expirat?",
+    a2: "În majoritatea statelor UE — transportatorul, nu doar șoferul: amenda se dă firmei, iar în unele țări separat și managerului de transport. Cuantumul și procedura depind de țara în care are loc controlul. Exact de asta G-Track nu îi amintește șoferului, ci biroului — celui care pune cursa în plan.",
+
+    q3: "Se vede pe panoul de planificare cine nu poate pleca din cauza unui document?",
+    a3: "Da, panoul adună oameni, vehicule și termene într-un singur loc: cine e în concediu, cine e în concediu medical, cine e fără vehicul, cui nu îi e în regulă un document. Fiecare modificare a planului intră în istoric — vezi nu doar situația de acum, ci și cine a schimbat-o și când.",
+
+    q4: "Am 40–60 de șoferi și ani de scanuri în Excel și dosare. Cine mută toate astea?",
+    a4: "Poți începe fără arhivă: introdu șoferii și documentele cu termenele cele mai apropiate — mementourile pornesc deja de la atât. Scanurile vechi se încarcă pe parcurs și nu blochează nimic.",
+    a4b: "Migrarea din Excel o facem gratuit pentru primii clienți. Trimite fișierul așa cum e — cu observații, celule goale și „??” în coloana cu date.",
+
+    q5: "Unde stau fizic datele și scanurile? Semnați un DPA?",
+    a5: "Datele și fișierele stau în Uniunea Europeană, în centrul de date din Irlanda. Documentul privind prelucrarea datelor este publicat — linkul e în josul paginii — și îl semnăm. Accesul la câmpurile sensibile din interiorul firmei tale este limitat prin roluri, nu printr-o bifă generală.",
+
+    q6: "Dacă decid să plec — îmi iau datele?",
+    a6: "Datele se exportă în CSV oricând și fără să ne ceri: lista șoferilor, statusurile documentelor, termenele. Scanurile rămân ale tale: deocamdată se descarcă unul câte unul, iar arhiva întreagă o predăm la cerere. Contul îl ștergi singur, fără telefon de la un „manager de retenție”.",
+
+    q7: "Ce trebuie să facă șoferul? Trebuie să instaleze ceva?",
+    a7: "Nimic. Șoferul lucrează în Telegram, pe care îl are deja: își vede documentele și termenele, tura și vehiculul, și trimite poza unui document nou direct în chat. Traducerea e integrată — șoferul scrie în limba lui, dispecerul citește în limba lui.",
+    a7b: "Aplicația are nevoie de internet. Și nu înlocuiește originalele documentelor din cabină.",
+
+    q8: "Poate un dispecer să vadă graficul, dar să nu vadă pașaportul și certificatul medical?",
+    a8: "Da, și așa e din start. Permisiunile se dau punctual — sunt peste treizeci. Codul numeric personal și contul bancar stau în spatele unei permisiuni separate și se afișează mascate. Ce tipuri de documente sunt considerate confidențiale decide fiecare firmă pentru sine.",
+
+    q9: "Cum stați cu șoferii din țări terțe — Ucraina, Serbia, Uzbekistan?",
+    a9: "Pentru cetățenii non-UE lista obligatorie e alta și mai lungă: viză, pașaport, Code 95, adeverință de reședință. Pregătirea pentru cursă se calculează exact după lista extinsă — un șofer nu apare ca pregătit până nu îi sunt în regulă documentele lui, nu un șablon general.",
+
+    q10: "Cât costă pentru 40 de vehicule și 45 de remorci? Se plătește pentru fiecare utilizator?",
+    a10: "Planul Starter — 150 € pe lună, iar la plata anuală 125 €. Include 50 de vehicule, 100 de șoferi și 75 de remorci, deci flota ta încape cu rezervă. Locurile de dispecer și de HR nu se numără: adaugă pe toți cei care au nevoie.",
+    a10b: "Treizeci de zile de demo, fără card și fără apel de la vânzări. Prețurile — pe această pagină, nu „la cerere”.",
+
+    notHead: "Ce nu face G-Track",
+    notSub: "Ca să nu-ți pierzi cele treizeci de zile de demo verificând ceva ce nu există aici.",
+    not1: "Nu analizează tahograful. Nu citim fișiere DDD, nu calculăm timpul de conducere și de odihnă și nu calculăm cabotajul 3/7.",
+    not2: "Nu urmărește vehiculele. Nici traseu GPS, nici rute în timp real — asta e telematica ta.",
+    not3: "Nu gestionează comenzi și transporturi. Comenzile și facturile sunt pe orizont, astăzi nu există.",
+    not4: "Nu calculează salarii și nu înlocuiește contabilitatea.",
+    notBridge: "Nu înlocuim software-ul de tahograf și nici telematica. Acoperim ce nu se găsește în ele: oamenii, documentele, termenele și cine conduce în care zi.",
+  },
+
   final: {
     overline: "Prețul pentru primii",
     h2: "Începe acum — prețul călătorește cu tine.",

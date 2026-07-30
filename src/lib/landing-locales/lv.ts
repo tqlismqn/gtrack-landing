@@ -211,6 +211,64 @@ export const lv: LandingDict = {
     anchorArg: "Viens kabotāžas sods — līdz 7 500 €. Viena nokavēta vīza — apturēts reiss. G-Track notur visu autoparku kontrolē lētāk, nekā maksā viena šāda kļūme.",
   },
 
+  /* Jautājumi: formulējumi ņemti no reāliem pārvadātāju iebildumiem, atbildes —
+     tikai par pārbaudāmiem produkta faktiem. Sodu summas un atsauces uz likumu
+     pantiem apzināti nenorādām: likumi mainās, bet teksts dzīvo 12 lokālēs.
+     JSON-LD FAQPage NELIEKAM — Google izslēdza FAQ fragmentus 2026. gada 7. maijā. */
+  faq: {
+    overline: "Jautājumi",
+    h2: "Ko pārvadātāji jautā, pirms izveido kontu",
+    sub: "Īsas atbildes bez „sazinieties ar mums”. Šeit ir tas, ko mums jautā visbiežāk — arī tas, ko mēs nedarām.",
+    askLead: "Savu jautājumu neatradi?",
+    askCta: "Uzraksti — atbildēsim tikpat īsi",
+
+    g1: "Termiņi un atbildība",
+    g2: "Ieviešana un dati",
+    g3: "Piekļuve, autoparks, cena",
+
+    q1: "Kā sistēma atgādinās, ka vadītājam beidzas dokuments?",
+    a1: "Katru rītu 8:00 G-Track pārbauda visa autoparka dokumentus. Pase paceļ karodziņu 180 dienas iepriekš, dzīvesvietas deklarācija — 60, pārējie — 90. Paziņojums aiziet trīs kanālos uzreiz: e-pasts birojam, atzīme pašā lietotnē un push vadītājam Telegram.",
+    a1b: "Kanālus un e-pastu biežumu katram paziņojuma tipam iestati pats. Tāpēc atgādinājums nekarājas uz viena cilvēka un nepazūd, kamēr HR ir atvaļinājumā.",
+
+    q2: "Kas atbild, ja vadītājs izbrauc reisā ar dokumentu, kuram beidzies termiņš?",
+    a2: "Lielākajā daļā ES valstu — pārvadātājs, nevis tikai vadītājs: sodu uzraksta firmai, un vairākās valstīs atsevišķi arī par transportu atbildīgajai personai. Konkrētās summas un kārtība atkarīgas no pārbaudes valsts. Tieši tāpēc G-Track atgādina nevis vadītājam, bet birojam — tam, kas ieliek reisu plānā.",
+
+    q3: "Vai dispečerpultī ir redzams, kas nevar izbraukt dokumenta dēļ?",
+    a3: "Jā, dispečerpults saved cilvēkus, mašīnas un termiņus vienā vietā: kas ir atvaļinājumā, kas uz slimības lapas, kam nav mašīnas, kam dokuments nav kārtībā. Katra plāna izmaiņa nonāk audita žurnālā — redzama ne tikai pašreizējā aina, bet arī tas, kas un kad to mainījis.",
+
+    q4: "Man ir 40–60 vadītāju un gadiem krāti skenējumi Excel un mapēs. Kas to pārnesīs?",
+    a4: "Sākt var arī bez arhīva: ievadi vadītājus un tos dokumentus, kuriem termiņš ir vistuvāk — atgādinājumi sāks strādāt jau no tā. Vecie skenējumi tiek augšupielādēti pa ceļam un neko nebloķē.",
+    a4b: "Pārnešanu no Excel agrīnajiem klientiem darām bez maksas. Sūti failu tādu, kāds tas ir — ar piezīmēm, tukšām šūnām un „??” datumu vietā.",
+
+    q5: "Kur fiziski atrodas dati un skenējumi? Vai parakstīsiet DPA?",
+    a5: "Dati un faili — Eiropas Savienībā, datu centrs Īrijā. Datu apstrādes dokuments ir publicēts, saite lapas kājenē; parakstām. Piekļuvi sensitīviem laukiem tavā uzņēmumā ierobežo lomas, nevis viens kopējs ķeksītis.",
+
+    q6: "Ja izlemšu aiziet — vai dabūšu savus datus?",
+    a6: "Datus jebkurā brīdī un bez atsevišķa pieprasījuma izgūsti CSV: vadītāju saraksts, dokumentu statusi, termiņi. Skenējumi paliek tavi: pašlaik tos lejupielādē pa vienam, visa arhīva izsniegšanu darām pēc pieprasījuma. Kontu izdzēs pats, bez zvana no „noturēšanas menedžera”.",
+
+    q7: "Kas jādara vadītājam? Vai viņam kaut kas jāinstalē?",
+    a7: "Nekas. Vadītājs strādā Telegram, kas viņam jau ir: redz savus dokumentus un termiņus, savu maiņu un mašīnu, jauna dokumenta foto atsūta tieši čatā. Tulkojums ir iebūvēts — vadītājs raksta savā valodā, dispečers lasa savā.",
+    a7b: "Lietotnei vajag internetu. Dokumentu oriģinālus kabīnē tas neatceļ.",
+
+    q8: "Vai dispečers var redzēt grafiku, bet neredzēt pasi un medicīnisko izziņu?",
+    a8: "Jā, un tā ir pēc noklusējuma. Tiesības tiek dotas pa vienai — to ir vairāk nekā trīsdesmit. Personas kods un bankas konta numurs ir aiz atsevišķas tiesības un rādās maskēti. Kurus dokumentu tipus uzskatīt par konfidenciāliem, katrs uzņēmums izlemj pats.",
+
+    q9: "Kā ir ar vadītājiem no trešajām valstīm — Ukraina, Serbija, Uzbekistāna?",
+    a9: "Vadītājiem bez ES pilsonības obligātais saraksts ir cits un garāks: vīza, pase, Kods 95, dzīvesvietas deklarācija. Gatavība reisam tiek rēķināta tieši pēc šī paplašinātā saraksta — vadītājs nebūs gatavs, kamēr nav sakārtoti tieši viņa dokumenti, nevis kopēja veidne.",
+
+    q10: "Cik tas maksā autoparkam ar 40 mašīnām un 45 piekabēm? Vai jāmaksā par katru lietotāju?",
+    a10: "Starter plāns — 150 € mēnesī, maksājot par gadu 125 €. Tajā ietilpst 50 mašīnas, 100 vadītāji un 75 piekabes, tāpēc tavs autoparks iekļaujas ar rezervi. Dispečeru un HR vietas netiek skaitītas: ievadi visus, kam vajag.",
+    a10b: "Trīsdesmit dienu demo bez kartes un bez menedžera zvana. Cenas — šajā pašā lapā, nevis „pēc pieprasījuma”.",
+
+    notHead: "Ko G-Track nedara",
+    notSub: "Lai tu netērētu trīsdesmit demo dienas, pārbaudot to, kā šeit nav.",
+    not1: "Neanalizē tahogrāfu. Mēs nelasām DDD failus, nerēķinām darba un atpūtas režīmu un nerēķinām kabotāžu 3/7.",
+    not2: "Neseko mašīnām. Ne GPS trases, ne maršrutu reāllaikā — tā ir tava telemātika.",
+    not3: "Neved pasūtījumus un frahtu. Pasūtījumi un rēķini ir attīstības plānā, šodien to nav.",
+    not4: "Nerēķina algas un neaizstāj grāmatvedību.",
+    notBridge: "Mēs neaizstājam tahogrāfa programmatūru un telemātiku. Mēs nosedzam to, kā tajās nav: cilvēki, dokumenti, termiņi un tas, kas kurā dienā brauc.",
+  },
+
   final: {
     overline: "Cena pirmajiem",
     h2: "Sāc tagad — cena brauc tev līdzi.",

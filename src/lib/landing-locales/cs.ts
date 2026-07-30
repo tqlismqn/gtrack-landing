@@ -213,6 +213,62 @@ export const cs: LandingDict = {
     anchorArg: "Jedna pokuta za kabotáž — až 7 500 €. Jedno propadlé vízum — zastavená jízda. G-Track udrží celý vozový park pod kontrolou levněji, než stojí jediný takový výpadek.",
   },
 
+  /* FAQ: термины типов документов и «Připravenost na cestu» — из app-локали cs.
+     Суммы штрафов и ссылки на статьи законов сознательно не приводим. */
+  faq: {
+    overline: "Otázky",
+    h2: "Na co se dopravci ptají, než si založí účet",
+    sub: "Krátké odpovědi bez „kontaktujte nás“. Tady je to, na co se nás ptají nejčastěji — včetně toho, co neděláme.",
+    askLead: "Nenašli jste svou otázku?",
+    askCta: "Napište nám — odpovíme stejně krátce",
+
+    g1: "Termíny a odpovědnost",
+    g2: "Zavedení a data",
+    g3: "Přístupy, vozový park, cena",
+
+    q1: "Jak systém upozorní, že řidiči končí platnost dokumentu?",
+    a1: "Každé ráno v 8:00 G-Track prověří dokumenty celého vozového parku. Pas se ozve 180 dní dopředu, deklarace 60 a ostatní dokumenty 90. Upozornění jde třemi kanály současně: e-mailem do kanceláře, příznakem přímo v aplikaci a pushem řidiči do Telegramu.",
+    a1b: "Kanály a frekvenci e-mailů si u každého typu upozornění nastavíte sami. Připomínka tak nevisí na jednom člověku a nezmizí, když je personalista na dovolené.",
+
+    q2: "Kdo nese odpovědnost, když řidič vyjede na cestu s propadlým dokumentem?",
+    a2: "Ve většině zemí EU dopravce, ne jen řidič: pokutu dostane firma a v řadě zemí navíc i odpovědný zástupce pro dopravu. Konkrétní výše i postup se liší podle země kontroly. Právě proto G-Track připomíná kanceláři, a ne řidiči — tomu, kdo staví rejd do plánu.",
+
+    q3: "Je na dispečerské tabuli vidět, kdo nemůže vyjet kvůli dokumentu?",
+    a3: "Ano, tabule sdružuje lidi, vozidla a termíny na jednom místě: kdo je na dovolené, kdo na nemocenské, kdo je bez vozidla, komu neplatí dokument. Každá změna plánu se zapisuje do historie — vidíte nejen aktuální stav, ale i kdo ho kdy změnil.",
+
+    q4: "Mám 40–60 řidičů a roky skenů v Excelu a ve složkách. Kdo to převede?",
+    a4: "Začít se dá i bez archivu: založte řidiče a ty dokumenty, kterým běží nejbližší termín — připomínky fungují už jen z toho. Staré skeny doplníte postupně a nic neblokují.",
+    a4b: "Převod z Excelu prvním zákazníkům děláme zdarma. Pošlete soubor tak, jak je — s poznámkami, prázdnými buňkami a „??“ v datech.",
+
+    q5: "Kde fyzicky leží data a skeny? Podepíšete DPA?",
+    a5: "Data i soubory jsou v Evropské unii, datové centrum v Irsku. Dokument o zpracování údajů je zveřejněný, odkaz najdete v patičce stránky; podepisujeme ho. Přístup k citlivým polím uvnitř vaší firmy je omezený rolemi, ne jedním společným přepínačem.",
+
+    q6: "Když se rozhodnu odejít — vezmu si data s sebou?",
+    a6: "Data si kdykoli a bez žádosti vyexportujete do CSV: seznam řidičů, stavy dokumentů, termíny. Skeny zůstávají vaše: teď se stahují po jednom, celý archiv vydáváme na vyžádání. Účet si smažete sami, bez telefonátu s „manažerem pro udržení zákazníka“.",
+
+    q7: "Co musí dělat řidič? Instaluje si něco?",
+    a7: "Nic. Řidič pracuje v Telegramu, který už má: vidí své dokumenty a termíny, svou směnu a vozidlo, fotku nového dokumentu posílá přímo do chatu. Překlad je vestavěný — řidič píše svým jazykem, dispečer čte svým.",
+    a7b: "Aplikace potřebuje internet. Originály dokumentů v kabině to nenahrazuje.",
+
+    q8: "Může dispečer vidět rozvrh, ale ne pas a lékařskou prohlídku?",
+    a8: "Ano, a tak je to i ve výchozím nastavení. Práva se přidělují jednotlivě — je jich víc než třicet. Identifikační číslo a číslo bankovního účtu chrání samostatné právo a zobrazují se maskovaná. Které typy dokumentů jsou důvěrné, si každá firma určuje sama.",
+
+    q9: "Jak jste na tom s řidiči ze třetích zemí — Ukrajina, Srbsko, Uzbekistán?",
+    a9: "Pro občany mimo EU je povinný seznam jiný a delší: vízum, pas, Kód 95, potvrzení o ubytování. Připravenost na cestu se počítá podle tohoto rozšířeného seznamu, ne podle obecné šablony: dokud řidiči chybí jeho dokumenty, jako připravený se neukáže.",
+
+    q10: "Kolik to stojí pro 40 vozidel a 45 návěsů? Platí se za každého uživatele?",
+    a10: "Tarif Starter — 150 € měsíčně, při roční platbě 125 €. Zahrnuje 50 vozidel, 100 řidičů a 75 návěsů, takže váš vozový park se vejde s rezervou. Místa dispečerů a personalistů se nepočítají: účet založte každému, kdo ho potřebuje.",
+    a10b: "Třicet dní dema bez karty a bez telefonátu s obchodníkem. Ceny jsou na téhle stránce, ne „na vyžádání“.",
+
+    notHead: "Co G-Track nedělá",
+    notSub: "Abyste třicet dní dema nestrávili hledáním něčeho, co tu není.",
+    not1: "Nevyhodnocuje tachograf. Nečteme DDD soubory, nepočítáme režim práce a odpočinku ani kabotáž 3/7.",
+    not2: "Nehlídá vozidla. Žádný GPS záznam, žádné trasy v reálném čase — to je vaše telematika.",
+    not3: "Nevede zakázky a přepravy. Zakázky a fakturace jsou na horizontu, dnes tu nejsou.",
+    not4: "Nepočítá mzdy a nenahrazuje účetnictví.",
+    notBridge: "Nenahrazujeme software na tachografy ani telematiku. Pokrýváme to, co v nich není: lidi, dokumenty, termíny a kdo který den jede.",
+  },
+
   final: {
     overline: "Cena pro první",
     h2: "Začněte hned teď — cena jede s vámi.",

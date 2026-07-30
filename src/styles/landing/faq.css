@@ -1,0 +1,242 @@
+/* ============================================================================
+   ВОПРОСЫ И ОТВЕТЫ (Б4).
+
+   Композиция намеренно НЕ центрированный аккордеон: слева липкий заголовок с
+   выходом на почту продаж, справа — сгруппированный по темам список. Это даёт
+   секции иерархию и ритм, которых у ровного списка нет, и на широком экране
+   читается как разворот, а не как FAQ-виджет из шаблона.
+
+   Раскрытие — нативный <details>: работает без JS, доступно с клавиатуры,
+   ответы лежат в DOM целиком, а не подгружаются по клику — чтобы их видели
+   и краулер, и AI-обходчики (JSON-LD FAQPage при этом НЕ ставим, см. Faq.tsx).
+
+   Высота НЕ анимируется: это layout-свойство, на нём секция дёргается при
+   раскрытии длинного ответа. Появление ответа — opacity + transform, оба
+   compositor-friendly, и оба гейтятся html.motion-ok.
+   ============================================================================ */
+
+.faq-cols {
+  display: grid;
+  gap: 40px;
+  margin-top: 48px;
+}
+
+@media (min-width: 980px) {
+  .faq-cols {
+    grid-template-columns: minmax(280px, 22.5rem) 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .faq-aside {
+    position: sticky;
+    top: 108px;
+  }
+}
+
+.faq-aside .sect-sub { max-width: 34ch; }
+
+/* выход на человека: у части вопросов ответа на странице не будет */
+.faq-ask {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-1);
+  color: var(--text-3);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.faq-ask a {
+  color: var(--info);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in oklch, var(--info) 35%, transparent);
+  transition: border-color 160ms var(--ease-soft);
+}
+.faq-ask a:hover { border-bottom-color: var(--info); }
+
+/* ── группы ──────────────────────────────────────────────────────────────── */
+
+.faq-group + .faq-group { margin-top: 36px; }
+
+.faq-group-head {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-1);
+}
+
+/* ── вопрос ──────────────────────────────────────────────────────────────── */
+
+.faq-q {
+  border-bottom: 1px solid var(--border-1);
+  /* левая кромка проявляется на hover и в открытом состоянии — 3px резерва,
+     чтобы текст не прыгал */
+  border-left: 3px solid transparent;
+  padding-left: 17px;
+  transition: border-left-color 200ms var(--ease-soft), background-color 200ms var(--ease-soft);
+}
+
+.faq-q:hover { border-left-color: var(--border-2); }
+
+.faq-q[open] {
+  border-left-color: var(--brand);
+  background: linear-gradient(
+    to right,
+    color-mix(in oklch, var(--brand) 5%, transparent),
+    transparent 62%
+  );
+}
+
+.faq-q > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 20px 0;
+  cursor: pointer;
+  color: var(--text-1);
+  font-size: clamp(15px, 1.35vw, 17px);
+  font-weight: 500;
+  line-height: 1.45;
+  text-wrap: pretty;
+  list-style: none;
+}
+.faq-q > summary::-webkit-details-marker { display: none; }
+.faq-q > summary::marker { content: ""; }
+
+.faq-q > summary:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.faq-q > summary .faq-qt { flex: 1; }
+
+/* маркер: две линии, при раскрытии вертикальная гасится → плюс становится
+   минусом. Анимируются только transform и opacity. */
+.faq-mark {
+  position: relative;
+  flex: none;
+  width: 14px;
+  height: 14px;
+  margin-top: 4px;
+  color: var(--text-3);
+  transition: color 200ms var(--ease-soft);
+}
+.faq-q[open] .faq-mark { color: var(--brand); }
+
+.faq-mark::before,
+.faq-mark::after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto 0;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentColor;
+  transform: translateY(-50%);
+}
+.faq-mark::after { transform: translateY(-50%) rotate(90deg); }
+
+html.motion-ok .faq-mark::after {
+  transition: opacity 220ms var(--ease-soft), transform 260ms var(--ease-pop);
+}
+.faq-q[open] .faq-mark::after {
+  opacity: 0;
+  transform: translateY(-50%) rotate(0deg);
+}
+
+/* ── ответ ───────────────────────────────────────────────────────────────── */
+
+.faq-a {
+  padding: 0 40px 24px 0;
+  color: var(--text-2);
+  font-size: clamp(14px, 1.25vw, 15.5px);
+  line-height: 1.72;
+  text-wrap: pretty;
+}
+.faq-a p + p { margin-top: 12px; }
+.faq-a b { color: var(--text-1); font-weight: 600; }
+.faq-a a {
+  color: var(--info);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in oklch, var(--info) 35%, transparent);
+}
+.faq-a a:hover { border-bottom-color: var(--info); }
+
+html.motion-ok .faq-q[open] .faq-a {
+  animation: faq-in 320ms var(--ease-soft) both;
+}
+
+@keyframes faq-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── «чего не делает» ────────────────────────────────────────────────────────
+   Сознательно НЕ аккордеон: этот текст обязан прочитаться без клика — он
+   отсекает не тех покупателей, а значит должен быть виден. Визуально отделён
+   пунктиром (тот же приём, что у «Скоро» в модулях), чтобы не читался как
+   очередная группа вопросов. */
+
+.faq-not { margin-top: 44px; }
+
+.faq-not-sub {
+  margin-top: 14px;
+  color: var(--text-3);
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 56ch;
+}
+
+.faq-not-list {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.faq-not-list li {
+  position: relative;
+  padding: 14px 16px 14px 38px;
+  border: 1px dashed var(--border-2);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-2);
+  font-size: clamp(13.5px, 1.2vw, 14.5px);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* минус вместо буллита: «этого здесь нет» */
+.faq-not-list li::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 1.42em;
+  width: 10px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: var(--text-3);
+}
+
+.faq-bridge {
+  margin-top: 20px;
+  padding: 16px 18px;
+  border-left: 3px solid var(--brand);
+  border-radius: 0 10px 10px 0;
+  background: color-mix(in oklch, var(--brand) 7%, transparent);
+  color: var(--text-1);
+  font-size: clamp(14px, 1.3vw, 15.5px);
+  line-height: 1.62;
+  text-wrap: pretty;
+}
+
+@media (max-width: 560px) {
+  .faq-q { padding-left: 13px; }
+  .faq-q > summary { gap: 12px; padding: 17px 0; }
+  .faq-a { padding-right: 8px; }
+  .faq-not-list li { padding: 12px 14px 12px 34px; }
+  .faq-not-list li::before { left: 14px; }
+}
