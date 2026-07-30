@@ -17,8 +17,15 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
 } from "react";
 import { useRouter } from "next/navigation";
+import {
+  APP_HOST,
+  isAttributionTarget,
+  MARKETING_PARAMS,
+  withMarketingParams,
+} from "@/lib/analytics";
 import {
   LANDING_DICT,
   LOCALES,
@@ -55,6 +62,67 @@ export function LandingProvider({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+
+  /* ------------------------------------------------------------------------
+     Маркетинговые метки: снимаем из URL визита и дописываем к ссылкам на
+     app.g-track.eu, иначе источник регистрации теряется на границе origin'ов.
+
+     ХРАНИМ ТОЛЬКО В ПАМЯТИ, не в localStorage. По ePrivacy §5(3) любая запись
+     на устройство, кроме strictly necessary, требует согласия, а gclid для
+     атрибуции им не является: сохранив его до баннера, мы бы нарушили ровно то,
+     ради чего ставим CMP. Плата за честность — first-touch живёт в пределах
+     визита, а не между визитами; межвизитную атрибуцию всё равно считает GA4
+     после согласия. Порядок «сначала снять, потом слушать клики» тоже важен:
+     иначе клик по CTA в первую же секунду уйдёт без меток.
+  ------------------------------------------------------------------------ */
+  const attribution = useRef<Record<string, string>>({});
+
+  useEffect(() => {
+    try {
+      const search = new URLSearchParams(window.location.search);
+      const found: Record<string, string> = {};
+      for (const key of MARKETING_PARAMS) {
+        const value = search.get(key);
+        if (value) found[key] = value;
+      }
+      /* first-touch: набор, снятый первым, не перетираем */
+      if (
+        Object.keys(found).length > 0 &&
+        Object.keys(attribution.current).length === 0
+      ) {
+        attribution.current = found;
+      }
+    } catch {
+      /* сломанный URL не должен ронять страницу */
+    }
+
+    /* Делегируем на document и матчим по хосту + белому списку путей, а не по
+       data-атрибуту: ссылок на приложение десять в шести файлах, и атрибут
+       в новой рано или поздно забудут. Capture-фаза — чтобы href был готов
+       до навигации, включая Cmd+click и «открыть в новой вкладке». */
+    function onDocumentClick(event: MouseEvent) {
+      const params = attribution.current;
+      if (Object.keys(params).length === 0) return;
+
+      const target = event.target as Element | null;
+      const anchor = target?.closest?.("a[href]") as HTMLAnchorElement | null;
+      if (!anchor) return;
+
+      let parsed: URL;
+      try {
+        parsed = new URL(anchor.href, window.location.href);
+      } catch {
+        return;
+      }
+      if (parsed.host !== APP_HOST) return;
+      if (!isAttributionTarget(parsed.pathname)) return;
+
+      anchor.href = withMarketingParams(anchor.href, params);
+    }
+
+    document.addEventListener("click", onDocumentClick, true);
+    return () => document.removeEventListener("click", onDocumentClick, true);
+  }, []);
 
   /* html lang + data-mock-lang (как applyMockLang в прототипе) */
   useEffect(() => {

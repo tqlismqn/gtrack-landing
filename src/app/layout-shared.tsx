@@ -13,7 +13,13 @@
    Для лендинга это норма: смена языка и так меняет весь контент.
    ============================================================================ */
 
+import { GoogleTagManager } from "@next/third-parties/google";
 import { Geist, Geist_Mono, IBM_Plex_Mono, Onest } from "next/font/google";
+import {
+  CONSENT_DEFAULT_SCRIPT,
+  COOKIESCRIPT_SRC,
+  GTM_ID,
+} from "@/lib/analytics";
 import "./globals.css";
 import "../styles/landing/index.css";
 
@@ -50,9 +56,25 @@ export function LandingHtml({
 }: Readonly<{ lang: string; children: React.ReactNode }>) {
   return (
     <html lang={lang} data-theme="dark" suppressHydrationWarning>
+      {/* Явный <head> — официально поддерживаемый способ положить скрипт,
+          который обязан выполниться до гидратации и в заданном порядке
+          (дока Next: preventing-flash-before-hydration). Metadata API
+          продолжает работать: свои теги она добавляет сюда же и дедуплицирует.
+          Через next/script порядок «consent → CMP» не гарантирован. */}
+      <head>
+        <script
+          id="gt-consent-default"
+          dangerouslySetInnerHTML={{ __html: CONSENT_DEFAULT_SCRIPT }}
+        />
+        {/* eslint-disable-next-line @next/next/no-sync-scripts -- CMP обязан
+            отработать до GTM: async дал бы гонку, в которой теги стартуют
+            раньше баннера. */}
+        <script src={COOKIESCRIPT_SRC} charSet="UTF-8" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${onest.variable} ${plexMono.variable} antialiased`}
       >
+        <GoogleTagManager gtmId={GTM_ID} />
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         {children}
       </body>
