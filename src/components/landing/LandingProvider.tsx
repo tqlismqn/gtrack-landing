@@ -45,6 +45,30 @@ function writeLangCookie(lang: Lang) {
   document.cookie = `${LANG_COOKIE}=${lang};path=/;max-age=31536000;samesite=lax`;
 }
 
+/* Баннер cookie живёт вне React: он читает <html lang> один раз при инициализации
+   и сам себя не перерисовывает, а переключение языка здесь — клиентская навигация
+   без перезагрузки. Поэтому язык баннера переключаем явно через его публичный API. */
+type CookieScriptWindow = Window & {
+  CookieScript?: {
+    instance?: {
+      applyTranslationByCode?: (code: string) => void;
+      getLanguagesKeys?: () => string[];
+    };
+  };
+};
+
+function applyCmpLang(lang: Lang) {
+  const cmp = (window as CookieScriptWindow).CookieScript?.instance;
+  if (typeof cmp?.applyTranslationByCode !== "function") return;
+  const available = cmp.getLanguagesKeys?.() ?? [];
+  if (available.length > 0 && !available.includes(lang)) return;
+  try {
+    cmp.applyTranslationByCode(lang);
+  } catch {
+    /* CMP не загрузился — язык применится при следующей загрузке страницы */
+  }
+}
+
 interface LandingCtxValue {
   lang: Lang;
   setLang: (lang: Lang) => void;
@@ -128,6 +152,7 @@ export function LandingProvider({
   useEffect(() => {
     document.documentElement.lang = locale;
     document.documentElement.setAttribute("data-mock-lang", locale);
+    applyCmpLang(locale);
   }, [locale]);
 
   /* первый визит на корень: авто-редирект по языку браузера */
