@@ -216,6 +216,65 @@ export const lt: LandingDict = {
     anchorArg: "Viena kabotažo bauda — iki 7 500 €. Viena pasibaigusi viza — sustabdytas reisas. G-Track laiko visą parką kontroliuojamą pigiau, nei kainuoja vienas toks sutrikimas.",
   },
 
+  /* Klausimai: formuluotės paimtos iš realių vežėjų prieštaravimų, atsakymai —
+     tik apie patikrinamus produkto faktus. Baudų sumų ir nuorodų į įstatymų
+     straipsnius sąmoningai nenurodome: įstatymai keičiasi, o tekstas gyvena
+     12 lokalių. JSON-LD FAQPage NEDEDAME — Google FAQ ištraukas išjungė
+     2026 m. gegužės 7 d. */
+  faq: {
+    overline: "Klausimai",
+    h2: "Ko vežėjai klausia prieš susikurdami paskyrą",
+    sub: "Trumpi atsakymai be „susisiekite su mumis“. Čia tai, ko mūsų klausia dažniausiai — įskaitant tai, ko mes nedarome.",
+    askLead: "Savo klausimo neradote?",
+    askCta: "Parašykite — atsakysime taip pat trumpai",
+
+    g1: "Terminai ir atsakomybė",
+    g2: "Įdiegimas ir duomenys",
+    g3: "Prieiga, parkas, kaina",
+
+    q1: "Kaip sistema primins, kad vairuotojui baigia galioti dokumentas?",
+    a1: "Kiekvieną rytą 8:00 G-Track patikrina viso parko dokumentus. Pasas pakelia žymą prieš 180 dienų, gyvenamosios vietos deklaracija — prieš 60, visi kiti — prieš 90. Pranešimas išeina trimis kanalais vienu metu: el. laišku į biurą, žyma pačioje programoje ir Telegram pranešimu vairuotojui.",
+    a1b: "Kanalus ir laiškų dažnumą kiekvienam pranešimo tipui nustatote patys. Todėl priminimas nekabo ant vieno žmogaus ir nepražūva, kol HR atostogauja.",
+
+    q2: "Kas atsako, jei vairuotojas išvyko į reisą su nebegaliojančiu dokumentu?",
+    a2: "Daugumoje ES šalių — vežėjas, o ne vien vairuotojas: bauda skiriama įmonei, o kai kuriose šalyse atskirai ir už transportą atsakingam vadovui. Konkrečios sumos ir tvarka priklauso nuo tikrinančios šalies. Būtent todėl G-Track primena ne vairuotojui, o biurui — tam, kas įrašo reisą į planą.",
+
+    q3: "Ar dispečerinėje lentoje matoma, kas negali išvykti dėl dokumento?",
+    a3: "Taip, lenta sudeda žmones, transporto priemones ir terminus į vieną vietą: kas atostogose, kas nedarbingumo lapelyje, kas be transporto priemonės, kieno dokumentas netvarkoje. Kiekvienas plano pakeitimas rašomas į veiklos žurnalą — matote ne tik esamą vaizdą, bet ir kas bei kada jį pakeitė.",
+
+    q4: "Turiu 40–60 vairuotojų ir metais kauptus skenus Excel bei aplankuose. Kas visa tai perkels?",
+    a4: "Pradėti galima ir be archyvo: įveskite vairuotojus ir tuos dokumentus, kurių terminai arčiausiai — priminimai pradės veikti jau vien iš to. Seni skenai keliami pakeliui ir nieko neblokuoja.",
+    a4b: "Perkėlimą iš Excel ankstyviesiems klientams atliekame nemokamai. Atsiųskite failą tokį, kokį turite — su pastabomis, tuščiais laukais ir „??“ datų vietoje.",
+
+    q5: "Kur fiziškai laikomi duomenys ir skenai? Ar pasirašysite DPA?",
+    a5: "Duomenys ir failai — Europos Sąjungoje, duomenų centras Airijoje. Duomenų apdorojimo dokumentas paskelbtas, nuoroda — puslapio apačioje; pasirašome. Prieigą prie jautrių laukų jūsų įmonės vidyje riboja vaidmenys, o ne viena bendra varnelė.",
+
+    q6: "Jei nuspręsiu išeiti — ar atsiimsiu duomenis?",
+    a6: "Duomenis bet kada ir be atskiro prašymo atsisiunčiate CSV formatu: vairuotojų sąrašas, dokumentų statusai, terminai. Skenai lieka jūsų: šiuo metu jie atsisiunčiami po vieną, visą archyvą perduodame pagal prašymą. Paskyrą ištrinate patys, be skambučio iš „išlaikymo vadybininko“.",
+
+    q7: "Ką turi daryti vairuotojas? Ar jam reikia ką nors įsidiegti?",
+    a7: "Nieko. Vairuotojas dirba Telegram, kurį jau turi: mato savo dokumentus ir terminus, savo pamainą ir transporto priemonę, naujo dokumento nuotrauką atsiunčia tiesiai į pokalbį. Vertimas įmontuotas — vairuotojas rašo savo kalba, dispečeris skaito savąja.",
+    a7b: "Programėlei reikia interneto. Dokumentų originalų kabinoje tai neatšaukia.",
+
+    q8: "Ar dispečeris gali matyti grafiką, bet nematyti paso ir medicininės pažymos?",
+    a8: "Taip, ir taip yra pagal nutylėjimą. Teisės dalijamos po vieną — jų daugiau nei trisdešimt. Asmens kodas ir banko sąskaitos numeris yra už atskiros teisės ir rodomi užmaskuoti. Kuriuos dokumentų tipus laikyti konfidencialiais, kiekviena įmonė sprendžia pati.",
+
+    q9: "Kaip pas jus su vairuotojais iš trečiųjų šalių — Ukraina, Serbija, Uzbekistanas?",
+    a9: "Ne ES pilietybę turintiems vairuotojams privalomas sąrašas yra kitas ir ilgesnis: viza, pasas, Kodas 95, gyvenamosios vietos deklaracija. Pasirengimas reisui skaičiuojamas būtent pagal šį išplėstą sąrašą — vairuotojas nebus rodomas parengtas, kol neuždaryti būtent jo dokumentai, o ne bendras šablonas.",
+
+    q10: "Kiek tai kainuoja parkui iš 40 transporto priemonių ir 45 priekabų? Ar mokėti už kiekvieną naudotoją?",
+    a10: "Starter planas — 150 € per mėnesį, mokant už metus 125 €. Į jį įeina 50 transporto priemonių, 100 vairuotojų ir 75 priekabos, tad jūsų parkas įsitalpina su atsarga. Dispečerių ir HR vietos neskaičiuojamos: įveskite visus, kam reikia.",
+    a10b: "Trisdešimt dienų demo be kortelės ir be vadybininko skambučio. Kainos — šiame pačiame puslapyje, o ne „pagal užklausą“.",
+
+    notHead: "Ko G-Track nedaro",
+    notSub: "Kad nesugaištumėte trisdešimties demo dienų tikrindami tai, ko čia nėra.",
+    not1: "Neanalizuoja tachografo. Neskaitome DDD failų, neskaičiuojame darbo ir atokvėpio režimo ir neskaičiuojame kabotažo 3/7.",
+    not2: "Neseka transporto priemonių. Nei GPS pėdsako, nei maršrutų realiu laiku — tai jūsų telematika.",
+    not3: "Netvarko užsakymų ir frachto. Užsakymai ir sąskaitos — plėtros plane, šiandien jų nėra.",
+    not4: "Neskaičiuoja atlyginimų ir nekeičia buhalterijos.",
+    notBridge: "Mes nekeičiame tachografų programinės įrangos ir telematikos. Mes uždengiame tai, ko jose nėra: žmonės, dokumentai, terminai ir kas kurią dieną vyksta.",
+  },
+
   final: {
     overline: "Kaina pirmiesiems",
     h2: "Pradėkite dabar — kaina keliauja su jumis.",

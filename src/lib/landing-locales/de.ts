@@ -213,6 +213,60 @@ export const de: LandingDict = {
     anchorArg: "Eine Kabotage-Strafe — bis zu 7 500 €. Ein abgelaufenes Visum — eine gestoppte Tour. G-Track hält die ganze Flotte unter Kontrolle für weniger, als ein einziger solcher Ausfall kostet.",
   },
 
+  faq: {
+    overline: "Fragen",
+    h2: "Was Spediteure fragen, bevor sie ein Konto anlegen",
+    sub: "Kurze Antworten, ohne „Kontaktieren Sie uns“. Hier stehen die Fragen, die wir am häufigsten hören — auch die zu dem, was wir nicht tun.",
+    askLead: "Ihre Frage steht nicht dabei?",
+    askCta: "Schreiben Sie uns — wir antworten genauso kurz",
+
+    g1: "Fristen und Haftung",
+    g2: "Einführung und Ihre Daten",
+    g3: "Zugriff, Flotte, Preis",
+
+    q1: "Wie erinnert das System daran, dass bei einem Fahrer ein Dokument abläuft?",
+    a1: "Jeden Morgen um 8:00 prüft G-Track die Dokumente der ganzen Flotte. Der Reisepass wird 180 Tage vorher markiert, die Entsendebescheinigung 60, alle übrigen 90. Die Meldung geht über drei Kanäle gleichzeitig: per E-Mail ins Büro, als Markierung in der App selbst und als Telegram-Push an den Fahrer.",
+    a1b: "Kanäle und E-Mail-Frequenz stellen Sie pro Benachrichtigungstyp selbst ein. So hängt die Erinnerung nicht an einer einzigen Person und verschwindet nicht, solange HR im Urlaub ist.",
+
+    q2: "Wer haftet, wenn ein Fahrer mit einem abgelaufenen Dokument auf Tour geht?",
+    a2: "In den meisten EU-Ländern das Verkehrsunternehmen, nicht nur der Fahrer: das Bußgeld trifft die Firma, in mehreren Ländern zusätzlich den Verkehrsleiter persönlich. Höhe und Verfahren richten sich nach dem Land, in dem kontrolliert wird. Genau deshalb erinnert G-Track nicht den Fahrer, sondern das Büro — diejenigen, die die Tour einplanen.",
+
+    q3: "Sieht man am Dispositionsboard, wer wegen eines Dokuments nicht rausfahren kann?",
+    a3: "Ja. Das Board führt Menschen, Fahrzeuge und Fristen an einem Ort zusammen: wer im Urlaub ist, wer krank ist, wer kein Fahrzeug hat, wessen Dokument nicht in Ordnung ist. Jede Änderung am Plan wird in den Verlauf geschrieben — Sie sehen nicht nur das aktuelle Bild, sondern auch, wer es wann geändert hat.",
+
+    q4: "Ich habe 40–60 Fahrer und Jahre voller Scans in Excel und Ordnern. Wer überträgt das?",
+    a4: "Sie können ohne das Archiv anfangen: Legen Sie die Fahrer an und die Dokumente, deren Fristen am nächsten liegen — die Erinnerungen laufen bereits damit. Alte Scans kommen unterwegs dazu und blockieren nichts.",
+    a4b: "Frühen Kunden migrieren wir die Daten aus Excel kostenlos. Schicken Sie die Datei so, wie sie ist — mit Anmerkungen, leeren Zellen und „??“ in der Datumsspalte.",
+
+    q5: "Wo liegen die Daten und die Scans physisch? Unterschreiben Sie ein DPA?",
+    a5: "Daten und Dateien liegen in der Europäischen Union, im Rechenzentrum in Irland. Das Dokument zur Datenverarbeitung ist veröffentlicht — der Link steht im Fuß dieser Seite — und wir unterschreiben es. Der Zugriff auf sensible Felder innerhalb Ihres Unternehmens ist über Rollen begrenzt, nicht über einen globalen Schalter.",
+
+    q6: "Wenn ich gehen will — nehme ich meine Daten mit?",
+    a6: "Die Daten exportieren Sie jederzeit und ohne Anfrage als CSV: Fahrerliste, Dokumentstatus, Fristen. Die Scans bleiben Ihre: derzeit werden sie einzeln heruntergeladen, das gesamte Archiv geben wir auf Anfrage heraus. Das Konto löschen Sie selbst, ohne Anruf von einem „Kundenbindungsmanager“.",
+
+    q7: "Was muss der Fahrer tun? Muss er etwas installieren?",
+    a7: "Nichts. Der Fahrer arbeitet in Telegram, das er schon hat: er sieht seine eigenen Dokumente und Fristen, seine Schicht und sein Fahrzeug und schickt das Foto eines neuen Dokuments direkt in den Chat. Eine Übersetzung ist eingebaut — der Fahrer schreibt in seiner Sprache, der Disponent liest in seiner.",
+    a7b: "Die App braucht Internet. Die Originaldokumente im Führerhaus ersetzt sie nicht.",
+
+    q8: "Kann ein Disponent den Plan sehen, aber nicht Reisepass und ärztliche Untersuchung?",
+    a8: "Ja, und so ist es voreingestellt. Berechtigungen werden einzeln vergeben — es sind mehr als dreißig. Identifikationsnummer und Bankkonto liegen hinter einer eigenen Berechtigung und werden maskiert angezeigt. Welche Dokumenttypen als vertraulich gelten, entscheidet jedes Unternehmen für sich.",
+
+    q9: "Wie ist es bei Fahrern aus Drittstaaten — Ukraine, Serbien, Usbekistan?",
+    a9: "Für Nicht-EU-Bürger ist die Pflichtliste anders und länger: Visum, Reisepass, Kennziffer 95, Meldebestätigung. Die Einsatzbereitschaft wird genau gegen diese erweiterte Liste gerechnet — ein Fahrer gilt nicht als bereit, solange seine eigenen Dokumente offen sind, und nicht nach einer allgemeinen Vorlage.",
+
+    q10: "Was kostet das für 40 Fahrzeuge und 45 Anhänger? Zahle ich pro Benutzer?",
+    a10: "Der Plan Starter kostet 150 € im Monat, bei Jahreszahlung 125 €. Darin enthalten sind 50 Fahrzeuge, 100 Fahrer und 75 Anhänger — Ihre Flotte passt mit Reserve hinein. Plätze für Disponenten und HR werden nicht gezählt: Legen Sie alle an, die einen brauchen.",
+    a10b: "Dreißig Tage Demo ohne Karte und ohne Anruf vom Vertrieb. Die Preise stehen auf dieser Seite, nicht „auf Anfrage“.",
+
+    notHead: "Was G-Track nicht macht",
+    notSub: "Damit Sie nicht dreißig Tage Demo darauf verwenden, nach etwas zu suchen, das es hier nicht gibt.",
+    not1: "Wertet keine Tachografen aus. Wir lesen keine DDD-Dateien, berechnen keine Lenk- und Ruhezeiten und zählen keine Kabotage 3/7.",
+    not2: "Überwacht keine Fahrzeuge. Kein GPS-Track, keine Routen in Echtzeit — das ist Ihre Telematik.",
+    not3: "Führt keine Aufträge und keine Frachten. Aufträge und Rechnungen stehen am Horizont, heute gibt es sie nicht.",
+    not4: "Rechnet keine Löhne ab und ersetzt keine Buchhaltung.",
+    notBridge: "Wir ersetzen weder Ihre Tachografen-Software noch Ihre Telematik. Wir schließen die Lücke, die dort bleibt: Menschen, Dokumente, Fristen und wer an welchem Tag fährt.",
+  },
+
   final: {
     overline: "Preis für die Ersten",
     h2: "Starten Sie jetzt — der Preis fährt mit.",

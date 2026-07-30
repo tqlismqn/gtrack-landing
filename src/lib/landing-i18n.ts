@@ -268,6 +268,64 @@ const ru = {
     anchorArg: "Один штраф за нарушение каботажа — до 7 500 €. Одна просроченная виза — рейс встал. G-Track держит весь парк под контролем дешевле, чем стоит один такой срыв.",
   },
 
+  /* Вопросы: формулировки взяты из реальных возражений перевозчиков, ответы —
+     только по проверяемым фактам продукта. Суммы штрафов и ссылки на статьи
+     сознательно не приводим: законы меняются, а текст живёт в 12 локалях.
+     JSON-LD FAQPage НЕ ставим — Google выключил FAQ-сниппеты 7 мая 2026. */
+  faq: {
+    overline: "Вопросы",
+    h2: "Что спрашивают перед тем, как завести аккаунт",
+    sub: "Короткие ответы без «свяжитесь с нами». Здесь то, о чём нас спрашивают чаще всего — включая то, чего мы не делаем.",
+    askLead: "Своего вопроса не нашли?",
+    askCta: "Напишите — ответим так же коротко",
+
+    g1: "Сроки и ответственность",
+    g2: "Внедрение и данные",
+    g3: "Доступ, парк, цена",
+
+    q1: "Как система напомнит, что у водителя истекает документ?",
+    a1: "Каждое утро в 8:00 G-Track проверяет документы всего парка. Паспорт поднимает флаг за 180 дней, декларация — за 60, остальные — за 90. Уведомление уходит тремя каналами сразу: письмом в офис, отметкой в самом приложении и пушем водителю в Telegram.",
+    a1b: "Каналы и частоту писем настраиваете сами по каждому типу уведомления. Поэтому напоминание не висит на одном человеке и не пропадает, пока кадровик в отпуске.",
+
+    q2: "Кто отвечает, если водитель уехал в рейс с просроченным документом?",
+    a2: "В большинстве стран EU — перевозчик, а не только водитель: штраф выписывают фирме, а в ряде стран отдельно и ответственному за транспорт. Конкретные суммы и порядок зависят от страны проверки. Именно поэтому G-Track напоминает не водителю, а офису — тому, кто ставит рейс в план.",
+
+    q3: "Видно ли по доске планирования, кто не может выехать из-за документа?",
+    a3: "Да, доска сводит людей, машины и сроки в одно место: кто в отпуске, кто на больничном, у кого нет машины, у кого документ не в порядке. Каждое изменение плана пишется в журнал — видно не только текущую картину, но и кто когда её поменял.",
+
+    q4: "У меня 40–60 водителей и годы сканов в Excel и папках. Кто это перенесёт?",
+    a4: "Начать можно без архива: заведите водителей и те документы, у которых срок ближе всего — напоминания заработают уже с этого. Старые сканы догружаются по ходу и ничего не блокируют.",
+    a4b: "Перенос из Excel ранним клиентам делаем бесплатно. Присылайте файл каким он есть — с примечаниями, пустыми ячейками и «??» в датах.",
+
+    q5: "Где физически лежат данные и сканы? Подпишете DPA?",
+    a5: "Данные и файлы — в Европейском союзе, дата-центр в Ирландии. Документ об обработке данных опубликован, ссылка в подвале страницы; подписываем. Доступ к чувствительным полям внутри вашей компании ограничен ролями, а не общей галочкой.",
+
+    q6: "Если решу уйти — заберу данные?",
+    a6: "Данные выгружаются в CSV в любой момент и без запроса: список водителей, статусы документов, сроки. Сканы остаются вашими: сейчас они скачиваются по одному, выгрузку всего архива делаем по запросу. Аккаунт удаляете сами, без звонка «менеджеру по удержанию».",
+
+    q7: "Что должен делать водитель? Ему что-то устанавливать?",
+    a7: "Ничего. Водитель работает в Telegram, который у него уже стоит: видит свои документы и сроки, свою смену и машину, присылает фото нового документа прямо в чат. Есть встроенный перевод — водитель пишет на своём языке, диспетчер читает на своём.",
+    a7b: "Приложению нужен интернет. Оригиналы документов в кабине это не отменяет.",
+
+    q8: "Может ли диспетчер видеть график, но не видеть паспорт и медзаключение?",
+    a8: "Да, и так по умолчанию. Права раздаются точечно — их больше тридцати. Личный номер и банковский счёт закрыты отдельным правом и показываются маской. Какие типы документов считать конфиденциальными, каждая компания решает за себя.",
+
+    q9: "Как у вас с водителями из третьих стран — Украина, Сербия, Узбекистан?",
+    a9: "Для не-граждан EU обязательный список другой и длиннее: виза, паспорт, Код 95, регистрация проживания. Готовность к рейсу считается именно по расширенному списку — водитель не покажется готовым, пока не закрыты его документы, а не общий шаблон.",
+
+    q10: "Сколько это стоит для 40 машин и 45 прицепов? Платить за каждого пользователя?",
+    a10: "Тариф Starter — 150 € в месяц, при оплате за год 125 €. В него входят 50 машин, 100 водителей и 75 прицепов, так что ваш парк укладывается с запасом. Места диспетчеров и кадровиков не считаются: заводите всех, кому нужно.",
+    a10b: "Тридцать дней демо без карты и без звонка менеджера. Цены — на этой же странице, а не «по запросу».",
+
+    notHead: "Чего G-Track не делает",
+    notSub: "Чтобы вы не тратили тридцать дней демо на проверку того, чего здесь нет.",
+    not1: "Не разбирает тахограф. Мы не читаем DDD-файлы, не считаем режим труда и отдыха и не считаем каботаж 3/7.",
+    not2: "Не следит за машинами. Ни GPS-трека, ни маршрутов в реальном времени — это ваша телематика.",
+    not3: "Не ведёт заказы и фрахт. Заказы и счета — на горизонте, сегодня их нет.",
+    not4: "Не считает зарплату и не заменяет бухгалтерию.",
+    notBridge: "Мы не заменяем тахограф-софт и телематику. Мы закрываем то, чего в них нет: люди, документы, сроки и кто в какой день едет.",
+  },
+
   final: {
     overline: "Цена для первых",
     h2: "Начните сейчас — цена едет с вами.",
@@ -537,6 +595,60 @@ const en: LandingDict = {
     anchorBig: "≈ 2.25 €",
     anchorUnit: "per truck/mo · 200-truck fleet",
     anchorArg: "One cabotage violation fine — up to 7 500 €. One expired visa — a trip grounded. G-Track keeps the whole fleet under control for less than a single slip-up costs.",
+  },
+
+  faq: {
+    overline: "Questions",
+    h2: "What carriers ask before they open an account",
+    sub: "Short answers, no “contact us”. These are the questions we get most — including the ones about what we don’t do.",
+    askLead: "Your question isn’t here?",
+    askCta: "Write to us — we answer just as briefly",
+
+    g1: "Deadlines and liability",
+    g2: "Getting started and your data",
+    g3: "Access, fleet, price",
+
+    q1: "How does the system warn me that a driver’s document is expiring?",
+    a1: "Every morning at 8:00 G-Track checks the documents of your whole fleet. A passport raises the flag 180 days ahead, a declaration 60, everything else 90. The alert goes out through three channels at once: an email to the office, a marker inside the app, and a Telegram push to the driver.",
+    a1b: "You set the channels and the email frequency yourself, per notification type. So the reminder doesn’t hang on one person and doesn’t vanish while your HR manager is on holiday.",
+
+    q2: "Who is liable if a driver leaves on a trip with an expired document?",
+    a2: "In most EU countries it is the carrier, not only the driver: the fine goes to the company, and in several countries to the transport manager personally as well. Exact amounts and procedure depend on the country of the check. That is why G-Track reminds the office rather than the driver — whoever puts the trip on the board.",
+
+    q3: "Does the planning board show who can’t leave because of a document?",
+    a3: "Yes. The board pulls people, vehicles and deadlines into one place: who is on holiday, who is on sick leave, who has no truck, whose document isn’t in order. Every change to the plan is written to a log — you see the current picture and who changed it when.",
+
+    q4: "I have 40–60 drivers and years of scans in Excel and folders. Who moves all that?",
+    a4: "You can start without the archive: enter the drivers and the documents whose deadlines are closest — reminders start working from that alone. Old scans get uploaded along the way and block nothing.",
+    a4b: "For early customers we migrate from Excel for free. Send the file as it is — with notes, empty cells and “??” in the date column.",
+
+    q5: "Where is the data and where are the scans? Will you sign a DPA?",
+    a5: "Data and files sit in the European Union, in a data centre in Ireland. The data processing document is published — the link is in the page footer — and we do sign it. Access to sensitive fields inside your company is limited by roles, not by one global switch.",
+
+    q6: "If I decide to leave, can I take my data?",
+    a6: "Data exports to CSV any time, without asking us: driver list, document statuses, deadlines. The scans stay yours — right now they download one by one, and we hand over the whole archive on request. You delete the account yourself, with no call from a “retention manager”.",
+
+    q7: "What does the driver have to do? Does he install anything?",
+    a7: "Nothing. The driver works in Telegram, which he already has: he sees his own documents and deadlines, his shift and his truck, and sends a photo of a new document straight into the chat. Translation is built in — the driver writes in his language, the dispatcher reads in hers.",
+    a7b: "The app needs internet. It doesn’t replace the original documents in the cab.",
+
+    q8: "Can a dispatcher see the schedule but not the passport and medical certificate?",
+    a8: "Yes, and that is the default. Permissions are granted one by one — there are more than thirty of them. Personal ID number and bank account sit behind a separate permission and show up masked. Which document types count as confidential is each company’s own call.",
+
+    q9: "How do you handle drivers from third countries — Ukraine, Serbia, Uzbekistan?",
+    a9: "For non-EU nationals the mandatory list is different and longer: visa, passport, Code 95, residence registration. Trip readiness is calculated against that extended list — a driver won’t show as ready until his documents are closed, not a generic template.",
+
+    q10: "What does it cost for 40 trucks and 45 trailers? Do I pay per user?",
+    a10: "Starter is 150 € a month, or 125 € on yearly billing. It covers 50 trucks, 100 drivers and 75 trailers, so your fleet fits with room to spare. Dispatcher and HR seats aren’t counted — add everyone who needs one.",
+    a10b: "Thirty days of demo, no card and no sales call. Prices are on this page, not “on request”.",
+
+    notHead: "What G-Track does not do",
+    notSub: "So you don’t spend thirty days of demo checking for something that isn’t here.",
+    not1: "It doesn’t analyse tachographs. We don’t read DDD files, we don’t calculate driving and rest time, and we don’t count cabotage 3/7.",
+    not2: "It doesn’t track vehicles. No GPS trace, no live routes — that’s your telematics.",
+    not3: "It doesn’t run orders and freight. Orders and invoices are on the horizon, not here today.",
+    not4: "It doesn’t run payroll and doesn’t replace your accountant.",
+    notBridge: "We don’t replace your tachograph software or your telematics. We cover what neither of them has: people, documents, deadlines, and who drives on which day.",
   },
 
   final: {

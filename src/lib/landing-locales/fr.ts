@@ -216,6 +216,60 @@ export const fr: LandingDict = {
     anchorArg: "Une amende pour infraction au cabotage — jusqu’à 7 500 €. Un visa expiré — une tournée à l’arrêt. G-Track garde toute la flotte sous contrôle pour moins que ne coûte un seul de ces incidents.",
   },
 
+  faq: {
+    overline: "Questions",
+    h2: "Ce que les transporteurs demandent avant d’ouvrir un compte",
+    sub: "Des réponses courtes, sans « contactez-nous ». Voici ce qu’on nous demande le plus souvent — y compris ce que nous ne faisons pas.",
+    askLead: "Votre question n’y est pas ?",
+    askCta: "Écrivez-nous — nous répondrons aussi brièvement",
+
+    g1: "Échéances et responsabilité",
+    g2: "Mise en route et vos données",
+    g3: "Accès, flotte, prix",
+
+    q1: "Comment le système prévient-il qu’un document de conducteur arrive à expiration ?",
+    a1: "Chaque matin à 8:00, G-Track contrôle les documents de toute la flotte. Le passeport est signalé 180 jours à l’avance, la déclaration 60, tous les autres 90. L’alerte part par trois canaux à la fois : un e-mail au bureau, un marqueur dans l’application elle-même et un push Telegram au conducteur.",
+    a1b: "Vous réglez vous-même les canaux et la fréquence des e-mails, type de notification par type de notification. Le rappel ne repose donc pas sur une seule personne et ne disparaît pas pendant que les RH sont en congés.",
+
+    q2: "Qui est responsable si un conducteur part en tournée avec un document expiré ?",
+    a2: "Dans la plupart des pays de l’UE, c’est le transporteur et pas seulement le conducteur : l’amende est adressée à l’entreprise et, dans plusieurs pays, également au gestionnaire de transport à titre personnel. Les montants et la procédure dépendent du pays où a lieu le contrôle. C’est précisément pour cela que G-Track alerte le bureau et non le conducteur — celui qui inscrit la tournée au planning.",
+
+    q3: "Le tableau de planification montre-t-il qui ne peut pas partir à cause d’un document ?",
+    a3: "Oui. Le tableau réunit les personnes, les véhicules et les échéances au même endroit : qui est en congés, qui est en arrêt maladie, qui n’a pas de véhicule, qui a un document qui ne suit pas. Chaque modification du plan est inscrite dans l’historique — vous voyez non seulement la situation du moment, mais aussi qui l’a changée et quand.",
+
+    q4: "J’ai 40–60 conducteurs et des années de scans dans Excel et des classeurs. Qui va tout reprendre ?",
+    a4: "Vous pouvez démarrer sans l’archive : saisissez les conducteurs et les documents dont les échéances sont les plus proches — les rappels fonctionnent déjà avec cela seul. Les anciens scans se téléversent en chemin et ne bloquent rien.",
+    a4b: "Pour les premiers clients, la migration depuis Excel est gratuite. Envoyez le fichier tel quel — avec les notes, les cellules vides et les « ?? » dans la colonne des dates.",
+
+    q5: "Où se trouvent physiquement les données et les scans ? Signez-vous un DPA ?",
+    a5: "Les données et les fichiers sont dans l’Union européenne, dans un centre de données en Irlande. Le document relatif au traitement des données est publié — le lien est en pied de page — et nous le signons. À l’intérieur de votre entreprise, l’accès aux champs sensibles est limité par les rôles, pas par une seule case à cocher globale.",
+
+    q6: "Si je décide de partir — puis-je récupérer mes données ?",
+    a6: "Les données s’exportent en CSV à tout moment et sans nous le demander : liste des conducteurs, statuts des documents, échéances. Les scans restent les vôtres : pour l’instant, ils se téléchargent un par un, et nous remettons l’archive complète sur demande. Vous supprimez le compte vous-même, sans appel d’un « chargé de rétention ».",
+
+    q7: "Que doit faire le conducteur ? Doit-il installer quelque chose ?",
+    a7: "Rien. Le conducteur travaille dans Telegram, qu’il a déjà : il voit ses propres documents et leurs échéances, son planning de service et son véhicule, et envoie la photo d’un nouveau document directement dans le chat. La traduction est intégrée — le conducteur écrit dans sa langue, le dispatcher lit dans la sienne.",
+    a7b: "L’application a besoin d’Internet. Elle ne dispense pas d’avoir les documents originaux dans la cabine.",
+
+    q8: "Un dispatcher peut-il voir le planning sans voir le passeport et le certificat médical ?",
+    a8: "Oui, et c’est le réglage par défaut. Les permissions se donnent une par une — il y en a plus de trente. Le numéro d’identification national et le compte bancaire sont derrière une permission distincte et s’affichent masqués. Quels types de documents sont considérés comme confidentiels, chaque entreprise le décide pour elle-même.",
+
+    q9: "Et les conducteurs des pays tiers — Ukraine, Serbie, Ouzbékistan ?",
+    a9: "Pour les ressortissants hors UE, la liste obligatoire est différente et plus longue : visa, passeport, Code 95, attestation de domicile. La préparation au trajet se calcule précisément sur cette liste étendue — un conducteur n’apparaît pas comme prêt tant que ses propres documents ne sont pas en règle, et non selon un modèle générique.",
+
+    q10: "Combien cela coûte pour 40 véhicules et 45 remorques ? Faut-il payer par utilisateur ?",
+    a10: "Le plan Starter est à 150 € par mois, 125 € en facturation annuelle. Il comprend 50 véhicules, 100 conducteurs et 75 remorques — votre flotte y entre avec de la marge. Les postes de dispatcher et de RH ne sont pas comptés : créez-les pour tous ceux qui en ont besoin.",
+    a10b: "Trente jours de démo, sans carte et sans appel commercial. Les prix sont sur cette page, pas « sur demande ».",
+
+    notHead: "Ce que G-Track ne fait pas",
+    notSub: "Pour que vous ne passiez pas trente jours de démo à chercher ce qui n’est pas là.",
+    not1: "Ne dépouille pas les tachygraphes. Nous ne lisons pas les fichiers DDD, nous ne calculons pas les temps de conduite et de repos, et nous ne comptons pas le cabotage 3/7.",
+    not2: "Ne suit pas les véhicules. Ni trace GPS, ni itinéraires en temps réel — c’est votre télématique.",
+    not3: "Ne gère pas les commandes ni le fret. Les commandes et les factures sont à l’horizon, elles ne sont pas là aujourd’hui.",
+    not4: "Ne calcule pas les salaires et ne remplace pas la comptabilité.",
+    notBridge: "Nous ne remplaçons ni votre logiciel tachygraphe ni votre télématique. Nous couvrons ce qui leur manque : les personnes, les documents, les échéances, et qui roule quel jour.",
+  },
+
   final: {
     overline: "Le prix des premiers",
     h2: "Commencez maintenant — le prix fait la route avec vous.",

@@ -9,6 +9,7 @@
 @import "./hero.css" layer(gt-landing);
 @import "./story.css" layer(gt-landing);
 @import "./scenes.css" layer(gt-landing);
+@import "./faq.css" layer(gt-landing);
 @import "./fx.css" layer(gt-landing);
 @import "./mobile.css" layer(gt-landing);
 
