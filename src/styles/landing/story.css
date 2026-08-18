@@ -6,7 +6,10 @@
 /* ---- 4.4 Боль — «как это выглядит сегодня» -------------------------------- */
 .pain { background: var(--sunken); border-top: 1px solid var(--border-1); border-bottom: 1px solid var(--border-1); }
 .pain-grid { display: grid; gap: 56px; align-items: center; }
-@media (min-width: 1000px) { .pain-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr); gap: 64px; } }
+/* было 1000 → l */
+@media (width >= theme(--breakpoint-l)) {
+  .pain-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr); gap: 64px; }
+}
 
 .pain-collage { position: relative; height: 460px; --decay: 0; }
 .pain-card {
@@ -118,7 +121,9 @@ html.motion-ok .scrolly-stage {
 .scrolly-head { padding-top: clamp(56px, 7vh, 90px); }
 html.motion-ok .scrolly-head { padding-top: 0; }
 .scrolly-grid { display: grid; gap: 40px; margin-top: clamp(28px, 4vh, 48px); align-items: center; }
-@media (min-width: 980px) { .scrolly-grid { grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr); gap: 64px; } }
+@media (width >= theme(--breakpoint-l)) {
+  .scrolly-grid { grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr); gap: 64px; }
+}
 
 .sstep { padding: 16px 0 16px 22px; position: relative; }
 .sstep::before {
@@ -144,12 +149,370 @@ html.motion-ok .frame {
 html.motion-ok .frame.active { opacity: 1; transform: none; pointer-events: auto; }
 .frame figcaption { display: none; }
 
+/* ---- 4.5.1 ожившая сцена: мини-карта маршрута ------------------------------- */
+/* Раскладка. Карта — ТРЕТИЙ ребёнок .scrolly-grid, и позиция задана областями,
+   а не порядком: при автоматической раскладке сцена осталась бы в первой строке,
+   а нужно, чтобы она занимала обе (шаги сверху, карта под ними). Области сняты
+   обратно в раскадровке ниже — иначе они продолжали бы описывать две колонки,
+   которых там уже нет. */
+@media (width >= theme(--breakpoint-l)) {
+  /* Область "map" снята вместе со второй строкой: карта больше НЕ грид-элемент,
+     она уходит абсолютным слоем в саму сцену (блок «карта как поле» ниже). */
+  html.motion-ok .scrolly-grid { grid-template-areas: "steps scene"; }
+  html.motion-ok .scrolly-steps { grid-area: steps; }
+  html.motion-ok .scrolly-scene { grid-area: scene; }
+}
+
+/* ---- 4.5.2 КАРТА КАК ПОЛЕ, ПО КОТОРОМУ ЕДЕТ МАШИНА (R32) -------------------
+   Правка результата таска 06 по требованию владельца: мини-карта 280 px под
+   текстом «задержаться» не заставляла.
+
+   🔴 УСЛОВИЕ ЗАПРОСА — ОБА ПОРОГА СРАЗУ, и это не стилистика. Поле существует
+   ровно там, где включён пин, то есть при `--pin-enabled` = 1 (ширина ≥ l И
+   высота ≥ vh-pin). Гейт по одной ширине означал бы, что на низком широком
+   окне (1440×600) правила поля продолжают действовать поверх раскадровки —
+   и тогда каждое из них пришлось бы возвращать обратно в раскадровочном блоке
+   поимённо: двенадцать перебивок, где пропуск любой одной даёт молчаливую
+   поломку. Здесь запрос — точное дополнение к раскадровочному
+   `(width < l), (height < vh-pin)`, и возвращать не нужно НИЧЕГО.
+   Форма `and (height >= …)` валидна (даёт `min-height`); ловушка — только
+   `and (height < …)`, см. блок раскадровки ниже. */
+@media (width >= theme(--breakpoint-l)) and (height >= theme(--vh-pin)) {
+  /* Единственный бокс нужной геометрии — `.scrolly-stage`: у него УЖЕ
+     `position: sticky; top: 0; height: 100vh; overflow: hidden` (см. выше).
+     `.scrolly` и `.scrolly-track` высотой 400vh — слой на них проехал бы мимо
+     экрана. Отсчёт `inset: 0` берётся от stage, потому что между картой и ним
+     нет ни одного позиционированного предка: и `.scrolly-grid`, и `.wrap`
+     (base.css:144) статичны. Заведёт кто-нибудь `position: relative` на
+     `.wrap` — слой молча схлопнется в колонку 1180 px; это не гипотеза,
+     а известный режим отказа, см. `container-type` в interfaces.
+
+     ПОРЯДОК ОТРИСОВКИ. Слой лежит на `z-index: -1`, и это выбрано вместо
+     положительного ровно потому, что тогда всё содержимое сцены — шапка, шаги,
+     кадры, прогресс, стрелка — остаётся сверху БЕЗ единого правила на них:
+     поток рисуется поверх отрицательного слоя по построению. Проверено
+     негативным контролем: при `z-index: 0` слой всплывает над потоком, и фон
+     под текстом шага перестаёт быть канвой — разброс яркости замеренной области
+     0,0003 → 0,182, различных цветов 4 → 498.
+
+     🔴 `isolation: isolate` — ТРЕТЬЯ СТРАХОВКА, А НЕ МЕХАНИЗМ, и раньше здесь
+     было написано обратное. Замер: при `isolation: auto` порядок отрисовки
+     не сдвинулся (поле карты — те же 50 цветов в полосе слева от `.wrap`,
+     фон под текстом — та же канва); не сдвинулся он и при `isolation: auto`
+     ВМЕСТЕ с `.scrolly-track { z-index: auto }`. Контекст наложения здесь
+     держит `position: sticky` у самого stage, а `z-index: 1` у трека — второй,
+     независимый уровень выше. Декларация оставлена сознательно: она страхует
+     будущую правку, которая снимет со stage sticky, и стоит одну строку.
+     Но считать её работающим механизмом нельзя — она не работает ни на чём.
+
+     🔴 Следствие для скрима: `.scrolly-steps` обязан быть СВОИМ контекстом
+     (`position: relative; z-index: 0`), иначе его `::before` с `z-index: -1`
+     встанет в тот же отрицательный слой, что и карта, и проиграет ей
+     по порядку в дереве.
+
+     🔴 ВЕРХНИЙ ОТСТУП 66 px — НЕ порог по окну, а высота шапки: `.nav-inner`
+     64 px + 1 px границы = 65 (замерено: `nav.getBoundingClientRect().bottom`
+     = 65), плюс пиксель запаса. Без него слой начинается под фиксированной
+     шапкой, и самая северная точка маршрута вместе с подписью `PRG` уходит
+     ей за спину: подпись стояла на y ≈ 55 при нижней кромке шапки 65 и
+     не читалась вовсе, тогда как `MUC` читался. Отступ заодно уменьшает
+     масштаб поля с 3,913 до 3,626 при vh 900 — все числа единиц viewBox ниже
+     замерены уже с ним. */
+  html.motion-ok .scrolly-stage { isolation: isolate; }
+  html.motion-ok .journey-map {
+    position: absolute; inset: 66px 0 0; z-index: -1;
+    grid-area: auto; max-width: none; margin-inline: 0; width: auto;
+    padding: 0; border: 0; border-radius: 0; background: none;
+  }
+  /* Кроп. `preserveAspectRatio="xMidYMid slice"` стоит в разметке всегда
+     (Europe.tsx), но работает только когда пропорция бокса РАСХОДИТСЯ
+     с пропорцией viewBox — то есть ровно здесь, где высота берётся из stage,
+     а не из соотношения сторон. Специфичность 0,3,0 против `.euro-map` (0,1,0)
+     в fx.css: правило выигрывает и по весу, и по порядку. */
+  html.motion-ok .journey-map .euro-map { height: 100%; }
+  /* Фото Higgsfield полем НЕ растягиваем: 1600×900 на 1430×900 при удвоенной
+     плотности заметно мягко. Ассет остаётся в блочном варианте раскадровки —
+     там он и виден большинству посетителей, поэтому R08 выполнен там, где
+     картинка реально видна, а R09.3 держится тем, что сцена читается без
+     любого из слоёв. */
+  html.motion-ok .journey-map::before { display: none; }
+  /* Вуаль на токенах: приём `.atmo .fade` — градиент к `var(--canvas)`, одно
+     правило на обе темы. Верх и низ гасим в канву, чтобы у поля не было жёсткой
+     кромки под заголовком и над прогрессом; середина остаётся живой.
+     `::after`, а не `::before`: `.journey-map > *` даёт карте `position: relative`,
+     и псевдоэлемент оказывается выше неё только по порядку в дереве. */
+  /* Проценты подобраны под КОНЕЧНЫЕ ТОЧКИ МАРШРУТА, а не на глаз.
+     Сверху достаточно 4 %: слой начинается сразу под шапкой, и градиент здесь
+     убирает только шов, а не защищает текст — шапка своё место уже занимает.
+     Снизу ramp начинается на 88 % и уходит лишь до 66 % канвы: узел Барселоны
+     лежит на 87,8 % высоты слоя, его подпись на 81,7 %, и прежний вариант
+     (74 % → сплошная канва) стирал кадр прибытия — тот самый, который R09
+     называет своим. Числа проверены пересчётом: доли от высоты слоя, а не
+     от вьюпорта, поэтому от высоты окна не зависят. */
+  html.motion-ok .journey-map::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to bottom,
+      var(--canvas),
+      color-mix(in oklch, var(--canvas) 34%, transparent) 4%,
+      color-mix(in oklch, var(--canvas) 34%, transparent) 88%,
+      color-mix(in oklch, var(--canvas) 66%, transparent));
+  }
+  /* Подпись участка переезжает в поток колонки шагов; та, что внутри коробки
+     карты, здесь не нужна — коробки нет. Отступ СНИЗУ, а не сверху: подпись
+     стоит НАД шагами (см. Scrolly.tsx — под шагами она слипалась с силуэтом
+     машины в точке прибытия). */
+  html.motion-ok .journey-map .journey-leg { display: none; }
+  html.motion-ok .journey-caption { display: block; margin: 0 0 22px; }
+
+  /* 🔴 ЕДИНИЦЫ viewBox ПЕРЕСЧИТАНЫ. Масштаб поля k = высота сцены / 230
+     (высота всегда узкое место: 100vh/230 > 100vw/460 у любого окна не шире
+     2:1), то есть k ≈ 3,04 при vh 700 и ≈ 3,91 при vh 900 — против 0,52…0,76
+     у мини-карты. Набор таска 06 (штрих 2,6 · r 4 · кегль 15) дал бы в поле
+     штрих 10 px, узел 31 px и подписи 59 px, спорящие с заголовком секции.
+     Числа ниже — в единицах viewBox; экранные значения замерены через
+     getScreenCTM, а не выведены из правила. */
+  /* Фоновая сеть маршрутов: толщину задаём ПРЯМО, а не через `--map-route-w`.
+     Переменная объявлена в `.euro-map` (fx.css) и там же переопределяется
+     ступенями `< m` / `<= s`; перебив её здесь, мы бы завели четвёртое
+     объявление той же величины и сломали бы способ вернуть её обратно
+     (`revert-layer` в одном слое отматывает и базовое объявление тоже).
+     Прямое правило (0,3,1) читает ту же величину только когда надо. */
+  html.motion-ok .journey-map .euro-map .route { stroke-width: 0.6; }
+  html.motion-ok .journey-map .euro-map .jleg { stroke-width: 0.8; }
+  html.motion-ok .journey-map .euro-map .jnode { r: 1.4px; }
+  /* Коды городов остаются, но мелким кеглем и приглушённо: 15 единиц viewBox
+     в поле — это 59 CSS-px, крупнее заголовка секции. 3,1 единицы дают 12 px
+     при vh 900 — подпись читается и заголовку не конкурент. */
+  html.motion-ok .journey-map .euro-map .jlabel { font-size: 3.1px; opacity: 0.72; }
+  html.motion-ok .journey-map .euro-map .jtruck-fit {
+    transform: scale(0.42); transform-box: fill-box; transform-origin: center;
+  }
+
+  /* ═══ ПОДСВЕТКА АКТИВНОГО УЧАСТКА (решение владельца с показа) ═══════════
+     Задача: на шагах 2 и 3 силуэт машины уходит за карточку сцены, и движение
+     перестаёт читаться. Двигать композицию владелец не захотел ⇒ движение
+     несёт сам маршрут.
+
+     🔴 БЕГУЩИЙ ПУНКТИР ЗАПРЕЩЁН. `stroke-dashoffset` — не `transform` и не
+     `opacity`, то есть прямое нарушение R09.4. Таск 06 сознательно развёл
+     активный участок ТОЛЬКО прозрачностью по той же причине. Здесь добавлены
+     три законных средства: статически более толстый штрих (толщину меняем,
+     но НЕ анимируем), ореол под линией и пульс ореола по `opacity`.
+
+     🔴 ГЕЙТ — СТУПЕНЬ ОКНА, А НЕ `motion-ok`, и это не стилистика. При
+     `prefers-reduced-motion` на широком окне сцена показывается раскадровкой
+     (все правила поля выше висят на `html.motion-ok`), но усиленное состояние
+     обязано остаться — критерий приёмки требует статичного усиления без
+     пульса. Поэтому статика адресована без `motion-ok` и получает ДВА набора
+     толщин: коробка раскадровки (штрих `.jleg` 2.6 ед.) и поле (0.8 ед.).
+     Пульс — единственное, что гейтится `motion-ok`.
+
+     🔴 ЕДИНИЦЫ — viewBox, не CSS-px (третий набор, см. interfaces). Масштаб
+     поля 3,6261 при высоте 900: активный штрих 1.15 ед. = 4,170 CSS-px против
+     2,901 у неактивных, ореол 3.2 ед. = 11,60 CSS-px. */
+  .journey-map .euro-map .jhalo { fill: none; stroke: var(--info); stroke-linecap: round; }
+  /* набор раскадровочной коробки — пропорция к `.jleg` 2.6 сохранена */
+  .journey-map .euro-map .jhalo { stroke-width: 13.6; opacity: 0; }
+  .journey-map .euro-map .jleg.active { stroke-width: 4.6; }
+  /* набор поля */
+  html.motion-ok .journey-map .euro-map .jhalo { stroke-width: 4.2; }
+  html.motion-ok .journey-map .euro-map .jleg.active { stroke-width: 1.42; }
+  /* Статичное усиленное состояние: ореол виден ровно у активного участка.
+     Это же значение остаётся при `prefers-reduced-motion` — анимация ниже
+     до него просто не доходит. */
+  .journey-map .euro-map .jhalo.active { opacity: 0.34; }
+  html.motion-ok .journey-map .euro-map .jhalo.active {
+    animation: jhalo-pulse 2600ms var(--ease-soft) infinite;
+  }
+
+  /* 🔴 ПОЧЕМУ ПОДСВЕЧЕН ЕЩЁ И ГОРОД, А НЕ ТОЛЬКО ЛИНИЯ. Замер по нарисованной
+     геометрии на шаге 2 (1430×900): у активного участка `MUC → LYO` во всём
+     кадре остаются ДВЕ выборочные точки, не закрытые ни карточкой сцены,
+     ни скримом колонки шагов, — и обе лежат под растушёвкой скрима (снятие
+     скрима поднимает их контраст 1,45 → 3,96). То есть подсветка одной линии
+     решала бы задачу в области, которой посетитель не видит.
+     Чистыми остаются окрестности КОНЦОВ участка: узел и код города. Поэтому
+     активный участок называет себя ещё и двумя своими городами.
+     Радиус — геометрическое свойство CSS; здесь оно СТАТИЧНО (анимировать
+     нельзя, R09.4), пульсирует только `opacity` ореола выше. */
+  .journey-map .euro-map .jcity.active .jnode { r: 6.4px; }
+  .journey-map .euro-map .jcity.active .jlabel { opacity: 1; fill: var(--info); }
+  html.motion-ok .journey-map .euro-map .jcity.active .jnode { r: 2.3px; }
+  /* Кегль кода города у концов участка: 3.1 → 4.2 ед. viewBox = 11,24 → 15,23
+     CSS-px. Заголовку секции (32 px) по-прежнему не конкурент — ограничение
+     таска 11 соблюдено, — а разницу между «моим» городом и остальными видно
+     без сравнения двух точек рядом. */
+  html.motion-ok .journey-map .euro-map .jcity.active .jlabel { font-size: 4.2px; }
+}
+/* Пульс ореола. Композиторное свойство и только оно: `opacity` туда-обратно
+   вокруг статичного 0,3. Ширина, цвет и геометрия неподвижны — иначе каждый
+   кадр пересчитывалась бы отрисовка пути. */
+@keyframes jhalo-pulse {
+  0%, 100% { opacity: 0.16; }
+  50%      { opacity: 0.46; }
+}
+@media (width >= theme(--breakpoint-l)) and (height >= theme(--vh-pin)) {
+
+  /* 🔴 СКРИМ ПОД КОЛОНКОЙ ШАГОВ — не косметика. Смысл «активен только один шаг»
+     несёт `opacity: 0.34` у неактивных `.sstep` (правило выше); править её
+     нельзя — сломается подсветка шага. Значит непрозрачным обязан быть ФОН,
+     а не текст ярче. Приём тот же `.atmo .fade`: градиент к `var(--canvas)`
+     на токенах, одно правило на обе темы. Тёмная тема опаснее светлой: там
+     `--text-2` светлый, а линии карты — `--info`, тоже светлый.
+     🔴 ГЕОМЕТРИЯ СКРИМА — ЧЕТЫРЕ ЧИСЛА, И ОДНО ИЗ НИХ ЗАВИСИТ ОТ ЗАЗОРА ГРИДА.
+     Все четыре — контентные, по месту, а не пороги по окну:
+       • 26 px сверху и снизу — вылет за текст колонки, он же длина вертикальной
+         растушёвки в `mask-image` (одно число дважды: кромка гаснет ровно
+         на своём вылете, иначе видно ступеньку);
+       • 40 px слева — ширина бокового отступа `.wrap` на этой ступени
+         (`base.css`: `padding-left: 40px` от ступени `m`). Слой доходит до
+         кромки `.wrap` и там же проявляется, поэтому левой границы не видно;
+       • 60 px справа — вылет в зазор грида, и вот ЗАВИСИМОСТЬ, которую нельзя
+         терять: `.scrolly-grid` на ступени `l` имеет `gap: 64px` (см. выше),
+         то есть 60 < 64 с запасом 4 px. Пока это так, скрим целиком лежит
+         в зазоре и не заезжает под карточки сцены — замер: правый край слоя
+         на 416,6 px ВНУТРИ правого края грида. Уменьшат зазор — скрим молча
+         полезет под карточки; увеличат — появится полоса карты между канвой
+         и карточкой. Меняешь `gap` — пересчитывай это число вместе с ним;
+       • 52 px — длина горизонтальной растушёвки от правого края слоя, то есть
+         градиент гаснет на 8 px ВНУТРИ зазора (60 − 52), и вся ширина текста
+         стоит на сплошной канве.
+     За пределы `.wrap` слой намеренно не выходит: `-50vw` дал бы полное
+     покрытие и заодно переполнение в сквозном замере. */
+  html.motion-ok .scrolly-steps { position: relative; z-index: 0; }
+  html.motion-ok .scrolly-steps::before {
+    content: ""; position: absolute; z-index: -1; pointer-events: none;
+    top: -26px; bottom: -26px; left: -40px; right: -60px;
+    background: linear-gradient(to right,
+      transparent, var(--canvas) 40px,
+      var(--canvas) calc(100% - 52px), transparent);
+    mask-image: linear-gradient(to bottom,
+      transparent, #000 26px, #000 calc(100% - 26px), transparent);
+  }
+
+  /* ═══ УСИЛЕНИЕ КАРТЫ В СВЕТЛОЙ ТЕМЕ (решение владельца с показа) ══════════
+     «В светлой теме карта читается водяным знаком, а не картой.» Замер
+     подтвердил: контраст линии маршрута к локальному фону 1,289 (медиана
+     по 255 точкам на нарисованных путях). Числа тёмной темы (1,293) владелец
+     менять не просил — трогаем ровно светлую.
+
+     🔴 ЛЕЧИМ ТОКЕНЫ КАРТЫ, А НЕ ВУАЛЬ. Соблазн — ослабить `::after` (канва
+     34 %): он гасит всё поле разом. Но вуаль стоит между картой и ТЕКСТОМ
+     ШАГОВ, и её ослабление бьёт по контрасту текста, то есть по R32.
+     Усиление красок карты проходит под той же вуалью и текста не касается —
+     что и подтверждено перезамером (см. контракт таска).
+
+     🔴 СПЕЦИФИЧНОСТЬ, А НЕ ПОРЯДОК. `.land` объявлен в `fx.css`, который
+     импортируется ПОСЛЕ `story.css`; по порядку правка отсюда проиграла бы.
+     Селектор (0,4,0) против (0,2,0) выигрывает по весу — та же механика,
+     что у `.journey-map .euro-map` таска 06. Проверено негативным контролем:
+     мутация значений обязана двигать замеренное число.
+
+     🔴 ГЕЙТ ТОТ ЖЕ, ЧТО У ПОДСВЕТКИ — ступень окна, не `motion-ok`: на узких
+     раскадровка обязана совпасть с «до» до пикселя, а на широком окне
+     с reduced-motion усиление обязано остаться. */
+  html[data-theme="light"] .journey-map .euro-map .land {
+    fill: color-mix(in oklch, var(--info) 17%, transparent);
+    stroke: color-mix(in oklch, var(--info) 72%, transparent);
+    stroke-width: 1.4;   /* non-scaling-stroke ⇒ это CSS-px, а не ед. viewBox */
+  }
+  /* Фоновая сеть маршрутов: 0,3 → 0,72. Пересчёт композита (линия под вуалью
+     против канвы) даёт 1,32 → 2,08, замер — число в контракте. */
+  html[data-theme="light"] .journey-map .euro-map .route { opacity: 0.72; }
+  /* Коды городов вслед за линиями: при плотной сети 0,72 читались бледнее
+     собственных узлов. Кегль не трогаем — он замерен таском 11 (11,241 px). */
+  html[data-theme="light"] .journey-map .euro-map .jlabel { opacity: 0.9; }
+}
+
+.journey-map {
+  position: relative; overflow: hidden;
+  border: 1px solid var(--border-1); border-radius: 14px;
+  background: var(--raised); padding: 10px 12px 12px;
+  margin-inline: auto;
+  /* Потолок раскадровки. Раньше здесь стоял `min(480px, calc(100vw - 52px))`:
+     колонка грида растягивалась по min-content самой широкой карточки сцены
+     (348 при содержимом 310 на вьюпорте 320), центрирование внутри растянутой
+     колонки уносило карту за правый край, и потолок по вьюпорту удерживал
+     хотя бы её. Причина снята таском 08 (D04, см. раскадровочный блок ниже):
+     колонка теперь равна доступной ширине, и ширину карты диктует она.
+     Число 52 (36 отступов `.wrap` + 16 на полосу прокрутки) вместе с причиной
+     ушло — оно описывало обход, а не размер карты. */
+  max-width: 480px;
+  /* 🔴 `width: 100%` обязателен вместе с `margin-inline: auto` — та же ловушка,
+     что у `.scrolly-scene`: авто-отступы в inline-оси отменяют растяжение
+     грид-элемента, и он сайзится по fit-content. Содержимое тут — inline-`<svg>`
+     без атрибутов `width`/`height`, то есть замещаемый элемент с дефолтными
+     300 px: карта замирала на 300 + 24 отступа + 2 рамки = 326 px и
+     ЦЕНТРИРОВАЛАСЬ внутри колонки. Замер на 430 до правки: карта 47…373 против
+     карточки 18…402 — левый край расходился на 29 px; на 320 совпадение было
+     случайным (доступной ширины 256 < 300). После: 18…402, расхождение 0.
+     Побочно это оживило `max-width: 480px`: при fit-content потолок не
+     управлял ничем (326 < 480), теперь он реально ограничивает карту в
+     раскадровке на колонках шире 480. */
+  width: 100%;
+}
+/* Фон от Higgsfield — ночная трасса, декоративная подложка. Картинку
+   подключает КЛАСС, который навешивает JS по попаданию секции в зону
+   упреждения (useInViewport): пока класса нет, сеть файл не трогает.
+   Не загрузилась — сцена читается полностью, потому что фон ничего не несёт. */
+.journey-map::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-position: center; background-size: cover;
+  opacity: 0.22; /* потолок истории 37 — 0,25 */
+}
+.journey-map--bg::before { background-image: url("/journey-road.webp"); }
+.journey-map > * { position: relative; }
+
+
+/* Карта секции приглушается в статичном фоллбэке (`html:not(.motion-ok)
+   .euro-map { opacity: 0.35 }` в fx.css) — мини-карте это не подходит: без JS
+   она остаётся единственным изображением маршрута. Специфичность здесь выше
+   намеренно: story.css импортируется РАНЬШЕ fx.css, и по порядку мы проигрываем. */
+.journey-map .euro-map.euro-map--inline { opacity: 1; transition: none; will-change: auto; }
+
+/* Фоновые линии сети «проявляет» .euro-stage.draw; внутри сцены стадии нет,
+   поэтому без этой строки они остались бы полностью скрытыми (dashoffset: 1). */
+.journey-map .euro-map .route { stroke-dashoffset: 0; opacity: 0.3; }
+
+/* Участок маршрута. Активный отличается ТОЛЬКО непрозрачностью — цвет и
+   толщина у всех одинаковые, чтобы переход шёл по композиторному свойству,
+   а не по stroke-width, которое пересчитывает отрисовку каждый кадр. */
+.journey-map .euro-map .jleg {
+  fill: none; stroke: var(--info); stroke-width: 2.6; stroke-linecap: round;
+  opacity: 0.34;
+}
+.journey-map .euro-map .jleg.active { opacity: 1; }
+/* 🔴 Ореол активного участка НЕ КРАСИТСЯ БАЗОВО. Путь `.jhalo` есть в разметке
+   всегда (Europe.tsx), но без `fill`/`stroke` у `<path>` сработал бы дефолт
+   SVG — сплошная ЧЁРНАЯ заливка. Поэтому здесь он гасится обеими красками,
+   а не `opacity: 0`: так «ничего не нарисовано» видно из правила, а не
+   выводится из числа. Краски он получает только внутри медиазапроса поля
+   (ступень `l` + `vh-pin`) — раскадровка на узких обязана совпасть до пикселя. */
+.journey-map .euro-map .jhalo { fill: none; stroke: none; }
+.journey-map .euro-map .jnode { fill: var(--info); }
+.journey-map .euro-map .jlabel {
+  fill: var(--text-3); font-family: var(--font-mono); font-size: 15px;
+  letter-spacing: 0.06em; text-anchor: middle;
+}
+/* силуэт машины: `#i-trucksil` нарисован currentColor, поэтому цвет задаётся так */
+.journey-map .euro-map .jtruck { color: var(--text-1); }
+html.motion-ok .journey-map .euro-map .jtruck { transition: transform 620ms var(--ease-soft); }
+html.motion-ok .journey-map .euro-map .jleg { transition: opacity 320ms var(--ease-soft); }
+.journey-leg { margin-top: 10px; }
+/* Подпись участка в колонке шагов. По умолчанию скрыта: она нужна только там,
+   где карта уехала в фон, — то есть в пиннутой сцене. В раскадровке подпись
+   стоит внутри коробки карты, а колонка шагов скрыта целиком, поэтому
+   восстанавливать эту обёртку в раскадровочном блоке не требуется. */
+.journey-caption { display: none; }
+
 /* static storyboard fallback: 4 кадра вертикально, подписи внутри кадров.
-   Срабатывает: без JS, при reduced-motion И на узких экранах (<980px),
+   Срабатывает: без JS, при reduced-motion И на узких экранах (ниже l),
    где пиннед-сцена не помещается рядом с текстом. */
 html:not(.motion-ok) .scrolly-steps { display: none; }
-html:not(.motion-ok) .scrolly-grid { grid-template-columns: 1fr; }
-html:not(.motion-ok) .scrolly-scene { display: flex; flex-direction: column; gap: 28px; max-width: 660px; margin: 0 auto; }
+/* `minmax(0, 1fr)` вместо голого `1fr` и `width: 100%` у сцены — см. D04
+   в раскадровочном блоке ниже: причина и механизм там, форма обязана совпадать. */
+html:not(.motion-ok) .scrolly-grid { grid-template-columns: minmax(0, 1fr); }
+html:not(.motion-ok) .scrolly-scene { display: flex; flex-direction: column; gap: 28px; width: 100%; max-width: 660px; margin: 0 auto; }
 html:not(.motion-ok) .frame figcaption {
   display: block; padding: 0 4px 12px;
   font-size: 14px; color: var(--text-2);
@@ -157,13 +520,43 @@ html:not(.motion-ok) .frame figcaption {
 html:not(.motion-ok) .frame figcaption b { color: var(--text-1); font-weight: 600; }
 html:not(.motion-ok) .frame figcaption .snum { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); margin-right: 10px; }
 
-@media (max-width: 979px) {
+/* Раскадровка вместо пина: узко ИЛИ низко.
+   Ширина была прокси для «здесь много места», и на iPad landscape (1024×768)
+   прокси врала — пин включался, а высоты на сцену в 100vh не хватало.
+   Запятая здесь — это ИЛИ (список медиазапросов), и каждая ветка остаётся
+   ОДИНОЧНЫМ условием: `not (...)` встаёт в начало своей ветки и потому валиден.
+   Составную форму `(width >= l) and (height < vh-pin)` писать НЕЛЬЗЯ — она
+   собирается в `and not (min-height: …)`, и браузер молча выбрасывает правило.
+   Тот же порог читает JS через флаг --pin-enabled (globals.css). */
+@media (width < theme(--breakpoint-l)), (height < theme(--vh-pin)) {
   html.motion-ok .scrolly-track { height: auto; }
   html.motion-ok .scrolly-stage { position: static; height: auto; overflow: visible; }
   html.motion-ok .scrolly-head { padding-top: clamp(56px, 7vh, 90px); }
   html.motion-ok .scrolly-steps { display: none; }
-  html.motion-ok .scrolly-grid { grid-template-columns: 1fr; }
-  html.motion-ok .scrolly-scene { display: flex; flex-direction: column; gap: 28px; max-width: 660px; margin: 0 auto; }
+  /* 🔴 D04 — обрез карточек истории на 320. Замер (вьюпорт 320, ru): было
+     карточка 348, правый край 366 при содержимом страницы 310 — 74 px за своим
+     местом, из них 56 px за краем экрана; стало 274 / 292, ноль переполнения.
+     Причина двухзвенная. (A) `1fr` = `minmax(auto, 1fr)`: минимум трека —
+     min-content содержимого, и колонка растягивалась по самой широкой карточке.
+     (B) у сцены `margin: 0 auto`, а авто-отступы в inline-оси отменяют
+     растяжение грид-элемента: вместо ширины трека он берёт fit-content, то есть
+     снова min-content. `width: 100%` возвращает сцену к ширине колонки, а
+     `max-width: 660px` по-прежнему ограничивает её на широких, где авто-отступы
+     и центрируют.
+     🔴 НЕГАТИВНЫЙ КОНТРОЛЬ (320, ru; снимал по одному правилу `!important`-ом).
+     Барьеров ДВА, независимых, и каждый достаточен сам по себе:
+       • {A + B} — эти две строки;
+       • {C} — `container-type: inline-size` на `.scene-card` (mobile.css
+         запрашивает его для доски мока): inline-size containment считает
+         интринсик-ширину карточки «как если бы содержимого не было», и
+         min-content 348 обрывается на карточке, не доходя до трека.
+     Снятие ЛЮБОГО одного из трёх правил даёт 274 — обрез не возвращается.
+     Снятие A+C или B+C — 348 / правый край 366, обрез возвращается целиком.
+     Значит: A и B держат только в паре, C держит один. Убираешь контейнер —
+     обе строки обязательны; убираешь любую из них — обрез сторожит только
+     контейнер, и тогда перенос запроса на другой элемент вернёт дефект. */
+  html.motion-ok .scrolly-grid { grid-template-columns: minmax(0, 1fr); }
+  html.motion-ok .scrolly-scene { display: flex; flex-direction: column; gap: 28px; width: 100%; max-width: 660px; margin: 0 auto; }
   html.motion-ok .frame { position: static; opacity: 1; transform: none; pointer-events: auto; transition: none; }
   html.motion-ok .frame figcaption {
     display: block; padding: 0 4px 12px;
@@ -172,10 +565,29 @@ html:not(.motion-ok) .frame figcaption .snum { font-family: var(--font-mono); fo
   html.motion-ok .frame figcaption b { color: var(--text-1); font-weight: 600; }
   html.motion-ok .frame figcaption .snum { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); margin-right: 10px; }
   html.motion-ok .scrolly-progress { display: none; }
+  /* области двухколоночной раскладки снимаем: колонка здесь одна, и оставленные
+     области описывали бы вторую, которой нет */
+  html.motion-ok .scrolly-grid { grid-template-areas: none; }
+  html.motion-ok .scrolly-steps,
+  html.motion-ok .journey-map,
+  html.motion-ok .scrolly-scene { grid-area: auto; }
+  /* `width: 100%` повторён здесь намеренно. Ветка `(height < vh-pin)` ловит и
+     ШИРОКИЕ вьюпорты (1200×600), а там правило пиннед-сцены `≥ l` со своим
+     `width: auto` перебивает базовое по специфичности (0,2,1 против 0,1,0) —
+     карта осталась бы fit-content и разъехалась с карточками. Правило и так
+     переобъявляет `max-width` и `margin-inline`: ширина легла в тот же список. */
+  html.motion-ok .journey-map { max-width: 480px; margin-inline: auto; width: 100%; }
 }
 
 /* низкие вьюпорты: ужимаем пиннед-сцену, чтобы ничего не резалось */
-@media (min-width: 980px) and (max-height: 760px) {
+/* Высотная шкала: компактный режим на полосе vh-pin..vh-compact (700..900).
+   Ниже vh-pin пин выключен целиком — правилом выше, раскадровкой.
+   ВНИМАНИЕ: верхняя граница записана как `<=`, а не `<`. Форма `X and (height < Y)`
+   собирается в `X and not (min-height: Y)` — по грамматике Media Queries L4 это
+   НЕвалидно (`not` допустим только в начале условия), и dev-сборка Turbopack
+   выдаёт именно её; браузер молча выбрасывает правило. `<=` даёт max-height
+   и одинаково работает в dev и в prod. */
+@media (width >= theme(--breakpoint-l)) and (height >= theme(--vh-pin)) and (height <= theme(--vh-compact)) {
   html.motion-ok .scrolly-head h2 { font-size: 26px; }
   html.motion-ok .scrolly-grid { margin-top: 18px; gap: 40px; }
   html.motion-ok .sstep { padding: 9px 0 9px 18px; }
@@ -184,13 +596,49 @@ html:not(.motion-ok) .frame figcaption .snum { font-family: var(--font-mono); fo
   html.motion-ok .scrolly-scene { min-height: 340px; }
   html.motion-ok .scrolly-outro { display: none; }
   html.motion-ok .scrolly-progress { margin-top: 14px; }
+  /* 🔴 ЗДЕСЬ БЫЛО УЖАТИЕ МИНИ-КАРТЫ (`max-width: 280px` + `padding: 7px 8px 9px`)
+     и оно СНЯТО, а не забыто. Этот запрос — подмножество запроса поля
+     (ширина ≥ l И высота 700…900), то есть внутри него карта заведомо
+     абсолютный слой `inset: 0`, а не коробка в гриде. `max-width: 280px`
+     пережил бы переезд и молча сжал бы ПОЛЕ до полосы 280 px: блок стоит
+     в файле НИЖЕ блока поля при равной специфичности (0,2,0), и выиграл бы
+     по порядку. Ровно тот класс промаха, которым каскад в этом прогоне
+     подводил четыре раза; поймано замером ширины слоя, а не чтением.
+     Ужимать в компактном режиме теперь нечего: поле и так ровно 100vh. */
+  html.motion-ok .journey-caption { margin-bottom: 14px; }
 }
 
+/* Прижатия карты к левому краю колонки на ступени `s` здесь больше нет.
+   Оно лечило симптом растянутой колонки (карта центрировалась внутри 348 px и
+   уезжала за экран); после D04 колонка равна доступной ширине, карта равна
+   колонке, и `margin-inline: auto` даёт ровно тот же левый край, что у карточек
+   ниже — замер на 320: карта 18…274, карточка 18…274. */
+
 /* scene cards (light product surface) */
+/* Именованный контейнер. Раскладка мока внутри карточки зависит от ширины
+   САМОЙ КАРТОЧКИ, а не окна: на ступени `s` карточка бывает и 274 px (вьюпорт
+   320), и 394 px (вьюпорт 430) — одно оконное правило описало бы оба случая
+   неверно. Имя обязательно: безымянный `@container` цепляется к ближайшему
+   предку-контейнеру, и любой новый `container-type` выше по дереву молча
+   перехватил бы запрос. Правила запроса — в mobile.css, в конце файла.
+   Побочный эффект `inline-size` полезен и намеренен: содержимое карточки
+   перестаёт участвовать в её собственной inline-ширине, то есть карточка
+   больше не может растянуть колонку своим min-content. По негативному контролю
+   (см. блок D04 ниже) это ВТОРОЙ, самостоятельный барьер против обреза.
+   Про layout containment, который приходит вместе с `inline-size`: containing
+   block для абсолютных потомков карточка образует и БЕЗ него — `fx.css:79`
+   `.frame .scene-card { position: relative }`. Проверено замером: `.scursor`
+   (`left/top` в процентах) имеет `offsetParent = .scene-card` и при
+   принудительно выключенном контейнере, а растяжение кадра с 433 до 788 px
+   его не сдвигает — процент считается от карточки в обоих случаях. */
 .scene-card {
   background: var(--p-bg); color: var(--p-t1); border-radius: 16px;
   box-shadow: var(--p-shadow); padding: 22px; font-size: 13px;
+  container: story-card / inline-size;
 }
+/* 🔴 Зависимость снизу: `border-radius` и `box-shadow` этой карточки повторяет
+   подсветка кромки (блок 4.5.3 ниже в этом файле). Меняешь радиус — меняй и там,
+   иначе резкая полоса кромки съедет с закругления. */
 .scene-driver { display: flex; align-items: center; gap: 14px; }
 .scene-driver .avatar { width: 44px; height: 44px; font-size: 13px; }
 .scene-driver .who { flex: 1; min-width: 0; }
@@ -215,6 +663,17 @@ html:not(.motion-ok) .frame figcaption .snum { font-family: var(--font-mono); fo
 .scene-alert .tic { width: 17px; height: 17px; color: var(--p-warn); flex: none; margin-top: 1px; }
 .scene-alert b { color: var(--p-warn-tx); font-size: 13px; display: block; }
 .scene-alert span { color: var(--p-t2); font-size: 12px; display: block; margin-top: 2px; }
+/* тот же callout в «ок»-тоне: кадр 3 подтверждает выгрузку, а не предупреждает */
+.scene-alert.ok {
+  border-color: color-mix(in oklch, var(--p-ok) 45%, transparent);
+  background: var(--p-ok-bg);
+}
+.scene-alert.ok .tic { color: var(--p-ok); }
+.scene-alert.ok b { color: var(--p-ok-tx); }
+
+/* сводка по рейсу (кадр 4) — строка существующих чипов карточки */
+.scene-sum { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 12px; }
+.scene-sum .dchip { height: 22px; font-size: 10.5px; padding: 0 8px; border-radius: 5px; }
 
 .tg-push {
   margin-top: 12px; display: flex; gap: 10px; align-items: flex-start;
@@ -258,6 +717,87 @@ html:not(.motion-ok) .frame figcaption .snum { font-family: var(--font-mono); fo
 .scene-board .board-head, .scene-board .board-row { grid-template-columns: 148px repeat(5, minmax(0, 1fr)); }
 .scene-board .board-row .cellbg { grid-template-columns: 148px repeat(5, minmax(0, 1fr)); }
 .scene-board .lane { grid-column: 2 / 7; }
+
+/* ---- 4.5.3 КРОМКА КАРТОЧКИ КАК ПРОДОЛЖЕНИЕ МАРШРУТА (R33) ------------------
+   Таск 12 замерил: на шагах 2 и 3 у активного участка НОЛЬ видимых точек —
+   линия и оба её города целиком за карточкой сцены и за вуалью колонки шагов
+   (инвариант «активный участок виден хотя бы частично» в interfaces.md).
+   Владелец выбрал: подсветка уезжает на КРОМКУ карточки.
+
+   🔴 ГРАНИЦА, КОТОРАЯ НЕ ОБСУЖДАЕТСЯ: ничего не ложится на содержимое карточки.
+   Она существует ради G04 и истории 21 — «я узнаю наш продукт, а не абстрактные
+   плашки», — и ради R09.1. Механизм границы не соглашение, а свойство примитива:
+   ВНЕШНЯЯ `box-shadow` по спецификации отсекается по border-box своего элемента
+   и рисуется ТОЛЬКО снаружи. Псевдоэлемент `inset: 0` совпадает с боксом
+   карточки, поэтому внутрь не попадает ни один пиксель — при любых offset,
+   blur и spread. Никакого `background` у него нет и появиться не должно:
+   фон закрасил бы поверхность карточки и молча обнулил замеры D05/D06.
+   `pointer-events: none` — чтобы `elementFromPoint` детектора таска 12 и хит-тест
+   страницы не изменились.
+
+   Направленность взята из ЗАМЕРА геометрии (1430×900, ru, оба порога), а не
+   из вкуса. Экранные координаты участков и бокс карточки (l 657,2 · r 1093,8 ·
+   t 290,9 · b 638,8…695,7):
+     • шаг 1, PRG→MUC (996,5;167,5)→(862,3;308,9) — пересекает ВЕРХНЮЮ кромку
+       в x ≈ 879,4, за карточкой остаётся короткий хвост  ⇒ верх;
+     • шаг 2, MUC→LYO (862,3;308,9)→(550,5;483,0) — идёт ЗА карточкой и выходит
+       ЛЕВОЙ кромкой в y ≈ 423,4, то есть выше её середины (291…641, центр 466)
+       ⇒ лево со смещением вверх, вектор к середине скрытого куска (760;366)
+       от центра карточки (875,5;466) = (−115;−100), нормаль (−0,75;−0,66);
+     • шаг 3, LYO→BCN (550,5;483,0)→(423,5;798,5) — целиком левее карточки,
+       ближайшая точка (550,5;483,0) против левой кромки в y 483 при центре
+       кромки 493 ⇒ лево по центру;
+     • шаг 4 — прибытие в BCN (423,5;798,5): ниже нижней кромки (681,5) и левее
+       левой, ближайшая точка бокса — нижний левый угол, вектор (−233,7;+117),
+       нормаль (−0,89;+0,45) ⇒ низ-лево.
+   Отсюда `--sglow-x` / `--sglow-y` — длина вектора 26 px, разложенная по осям.
+
+   🔴 Фолбэк намеренно «нет свечения»: если `.scene-card` окажется вне
+   `.frame[data-frame]`, `var(--sglow-x)` не разрешится, `calc()` станет невалидным
+   на этапе вычисления, и `box-shadow` откатится к `none`. Отказ молчаливый,
+   но безопасный: подсветки нет, содержимое цело.
+
+   Гейт — тот же медиазапрос поля (ширина ≥ l И высота ≥ vh-pin), а НЕ
+   `motion-ok`: при `prefers-reduced-motion` на широком окне статичная сторона
+   обязана остаться видимой (R21i), как и у ореола участка в таске 12.
+   Раскадровка на узких (< l или < vh-pin) псевдоэлемента вообще не получает —
+   `content` объявлен только здесь. */
+@media (width >= theme(--breakpoint-l)) and (height >= theme(--vh-pin)) {
+  .scrolly-scene .frame[data-frame="1"] .scene-card { --sglow-x: 0px;    --sglow-y: -26px; }
+  .scrolly-scene .frame[data-frame="2"] .scene-card { --sglow-x: -19.6px; --sglow-y: -17.1px; }
+  .scrolly-scene .frame[data-frame="3"] .scene-card { --sglow-x: -26px;  --sglow-y: 0px; }
+  .scrolly-scene .frame[data-frame="4"] .scene-card { --sglow-x: -23.2px; --sglow-y: 11.7px; }
+
+  .scrolly-scene .scene-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px; /* тот же радиус, что у `.scene-card` — иначе кромка съедет с угла */
+    pointer-events: none;
+    opacity: 0.85;
+    /* Три слоя одного направления: кромка (blur 0 — резкая полоса 3,6 px),
+       ближняя тень и дальний ореол. Ни один не анимируется: анимируется только
+       `opacity` самого псевдоэлемента (R09.4). */
+    box-shadow:
+      calc(var(--sglow-x) * 0.14) calc(var(--sglow-y) * 0.14) 0 0
+        color-mix(in oklch, var(--info) 88%, transparent),
+      calc(var(--sglow-x) * 0.7) calc(var(--sglow-y) * 0.7) 22px -4px
+        color-mix(in oklch, var(--info) 44%, transparent),
+      var(--sglow-x) var(--sglow-y) 46px -14px
+        color-mix(in oklch, var(--info) 24%, transparent);
+  }
+
+  /* Пульс дышит в такт ореолу участка: те же 2600 ms и та же кривая, что
+     у `jhalo-pulse`, — кромка и линия читаются как одно движение. */
+  html.motion-ok .scrolly-scene .scene-card::after {
+    animation: sglow-pulse 2600ms var(--ease-soft) infinite;
+  }
+}
+
+@keyframes sglow-pulse {
+  0%, 100% { opacity: 0.64; }
+  50% { opacity: 1; }
+}
 
 /* progress rail at stage bottom */
 .scrolly-progress {
@@ -348,13 +888,18 @@ html:not(.motion-ok) .vid-streak.s3 { transform: translate3d(30vw, -3px, 0) rota
   background: color-mix(in oklch, var(--canvas) 60%, transparent);
 }
 .vid-content { position: relative; z-index: 2; padding: 80px 0; }
+/* зависимость сверху: overflow-wrap: anywhere для этого заголовка объявлен в base.css
+   рядом с .h2 — семейным правилом, не здесь. Снимешь там — вернётся обрез de@320 на 46 px. */
 .vid h2 { font-size: clamp(30px, 4.2vw, 50px); font-weight: 600; letter-spacing: -0.025em; line-height: 1.1; max-width: 21ch; text-wrap: balance; }
 .vid .sect-sub { max-width: 52ch; }
 .vid-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
 
 /* ---- 4.7 модули и горизонт --------------------------------------------------- */
 .mods-cols { display: grid; gap: 40px; margin-top: 48px; }
-@media (min-width: 880px) { .mods-cols { grid-template-columns: 1fr 1fr; gap: 56px; } }
+/* было 880 → l */
+@media (width >= theme(--breakpoint-l)) {
+  .mods-cols { grid-template-columns: 1fr 1fr; gap: 56px; }
+}
 .mods-col-head { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
 .mods-col-head h3 { font-size: 14px; font-weight: 600; letter-spacing: 0.02em; color: var(--text-2); text-transform: uppercase; font-size: 12px; letter-spacing: 0.12em; }
 .mod-list { display: flex; flex-direction: column; gap: 10px; }
@@ -396,8 +941,36 @@ html.motion-ok .mod:hover { transform: translateY(-2px); border-color: var(--bor
 .period-btn[aria-pressed="true"] { background: var(--card); color: var(--text-1); box-shadow: 0 1px 3px rgb(0 0 0 / 0.4), 0 0 0 1px var(--border-2); }
 
 .tiers { display: grid; gap: 16px; margin-top: 44px; align-items: stretch; }
-@media (min-width: 720px) { .tiers { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 1100px) { .tiers { grid-template-columns: repeat(4, 1fr); } }
+/* было 720 → m. Форма та же, что на l (см. ниже): голый `1fr` = `minmax(auto, 1fr)`,
+   а `auto` в минимуме — автоматический минимальный размер по содержимому. Две ступени
+   пишутся одинаково, чтобы читатель не гадал, почему рядом две разные формы. */
+@media (width >= theme(--breakpoint-m)) {
+  .tiers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+/* было 1100. Сначала ушло в xl, решением владельца перенесено на l.
+   Четыре тарифа стоят в один ряд начиная с l — решение владельца: четвёртый
+   в новом ряду сиротой хуже, чем узкая, но ровная карточка. Автоподбор
+   (`auto-fit` + минимум карточки) здесь стоял недолго и снят: он лечил
+   тесноту, которой нет — замер на 1024 даёт четыре РОВНЫЕ колонки по 221.5px
+   без обрезаний, а двенадцать обрезаний, ради которых он заводился, были
+   в макете первого экрана и вылечены там же (`hero.css`).
+   `minmax(0, 1fr)` вместо голого `1fr` — чтобы ширина колонки не зависела
+   от min-content самой длинной карточки: колонки равны по построению.
+   Замер: 1024 ⇒ 4×221.5 · 1100 ⇒ 4×240.5 · 1200 и 1440 ⇒ 4×263.
+
+   Сняв минимум, мы разрешили содержимому не помещаться, и замер это поймал.
+   Было на 1024: `de` +49px, `pl` +47, `cs` +16.6, `it` +16.4, `lv` +11, `ru` +8;
+   на 1100 — `de` +30, `pl` +28; на 1200 и 1440 — `de` +8, `pl` +6 (последнее
+   не регрессия правки: прежний `auto-fit` давал там те же 263px и то же
+   переполнение — дефект просто никто не мерил).
+   Вылечено ниже, в этом же файле: `flex-wrap` в `.cap-row` и разрешение
+   ужиматься в `.tier-price` (там же — перенос по слогу). После починки переполнения
+   нет ни в одной из 12 локалей на 1024 / 1100 / 1200 / 1440.
+   Принятая цена: на `de` двустрочных строк возможностей стало 7 из 17 вместо 3 —
+   это ровно те четыре строки, что раньше вылезали за рамку карточки. */
+@media (width >= theme(--breakpoint-l)) {
+  .tiers { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
 .tier {
   position: relative; display: flex; flex-direction: column;
   background: var(--card); border: 1px solid var(--border-1); border-radius: 16px;
@@ -417,7 +990,23 @@ html.motion-ok .tier:hover { transform: translateY(-3px); box-shadow: var(--shad
 }
 .tier-name { font-size: 16px; font-weight: 600; }
 .tier-blurb { font-size: 13px; color: var(--text-3); margin-top: 5px; min-height: 58px; text-wrap: pretty; }
-.tier-price { margin-top: 18px; min-height: 62px; display: flex; align-items: baseline; gap: 3px; font-family: var(--font-mono); }
+/* тот же дефект, что у `.cap-row`: цена — однострочный flex «валюта + сумма + период».
+   На `ru` тариф с текстовой ценой вылезал за карточку на 8px при колонке 221.5: одно
+   слово «Индивидуально» занимает 179.5px в коробке 172. Переноса строк тут мало —
+   слово не влезает и в одиночку, поэтому текстовым элементам разрешено ужиматься
+   (`min-width: 0`, иначе их минимум равен ширине слова), а слову — переноситься.
+   Перенос делает `hyphens: auto`: он рвёт по слогу и ставит дефис, опираясь на
+   `lang` у `<html>` (проставляется по локали в `layout-shared.tsx`) — произвольный
+   разрыв посреди слога для русского и немецкого типографски незаконен.
+   `overflow-wrap: break-word` оставлен фоллбэком: для браузера без словаря
+   переносов и для слов, которых в словаре нет. Оба срабатывают, только когда
+   слово не помещается целиком: на 1100 и шире (коробка 191.5) цена снова
+   живёт одной строкой.
+   Ужимаются ТОЛЬКО текстовые дети, перечисленные поимённо. Универсальный `> *`
+   тут был бы миной: нетекстовый ребёнок — бейдж скидки, иконка — молча стал бы
+   сжимаемым. Появится новый текстовый элемент цены — дописать его сюда. */
+.tier-price { margin-top: 18px; min-height: 62px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px; font-family: var(--font-mono); hyphens: auto; overflow-wrap: break-word; }
+.tier-price > .amt, .tier-price > .cur, .tier-price > .per { min-width: 0; }
 .tier-price .cur { font-size: 20px; color: var(--text-2); }
 .tier-price .amt { font-size: 40px; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 .tier-price .per { font-size: 13px; color: var(--text-3); margin-left: 3px; }
@@ -434,7 +1023,13 @@ html.motion-ok .tier:hover { transform: translateY(-3px); box-shadow: var(--shad
 }
 .tier-lock .ic { width: 12px; height: 12px; flex: none; color: var(--warn); }
 .tier-caps { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-1); display: flex; flex-direction: column; gap: 9px; flex: 1; }
-.cap-row { display: flex; align-items: center; gap: 9px; font-size: 13px; color: var(--text-2); }
+/* `flex-wrap: wrap` — не косметика, а лечение дефекта. Строка «иконка + значение +
+   подпись» была однострочной по построению: подпись — анонимный флекс-элемент, ужать
+   его ниже самого длинного слова нельзя, и длинное немецкое или польское слово распирало
+   строку за рамку карточки. Замер на 1024 до починки: de +49px, pl +47, cs +16.6, it +16.4,
+   lv +11. Перенос отпускает подпись на вторую строку; там, где она и так помещалась,
+   раскладка не меняется — проверено по всем 12 локалям. */
+.cap-row { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; font-size: 13px; color: var(--text-2); }
 .cap-row .ic { width: 14px; height: 14px; color: var(--text-3); flex: none; }
 .cap-row .cap-val { font-family: var(--font-mono); font-weight: 500; color: var(--text-1); }
 .tier-pertruck {
@@ -471,7 +1066,8 @@ html.motion-ok .tier:hover { transform: translateY(-3px); box-shadow: var(--shad
   border-left: 2px solid color-mix(in oklch, var(--brand) 38%, transparent);
   padding-left: 22px; margin: 0;
 }
-@media (max-width: 640px) {
+/* было 640 → ниже m */
+@media (width < theme(--breakpoint-m)) {
   .cost-anchor { padding: 22px; gap: 18px; }
   .cost-anchor .ca-arg {
     border-left: none; padding-left: 0; padding-top: 16px;
@@ -493,6 +1089,7 @@ html.motion-ok .tier:hover { transform: translateY(-3px); box-shadow: var(--shad
 .final { position: relative; overflow: hidden; text-align: center; }
 .final .atmo .fade { top: 0; bottom: auto; height: 24%; background: linear-gradient(to top, transparent, var(--canvas)); }
 .final-inner { position: relative; padding: clamp(110px, 14vw, 170px) 0; display: flex; flex-direction: column; align-items: center; }
+/* зависимость сверху: overflow-wrap: anywhere — в base.css рядом с .h2 (семейное правило). */
 .final h2 { font-size: clamp(34px, 4.8vw, 58px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.06; max-width: 18ch; text-wrap: balance; }
 .final .sect-sub { margin-left: auto; margin-right: auto; text-align: center; }
 .final-ctas { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }

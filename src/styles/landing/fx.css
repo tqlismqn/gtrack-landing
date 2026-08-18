@@ -92,20 +92,79 @@ html:not(.motion-ok) .scursor { display: none; }
   opacity: calc(var(--decay, 0) * 1.6 - 0.45);
 }
 .fly-cell { transform: translate(calc(var(--decay, 0) * var(--fx, 0px)), calc(var(--decay, 0) * var(--fy, 0px))) rotate(calc((1 - var(--decay, 0)) * var(--fr, 0deg))); }
-@media (max-width: 720px) { .fly-cell { display: none; } }
+/* было 720 → ниже m */
+@media (width < theme(--breakpoint-m)) { .fly-cell { display: none; } }
 
 /* ---- 3. «Вся Европа на одной доске» ------------------------------------------ */
 .euro { background: var(--sunken); border-top: 1px solid var(--border-1); border-bottom: 1px solid var(--border-1); overflow: hidden; }
 .euro-head { max-width: 60ch; }
 .euro-stage { position: relative; margin-top: 44px; }
-.euro-map { display: block; width: 100%; height: auto; }
+/* ЧИТАЕМОСТЬ НА УЗКОМ ЭКРАНЕ (R05).
+   Две разные величины ломались по-разному, поэтому и лечение разное:
+
+   1. Штрих задан в единицах viewBox и ужимался вместе с картой:
+      1.5 × (320/860) ≈ 0,56 CSS-px.
+
+      🔴 ПРАВИЛО ПРО `vector-effect: non-scaling-stroke`. Дискриминатор —
+      НЕ «маршрут против суши», а НАЛИЧИЕ `stroke-dasharray`: приём безопасен
+      ровно там, где дэшей нет. У маршрутов дэши есть, и сочетание ломает
+      отрисовку — замер в Chromium (1440, все 20 трасс, dashoffset 0):
+      painted в t=0.03 и t=0.97 — 20/20, в t=0.50 — 0/20, то есть у каждой
+      трассы дыра посередине. `pathLength=1` от этого не спасает. На 320 дефект
+      прячется (масштаб < 1 делает дэш длиннее нужного) — проверять обязательно
+      на ШИРОКОМ конце.
+
+      Второй запрет того же жанра: `non-scaling-stroke` + АНИМИРОВАННЫЙ
+      `transform: scale()`. Так пульсирует гало, реального WebKit под рукой нет,
+      а опираться на «по жанру должно работать» этот файл уже один раз стоил
+      дефекта. Поэтому во всей карте приём остался ровно на контуре суши:
+      у неё нет ни дэшей, ни анимации трансформа.
+
+      Всем остальным — ступенчатая толщина в единицах viewBox (`--map-route-w`,
+      `--map-halo-w`): один механизм, предсказуемый во всех движках.
+   2. Радиус узла non-scaling-stroke не лечит (это геометрия, не обводка):
+      он задан переменной и растёт ступенями — см. `--map-node-r` ниже.
+      Атрибуты `r` в разметке оставлены фоллбэком: геометрические свойства
+      в CSS поддержаны той же матрицей браузеров, что требует Tailwind 4,
+      а в браузере без поддержки декларация отбрасывается при разборе
+      и атрибут выживает.
+
+   🔴 ЕДИНИЦЫ: `px` в `--map-node-r` / `--map-halo-r` — ПОЛЬЗОВАТЕЛЬСКИЕ
+   единицы viewBox (860×560), а не экранные пиксели. На узкой ступени карта
+   ужата примерно втрое: 9 единиц = 2,87 CSS-px радиуса на 320. Это четвёртая
+   система координат проекта — читать эти числа как экранные значит промахнуться
+   ровно на масштаб SVG.
+
+   🔴 ФОЛЛБЭК В `var()` ОБЯЗАТЕЛЕН. `r` не наследуется, и незаявленная
+   переменная роняет декларацию в invalid at computed-value time — это НЕ откат
+   к атрибуту, а начальное значение `r: 0`, то есть узлы исчезают целиком.
+   Второй аргумент `var()` держит этот случай (например, `EuropeMap`
+   отрендерили там, куда класс `euro-map` не доехал). */
+.euro-map {
+  display: block; width: 100%; height: auto;
+  --map-node-r: 2.4px; --map-halo-r: 5px; --map-route-w: 1.5; --map-halo-w: 1;
+}
 .euro-map .land {
   fill: color-mix(in oklch, var(--info) 8%, transparent);
   stroke: color-mix(in oklch, var(--info) 42%, transparent); stroke-width: 1;
   stroke-linejoin: round; stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
 }
+/* ступенчатая толщина маршрута — замена non-scaling-stroke, несовместимого
+   с dasharray. Единицы viewBox; рендер = толщина × масштаб карты:
+   ≥768  масштаб 0,84…1,28 → 1,26…1,92 CSS-px
+   431…767 масштаб 0,45…0,84 → 1,08…2,01 CSS-px
+   ≤430  масштаб 0,32…0,45 → 1,43…2,03 CSS-px
+   Нижняя точка каждого диапазона держит порог «не тоньше 1 CSS-px». */
+/* 🔴 МАРКЕР ЗАВИСИМОСТИ СНИЗУ: `.journey-map .euro-map .route` в story.css
+   перебивает `stroke-dashoffset: 1` этого правила. Причина: линии «проявляет»
+   только `.euro-stage.draw`, а у мини-карты внутри ожившей сцены стадии нет —
+   без перебивки сеть маршрутов там не видна вообще. Правя это правило или
+   добавляя рядом новое с тремя классами и больше, проверяй мини-карту сцены:
+   она проигрывает по порядку импорта (story.css идёт раньше fx.css) и держится
+   исключительно на специфичности. */
 .euro-map .route {
-  fill: none; stroke-width: 1.5; stroke-linecap: round;
+  fill: none; stroke-width: var(--map-route-w, 1.5); stroke-linecap: round;
   stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0.85;
 }
 .euro-map .route.sky { stroke: var(--info); }
@@ -115,9 +174,15 @@ html:not(.motion-ok) .scursor { display: none; }
   transition: stroke-dashoffset 1300ms var(--ease-soft);
   transition-delay: var(--rd, 0ms);
 }
-.euro-map .node { fill: var(--info); transform-box: fill-box; transform-origin: center; }
+/* фоллбэк во втором аргументе `var()` обязателен — см. блок выше: без него
+   незаявленная переменная даёт `r: 0`, а не откат к атрибуту в разметке */
+.euro-map .node { fill: var(--info); r: var(--map-node-r, 2.4px); transform-box: fill-box; transform-origin: center; }
+/* гало пульсирует анимированным `transform: scale()` — с `non-scaling-stroke`
+   это второе непроверяемое здесь взаимодействие (см. блок выше), поэтому
+   толщина тут тоже ступенчатая, как у маршрутов */
 .euro-map .halo {
-  fill: none; stroke: var(--info); stroke-width: 1; opacity: 0;
+  fill: none; stroke: var(--info); stroke-width: var(--map-halo-w, 1); opacity: 0;
+  r: var(--map-halo-r, 5px);
   transform-box: fill-box; transform-origin: center;
 }
 html.motion-ok .euro-stage.draw .halo { animation: node-pulse 2.8s var(--ease-soft) infinite; animation-delay: var(--nd, 0ms); }
@@ -152,11 +217,32 @@ html.motion-ok .euro-stage.draw .halo { animation: node-pulse 2.8s var(--ease-so
 .euro-caption b { color: var(--text-1); }
 /* статичный фоллбэк: маршруты нарисованы, доска видна, карта приглушена */
 html:not(.motion-ok) .euro-map .route { stroke-dashoffset: 0; }
+/* 🔴 МАРКЕР ЗАВИСИМОСТИ СНИЗУ: приглушение относится только к карте секции.
+   `.journey-map .euro-map.euro-map--inline` в story.css возвращает мини-карте
+   сцены `opacity: 1` — без JS она остаётся единственным изображением маршрута,
+   и 0,35 сделали бы её нечитаемой. Специфичность этого селектора (0,2,1) —
+   часть контракта: усилив его, сломаешь мини-карту молча. */
 html:not(.motion-ok) .euro-map { opacity: 0.35; }
 html:not(.motion-ok) .euro-board { opacity: 1; transform: none; }
-@media (max-width: 640px) {
+/* было 640 → ниже m */
+@media (width < theme(--breakpoint-m)) {
   .euro-board { position: static; width: 100%; margin-top: 16px; }
   .euro-stage.collapsed .euro-map { opacity: 0.6; transform: none; }
+  /* px = единицы viewBox, не экранные пиксели (см. блок выше).
+     2.8, а не 2.4: замер на 431 (первый пиксель полосы, контейнер 385,
+     масштаб 0,4477) давал 1,07 CSS-px — порог соблюдён, но запас 7 %.
+     При 2.8 в худшей точке полосы 1,25 CSS-px. */
+  .euro-map { --map-node-r: 4.5px; --map-halo-r: 8px; --map-route-w: 2.8; --map-halo-w: 1.8; }
+}
+/* узкая ступень: замер на 320 дал контейнер 274 px (масштаб 0,3186), а не 288 —
+   узел 9 ед. viewBox = 2,87 CSS-px радиуса (было 0,9). Порог 2,5 держится
+   с запасом: ровно 8 ед. давали 2,55 и ломались бы от любой правки отступов.
+   На карте остаются только города маршрута истории — 18 точек на 274 px
+   читались как пыль. Порядок блоков важен: `<= s` идёт ПОСЛЕ `< m`,
+   специфичность равна, выигрывает последний. */
+@media (width <= theme(--breakpoint-s)) {
+  .euro-map { --map-node-r: 9px; --map-halo-r: 15px; --map-route-w: 4.5; --map-halo-w: 3.2; }
+  .euro-map .city:not(.city-story) { display: none; }
 }
 
 /* ---- 4. лого-морф G-Track ↔ G-Truck ------------------------------------------ */

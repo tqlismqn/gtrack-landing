@@ -4,11 +4,12 @@
    NAV — порт хедера прототипа. Лого-морф G-Track ↔ G-Truck (fx.js):
    единственное место, где остался .wm-морф (hover); из hero-sub убран
    сознательно при порте. Тема/язык — из LandingProvider.
-   Мобильный (<880px): ссылки/язык/«Войти» уходят в бургер-панель;
+   Мобильный (ниже ступени l): ссылки/язык/«Войти» уходят в бургер-панель;
    CTA и тема остаются в баре.
    ============================================================================ */
 
 import { useEffect, useRef, useState } from "react";
+import { pickCta } from "@/lib/cta-variant";
 import { LANG_NAMES, LOCALES, type Lang } from "@/lib/landing-i18n";
 import { useLanding } from "./LandingProvider";
 import { appLoginUrl, appSignupUrl, appRoadmapUrl } from "./urls";
@@ -72,7 +73,11 @@ export function Nav() {
     return () => document.removeEventListener("click", onDocClick);
   }, [langOpen]);
 
-  /* бургер-панель: закрытие по клику вне, Escape и переходе на десктоп (≥880) */
+  /* бургер-панель: закрытие по клику вне, Escape и переходе на десктоп.
+     Порог берётся из шкалы брейкпоинтов (globals.css): медиазапрос по ступени l
+     выставляет --nav-desktop, здесь он только читается. Литерала ширины в JS нет —
+     иначе CSS и JS разъезжаются и на полосе между двумя порогами пользователь
+     остаётся без единого видимого элемента навигации. */
   useEffect(() => {
     if (!menuOpen) return;
     const onDocClick = (e: MouseEvent) => {
@@ -82,7 +87,10 @@ export function Nav() {
       if (e.key === "Escape") setMenuOpen(false);
     };
     const onResize = () => {
-      if (window.innerWidth >= 880) setMenuOpen(false);
+      const desktopNav = getComputedStyle(document.documentElement)
+        .getPropertyValue("--nav-desktop")
+        .trim();
+      if (desktopNav === "1") setMenuOpen(false);
     };
     document.addEventListener("click", onDocClick);
     document.addEventListener("keydown", onKey);
@@ -95,14 +103,26 @@ export function Nav() {
   }, [menuOpen]);
 
   /* возврат фокуса на кнопку-бургер при закрытии панели (не на первом рендере),
-     чтобы клавиатурные пользователи не теряли контекст */
+     чтобы клавиатурные пользователи не теряли контекст.
+
+     Один из путей закрытия — поворот экрана через порог l: там бургера уже нет,
+     его место заняла десктоп-навигация. focus() у скрытого элемента молча
+     ничего не делает, и фокус улетает на <body> — замерено на 1024: панель
+     закрывалась, а activeElement оказывался body. Поэтому если бургер не
+     отрисован, фокус уходит на первую ссылку навигации, которая его заменила. */
   useEffect(() => {
     if (menuOpen) {
       menuWasOpen.current = true;
-    } else if (menuWasOpen.current) {
-      menuWasOpen.current = false;
-      burgerRef.current?.focus();
+      return;
     }
+    if (!menuWasOpen.current) return;
+    menuWasOpen.current = false;
+    const burger = burgerRef.current;
+    if (burger && burger.getClientRects().length > 0) {
+      burger.focus();
+      return;
+    }
+    navRef.current?.querySelector<HTMLElement>(".nav-links .nav-link")?.focus();
   }, [menuOpen]);
 
   return (
@@ -171,10 +191,15 @@ export function Nav() {
             </div>
           </div>
           <a className="nav-login" href={appLoginUrl(lang)}>{d.nav.login}</a>
+          {/* Надпись кнопки: ступень задаёт, сколько вариантов доступно,
+              а pickCta берёт из них кратчайший (см. src/lib/cta-variant.ts).
+              Все три пролёта считаются на сервере и рендерятся сразу —
+              видимость переключает CSS (mobile.css), поэтому после гидрации
+              вёрстка не прыгает и надпись не зависит от ширины окна в JS. */}
           <a className="btn accent sm" href={appSignupUrl(lang)}>
-            <span className="cta-full">{d.nav.ctaFull}</span>
-            <span className="cta-short">{d.nav.ctaShort}</span>
-            <span className="cta-tiny">{d.nav.ctaTiny}</span>
+            <span className="cta-full">{pickCta(d.nav, "wide")}</span>
+            <span className="cta-short">{pickCta(d.nav, "mid")}</span>
+            <span className="cta-tiny">{pickCta(d.nav, "narrow")}</span>
           </a>
           <button
             className="nav-burger"

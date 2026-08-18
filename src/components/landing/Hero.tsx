@@ -220,8 +220,8 @@ export function Hero() {
                   <Ring pct={100} cap={d.mock.ready} />
                 </div>
                 <div className="lane">
-                  <div className="tripbar" style={{ left: "0%", width: "44%" }}><svg className="tic"><use href="#i-truck" /></svg>3SK 7702<span className="ocount">⊕ 2</span></div>
-                  <div className="tripbar" style={{ left: "56%", width: "43%" }}><svg className="tic"><use href="#i-truck" /></svg>3SK 7702<span className="ocount">⊕ 1</span></div>
+                  <div className="tripbar" style={{ left: "0%", width: "44%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3SK 7702</span><span className="ocount">⊕ 2</span></div>
+                  <div className="tripbar" style={{ left: "56%", width: "43%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3SK 7702</span><span className="ocount">⊕ 1</span></div>
                 </div>
               </div>
               <div className="board-row">
@@ -244,7 +244,7 @@ export function Hero() {
                   <Ring pct={98} live cap={d.mock.ready} />
                 </div>
                 <div className="lane">
-                  <div className="tripbar appear" style={{ left: "42%", width: "56%" }}><svg className="tic"><use href="#i-truck" /></svg>3QR 6671<span className="ocount">⊕ 1</span></div>
+                  <div className="tripbar appear" style={{ left: "42%", width: "56%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3QR 6671</span><span className="ocount">⊕ 1</span></div>
                 </div>
               </div>
               <div className="board-row">
@@ -260,8 +260,8 @@ export function Hero() {
                   <Ring pct={92} cap={d.mock.ready} />
                 </div>
                 <div className="lane">
-                  <div className="tripbar" style={{ left: "0%", width: "28%" }}><svg className="tic"><use href="#i-truck" /></svg>5KL 3311<span className="ocount">⊕ 2</span></div>
-                  <div className="tripbar vac" style={{ left: "62%", width: "37%" }}>{d.mock.vacUntil}</div>
+                  <div className="tripbar" style={{ left: "0%", width: "28%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">5KL 3311</span><span className="ocount">⊕ 2</span></div>
+                  <div className="tripbar vac" style={{ left: "62%", width: "37%" }}><span className="bartext">{d.mock.vacUntil}</span></div>
                 </div>
               </div>
               <div className="board-row">
@@ -277,8 +277,8 @@ export function Hero() {
                   <Ring pct={71} mid cap={d.mock.ready} />
                 </div>
                 <div className="lane">
-                  <div className="tripbar sick" style={{ left: "0%", width: "30%" }}>{d.mock.sick}</div>
-                  <div className="tripbar" style={{ left: "44%", width: "55%" }}><svg className="tic"><use href="#i-truck" /></svg>8AL 2104<span className="ocount">⊕ 3</span></div>
+                  <div className="tripbar sick" style={{ left: "0%", width: "30%" }}><span className="bartext">{d.mock.sick}</span></div>
+                  <div className="tripbar" style={{ left: "44%", width: "55%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">8AL 2104</span><span className="ocount">⊕ 3</span></div>
                 </div>
               </div>
             </div>

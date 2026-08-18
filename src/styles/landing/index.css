@@ -5,6 +5,11 @@
    лендинг перекрывает Tailwind preflight, но НЕ ломает utility-классы
    легальных страниц (/privacy, /terms).
    ============================================================================ */
+/* Шкала брейкпоинтов объявлена в src/app/globals.css (@theme).
+   @reference подтягивает её значения для theme(--breakpoint-*) / theme(--vh-*)
+   в медиазапросах ниже, ничего не добавляя в вывод. */
+@reference "../../app/globals.css";
+
 @import "./base.css" layer(gt-landing);
 @import "./hero.css" layer(gt-landing);
 @import "./story.css" layer(gt-landing);

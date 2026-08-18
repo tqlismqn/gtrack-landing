@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# скриншоты приёмки — доказательство для владельца, не часть продукта
+.playwright-mcp/
+
+# кадры приёмки живут в Obsidian-vault рядом с базой знаний, не в продуктовом репозитории
+.autopilot/*/shots/

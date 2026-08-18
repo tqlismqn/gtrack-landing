@@ -103,7 +103,10 @@
 /* ---- секция «12 языков» -------------------------------------------------------- */
 .langs { border-top: 1px solid var(--border-1); background: var(--bg); }
 .langs-grid { display: grid; gap: 40px; align-items: center; }
-@media (min-width: 920px) { .langs-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: 64px; } }
+/* было 920 → l */
+@media (width >= theme(--breakpoint-l)) {
+  .langs-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: 64px; }
+}
 .langs-demo { display: flex; flex-direction: column; gap: 18px; }
 .lang-pill-stage {
   display: grid; place-items: center; padding: 36px 20px;
