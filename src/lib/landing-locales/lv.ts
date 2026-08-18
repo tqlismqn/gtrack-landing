@@ -163,6 +163,21 @@ export const lv: LandingDict = {
     cta: "Pilns attīstības plāns",
   },
 
+  /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
+     сюда не наследуется — иначе 12 страниц карты получают title продукта. */
+  roadmap: {
+    meta: {
+      title: "G-Track ceļvedis — kas darbojas, ko veidojam, kas būs tālāk",
+      description:
+        "Trīs G-Track attīstības horizonti: kas jau darbojas, pie kā strādājam un kas būs tālāk. Bez kalendāra datumiem un solījumiem.",
+    },
+    h1: "Kas jau darbojas, pie kā strādājam un kas būs tālāk",
+    lede: "Mēs nesolām datumus. Mēs rādām secību, kādā produkts aug, un godīgi nošķiram jau izlaisto no plānotā.",
+    now: "Jau darbojas",
+    wip: "Izstrādē",
+    next: "Tālāk",
+  },
+
   pricing: {
     overline: "Cenas",
     h2: "Viss tirgus slēpj cenas aiz „contact sales”. Mēs — nē.",

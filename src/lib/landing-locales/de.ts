@@ -165,6 +165,21 @@ export const de: LandingDict = {
     cta: "Zur vollständigen Roadmap",
   },
 
+  /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
+     сюда не наследуется — иначе 12 страниц карты получают title продукта. */
+  roadmap: {
+    meta: {
+      title: "G-Track Roadmap — was läuft, was entsteht, was als Nächstes kommt",
+      description:
+        "Drei Horizonte der G-Track-Entwicklung: was heute schon läuft, woran wir gerade arbeiten und was danach kommt. Ohne Kalenderdaten und Versprechen.",
+    },
+    h1: "Was heute läuft, woran wir arbeiten und was danach kommt",
+    lede: "Wir versprechen keine Termine. Wir zeigen die Reihenfolge, in der das Produkt wächst — und trennen Ausgeliefertes klar von Geplantem.",
+    now: "Läuft heute",
+    wip: "In Arbeit",
+    next: "Als Nächstes",
+  },
+
   pricing: {
     overline: "Preise",
     h2: "Der ganze Markt versteckt seine Preise hinter „Contact Sales“. Wir nicht.",

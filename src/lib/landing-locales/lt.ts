@@ -168,6 +168,21 @@ export const lt: LandingDict = {
     cta: "Visas veiksmų planas",
   },
 
+  /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
+     сюда не наследуется — иначе 12 страниц карты получают title продукта. */
+  roadmap: {
+    meta: {
+      title: "G-Track planas — kas veikia, ką kuriame, kas toliau",
+      description:
+        "Trys G-Track plėtros horizontai: kas jau veikia, ką kuriame dabar ir kas bus toliau. Be kalendorinių datų ir pažadų.",
+    },
+    h1: "Kas jau veikia, ką kuriame ir kas bus toliau",
+    lede: "Nežadame datų. Rodome tvarką, kuria auga produktas, ir sąžiningai atskiriame tai, kas išleista, nuo to, kas suplanuota.",
+    now: "Jau veikia",
+    wip: "Kuriama",
+    next: "Toliau",
+  },
+
   pricing: {
     overline: "Kainos",
     h2: "Visa rinka slepia kainas už „contact sales“. Mes — ne.",

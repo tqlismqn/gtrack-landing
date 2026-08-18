@@ -64,6 +64,13 @@ export function localePath(lang: Lang): string {
   return lang === "en" ? "/" : `/${lang}`;
 }
 
+/* Путь дорожной карты той же локали. Отдельная функция, а не аргумент
+   localePath: `/` + `/roadmap` даёт `//roadmap`, и склейка на месте вызова
+   рано или поздно это воспроизведёт. */
+export function roadmapPath(lang: Lang): string {
+  return lang === "en" ? "/roadmap" : `/${lang}/roadmap`;
+}
+
 const ru = {
   meta: {
     title: "G-Track — EU-compliance и планирование для перевозчиков",
@@ -218,6 +225,21 @@ const ru = {
     m8: "Telegram для водителей", m8d: "Документы и рейсы в кармане",
     m9: "Сообщения", m9d: "Чат с водителем со встроенным переводом",
     cta: "Вся карта развития",
+  },
+
+  /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
+     сюда не наследуется — иначе 12 страниц карты получают title продукта. */
+  roadmap: {
+    meta: {
+      title: "Дорожная карта G-Track — что работает, что в работе, что дальше",
+      description:
+        "Три горизонта развития G-Track: что уже работает, что делаем сейчас и что будет дальше. Без календарных дат и обещаний.",
+    },
+    h1: "Что уже работает, что делаем и что будет дальше",
+    lede: "Мы не обещаем даты. Мы показываем порядок, в котором растёт продукт, и честно разделяем выпущенное и запланированное.",
+    now: "Работает сейчас",
+    wip: "В работе",
+    next: "Дальше",
   },
 
   pricing: {
@@ -572,6 +594,21 @@ const en: LandingDict = {
     m8: "Telegram for drivers", m8d: "Documents and trips in your pocket",
     m9: "Messages", m9d: "Driver chat with built-in translation",
     cta: "Full roadmap",
+  },
+
+  /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
+     сюда не наследуется — иначе 12 страниц карты получают title продукта. */
+  roadmap: {
+    meta: {
+      title: "G-Track roadmap — what works, what we build, what comes next",
+      description:
+        "Three horizons of G-Track development: what already works, what we are building now and what comes next. No calendar dates, no promises.",
+    },
+    h1: "What already works, what we build and what comes next",
+    lede: "We do not promise dates. We show the order in which the product grows, and keep shipped features honestly apart from planned ones.",
+    now: "Works today",
+    wip: "In progress",
+    next: "Next up",
   },
 
   pricing: {

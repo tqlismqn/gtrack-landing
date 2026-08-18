@@ -179,7 +179,7 @@ img, svg { display: block; }
    Диагностический признак, чтобы правило не применяли как универсальное лекарство: `anywhere`
    лечит только переполнение от вклада в min-content; от явной ширины или фиксированного предка
    не лечит ни оно, ни `break-word`. */
-.h2, .vid h2, .final h2 { overflow-wrap: anywhere; }
+.h2, .vid h2, .final h2, .rm-h1 { overflow-wrap: anywhere; }
 .sect-sub { color: var(--text-2); font-size: clamp(16px, 1.6vw, 18px); max-width: 62ch; margin-top: 16px; text-wrap: pretty; }
 
 a:focus-visible, button:focus-visible {

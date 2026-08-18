@@ -30,6 +30,7 @@ import {
   LANDING_DICT,
   LOCALES,
   localePath,
+  roadmapPath,
   type Lang,
   type LandingDict,
 } from "@/lib/landing-i18n";
@@ -69,23 +70,42 @@ function applyCmpLang(lang: Lang) {
   }
 }
 
+/* Какая страница обёрнута провайдером. Отсюда берётся путь той же страницы
+   в другой локали (переключатель языка и авто-редирект по языку браузера
+   обязаны оставлять посетителя там, где он был) и то, чем стать якорям
+   главной за её пределами. */
+export type LandingPageKind = "home" | "roadmap";
+
 interface LandingCtxValue {
   lang: Lang;
   setLang: (lang: Lang) => void;
   d: LandingDict;
   toggleTheme: () => void;
+  page: LandingPageKind;
+  /* Ссылка на секцию главной: на самой главной это чистый якорь, на любой
+     другой странице — путь главной ТОЙ ЖЕ локали плюс якорь. Голый "#pricing"
+     вне главной ведёт в пустоту. */
+  homeAnchor: (hash: string) => string;
 }
 
 const LandingCtx = createContext<LandingCtxValue | null>(null);
 
 export function LandingProvider({
   locale,
+  page = "home",
   children,
 }: {
   locale: Lang;
+  page?: LandingPageKind;
   children: React.ReactNode;
 }) {
   const router = useRouter();
+
+  /* путь ЭТОЙ же страницы в другой локали */
+  const pathFor = useCallback(
+    (lang: Lang) => (page === "roadmap" ? roadmapPath(lang) : localePath(lang)),
+    [page],
+  );
 
   /* ------------------------------------------------------------------------
      Маркетинговые метки: снимаем из URL визита и дописываем к ссылкам на
@@ -166,15 +186,15 @@ export function LandingProvider({
     const nav = (navigator.language || "").toLowerCase();
     const hit = LOCALES.find((l) => nav.startsWith(l));
     writeLangCookie(hit ?? "en");
-    if (hit && hit !== "en") router.replace(localePath(hit));
-  }, [locale, router]);
+    if (hit && hit !== "en") router.replace(pathFor(hit));
+  }, [locale, router, pathFor]);
 
   const setLang = useCallback(
     (next: Lang) => {
       writeLangCookie(next);
-      router.push(localePath(next), { scroll: false });
+      router.push(pathFor(next), { scroll: false });
     },
-    [router],
+    [router, pathFor],
   );
 
   const toggleTheme = useCallback(() => {
@@ -188,9 +208,21 @@ export function LandingProvider({
     }
   }, []);
 
+  const homeAnchor = useCallback(
+    (hash: string) => (page === "home" ? hash : `${localePath(locale)}${hash}`),
+    [page, locale],
+  );
+
   const value = useMemo<LandingCtxValue>(
-    () => ({ lang: locale, setLang, d: LANDING_DICT[locale], toggleTheme }),
-    [locale, setLang, toggleTheme],
+    () => ({
+      lang: locale,
+      setLang,
+      d: LANDING_DICT[locale],
+      toggleTheme,
+      page,
+      homeAnchor,
+    }),
+    [locale, setLang, toggleTheme, page, homeAnchor],
   );
 
   return <LandingCtx.Provider value={value}>{children}</LandingCtx.Provider>;
