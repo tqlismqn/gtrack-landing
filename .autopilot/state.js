@@ -9,7 +9,7 @@ window.STATE =
   "briefFile": "2026-08-18-brief.md",
   "memoryFile": "CLAUDE.md",
   "startedAt": "2026-08-18T15:22:17+02:00",
-  "updatedAt": "2026-08-18T17:58:22+02:00",
+  "updatedAt": "2026-08-18T18:11:44+02:00",
   "finishedAt": null,
   "stages": [
     {
@@ -49,7 +49,8 @@ window.STATE =
     {
       "id": "build",
       "status": "active",
-      "startedAt": "2026-08-18T17:57:32+02:00"
+      "startedAt": "2026-08-18T17:57:32+02:00",
+      "note": "прервано на лимите сессии: таск 01 наполовину (дерево зелёное, приёмка не пройдена), 03 не начат"
     },
     {
       "id": "review",
@@ -122,7 +123,27 @@ window.STATE =
       "retries": 0,
       "repairs": 0,
       "handoffs": 0,
-      "startedAt": "2026-08-18T17:58:22+02:00"
+      "startedAt": "2026-08-18T17:58:22+02:00",
+      "note": "прервано на лимите сессии 18.08 в 18:10. Дерево ЗЕЛЁНОЕ и закоммичено (e0583cd): маршруты /roadmap на 12 языках, сборка 21→34 страницы, словарь синхронен. НЕ сделано: мутационная проверка meta, hreflang по новым URL, якоря шапки, замер заголовков на de/lt/lv/ro. Ревью не проводилось",
+      "files": [
+        "src/app/(en)/roadmap/",
+        "src/app/(intl)/[locale]/roadmap/",
+        "src/components/landing/RoadmapPage.tsx",
+        "src/components/landing/Roadmap.tsx",
+        "src/lib/roadmap-content.ts",
+        "src/styles/landing/roadmap.css",
+        "src/lib/landing-i18n.ts",
+        "src/lib/landing-locales/*",
+        "src/lib/landing-metadata.ts",
+        "src/app/sitemap.ts",
+        "src/components/landing/Nav.tsx",
+        "src/components/landing/urls.ts"
+      ],
+      "tests": {
+        "passed": 83,
+        "failed": 0
+      },
+      "commit": "e0583cd (WIP, не приёмка)"
     },
     {
       "id": "02",
@@ -164,11 +185,11 @@ window.STATE =
         "src/components/landing/Scrolly.tsx",
         "src/styles/landing/"
       ],
-      "status": "in-progress",
+      "status": "pending",
       "retries": 0,
       "repairs": 0,
       "handoffs": 0,
-      "startedAt": "2026-08-18T17:58:22+02:00"
+      "note": "исполнитель успел только прочитать материалы, правок в коде нет — запускать с нуля"
     },
     {
       "id": "04",
