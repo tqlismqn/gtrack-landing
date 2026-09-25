@@ -11,11 +11,11 @@ React 19, Tailwind 4, TypeScript strict, Node 22, деплой на Vercel. 12 �
 |---|---|
 | `npm install` | Установить зависимости |
 | `npm run dev` | Дев-сервер на :3000 |
-| `npm test` | vitest, 83 теста в 2 файлах, ~0,2 с |
+| `npm test` | vitest, 96 тестов в 3 файлах, ~0,3 с |
 | `npx vitest run test/journey.test.ts` | Один файл тестов |
 | `npx tsc --noEmit` | Проверка типов |
 | `npm run lint` | ESLint (eslint-config-next: core-web-vitals + typescript) |
-| `npm run build` | Прод-сборка: `Compiled successfully`, 12 локалей SSG, 21 страница |
+| `npm run build` | Прод-сборка: `Compiled successfully`, 12 локалей SSG, 34 страницы (главная и `/roadmap` × 12) |
 
 `npm run build` пишет в тот же `.next`, что и дев-сервер: если на :3000 кто-то висит — сначала гаси его.
 
@@ -31,7 +31,7 @@ src/lib/                 journey, cta-variant, analytics, metadata, og-image, с
 src/lib/landing-locales/ 10 остальных словарей, по файлу на локаль
 src/styles/landing/      CSS по смысловым областям, порядок сборки — в index.css
 src/hooks/               useInViewport
-test/                    vitest: два чистых шва
+test/                    vitest: три чистых шва
 public/                  видео с постером, фон карты journey-road.webp
 docs/adr/                несущие решения с числами замеров, 11 записей
 .autopilot/              состояние сборки навыком /autopilot
@@ -44,7 +44,8 @@ docs/adr/                несущие решения с числами зам�
 - `src/components/landing/Scrolly.tsx` — пин-сцена истории: считает прогресс и публикует его.
 - `src/components/landing/Europe.tsx` — карта Европы; контур суши в `europe-land-path.ts`, проекция и формула — комментарием там же.
 - `src/lib/landing-i18n.ts` — `Lang`, `LOCALES`, `LANDING_DICT`, словари ru и en (802 строки).
-- `src/lib/journey.ts`, `src/lib/cta-variant.ts` — чистая логика; ровно она и покрыта тестами.
+- `src/lib/journey.ts`, `src/lib/cta-variant.ts`, `src/lib/roadmap-content.ts` — чистая логика; ровно она и покрыта тестами.
+- `src/lib/roadmap-content.ts` — состав Ганта `/roadmap` (8 направлений, даты выпусков приложения, вехи); модель строится на сервере в `RoadmapPage`, «Сейчас» = день сборки.
 - `src/lib/analytics.ts` — GTM ID, Consent Mode v2, first-touch метки; порядок загрузки хрупкий и описан в шапке файла.
 - `next.config.ts` — CSP в Report-Only, security headers, редиректы `/privacy` и `/terms` на app-legal.
 
@@ -78,8 +79,9 @@ CookieScript — публичные идентификаторы и живут �
 
 ## Тесты
 
-vitest без конфига, окружение node — DOM не нужен. Покрыты ровно два чистых шва: `pickCta`
-(12 локалей × 3 ступени) и `journey` (границы шагов, квантование). Ожидания вписаны литералами,
+vitest без конфига, окружение node — DOM не нужен. Покрыты три чистых шва: `pickCta`
+(12 локалей × 3 ступени), `journey` (границы шагов, квантование) и `buildRoadmapModel`
+(Гант `/roadmap`: проценты оси по датам выпусков, UTC-день, инварианты полос). Ожидания вписаны литералами,
 разобранными вручную по словарям: тест не считает результат тем же способом, что код, иначе он
 не мог бы с кодом не согласиться. Адаптив, обрезы и каскад тестом не проверяются — только замером
 в живом браузере.

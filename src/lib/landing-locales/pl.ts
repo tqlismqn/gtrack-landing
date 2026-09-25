@@ -166,6 +166,36 @@ export const pl: LandingDict = {
     cta: "Pełna roadmapa",
   },
 
+  /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
+     сюда не наследуется — иначе 12 страниц карты получают title продукта. */
+  roadmap: {
+    meta: {
+      title: "Mapa rozwoju G-Track — co działa, co budujemy, co dalej",
+      description:
+        "Trzy horyzonty rozwoju G-Track: co już działa, nad czym pracujemy i co będzie dalej. Bez dat i obietnic.",
+    },
+    h1: "Co już działa, nad czym pracujemy i co będzie dalej",
+    lede: "Tu widać, dokąd zmierza produkt: co już działa, co budujemy teraz i co będzie dalej. Nie obiecujemy terminów — pokazujemy kierunek.",
+    now: "Działa dziś",
+    wip: "W trakcie",
+    next: "Dalej",
+    releases: "{n}+ aktualizacji od startu w maju 2026.",
+    nowMark: "Dziś",
+    launch: "Start 1.0",
+    aria: "Kierunki rozwoju G-Track: co działa, co jest w trakcie i co planujemy",
+    tracks: {
+      drivers: { t: "Kierowcy i dokumenty", d: "Profile, 16 typów dokumentów, przepisy 8 krajów" },
+      planning: { t: "Planowanie i autopilot", d: "Tablica, Centrum decyzji, rotacja, autopilot z karty tacho" },
+      fleet: { t: "Pojazdy i serwis", d: "Flota, naprawy i serwis, dane pokładowe" },
+      telematics: { t: "Integracja z telematyką", d: "Podłączamy twój system monitorowania floty — dane o pojazdach spływają same, do planowania i analiz. Można też ręcznie." },
+      telegram: { t: "Kierowca w Telegramie", d: "Dokumenty, grafik, zgłoszenia i czat" },
+      reports: { t: "Raporty i powiadomienia", d: "Raport tygodniowy, centrum powiadomień, terminy plików tacho" },
+      finance: { t: "Zlecenia i finanse", d: "Zlecenia, faktury, mandaty, ekonomia pojazdu" },
+      integrations: { t: "Mapa i integracje", d: "Mapa i trasy, odczyt DDD, API, giełdy transportowe" },
+    },
+    ms: { autopilot: "Autopilot", decisions: "Centrum decyzji", rotation: "Rotacja", service: "Naprawy i serwis", miniapp: "Mini-aplikacja", telematics: "Pierwsza integracja" },
+  },
+
   pricing: {
     overline: "Cennik",
     h2: "Cały rynek chowa ceny za „contact sales”. My — nie.",

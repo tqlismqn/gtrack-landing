@@ -1,0 +1,159 @@
+/* ============================================================================
+   ДОРОЖНАЯ КАРТА (/roadmap) — презентационный Гант по направлениям (25.09).
+   Строка = направление: слева подпись (те же .mic/.desc, что у модулей главной),
+   справа дорожка. Геометрия приходит процентами из buildRoadmapModel; CSS
+   владеет только видом. Цвета — статусные токены сайта: --ok «работает»,
+   --warn «в работе», пунктир --text-3 «в планах» — те же, что у .pill.
+   Одна общая переменная --now (процент ширины дорожки) держит линию «Сейчас»
+   на всех строках на одной вертикали: дорожки у всех строк одной ширины.
+   ============================================================================ */
+
+/* Шапка position: fixed и над содержимым ничего не резервирует — у первой
+   секции страницы запас сверху больше, чем у .sect. */
+.rm { padding-top: clamp(124px, 13vw, 176px); }
+
+.rm-h1 {
+  font-size: clamp(30px, 4.4vw, 46px);
+  font-weight: 600; letter-spacing: -0.025em; line-height: 1.12;
+  text-wrap: balance; margin-top: 14px; max-width: 22ch;
+}
+
+/* «50+ обновлений» — живой сигнал внутри абзаца, не отдельная «цифра-герой» */
+/* без nowrap: во французском строка длиннее экрана телефона (замер 390 → уходила за край) */
+.rm-live { color: var(--text-1); font-weight: 500; }
+.rm-live-dot {
+  display: inline-block; width: 7px; height: 7px; border-radius: 999px;
+  background: var(--ok); margin-right: 8px; vertical-align: 0.12em;
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ok) 22%, transparent);
+}
+
+.rm-legend { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 40px; font-size: 13px; color: var(--text-2); }
+.rm-key { display: inline-flex; align-items: center; gap: 9px; }
+.rm-swatch { width: 26px; height: 8px; border-radius: 999px; flex: none; }
+
+/* ---- полосы: один рецепт на легенду и Гант -------------------------------- */
+.rm-swatch.done, .rm-bar.done { background: var(--ok); }
+.rm-swatch.wip, .rm-bar.wip {
+  background-color: color-mix(in oklch, var(--warn) 78%, var(--card));
+  background-image: repeating-linear-gradient(-45deg,
+    color-mix(in oklch, var(--card) 38%, transparent) 0 5px, transparent 5px 10px);
+  background-size: 28px 28px;
+}
+.rm-swatch.plan, .rm-bar.plan {
+  background: transparent;
+  border: 1.5px dashed color-mix(in oklch, var(--text-3) 75%, transparent);
+}
+
+/* ---- сетка Ганта ----------------------------------------------------------- */
+.rm-gantt {
+  --lane-h: 40px;
+  margin-top: 22px;
+  border-top: 1px solid var(--border-1);
+}
+.rm-row {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px;
+  padding: 18px 0; border-bottom: 1px solid var(--border-1);
+}
+@media (width >= theme(--breakpoint-m)) {
+  .rm-row { grid-template-columns: minmax(210px, 30%) minmax(0, 1fr); gap: 28px; align-items: center; }
+}
+
+.rm-label { display: flex; gap: 12px; align-items: flex-start; min-width: 0; }
+.rm-label .mic { width: 19px; height: 19px; color: var(--text-3); flex: none; margin-top: 2px; }
+.rm-label .grow { flex: 1; min-width: 0; }
+.rm-label b { font-size: 15px; font-weight: 600; display: block; }
+.rm-label .desc { font-size: 13px; color: var(--text-3); display: block; margin-top: 2px; text-wrap: pretty; }
+
+.rm-ms-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.rm-ms-chip {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--text-2);
+  padding: 2px 8px 2px 3px; border-radius: 999px; background: var(--raised); border: 1px solid var(--border-1);
+}
+.rm-ms-chip .v {
+  font-family: var(--font-mono); font-size: 10.5px; color: var(--ok); padding: 1px 5px; border-radius: 999px;
+  background: color-mix(in oklch, var(--ok) 12%, transparent);
+}
+
+/* Дорожка. Зона «Дальше» (правее --now) — лёгкая штриховка фона: будущее
+   видно как пространство, а не как пустота. */
+.rm-lane {
+  position: relative; height: var(--lane-h); border-radius: 10px;
+  background:
+    linear-gradient(to right, transparent var(--now), color-mix(in oklch, var(--raised) 70%, transparent) var(--now));
+}
+/* линия «Сейчас» — на каждой строке, одна вертикаль на весь Гант */
+.rm-lane::after {
+  content: ""; position: absolute; top: -4px; bottom: -4px; left: var(--now); width: 1.5px;
+  background: color-mix(in oklch, var(--brand) 70%, transparent); pointer-events: none;
+}
+/* в две колонки линия тянется через отступы строк и сливается в одну вертикаль;
+   на узком экране над дорожкой стоит текст подписи — линию не удлиняем */
+@media (width >= theme(--breakpoint-m)) {
+  .rm-lane::after { top: -18px; bottom: -18px; }
+}
+
+.rm-bar {
+  position: absolute; top: 50%; height: 10px; margin-top: -5px; border-radius: 999px;
+  transform-origin: left center;
+}
+/* направление жило ещё до начала оси — полоса выходит из прошлого */
+.rm-bar.from-past { border-top-left-radius: 0; border-bottom-left-radius: 0;
+  mask-image: linear-gradient(to right, transparent, #000 36px); }
+
+/* вехи: ромб на полосе готового; подписи — чипами в колонке слева */
+.rm-diamond {
+  position: absolute; top: 50%; width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px;
+  transform: rotate(45deg); border-radius: 2px;
+  background: var(--card); border: 2px solid var(--ok); z-index: 1;
+}
+
+/* ---- ось ------------------------------------------------------------------- */
+/* Ось в две строки: сверху месяцы и «Дальше», снизу «Запуск 1.0» и плашка
+   «Сейчас». В одной строке плашка на телефоне накрывала подпись текущего
+   месяца (замер 390: от «СЕНТ» оставалась «С»). */
+.rm-axis { padding: 10px 0 12px; }
+.rm-axis .rm-lane { height: 40px; background: none; }
+.rm-axis .rm-lane::after { top: 38px; bottom: -12px; }
+.rm-month {
+  position: absolute; top: 0; padding-left: 6px; overflow: hidden; white-space: nowrap;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--text-3); border-left: 1px solid var(--border-1); line-height: 18px;
+}
+.rm-launch {
+  position: absolute; top: 20px; font-size: 11px; color: var(--text-3); white-space: nowrap; padding-left: 6px;
+}
+.rm-nowmark {
+  position: absolute; top: 20px; left: var(--now); transform: translateX(-50%); z-index: 1;
+  font-size: 11px; font-weight: 600; color: var(--brand); white-space: nowrap;
+  padding: 1px 8px; border-radius: 999px; background: var(--canvas);
+  border: 1px solid color-mix(in oklch, var(--brand) 45%, transparent); line-height: 16px;
+}
+.rm-future {
+  position: absolute; top: 0; left: var(--now); right: 0; text-align: center;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--text-3); line-height: 18px; padding-left: 8px;
+}
+/* на телефоне ось сжата: подпись запуска уезжает под месяцы и мешает — прячем,
+   ромбы и чипы вех остаются */
+@media (width <= theme(--breakpoint-s)) {
+  .rm-launch { display: none; }
+  .rm-month { font-size: 10px; padding-left: 4px; letter-spacing: 0; }
+}
+/* колонка подписи у оси нужна только в двухколоночной раскладке; на узком
+   экране строки стоят стопкой и дорожка оси идёт на всю ширину */
+.rm-axis .rm-label { display: none; }
+@media (width >= theme(--breakpoint-m)) {
+  .rm-axis .rm-label { display: block; }
+}
+
+/* ---- движение: один момент — полосы прорисовываются слева направо ---------
+   Покой видимый (контракт .reveal в base.css): без motion-ok всё уже на месте. */
+html.motion-ok .rm-gantt.reveal .rm-bar {
+  transform: scaleX(0);
+  transition: transform 900ms var(--ease-soft);
+  transition-delay: calc(var(--i, 0) * 70ms + 200ms);
+}
+html.motion-ok .rm-gantt.reveal.is-in .rm-bar { transform: none; }
+/* «в работе» — полосы бегут: статус, а не украшение; только при motion-ok */
+html.motion-ok .rm-bar.wip { animation: rm-wip 1.6s linear infinite; }
+@keyframes rm-wip { to { background-position: 28px 0; } }

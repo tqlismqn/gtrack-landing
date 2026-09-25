@@ -167,6 +167,36 @@ export const ro: LandingDict = {
     cta: "Roadmapul complet",
   },
 
+  /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
+     сюда не наследуется — иначе 12 страниц карты получают title продукта. */
+  roadmap: {
+    meta: {
+      title: "Foaia de parcurs G-Track — ce funcționează, ce construim, ce urmează",
+      description:
+        "Trei orizonturi ale dezvoltării G-Track: ce funcționează deja, ce construim acum și ce urmează. Fără date calendaristice și promisiuni.",
+    },
+    h1: "Ce funcționează deja, ce construim și ce urmează",
+    lede: "Aici vezi încotro se îndreaptă produsul: ce funcționează deja, ce construim acum și ce urmează. Nu promitem termene — arătăm direcția.",
+    now: "Deja activ",
+    wip: "În lucru",
+    next: "Urmează",
+    releases: "{n}+ actualizări de la lansarea din mai 2026.",
+    nowMark: "Acum",
+    launch: "Lansare 1.0",
+    aria: "Direcțiile de dezvoltare ale G-Track: ce funcționează, ce este în lucru și ce este planificat",
+    tracks: {
+      drivers: { t: "Șoferi și documente", d: "Profiluri, 16 tipuri de documente, reguli din 8 țări" },
+      planning: { t: "Planificare și pilot automat", d: "Panou, Centru de decizii, rotație, pilot automat după cardul de tahograf" },
+      fleet: { t: "Vehicule și service", d: "Flotă, reparații și mentenanță, date de la bord" },
+      telematics: { t: "Integrare telematică", d: "Conectăm sistemul tău de monitorizare a flotei — datele despre vehicule vin singure, pentru planificare și analiză. Merge și manual." },
+      telegram: { t: "Șoferul pe Telegram", d: "Documente, ture, cereri și chat" },
+      reports: { t: "Rapoarte și notificări", d: "Raport săptămânal, centru de notificări, termene fișiere tahograf" },
+      finance: { t: "Comenzi și finanțe", d: "Comenzi, facturi, amenzi, economia vehiculelor" },
+      integrations: { t: "Hartă și integrări", d: "Hartă și rute, citirea fișierelor DDD, API, burse de marfă" },
+    },
+    ms: { autopilot: "Pilot automat", decisions: "Centru de decizii", rotation: "Rotație", service: "Reparații și mentenanță", miniapp: "Mini-aplicație", telematics: "Prima integrare" },
+  },
+
   pricing: {
     overline: "Prețuri",
     h2: "Toată piața își ascunde prețurile după „contact sales”. Noi — nu.",

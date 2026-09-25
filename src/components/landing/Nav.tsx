@@ -10,9 +10,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { pickCta } from "@/lib/cta-variant";
-import { LANG_NAMES, LOCALES, type Lang } from "@/lib/landing-i18n";
+import {
+  LANG_NAMES,
+  LOCALES,
+  roadmapPath,
+  type Lang,
+} from "@/lib/landing-i18n";
 import { useLanding } from "./LandingProvider";
-import { appLoginUrl, appSignupUrl, appRoadmapUrl } from "./urls";
+import { appLoginUrl, appSignupUrl } from "./urls";
 
 /* язык → код страны флага в SVG-спрайте (#f-…): en→GB, uk→UA, cs→CZ */
 const FLAG_CC: Record<Lang, string> = {
@@ -29,7 +34,9 @@ function Flag({ lang }: { lang: Lang }) {
 }
 
 export function Nav() {
-  const { d, lang, setLang, toggleTheme } = useLanding();
+  /* homeAnchor: на главной это чистый "#pricing", на карте — путь главной
+     той же локали плюс якорь. Иначе на /roadmap якоря шапки ведут в пустоту. */
+  const { d, lang, setLang, toggleTheme, homeAnchor } = useLanding();
   const [langOpen, setLangOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const wmRef = useRef<HTMLSpanElement>(null);
@@ -149,9 +156,9 @@ export function Nav() {
           <span className="logo-tms">TMS</span>
         </a>
         <nav className="nav-links">
-          <a className="nav-link" href="#product">{d.nav.product}</a>
-          <a className="nav-link" href="#pricing">{d.nav.pricing}</a>
-          <a className="nav-link" href={appRoadmapUrl(lang)}>{d.nav.roadmap}</a>
+          <a className="nav-link" href={homeAnchor("#product")}>{d.nav.product}</a>
+          <a className="nav-link" href={homeAnchor("#pricing")}>{d.nav.pricing}</a>
+          <a className="nav-link" href={roadmapPath(lang)}>{d.nav.roadmap}</a>
         </nav>
         <div className="nav-right">
           <button
@@ -218,9 +225,9 @@ export function Nav() {
       {menuOpen && (
         <div className="nav-mobile-panel" id="nav-mobile-panel">
           <nav className="nmp-links" aria-label={d.nav.menuAria}>
-            <a href="#product" onClick={() => setMenuOpen(false)}>{d.nav.product}</a>
-            <a href="#pricing" onClick={() => setMenuOpen(false)}>{d.nav.pricing}</a>
-            <a href={appRoadmapUrl(lang)} onClick={() => setMenuOpen(false)}>{d.nav.roadmap}</a>
+            <a href={homeAnchor("#product")} onClick={() => setMenuOpen(false)}>{d.nav.product}</a>
+            <a href={homeAnchor("#pricing")} onClick={() => setMenuOpen(false)}>{d.nav.pricing}</a>
+            <a href={roadmapPath(lang)} onClick={() => setMenuOpen(false)}>{d.nav.roadmap}</a>
             <a href={appLoginUrl(lang)} className="nmp-login" onClick={() => setMenuOpen(false)}>{d.nav.login}</a>
           </nav>
           <div className="nmp-langs" role="group" aria-label={d.nav.langAria}>

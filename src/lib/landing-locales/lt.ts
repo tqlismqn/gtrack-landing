@@ -169,6 +169,36 @@ export const lt: LandingDict = {
     cta: "Visas veiksmų planas",
   },
 
+  /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
+     сюда не наследуется — иначе 12 страниц карты получают title продукта. */
+  roadmap: {
+    meta: {
+      title: "G-Track planas — kas veikia, ką kuriame, kas toliau",
+      description:
+        "Trys G-Track plėtros horizontai: kas jau veikia, ką kuriame dabar ir kas bus toliau. Be kalendorinių datų ir pažadų.",
+    },
+    h1: "Kas jau veikia, ką kuriame ir kas bus toliau",
+    lede: "Čia matote, kuria linkme juda produktas: kas jau veikia, ką kuriame dabar ir kas bus toliau. Datų nežadame — rodome kryptį.",
+    now: "Jau veikia",
+    wip: "Kuriama",
+    next: "Toliau",
+    releases: "{n}+ atnaujinimų nuo paleidimo 2026 m. gegužę.",
+    nowMark: "Dabar",
+    launch: "Paleidimas 1.0",
+    aria: "G-Track plėtros kryptys: kas veikia, kas kuriama ir kas planuojama",
+    tracks: {
+      drivers: { t: "Vairuotojai ir dokumentai", d: "Kortelės, 16 dokumentų tipų, 8 šalių taisyklės" },
+      planning: { t: "Planavimas ir autopilotas", d: "Lenta, Sprendimų centras, rotacija, tacho kortelės autopilotas" },
+      fleet: { t: "Transportas ir servisas", d: "Autoparkas, remontas ir TA, borto duomenys" },
+      telematics: { t: "Telematikos integracija", d: "Prijungiame jūsų transporto stebėjimo sistemą — duomenys apie automobilius ateina patys, planavimui ir analizei. Galima ir rankiniu būdu." },
+      telegram: { t: "Telegram vairuotojams", d: "Dokumentai, pamainos, užklausos ir pokalbiai" },
+      reports: { t: "Ataskaitos ir pranešimai", d: "Savaitės ataskaita, pranešimų centras, tacho failų terminai" },
+      finance: { t: "Užsakymai ir finansai", d: "Užsakymai, sąskaitos, baudos, transporto priemonės ekonomika" },
+      integrations: { t: "Žemėlapis ir integracijos", d: "Žemėlapis ir maršrutai, DDD iššifravimas, API, krovinių biržos" },
+    },
+    ms: { autopilot: "Autopilotas", decisions: "Sprendimų centras", rotation: "Rotacija", service: "Remontas ir TA", miniapp: "Mini programėlė", telematics: "Pirmoji integracija" },
+  },
+
   pricing: {
     overline: "Kainos",
     h2: "Visa rinka slepia kainas už „contact sales“. Mes — ne.",

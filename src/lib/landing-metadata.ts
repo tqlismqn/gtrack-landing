@@ -5,7 +5,13 @@
    ============================================================================ */
 
 import type { Metadata } from "next";
-import { LANDING_DICT, LOCALES, localePath, type Lang } from "./landing-i18n";
+import {
+  LANDING_DICT,
+  LOCALES,
+  localePath,
+  roadmapPath,
+  type Lang,
+} from "./landing-i18n";
 
 export const SITE_ORIGIN = "https://www.g-track.eu";
 
@@ -28,13 +34,21 @@ export function baseMetadata(): Metadata {
   };
 }
 
-/* hreflang-карта: x-default → корень (en) */
-function hreflangAlternates(): NonNullable<Metadata["alternates"]>["languages"] {
+/* hreflang-карта одной страницы во всех локалях: x-default → английская версия.
+   Первый параметр — функция пути, а не готовый префикс: у карты путь строится
+   иначе, чем у главной (en живёт на /roadmap, а не на /).
+   x-default передаётся отдельной строкой, потому что у главной он исторически
+   без завершающего слэша и обязан байт-в-байт совпадать со значением
+   в sitemap.ts — при расхождении сигналов Google выбирает страницу сам. */
+function hreflangAlternates(
+  path: (lang: Lang) => string,
+  xDefault: string,
+): NonNullable<Metadata["alternates"]>["languages"] {
   const languages: Record<string, string> = {};
   for (const l of LOCALES) {
-    languages[l] = `${SITE_ORIGIN}${localePath(l)}`;
+    languages[l] = `${SITE_ORIGIN}${path(l)}`;
   }
-  languages["x-default"] = SITE_ORIGIN;
+  languages["x-default"] = xDefault;
   return languages;
 }
 
@@ -62,7 +76,7 @@ export function landingMetadata(locale: Lang): Metadata {
     description: d.meta.description,
     alternates: {
       canonical: `${SITE_ORIGIN}${localePath(locale)}`,
-      languages: hreflangAlternates(),
+      languages: hreflangAlternates(localePath, SITE_ORIGIN),
     },
     openGraph: {
       title: d.meta.title,
@@ -80,6 +94,38 @@ export function landingMetadata(locale: Lang): Metadata {
       card: "summary_large_image",
       title: d.meta.title,
       description: d.meta.description,
+    },
+  };
+}
+
+/* Метаданные страницы дорожной карты. Своя пара title/description из
+   d.roadmap.meta: без неё все 12 страниц карты наследуют title главной,
+   и в выдаче они неотличимы от неё. */
+export function roadmapMetadata(locale: Lang): Metadata {
+  const d = LANDING_DICT[locale];
+  const url = `${SITE_ORIGIN}${roadmapPath(locale)}`;
+  return {
+    title: d.roadmap.meta.title,
+    description: d.roadmap.meta.description,
+    alternates: {
+      canonical: url,
+      languages: hreflangAlternates(roadmapPath, `${SITE_ORIGIN}${roadmapPath("en")}`),
+    },
+    openGraph: {
+      title: d.roadmap.meta.title,
+      description: d.roadmap.meta.description,
+      url,
+      siteName: "G-Track",
+      type: "website",
+      locale: OG_LOCALE[locale],
+      alternateLocale: LOCALES.filter((l) => l !== locale).map(
+        (l) => OG_LOCALE[l],
+      ),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: d.roadmap.meta.title,
+      description: d.roadmap.meta.description,
     },
   };
 }

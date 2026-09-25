@@ -2,14 +2,14 @@
    Внешние URL лендинга.
    - Прототип вёл CTA на https://app.g-track.eu/signup — в приложении такого
      роута нет (есть /register), поэтому при порте поправлено.
-   - Roadmap в прототипе вёл на локальный «G-Track Roadmap.html»; в проде
-     ведём на /roadmap приложения (роут существует, но за авторизацией —
-     открытый вопрос для владельца).
+   - Дорожная карта здесь больше не живёт: она стала страницей лендинга
+     (/roadmap и /<locale>/roadmap), путь строит roadmapPath из landing-i18n.
+     Карта приложения за авторизацией, и вести на неё публичную ссылку значило
+     показывать посетителю форму входа вместо содержания.
    ============================================================================ */
 
 export const APP_URL = "https://app.g-track.eu";
 export const SIGNUP_URL = "https://app.g-track.eu/register";
-export const ROADMAP_URL = "https://app.g-track.eu/roadmap";
 export const SALES_MAILTO = "mailto:sales@g-track.eu";
 export const SALES_EMAIL = "sales@g-track.eu";
 
@@ -27,13 +27,10 @@ export function legalUrl(tab: LegalTab, lang: string): string {
 
 /* Тот же принцип, что legalUrl: язык сайта уезжает в приложение параметром
    ?lng= (решение Thomas 07-11: «форма логина/регистрации — на языке сайта»).
-   Login/Register/Roadmap приложения читают его так же, как app-legal. */
+   Login/Register приложения читают его так же, как app-legal. */
 export function appLoginUrl(lang: string): string {
   return `${APP_URL}/login?lng=${lang}`;
 }
 export function appSignupUrl(lang: string): string {
   return `${APP_URL}/register?lng=${lang}`;
-}
-export function appRoadmapUrl(lang: string): string {
-  return `${APP_URL}/roadmap?lng=${lang}`;
 }

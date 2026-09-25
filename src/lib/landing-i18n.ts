@@ -64,6 +64,13 @@ export function localePath(lang: Lang): string {
   return lang === "en" ? "/" : `/${lang}`;
 }
 
+/* Путь дорожной карты той же локали. Отдельная функция, а не аргумент
+   localePath: `/` + `/roadmap` даёт `//roadmap`, и склейка на месте вызова
+   рано или поздно это воспроизведёт. */
+export function roadmapPath(lang: Lang): string {
+  return lang === "en" ? "/roadmap" : `/${lang}/roadmap`;
+}
+
 const ru = {
   meta: {
     title: "G-Track — EU-compliance и планирование для перевозчиков",
@@ -218,6 +225,36 @@ const ru = {
     m8: "Telegram для водителей", m8d: "Документы, смена и заявки",
     m9: "Сообщения", m9d: "Чат с водителем со встроенным переводом",
     cta: "Вся карта развития",
+  },
+
+  /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
+     сюда не наследуется — иначе 12 страниц карты получают title продукта. */
+  roadmap: {
+    meta: {
+      title: "Дорожная карта G-Track — что работает, что в работе, что дальше",
+      description:
+        "Три горизонта развития G-Track: что уже работает, что делаем сейчас и что будет дальше. Без календарных дат и обещаний.",
+    },
+    h1: "Что уже работает, что делаем и что будет дальше",
+    lede: "Здесь — куда движется продукт: что уже работает, что строим сейчас и что дальше. Сроков не обещаем — показываем направление.",
+    now: "Работает сейчас",
+    wip: "В работе",
+    next: "Дальше",
+    releases: "{n}+ обновлений с запуска в мае 2026.",
+    nowMark: "Сейчас",
+    launch: "Запуск 1.0",
+    aria: "Направления G-Track: что работает, что в работе и что в планах",
+    tracks: {
+      drivers: { t: "Водители и документы", d: "Карточки, 16 типов документов, правила 8 стран" },
+      planning: { t: "Планирование и автопилот", d: "Доска, Центр решений, ротация, автопилот по тахокарте" },
+      fleet: { t: "Транспорт и сервис", d: "Парк, ремонт и ТО, данные с борта" },
+      telematics: { t: "Интеграция с телематикой", d: "Подключаем вашу систему мониторинга — данные о машинах идут сами, для планирования и аналитики. Можно и вручную." },
+      telegram: { t: "Водитель в Telegram", d: "Документы, смена, заявки и чат" },
+      reports: { t: "Отчёты и уведомления", d: "Недельный отчёт, центр уведомлений, сроки тахо-файлов" },
+      finance: { t: "Заказы и финансы", d: "Заказы, счета, штрафы, экономика машины" },
+      integrations: { t: "Карта и интеграции", d: "Карта и маршруты, расшифровка DDD, API, биржи грузов" },
+    },
+    ms: { autopilot: "Автопилот", decisions: "Центр решений", rotation: "Ротация", service: "Ремонт и ТО", miniapp: "Мини-апп", telematics: "Первая интеграция" },
   },
 
   pricing: {
@@ -568,6 +605,36 @@ const en: LandingDict = {
     m8: "Telegram for drivers", m8d: "Documents, shifts and requests",
     m9: "Messages", m9d: "Driver chat with built-in translation",
     cta: "Full roadmap",
+  },
+
+  /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
+     сюда не наследуется — иначе 12 страниц карты получают title продукта. */
+  roadmap: {
+    meta: {
+      title: "G-Track roadmap — what works, what we build, what comes next",
+      description:
+        "Three horizons of G-Track development: what already works, what we are building now and what comes next. No calendar dates, no promises.",
+    },
+    h1: "What already works, what we build and what comes next",
+    lede: "Here is where the product is heading: what already works, what we are building now and what comes next. No promised dates — just the direction.",
+    now: "Works today",
+    wip: "In progress",
+    next: "Next up",
+    releases: "{n}+ updates since launch in May 2026.",
+    nowMark: "Now",
+    launch: "Launch 1.0",
+    aria: "G-Track directions: what works, what is in progress and what is planned",
+    tracks: {
+      drivers: { t: "Drivers & documents", d: "Profiles, 16 document types, rules of 8 countries" },
+      planning: { t: "Planning & autopilot", d: "Board, Decision Center, rotation, tacho-card autopilot" },
+      fleet: { t: "Fleet & service", d: "Fleet, repairs & maintenance, on-board data" },
+      telematics: { t: "Telematics integration", d: "We connect your fleet tracking system — vehicle data flows in by itself, for planning and analytics. Manual works too." },
+      telegram: { t: "Driver in Telegram", d: "Documents, shifts, requests and chat" },
+      reports: { t: "Reports & notifications", d: "Weekly report, notification center, tacho file deadlines" },
+      finance: { t: "Orders & finance", d: "Orders, invoices, fines, truck economics" },
+      integrations: { t: "Map & integrations", d: "Map and routes, DDD decoding, API, load boards" },
+    },
+    ms: { autopilot: "Autopilot", decisions: "Decision Center", rotation: "Rotation", service: "Repairs & service", miniapp: "Mini app", telematics: "First integration" },
   },
 
   pricing: {

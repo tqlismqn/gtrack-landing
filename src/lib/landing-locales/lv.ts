@@ -164,6 +164,36 @@ export const lv: LandingDict = {
     cta: "Pilns attīstības plāns",
   },
 
+  /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
+     сюда не наследуется — иначе 12 страниц карты получают title продукта. */
+  roadmap: {
+    meta: {
+      title: "G-Track ceļvedis — kas darbojas, ko veidojam, kas būs tālāk",
+      description:
+        "Trīs G-Track attīstības horizonti: kas jau darbojas, pie kā strādājam un kas būs tālāk. Bez kalendāra datumiem un solījumiem.",
+    },
+    h1: "Kas jau darbojas, pie kā strādājam un kas būs tālāk",
+    lede: "Šeit redzams, kurp virzās produkts: kas jau darbojas, ko veidojam tagad un kas būs tālāk. Termiņus nesolām — rādām virzienu.",
+    now: "Jau darbojas",
+    wip: "Izstrādē",
+    next: "Tālāk",
+    releases: "{n}+ atjauninājumi kopš palaišanas 2026. gada maijā.",
+    nowMark: "Tagad",
+    launch: "Palaišana 1.0",
+    aria: "G-Track attīstības virzieni: kas darbojas, kas ir izstrādē un kas ir plānots",
+    tracks: {
+      drivers: { t: "Vadītāji un dokumenti", d: "Kartītes, 16 dokumentu tipi, 8 valstu noteikumi" },
+      planning: { t: "Plānošana un autopilots", d: "Dēlis, Lēmumu centrs, rotācija, taho kartes autopilots" },
+      fleet: { t: "Autoparks un apkope", d: "Transportlīdzekļi, remonts un apkope, borta dati" },
+      telematics: { t: "Telemātikas integrācija", d: "Pieslēdzam tavu transporta uzraudzības sistēmu — dati par mašīnām pienāk paši, plānošanai un analītikai. Var arī manuāli." },
+      telegram: { t: "Telegram vadītājiem", d: "Dokumenti, maiņas, pieteikumi un tērzēšana" },
+      reports: { t: "Atskaites un paziņojumi", d: "Nedēļas atskaite, paziņojumu centrs, taho failu termiņi" },
+      finance: { t: "Pasūtījumi un finanses", d: "Pasūtījumi, rēķini, sodi, mašīnas ekonomika" },
+      integrations: { t: "Karte un integrācijas", d: "Karte un maršruti, DDD atšifrēšana, API, kravu biržas" },
+    },
+    ms: { autopilot: "Autopilots", decisions: "Lēmumu centrs", rotation: "Rotācija", service: "Remonts un apkope", miniapp: "Mini lietotne", telematics: "Pirmā integrācija" },
+  },
+
   pricing: {
     overline: "Cenas",
     h2: "Viss tirgus slēpj cenas aiz „contact sales”. Mēs — nē.",

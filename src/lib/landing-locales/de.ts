@@ -166,6 +166,36 @@ export const de: LandingDict = {
     cta: "Zur vollständigen Roadmap",
   },
 
+  /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
+     сюда не наследуется — иначе 12 страниц карты получают title продукта. */
+  roadmap: {
+    meta: {
+      title: "G-Track Roadmap — was läuft, was entsteht, was als Nächstes kommt",
+      description:
+        "Drei Horizonte der G-Track-Entwicklung: was heute schon läuft, woran wir gerade arbeiten und was danach kommt. Ohne Kalenderdaten und Versprechen.",
+    },
+    h1: "Was heute läuft, woran wir arbeiten und was danach kommt",
+    lede: "Hier sehen Sie, wohin sich das Produkt entwickelt: was heute läuft, woran wir gerade arbeiten und was als Nächstes kommt. Keine Terminversprechen — nur die Richtung.",
+    now: "Läuft heute",
+    wip: "In Arbeit",
+    next: "Als Nächstes",
+    releases: "{n}+ Updates seit dem Start im Mai 2026.",
+    nowMark: "Heute",
+    launch: "Start 1.0",
+    aria: "Entwicklungsbereiche von G-Track: was läuft, was in Arbeit ist und was geplant ist",
+    tracks: {
+      drivers: { t: "Fahrer & Dokumente", d: "Profile, 16 Dokumenttypen, Regeln aus 8 Ländern" },
+      planning: { t: "Planung & Autopilot", d: "Board, Entscheidungszentrum, Rotation, Autopilot per Fahrerkarte" },
+      fleet: { t: "Fahrzeuge & Wartung", d: "Flotte, Reparaturen & Wartung, Daten vom Bordgerät" },
+      telematics: { t: "Telematik-Integration", d: "Wir binden Ihr Telematiksystem an — Fahrzeugdaten kommen von selbst, für Planung und Analysen. Manuell geht es auch." },
+      telegram: { t: "Fahrer in Telegram", d: "Dokumente, Schichten, Anfragen und Chat" },
+      reports: { t: "Berichte & Benachrichtigungen", d: "Wochenbericht, Benachrichtigungszentrum, Tacho-Downloadfristen" },
+      finance: { t: "Aufträge & Finanzen", d: "Aufträge, Rechnungen, Bußgelder, Fahrzeug-Ökonomie" },
+      integrations: { t: "Karte & Integrationen", d: "Karte & Routen, DDD-Auswertung, API, Frachtbörsen" },
+    },
+    ms: { autopilot: "Autopilot", decisions: "Entscheidungszentrum", rotation: "Rotation", service: "Reparaturen & Wartung", miniapp: "Mini-App", telematics: "Erste Integration" },
+  },
+
   pricing: {
     overline: "Preise",
     h2: "Der ganze Markt versteckt seine Preise hinter „Contact Sales“. Wir nicht.",
