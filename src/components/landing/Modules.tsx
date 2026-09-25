@@ -4,8 +4,8 @@
    МОДУЛИ И ГОРИЗОНТ — две колонки «Готово / Скоро».
    ============================================================================ */
 
+import { roadmapPath } from "@/lib/landing-i18n";
 import { useLanding } from "./LandingProvider";
-import { appRoadmapUrl } from "./urls";
 
 export function Modules() {
   const { d, lang } = useLanding();
@@ -37,7 +37,7 @@ export function Modules() {
           </div>
         </div>
         <div className="mods-cta reveal">
-          <a className="link-arrow" href={appRoadmapUrl(lang)}>{m.cta} <span className="arr">→</span></a>
+          <a className="link-arrow" href={roadmapPath(lang)}>{m.cta} <span className="arr">→</span></a>
         </div>
       </div>
     </section>

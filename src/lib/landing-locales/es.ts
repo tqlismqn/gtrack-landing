@@ -164,6 +164,36 @@ export const es: LandingDict = {
     cta: "Hoja de ruta completa",
   },
 
+  /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
+     сюда не наследуется — иначе 12 страниц карты получают title продукта. */
+  roadmap: {
+    meta: {
+      title: "Hoja de ruta de G-Track — qué funciona, qué construimos, qué sigue",
+      description:
+        "Tres horizontes del desarrollo de G-Track: qué funciona ya, qué estamos construyendo y qué vendrá después. Sin fechas ni promesas.",
+    },
+    h1: "Qué funciona ya, qué estamos construyendo y qué vendrá después",
+    lede: "Aquí verá hacia dónde va el producto: qué funciona ya, qué estamos construyendo ahora y qué viene después. No prometemos fechas: mostramos el rumbo.",
+    now: "Ya funciona",
+    wip: "En curso",
+    next: "Después",
+    releases: "{n}+ actualizaciones desde el lanzamiento en mayo de 2026.",
+    nowMark: "Hoy",
+    launch: "Lanzamiento 1.0",
+    aria: "Líneas de desarrollo de G-Track: qué funciona, qué está en curso y qué está previsto",
+    tracks: {
+      drivers: { t: "Conductores y documentos", d: "Fichas, 16 tipos de documentos, normas de 8 países" },
+      planning: { t: "Planificación y piloto automático", d: "Tablero, Centro de decisiones, rotación, piloto automático por tarjeta" },
+      fleet: { t: "Vehículos y mantenimiento", d: "Flota, reparaciones y mantenimiento, datos de a bordo" },
+      telematics: { t: "Integración telemática", d: "Conectamos su sistema de seguimiento de flota: los datos de los vehículos llegan solos, para planificar y analizar. También funciona en modo manual." },
+      telegram: { t: "El conductor en Telegram", d: "Documentos, turnos, solicitudes y chat" },
+      reports: { t: "Informes y notificaciones", d: "Informe semanal, centro de notificaciones, plazos de descarga DDD" },
+      finance: { t: "Pedidos y finanzas", d: "Pedidos, facturas, multas, economía del vehículo" },
+      integrations: { t: "Mapa e integraciones", d: "Mapa y rutas, lectura de DDD, API, bolsas de carga" },
+    },
+    ms: { autopilot: "Piloto automático", decisions: "Centro de decisiones", rotation: "Rotación", service: "Reparaciones y mantenimiento", miniapp: "Mini-app", telematics: "Primera integración" },
+  },
+
   pricing: {
     overline: "Precios",
     h2: "Todo el mercado esconde los precios detrás de «contact sales». Nosotros no.",

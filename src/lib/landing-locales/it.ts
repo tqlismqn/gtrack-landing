@@ -166,6 +166,36 @@ export const it: LandingDict = {
     cta: "La roadmap completa",
   },
 
+  /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
+     сюда не наследуется — иначе 12 страниц карты получают title продукта. */
+  roadmap: {
+    meta: {
+      title: "Roadmap G-Track — cosa funziona, cosa costruiamo, cosa arriva",
+      description:
+        "Tre orizzonti dello sviluppo di G-Track: cosa funziona già, cosa stiamo costruendo e cosa arriverà dopo. Senza date né promesse.",
+    },
+    h1: "Cosa funziona già, cosa stiamo costruendo e cosa arriverà",
+    lede: "Ecco dove sta andando il prodotto: cosa funziona già, cosa stiamo costruendo ora e cosa arriverà dopo. Niente date promesse: solo la direzione.",
+    now: "Funziona oggi",
+    wip: "In corso",
+    next: "Prossimo",
+    releases: "{n}+ aggiornamenti dal lancio di maggio 2026.",
+    nowMark: "Oggi",
+    launch: "Lancio 1.0",
+    aria: "Aree di sviluppo di G-Track: cosa funziona, cosa è in corso e cosa è in programma",
+    tracks: {
+      drivers: { t: "Autisti e documenti", d: "Profili, 16 tipi di documento, regole di 8 paesi" },
+      planning: { t: "Pianificazione e pilota automatico", d: "Lavagna, Centro decisioni, rotazione, pilota automatico da carta" },
+      fleet: { t: "Veicoli e manutenzione", d: "Flotta, riparazioni e manutenzione, dati di bordo" },
+      telematics: { t: "Integrazione telematica", d: "Colleghiamo il tuo sistema di monitoraggio flotta: i dati dei veicoli arrivano da soli, per pianificazione e analisi. Funziona anche in manuale." },
+      telegram: { t: "L’autista su Telegram", d: "Documenti, turni, richieste e chat" },
+      reports: { t: "Report e notifiche", d: "Report settimanale, centro notifiche, scadenze scarico tachigrafo" },
+      finance: { t: "Ordini e finanze", d: "Ordini, fatture, multe, economia del veicolo" },
+      integrations: { t: "Mappa e integrazioni", d: "Mappa e percorsi, analisi dei DDD, API, borse carichi" },
+    },
+    ms: { autopilot: "Pilota automatico", decisions: "Centro decisioni", rotation: "Rotazione", service: "Riparazioni e manutenzione", miniapp: "Mini-app", telematics: "Prima integrazione" },
+  },
+
   pricing: {
     overline: "Prezzi",
     h2: "Tutto il mercato nasconde i prezzi dietro al «contact sales». Noi no.",

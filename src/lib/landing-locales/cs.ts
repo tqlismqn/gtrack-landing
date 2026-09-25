@@ -166,6 +166,36 @@ export const cs: LandingDict = {
     cta: "Celá roadmapa",
   },
 
+  /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
+     сюда не наследуется — иначе 12 страниц карты получают title продукта. */
+  roadmap: {
+    meta: {
+      title: "Roadmapa G-Track — co funguje, co stavíme, co bude dál",
+      description:
+        "Tři horizonty vývoje G-Track: co už funguje, na čem pracujeme a co přijde dál. Bez kalendářních dat a slibů.",
+    },
+    h1: "Co už funguje, na čem pracujeme a co bude dál",
+    lede: "Tady vidíte, kam produkt směřuje: co už funguje, co stavíme teď a co přijde dál. Termíny neslibujeme — ukazujeme směr.",
+    now: "Funguje dnes",
+    wip: "Ve vývoji",
+    next: "Dál",
+    releases: "{n}+ aktualizací od spuštění v květnu 2026.",
+    nowMark: "Dnes",
+    launch: "Spuštění 1.0",
+    aria: "Směry vývoje G-Track: co funguje, co je ve vývoji a co plánujeme",
+    tracks: {
+      drivers: { t: "Řidiči a dokumenty", d: "Profily, 16 typů dokumentů, pravidla 8 zemí" },
+      planning: { t: "Plánování a autopilot", d: "Tabule, Centrum rozhodnutí, rotace, autopilot podle tacho karty" },
+      fleet: { t: "Vozidla a servis", d: "Vozový park, opravy a servis, palubní data" },
+      telematics: { t: "Integrace s telematikou", d: "Napojíme váš systém sledování vozidel — data o vozidlech přicházejí sama, pro plánování i analýzy. Jde to i ručně." },
+      telegram: { t: "Řidič v Telegramu", d: "Doklady, směny, žádosti a chat" },
+      reports: { t: "Reporty a oznámení", d: "Týdenní report, centrum oznámení, lhůty pro tacho soubory" },
+      finance: { t: "Zakázky a finance", d: "Zakázky, faktury, pokuty, ekonomika vozidla" },
+      integrations: { t: "Mapa a integrace", d: "Mapa a trasy, vyhodnocení DDD, API, burzy nákladů" },
+    },
+    ms: { autopilot: "Autopilot", decisions: "Centrum rozhodnutí", rotation: "Rotace", service: "Opravy a servis", miniapp: "Mini-app", telematics: "První integrace" },
+  },
+
   pricing: {
     overline: "Ceník",
     h2: "Celý trh schovává ceny za „contact sales“. My ne.",

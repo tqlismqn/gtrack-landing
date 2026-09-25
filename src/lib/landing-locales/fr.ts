@@ -169,6 +169,36 @@ export const fr: LandingDict = {
     cta: "Voir la roadmap complète",
   },
 
+  /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
+     сюда не наследуется — иначе 12 страниц карты получают title продукта. */
+  roadmap: {
+    meta: {
+      title: "Feuille de route G-Track — ce qui marche, ce qui arrive, la suite",
+      description:
+        "Trois horizons du développement de G-Track : ce qui fonctionne déjà, ce que nous construisons et ce qui viendra ensuite. Sans dates ni promesses.",
+    },
+    h1: "Ce qui fonctionne déjà, ce que nous construisons, la suite",
+    lede: "Voici la direction que prend le produit : ce qui fonctionne déjà, ce que nous construisons maintenant et ce qui vient ensuite. Pas de dates promises — seulement le cap.",
+    now: "Déjà en place",
+    wip: "En cours",
+    next: "Ensuite",
+    releases: "{n}+ mises à jour depuis le lancement en mai 2026.",
+    nowMark: "Aujourd’hui",
+    launch: "Lancement 1.0",
+    aria: "Axes de développement de G-Track : ce qui fonctionne, ce qui est en cours et ce qui est prévu",
+    tracks: {
+      drivers: { t: "Conducteurs et documents", d: "Fiches, 16 types de documents, règles de 8 pays" },
+      planning: { t: "Planification et pilote automatique", d: "Tableau, Centre de décisions, rotation, pilote automatique par carte" },
+      fleet: { t: "Véhicules et entretien", d: "Flotte, réparations et entretien, données embarquées" },
+      telematics: { t: "Intégration télématique", d: "Nous connectons votre système de suivi de flotte : les données des véhicules arrivent seules, pour la planification et l’analyse. Le mode manuel fonctionne aussi." },
+      telegram: { t: "Le conducteur sur Telegram", d: "Documents, planning, demandes et chat" },
+      reports: { t: "Rapports et notifications", d: "Rapport hebdomadaire, centre de notifications, échéances DDD" },
+      finance: { t: "Commandes et finances", d: "Commandes, factures, amendes, économie du véhicule" },
+      integrations: { t: "Carte et intégrations", d: "Carte et itinéraires, analyse des DDD, API, bourses de fret" },
+    },
+    ms: { autopilot: "Pilote automatique", decisions: "Centre de décisions", rotation: "Rotation", service: "Réparations et entretien", miniapp: "Mini-app", telematics: "Première intégration" },
+  },
+
   pricing: {
     overline: "Tarifs",
     h2: "Tout le marché cache ses prix derrière « contact sales ». Nous, non.",

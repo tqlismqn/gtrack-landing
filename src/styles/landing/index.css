@@ -13,6 +13,7 @@
 @import "./base.css" layer(gt-landing);
 @import "./hero.css" layer(gt-landing);
 @import "./story.css" layer(gt-landing);
+@import "./roadmap.css" layer(gt-landing);
 @import "./scenes.css" layer(gt-landing);
 @import "./faq.css" layer(gt-landing);
 @import "./fx.css" layer(gt-landing);
