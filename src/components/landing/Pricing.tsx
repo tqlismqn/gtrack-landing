@@ -147,7 +147,6 @@ export function Pricing() {
           <h2 className="h2 reveal">{p.h2}</h2>
           <p className="sect-sub reveal" data-delay="60">
             {p.sub}
-            <b style={{ color: "var(--text-1)" }}>{p.subB}</b>
           </p>
           <div className="period-toggle reveal" data-delay="120" role="group" aria-label={p.periodAria}>
             <button className="period-btn" type="button" aria-pressed={period === "mo"} onClick={() => choose("mo")}>{p.perMo}</button>

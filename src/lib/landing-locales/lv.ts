@@ -3,7 +3,8 @@
    Terminoloģija sinhronizēta ar lietotnes lokāli gtrack-tms/src/i18n/locales/lv.ts:
    driverPill («Reisā», «Aktīvs», «Atvaļinājums», «Slimības lapa»), «Gatavība
    reisam», «attīstības plāns», «dispečerpults», «dispečeru vietas», days_short
-   «d.», cenas/procenti — baits-baitā ar RU/EN (Stripe livemode).
+   «d.», cenas/procenti — baits-baitā ar RU/EN (Stripe livemode), izņemot
+   decimālo atdalītāju: komats (≈ 2,25 €, −6,7%).
    ============================================================================ */
 
 import type { LandingDict } from "../landing-i18n";
@@ -35,7 +36,7 @@ export const lv: LandingDict = {
     kicker: "ES atbilstība · plānošana · autoparks",
     h1: "Katrs vadītājs gatavs reisam.",
     h1dim: "Vienmēr.",
-    sub: " — ES atbilstības un reisu plānošanas sistēma pārvadātājiem ar 25 un vairāk mašīnām. Vadītāji, dokumenti, dispečerpults un autoparks — pārlūkā, bez aparatūras un ieviešanas konsultantiem. Darbam gatavs vienas dienas laikā.",
+    sub: " — ES atbilstības un reisu plānošanas sistēma pārvadātājiem ar 50 un vairāk mašīnām. Vadītāji, dokumenti, dispečerpults un autoparks — pārlūkā, bez aparatūras un ieviešanas konsultantiem. Darbam gatavs vienas dienas laikā.",
     ctaTrial: "Izmēģināt 30 dienas",
     ctaPricing: "Apskatīt cenas",
     micro1: "Bez kartes",
@@ -81,9 +82,9 @@ export const lv: LandingDict = {
     fact1a: "Vīza atrasta ",
     fact1b: "3 nedēļas pirms termiņa beigām",
     fact1c: " — nejauši, vecā sarakstē.",
-    fact2a: "Sods par kabotāžas pārkāpumu — ",
-    fact2b: "līdz 7 500 €",
-    fact2c: " par vienu reisu. Vairāk nekā gada abonements.",
+    fact2a: "Vadītājam beidzies Kods 95 — ",
+    fact2b: "līdz 20 000 €",
+    fact2c: " sods uzņēmumam Vācijā. Vairāk nekā jebkura plāna gada abonements.",
     fact3a: "Dispečers tur ",
     fact3b: "40 vadītājus galvā",
     fact3c: ". Līdz aiziet atvaļinājumā.",
@@ -96,16 +97,16 @@ export const lv: LandingDict = {
     s1p: "Kartīte, statuss, dokumenti un gatavība reisam — viss vienā vietā. Bankas dati — pēc lomām.",
     s2h: "Līdz apkopei 4 200 km",
     s2p: "Odometrs nāk tieši no auto. G-Track pats saskaita, cik atlicis līdz apkopei, un ieraksta to plānā — bez burtnīcām un zvaniem servisam.",
-    s3h: "Izkraušana Barselonā",
-    s3p: "Vadītājs atzīmē izkraušanu lietotnē un pievieno CMR foto. Dispečers to redz tajā pašā minūtē.",
+    s3h: "Barselona: mašīnas maiņa",
+    s3p: "Mašīna aiziet uz servisu, vadītājs ieliek savu karti citā. G-Track pats pārceļ reisu uz jauno mašīnu — vai pajautā dispečeram, kā iestatīsi.",
     s4h: "Atkal reisā",
     s4p: "Reiss nonāk uz dēļa, pasūtījums piesaistīts. Katra izmaiņa — vēsturē.",
     cap1b: "Vadītājs sistēmā.",
     cap1: " Kartīte: statuss, dokumenti, konfidenciālie dati — pēc lomām.",
     cap2b: "Kilometri līdz apkopei.",
     cap2: " Odometrs no auto, atlikums līdz apkopei un ieraksts apkopes plānā.",
-    cap3b: "Izkraušana apstiprināta.",
-    cap3: " CMR foto no Telegram pievienots reisam.",
+    cap3b: "Reiss pārcēlās pats.",
+    cap3: " Vadītāja karte jaunajā mašīnā — ieraksts vēsturē.",
     cap4b: "Atkal reisā.",
     cap4: " Reiss uz dēļa, katra izmaiņa — vēsturē.",
     mapAria: "Eiropas karte: reiss Prāga → Minhene → Liona → Barselona, auto pašreizējā maršruta posmā",
@@ -121,9 +122,9 @@ export const lv: LandingDict = {
   vid: {
     overline: "Eiropas tirgus",
     h2: "Radīts Eiropas pārvadātājiem.",
-    sub: "A1, posted workers, Code 95, vīzas — jau šodien kontrolē. Kabotāža 3/7 — attīstības plānā.",
+    sub: "A1, Code 95, vīzas — termiņi kontrolē jau šodien. Kabotāža 3/7 — attīstības plānā.",
     chip1: "Kabotāža 3/7",
-    chip2: "A1 / posted workers",
+    chip2: "A1",
     chip3: "Code 95",
     chip4: "ADR",
     chip5: "Tahogrāfs",
@@ -140,7 +141,7 @@ export const lv: LandingDict = {
   europe: {
     overline: "Ģeogrāfija",
     h2: "Visa Eiropa uz viena dēļa",
-    sub: "A1, posted workers, vadītāju dokumenti — veidots pēc ES noteikumiem. Katrs reiss uz viena dēļa.",
+    sub: "A1, Code 95, vadītāju dokumenti — veidots pēc ES noteikumiem. Katrs reiss uz viena dēļa.",
     mapAria: "Eiropas maršrutu karte, kas pārplūst plānošanas dēlī",
     captionB: "Viss šis haoss tiek vadīts no šejienes",
     caption: " — no vienas dispečerpults.",
@@ -158,7 +159,7 @@ export const lv: LandingDict = {
     m5: "Pasūtījumi", m5d: "Pasūtījums → reiss → dokumenti",
     m6: "Rēķinu izrakstīšana", m6d: "Rēķini no reisiem",
     m7: "Mašīnas ekonomika", m7d: "Cost-per-km katram vilcējam",
-    m8: "Vadītāja Telegram lietotne", m8d: "Dokumenti un reisi kabatā",
+    m8: "Vadītāja Telegram lietotne", m8d: "Dokumenti, maiņas un pieteikumi",
     m9: "Ziņas", m9d: "Tērzēšana ar vadītāju ar iebūvētu tulkojumu",
     cta: "Pilns attīstības plāns",
   },
@@ -166,14 +167,13 @@ export const lv: LandingDict = {
   pricing: {
     overline: "Cenas",
     h2: "Viss tirgus slēpj cenas aiz „contact sales”. Mēs — nē.",
-    sub: "Cenas ir tepat. Reģistrācija bez zvana, demo 30 dienas. Visi moduļi — visos plānos: atšķiras tikai autoparka ietilpība. ",
-    subB: "Nekādu funkciju aiz paywall.",
+    sub: "Cenas ir tepat. Reģistrācija bez zvana, demo 30 dienas. Visi moduļi — visos plānos: atšķiras tikai autoparka ietilpība.",
     periodAria: "Norēķinu periods",
     perMo: "Ik mēnesi",
     perQ: "Ik ceturksni",
     perY: "Ik gadu",
-    discQ: "−6.7%",
-    discY: "−16.7%",
+    discQ: "−6,7%",
+    discY: "−16,7%",
     /* CIPARI SINHRONIZĒTI AR STRIPE LIVEMODE — NEMAINĪT */
     billedMo: "rēķins ik mēnesi",
     billedQ: "rēķins ik ceturksni",
@@ -213,7 +213,7 @@ export const lv: LandingDict = {
     anchorOverline: "Aprēķins",
     anchorBig: "≈ 2,25 €",
     anchorUnit: "par vienību/mēn. · 200 vienību parks",
-    anchorArg: "Viens kabotāžas sods — līdz 7 500 €. Viena nokavēta vīza — apturēts reiss. G-Track notur visu autoparku kontrolē lētāk, nekā maksā viena šāda kļūme.",
+    anchorArg: "Vienam vadītājam beidzies Kods 95 — līdz 20 000 € sods Vācijā. Viena nokavēta vīza — apturēts reiss. G-Track notur visu autoparku kontrolē lētāk, nekā maksā viena šāda kļūme.",
   },
 
   /* Jautājumi: formulējumi ņemti no reāliem pārvadātāju iebildumiem, atbildes —
@@ -232,8 +232,8 @@ export const lv: LandingDict = {
     g3: "Piekļuve, autoparks, cena",
 
     q1: "Kā sistēma atgādinās, ka vadītājam beidzas dokuments?",
-    a1: "Katru rītu 8:00 G-Track pārbauda visa autoparka dokumentus. Pase paceļ karodziņu 180 dienas iepriekš, dzīvesvietas deklarācija — 60, pārējie — 90. Paziņojums aiziet trīs kanālos uzreiz: e-pasts birojam, atzīme pašā lietotnē un push vadītājam Telegram.",
-    a1b: "Kanālus un e-pastu biežumu katram paziņojuma tipam iestati pats. Tāpēc atgādinājums nekarājas uz viena cilvēka un nepazūd, kamēr HR ir atvaļinājumā.",
+    a1: "Katru rītu G-Track pārbauda visa autoparka dokumentus. Pase paceļ karodziņu 180 dienas iepriekš, pārējie — 90. Paziņojums aiziet trīs kanālos uzreiz: e-pasts birojam, atzīme pašā lietotnē un push vadītājam Telegram.",
+    a1b: "Kādus paziņojumus un pa kādiem kanāliem saņemt, katram paziņojuma tipam iestati pats. Tāpēc atgādinājums nekarājas uz viena cilvēka un nepazūd, kamēr HR ir atvaļinājumā.",
 
     q2: "Kas atbild, ja vadītājs izbrauc reisā ar dokumentu, kuram beidzies termiņš?",
     a2: "Lielākajā daļā ES valstu — pārvadātājs, nevis tikai vadītājs: sodu uzraksta firmai, un vairākās valstīs atsevišķi arī par transportu atbildīgajai personai. Konkrētās summas un kārtība atkarīgas no pārbaudes valsts. Tieši tāpēc G-Track atgādina nevis vadītājam, bet birojam — tam, kas ieliek reisu plānā.",
@@ -259,7 +259,7 @@ export const lv: LandingDict = {
     a8: "Jā, un tā ir pēc noklusējuma. Tiesības tiek dotas pa vienai — to ir vairāk nekā trīsdesmit. Personas kods un bankas konta numurs ir aiz atsevišķas tiesības un rādās maskēti. Kurus dokumentu tipus uzskatīt par konfidenciāliem, katrs uzņēmums izlemj pats.",
 
     q9: "Kā ir ar vadītājiem no trešajām valstīm — Ukraina, Serbija, Uzbekistāna?",
-    a9: "Vadītājiem bez ES pilsonības obligātais saraksts ir cits un garāks: vīza, pase, Kods 95, dzīvesvietas deklarācija. Gatavība reisam tiek rēķināta tieši pēc šī paplašinātā saraksta — vadītājs nebūs gatavs, kamēr nav sakārtoti tieši viņa dokumenti, nevis kopēja veidne.",
+    a9: "Vadītājiem bez ES pilsonības obligātais saraksts ir garāks: pasei, vadītāja apliecībai un tahogrāfa kartei pievienojas vīza, transporta licence un Kods 95. Gatavība reisam tiek rēķināta tieši pēc šī paplašinātā saraksta — vadītājs nebūs gatavs, kamēr nav sakārtoti tieši viņa dokumenti, nevis kopēja veidne.",
 
     q10: "Cik tas maksā autoparkam ar 40 mašīnām un 45 piekabēm? Vai jāmaksā par katru lietotāju?",
     a10: "Starter plāns — 150 € mēnesī, maksājot par gadu 125 €. Tajā ietilpst 50 mašīnas, 100 vadītāji un 75 piekabes, tāpēc tavs autoparks iekļaujas ar rezervi. Dispečeru un HR vietas netiek skaitītas: ievadi visus, kam vajag.",
@@ -268,7 +268,7 @@ export const lv: LandingDict = {
     notHead: "Ko G-Track nedara",
     notSub: "Lai tu netērētu trīsdesmit demo dienas, pārbaudot to, kā šeit nav.",
     not1: "Neanalizē tahogrāfu. Mēs nelasām DDD failus, nerēķinām darba un atpūtas režīmu un nerēķinām kabotāžu 3/7.",
-    not2: "Neseko mašīnām. Ne GPS trases, ne maršrutu reāllaikā — tā ir tava telemātika.",
+    not2: "Nerāda mašīnas kartē. Nobraukumu un kustību G-Track ņem tieši no auto, bet kartes un maršrutu nav — tā ir tava telemātika.",
     not3: "Neved pasūtījumus un frahtu. Pasūtījumi un rēķini ir attīstības plānā, šodien to nav.",
     not4: "Nerēķina algas un neaizstāj grāmatvedību.",
     notBridge: "Mēs neaizstājam tahogrāfa programmatūru un telemātiku. Mēs nosedzam to, kā tajās nav: cilvēki, dokumenti, termiņi un tas, kas kurā dienā brauc.",
@@ -319,7 +319,6 @@ export const lv: LandingDict = {
     confid: "Konfidenciāli dati", confNote: "Bankas datus redz tikai tie, kam tas pienākas.",
     cardTitle: "Vadītāja kartīte", remindTitle: "Dokumenti · atgādinājums",
     remindT: "Vīza beidzas 12.07.2026", remindD: "Automātisks atgādinājums 30 dienas iepriekš · atbildīgais: HR",
-    tgBot: "G-Track Bots",
     tgMsg: "Petr, jūsu vīza beidzas 12.07. Augšupielādējiet jaunu dokumentu vai sazinieties ar HR.",
     tgTime: "šodien · 08:00",
     dlgTitle: "Pievienot dokumentu", dlgQuick: "Ātrā aizpilde no dokumenta",
@@ -343,15 +342,13 @@ export const lv: LandingDict = {
     svcSource: "no auto",
     svcPlanned: "apkope plānā",
     chipSvc: "Apkope · 4 200 km",
-    unloadTitle: "Reiss · izkraušana",
-    unloadOk: "Izkraušana apstiprināta",
-    unloadNote: "Vadītājs atzīmēja izkraušanu lietotnē — reiss aizvērās pats.",
-    unloadWhere: "Vieta",
-    unloadPlace: "Barselona · ES",
+    unloadTitle: "Reiss · mašīnas maiņa",
+    unloadOk: "Reisu pārcēla sistēma",
+    unloadNote: "Vadītāja karte citā mašīnā — vecais reiss slēgts, jaunais atvērts.",
+    unloadWhere: "Jaunā mašīna",
+    unloadPlace: "4TC 2190 · Barselona",
     unloadWhen: "Laiks",
-    unloadDocV: "CMR · foto",
-    tgUnload: "Izkrāvu Barselonā, CMR foto nosūtīju.",
-    tgTimeUnload: "šodien · 14:22",
+    unloadDocV: "Tahogrāfa karte",
     sumOnTime: "reiss laikā",
     sumKm: "reisa nobraukums",
     sumDocs: "dokumenti",

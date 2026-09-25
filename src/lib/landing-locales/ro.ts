@@ -5,7 +5,8 @@
    pentru cursă», статусы Activ/Concediu/Concediu medical, модули (Șoferi/
    Vehicule/Comenzi/Facturare/Economia vehiculelor), founding/price-lock
    («Membru founding», «Preț blocat»), типы документов. Цифры и проценты —
-   байт-в-байт со Stripe livemode (−6.7% / −16.7%, как в app-ro).
+   байт-в-байт со Stripe livemode и en, кроме десятичного разделителя:
+   запятая (≈ 2,25 €, −6,7% / −16,7%).
    Единица дней — «z» (как «{{days}}z» в app-ro).
    ============================================================================ */
 
@@ -38,7 +39,7 @@ export const ro: LandingDict = {
     kicker: "Conformitate UE · planificare · flotă",
     h1: "Fiecare șofer pregătit de cursă.",
     h1dim: "Mereu.",
-    sub: " — sistem de conformitate UE și planificare a curselor pentru transportatori de la 25 de camioane în sus. Șoferi, documente, panou de dispecerat și flotă — în browser, fără hardware și fără consultanți de implementare. Funcțional într-o zi.",
+    sub: " — sistem de conformitate UE și planificare a curselor pentru transportatori de la 50 de camioane în sus. Șoferi, documente, panou de dispecerat și flotă — în browser, fără hardware și fără consultanți de implementare. Funcțional într-o zi.",
     ctaTrial: "Încearcă 30 de zile",
     ctaPricing: "Vezi prețurile",
     micro1: "Fără card",
@@ -84,9 +85,9 @@ export const ro: LandingDict = {
     fact1a: "O viză găsită ",
     fact1b: "cu 3 săptămâni înainte de expirare",
     fact1c: " — din întâmplare, într-o conversație veche.",
-    fact2a: "Amenda pentru încălcarea cabotajului — ",
-    fact2b: "până la 7 500 €", //   = narrow no-break space, как в ru/en
-    fact2c: " pentru o singură cursă. Mai mult decât un an de abonament.",
+    fact2a: "Un șofer cu Code 95 expirat — ",
+    fact2b: "până la 20 000 €", //   = narrow no-break space, как в ru/en
+    fact2c: " amendă pentru firmă în Germania. Mai mult decât un an de abonament, pe orice plan.",
     fact3a: "Dispecerul ține ",
     fact3b: "40 de șoferi în minte",
     fact3c: ". Până pleacă în concediu.",
@@ -99,16 +100,16 @@ export const ro: LandingDict = {
     s1p: "Profil, status, documente și pregătirea pentru cursă — totul într-un singur loc. Datele bancare — pe bază de roluri.",
     s2h: "4 200 km până la revizie",
     s2p: "Kilometrajul vine direct de la camion. G-Track calculează singur cât a mai rămas până la revizie și o trece în plan — fără carnețele și telefoane la service.",
-    s3h: "Descărcare la Barcelona",
-    s3p: "Șoferul marchează descărcarea în aplicație și atașează poza CMR. Dispecerul o vede în același minut.",
+    s3h: "Barcelona: schimb de camion",
+    s3p: "Camionul intră în service, iar șoferul își introduce cardul în altul. G-Track mută singur cursa pe camionul nou — sau întreabă dispecerul, după cum setezi.",
     s4h: "Din nou în cursă",
     s4p: "Cursa intră pe panou, comanda e atașată. Fiecare modificare — în istoric.",
     cap1b: "Șoferul în sistem.",
     cap1: " Profil: status, documente, date confidențiale — pe bază de roluri.",
     cap2b: "Kilometri până la revizie.",
     cap2: " Kilometraj de la camion, rest până la revizie și un loc în planul de întreținere.",
-    cap3b: "Descărcare confirmată.",
-    cap3: " Poza CMR primită pe Telegram e atașată la cursă.",
+    cap3b: "Cursa s-a mutat singură.",
+    cap3: " Cardul șoferului în camionul nou — o intrare în istoric.",
     cap4b: "Din nou în cursă.",
     cap4: " Cursa pe panou, fiecare modificare în istoric.",
     mapAria: "Harta Europei: cursa Praga → München → Lyon → Barcelona, camionul pe segmentul actual al rutei",
@@ -124,9 +125,9 @@ export const ro: LandingDict = {
   vid: {
     overline: "Piața europeană",
     h2: "Construit pentru transportatorii europeni.",
-    sub: "A1, lucrători detașați, Code 95, vize — sub control încă de azi. Cabotaj 3/7 — pe foaia de parcurs.",
+    sub: "A1, Code 95, vize — termenele sub control încă de azi. Cabotaj 3/7 — pe foaia de parcurs.",
     chip1: "Cabotaj 3/7",
-    chip2: "A1 / lucrători detașați",
+    chip2: "A1",
     chip3: "Code 95",
     chip4: "ADR",
     chip5: "Tahograf",
@@ -143,7 +144,7 @@ export const ro: LandingDict = {
   europe: {
     overline: "Geografie",
     h2: "Toată Europa pe un singur panou",
-    sub: "A1, lucrători detașați, documentele șoferilor — proiectat după regulile UE. Fiecare cursă pe un singur panou.",
+    sub: "A1, Code 95, documentele șoferilor — proiectat după regulile UE. Fiecare cursă pe un singur panou.",
     mapAria: "Hartă a rutelor prin Europa care se transformă într-un panou de planificare",
     captionB: "Tot acest haos se gestionează de aici",
     caption: " — de pe un singur panou de dispecerat.",
@@ -161,7 +162,7 @@ export const ro: LandingDict = {
     m5: "Comenzi", m5d: "Comandă → cursă → documente",
     m6: "Facturare", m6d: "Facturi din curse",
     m7: "Economia vehiculelor", m7d: "Cost-per-km pentru fiecare autotractor",
-    m8: "Telegram pentru șoferi", m8d: "Documente și curse în buzunar",
+    m8: "Telegram pentru șoferi", m8d: "Documente, ture și cereri",
     m9: "Mesaje", m9d: "Chat cu șoferul, cu traducere integrată",
     cta: "Roadmapul complet",
   },
@@ -169,14 +170,13 @@ export const ro: LandingDict = {
   pricing: {
     overline: "Prețuri",
     h2: "Toată piața își ascunde prețurile după „contact sales”. Noi — nu.",
-    sub: "Prețurile sunt chiar aici. Înregistrare fără apel telefonic, demo de 30 de zile. Toate modulele — în toate planurile: diferă doar capacitatea flotei. ",
-    subB: "Nicio funcție în spatele unui paywall.",
+    sub: "Prețurile sunt chiar aici. Înregistrare fără apel telefonic, demo de 30 de zile. Toate modulele — în toate planurile: diferă doar capacitatea flotei.",
     periodAria: "Perioada de facturare",
     perMo: "Lunar",
     perQ: "Trimestrial",
     perY: "Anual",
-    discQ: "−6.7%",
-    discY: "−16.7%",
+    discQ: "−6,7%",
+    discY: "−16,7%",
     /* ЦИФРЫ СИНХРОНИЗИРОВАНЫ СО STRIPE LIVEMODE — НЕ МЕНЯТЬ */
     billedMo: "facturat lunar",
     billedQ: "pe trimestru",
@@ -216,7 +216,7 @@ export const ro: LandingDict = {
     anchorOverline: "Calculul",
     anchorBig: "≈ 2,25 €",
     anchorUnit: "pe vehicul/lună · flotă de 200 vehicule",
-    anchorArg: "O amendă pentru cabotaj — până la 7 500 €. O viză expirată — o cursă oprită. G-Track ține tot parcul sub control mai ieftin decât costă un singur astfel de incident.",
+    anchorArg: "Un șofer cu Code 95 expirat — până la 20 000 € amendă în Germania. O viză expirată — o cursă oprită. G-Track ține tot parcul sub control mai ieftin decât costă un singur astfel de incident.",
   },
 
   /* FAQ: termeni din app-локаль ro — «Pregătire pentru cursă», «Pașaport»,
@@ -235,8 +235,8 @@ export const ro: LandingDict = {
     g3: "Acces, flotă, preț",
 
     q1: "Cum mă anunță sistemul că unui șofer îi expiră un document?",
-    a1: "În fiecare dimineață la 8:00 G-Track verifică documentele întregii flote. Pentru pașaport avertismentul apare cu 180 de zile înainte, pentru declarație cu 60, pentru restul cu 90. Notificarea pleacă pe trei canale simultan: e-mail la birou, marcaj în aplicație și push pe Telegram către șofer.",
-    a1b: "Canalele și frecvența e-mailurilor le configurezi tu, separat pentru fiecare tip de notificare. Astfel, memento-ul nu atârnă de un singur om și nu dispare cât timp colegul de la HR e în concediu.",
+    a1: "În fiecare dimineață G-Track verifică documentele întregii flote. Pentru pașaport avertismentul apare cu 180 de zile înainte, pentru restul cu 90. Notificarea pleacă pe trei canale simultan: e-mail la birou, marcaj în aplicație și push pe Telegram către șofer.",
+    a1b: "Ce notificări primești și pe ce canale alegi tu, separat pentru fiecare tip. Astfel, memento-ul nu atârnă de un singur om și nu dispare cât timp colegul de la HR e în concediu.",
 
     q2: "Cine răspunde dacă un șofer pleacă în cursă cu un document expirat?",
     a2: "În majoritatea statelor UE — transportatorul, nu doar șoferul: amenda se dă firmei, iar în unele țări separat și managerului de transport. Cuantumul și procedura depind de țara în care are loc controlul. Exact de asta G-Track nu îi amintește șoferului, ci biroului — celui care pune cursa în plan.",
@@ -262,7 +262,7 @@ export const ro: LandingDict = {
     a8: "Da, și așa e din start. Permisiunile se dau punctual — sunt peste treizeci. Codul numeric personal și contul bancar stau în spatele unei permisiuni separate și se afișează mascate. Ce tipuri de documente sunt considerate confidențiale decide fiecare firmă pentru sine.",
 
     q9: "Cum stați cu șoferii din țări terțe — Ucraina, Serbia, Uzbekistan?",
-    a9: "Pentru cetățenii non-UE lista obligatorie e alta și mai lungă: viză, pașaport, Code 95, adeverință de reședință. Pregătirea pentru cursă se calculează exact după lista extinsă — un șofer nu apare ca pregătit până nu îi sunt în regulă documentele lui, nu un șablon general.",
+    a9: "Pentru cetățenii non-UE lista obligatorie e mai lungă: pe lângă pașaport, permis de conducere și cardul de tahograf, se adaugă viza, licența de transport și Code 95. Pregătirea pentru cursă se calculează exact după lista extinsă — un șofer nu apare ca pregătit până nu îi sunt în regulă documentele lui, nu un șablon general.",
 
     q10: "Cât costă pentru 40 de vehicule și 45 de remorci? Se plătește pentru fiecare utilizator?",
     a10: "Planul Starter — 150 € pe lună, iar la plata anuală 125 €. Include 50 de vehicule, 100 de șoferi și 75 de remorci, deci flota ta încape cu rezervă. Locurile de dispecer și de HR nu se numără: adaugă pe toți cei care au nevoie.",
@@ -271,7 +271,7 @@ export const ro: LandingDict = {
     notHead: "Ce nu face G-Track",
     notSub: "Ca să nu-ți pierzi cele treizeci de zile de demo verificând ceva ce nu există aici.",
     not1: "Nu analizează tahograful. Nu citim fișiere DDD, nu calculăm timpul de conducere și de odihnă și nu calculăm cabotajul 3/7.",
-    not2: "Nu urmărește vehiculele. Nici traseu GPS, nici rute în timp real — asta e telematica ta.",
+    not2: "Nu arată vehiculele pe hartă. G-Track preia kilometrajul și deplasarea direct de la camion, dar hartă și rute nu există — asta e telematica ta.",
     not3: "Nu gestionează comenzi și transporturi. Comenzile și facturile sunt pe orizont, astăzi nu există.",
     not4: "Nu calculează salarii și nu înlocuiește contabilitatea.",
     notBridge: "Nu înlocuim software-ul de tahograf și nici telematica. Acoperim ce nu se găsește în ele: oamenii, documentele, termenele și cine conduce în care zi.",
@@ -322,7 +322,6 @@ export const ro: LandingDict = {
     confid: "Confidențial", confNote: "Datele bancare sunt vizibile doar celor care trebuie să le vadă.",
     cardTitle: "Profilul șoferului", remindTitle: "Documente · memento",
     remindT: "Viza expiră la 12.07.2026", remindD: "Memento automat cu 30 de zile înainte · responsabil: HR",
-    tgBot: "G-Track Bot",
     tgMsg: "Petr, viza dvs. expiră pe 12.07. Încărcați un document nou sau contactați HR.",
     tgTime: "astăzi · 08:00",
     dlgTitle: "Adaugă document", dlgQuick: "Completare rapidă din document",
@@ -346,15 +345,13 @@ export const ro: LandingDict = {
     svcSource: "de la camion",
     svcPlanned: "revizie în plan",
     chipSvc: "Revizie · 4 200 km",
-    unloadTitle: "Cursă · descărcare",
-    unloadOk: "Descărcare confirmată",
-    unloadNote: "Șoferul a marcat descărcarea în aplicație — cursa s-a închis singură.",
-    unloadWhere: "Loc",
-    unloadPlace: "Barcelona · ES",
+    unloadTitle: "Cursă · schimb de camion",
+    unloadOk: "Cursă mutată de sistem",
+    unloadNote: "Cardul șoferului în alt camion — cursa veche închisă, una nouă deschisă.",
+    unloadWhere: "Camion nou",
+    unloadPlace: "4TC 2190 · Barcelona",
     unloadWhen: "Ora",
-    unloadDocV: "CMR · foto",
-    tgUnload: "Am descărcat la Barcelona, poza CMR e trimisă.",
-    tgTimeUnload: "azi · 14:22",
+    unloadDocV: "Card tahograf",
     sumOnTime: "cursă la timp",
     sumKm: "km cursă",
     sumDocs: "documente",
