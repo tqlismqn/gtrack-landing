@@ -8,7 +8,8 @@
    «Mensuel/Trimestriel/Annuel», «facturé mensuellement», «2 mois offerts»,
    «Sur mesure», «tachygraphe», «Valable jusqu’au», RH, дни — «j».
    Бренд «G-Track», коды чипов, SPZ, IBAN-маски, sales@, Excel, Telegram,
-   Roadmap — не переводятся. Цены/проценты — байт-в-байт (−6.7% как в app-fr).
+   Roadmap — не переводятся. Цены/проценты — байт-в-байт с en, кроме десятичного
+   разделителя: запятая (≈ 2,25 €, −6,7%).
    ============================================================================ */
 
 import type { LandingDict } from "../landing-i18n";
@@ -40,7 +41,7 @@ export const fr: LandingDict = {
     kicker: "Conformité UE · planification · flotte",
     h1: "Chaque conducteur prêt pour le trajet.",
     h1dim: "Toujours.",
-    sub: " — un système de conformité UE et de planification des trajets pour les transporteurs à partir de 25 camions. Conducteurs, documents, tableau de planification et flotte — dans le navigateur, sans matériel ni consultants d’intégration. Opérationnel en une journée.",
+    sub: " — un système de conformité UE et de planification des trajets pour les transporteurs à partir de 50 camions. Conducteurs, documents, tableau de planification et flotte — dans le navigateur, sans matériel ni consultants d’intégration. Opérationnel en une journée.",
     ctaTrial: "Essayer 30 jours",
     ctaPricing: "Voir les tarifs",
     micro1: "Sans carte bancaire",
@@ -86,9 +87,9 @@ export const fr: LandingDict = {
     fact1a: "Un visa retrouvé ",
     fact1b: "3 semaines avant l’expiration",
     fact1c: " — par hasard, dans une vieille conversation.",
-    fact2a: "L’amende pour infraction au cabotage — ",
-    fact2b: "jusqu’à 7 500 €", // U+202F как в RU/EN-базе
-    fact2c: " par trajet. Plus qu’un an d’abonnement.",
+    fact2a: "Un conducteur avec un Code 95 expiré — ",
+    fact2b: "jusqu’à 20 000 €", // U+202F как в RU/EN-базе
+    fact2c: " d’amende pour l’entreprise en Allemagne. Plus qu’un an d’abonnement, quel que soit le plan.",
     fact3a: "Un dispatcher garde ",
     fact3b: "40 conducteurs en tête",
     fact3c: ". Jusqu’à son départ en congés.",
@@ -101,16 +102,16 @@ export const fr: LandingDict = {
     s1p: "Fiche, statut, documents et préparation au trajet — tout au même endroit. Données bancaires — selon les rôles.",
     s2h: "4 200 km avant l'entretien",
     s2p: "Le compteur remonte directement du camion. G-Track calcule lui-même la distance restante avant l'entretien et l'inscrit au plan — sans carnet ni appel à l'atelier.",
-    s3h: "Déchargement à Barcelone",
-    s3p: "Le conducteur valide le déchargement dans l'application et joint la photo du CMR. Le dispatcher le voit dans la même minute.",
+    s3h: "Barcelone : changement de camion",
+    s3p: "Le camion part à l’atelier, le conducteur insère sa carte dans un autre. G-Track bascule lui-même le trajet sur le nouveau camion — ou interroge le dispatcher, selon votre réglage.",
     s4h: "De nouveau en tournée",
     s4p: "Le trajet se pose sur le tableau, la commande est rattachée. Chaque modification — dans l’historique.",
     cap1b: "Un conducteur dans le système.",
     cap1: " Fiche : statut, documents, le confidentiel — selon les rôles.",
     cap2b: "Kilomètres avant l'entretien.",
     cap2: " Compteur du camion, distance restante et une place dans le plan d'entretien.",
-    cap3b: "Déchargement validé.",
-    cap3: " La photo du CMR reçue par Telegram est jointe au trajet.",
+    cap3b: "Le trajet s’est déplacé tout seul.",
+    cap3: " Carte conducteur dans le nouveau camion — une entrée dans l’historique.",
     cap4b: "De nouveau en tournée.",
     cap4: " Le trajet sur le tableau, chaque modification dans l’historique.",
     mapAria: "Carte de l'Europe : trajet Prague → Munich → Lyon → Barcelone, le camion sur le tronçon en cours",
@@ -126,9 +127,9 @@ export const fr: LandingDict = {
   vid: {
     overline: "Marché européen",
     h2: "Conçu pour les transporteurs européens.",
-    sub: "A1, posted-workers, Code 95, visas — déjà sous contrôle aujourd’hui. Cabotage 3/7 — sur la feuille de route.",
+    sub: "A1, Code 95, visas — les échéances déjà sous contrôle aujourd’hui. Cabotage 3/7 — sur la feuille de route.",
     chip1: "Cabotage 3/7",
-    chip2: "A1 / posted-workers",
+    chip2: "A1",
     chip3: "Code 95",
     chip4: "ADR",
     chip5: "Tachygraphe",
@@ -145,7 +146,7 @@ export const fr: LandingDict = {
   europe: {
     overline: "Géographie",
     h2: "Toute l’Europe sur un seul tableau",
-    sub: "A1, posted-workers, documents conducteurs — conçu selon les règles de l’UE. Chaque tournée sur un seul tableau.",
+    sub: "A1, Code 95, documents conducteurs — conçu selon les règles de l’UE. Chaque tournée sur un seul tableau.",
     mapAria: "Carte des itinéraires à travers l’Europe se fondant dans un tableau de planification",
     captionB: "Tout ce chaos se pilote d’ici",
     caption: " — depuis un seul tableau de planification.",
@@ -163,7 +164,7 @@ export const fr: LandingDict = {
     m5: "Commandes", m5d: "Commande → trajet → documents",
     m6: "Facturation", m6d: "Factures à partir des trajets",
     m7: "Économie du véhicule", m7d: "Cost-per-km pour chaque tracteur",
-    m8: "Telegram pour les conducteurs", m8d: "Documents et trajets dans la poche",
+    m8: "Telegram pour les conducteurs", m8d: "Documents, planning et demandes",
     m9: "Messages", m9d: "Chat avec le conducteur, traduction intégrée",
     cta: "Voir la roadmap complète",
   },
@@ -171,14 +172,13 @@ export const fr: LandingDict = {
   pricing: {
     overline: "Tarifs",
     h2: "Tout le marché cache ses prix derrière « contact sales ». Nous, non.",
-    sub: "Les prix sont ici même. Inscription sans appel, démo de 30 jours. Tous les modules dans chaque plan : seule la capacité de la flotte diffère. ",
-    subB: "Aucune fonctionnalité derrière un paywall.",
+    sub: "Les prix sont ici même. Inscription sans appel, démo de 30 jours. Tous les modules dans chaque plan : seule la capacité de la flotte diffère.",
     periodAria: "Période de facturation",
     perMo: "Mensuel",
     perQ: "Trimestriel",
     perY: "Annuel",
-    discQ: "−6.7%",
-    discY: "−16.7%",
+    discQ: "−6,7%",
+    discY: "−16,7%",
     /* ЦИФРЫ СИНХРОНИЗИРОВАНЫ СО STRIPE LIVEMODE — НЕ МЕНЯТЬ */
     billedMo: "facturé mensuellement",
     billedQ: "facturé trimestriellement",
@@ -218,7 +218,7 @@ export const fr: LandingDict = {
     anchorOverline: "Le calcul",
     anchorBig: "≈ 2,25 €",
     anchorUnit: "par camion/mois · flotte de 200 camions",
-    anchorArg: "Une amende pour infraction au cabotage — jusqu’à 7 500 €. Un visa expiré — une tournée à l’arrêt. G-Track garde toute la flotte sous contrôle pour moins que ne coûte un seul de ces incidents.",
+    anchorArg: "Un conducteur avec un Code 95 expiré — jusqu’à 20 000 € d’amende en Allemagne. Un visa expiré — une tournée à l’arrêt. G-Track garde toute la flotte sous contrôle pour moins que ne coûte un seul de ces incidents.",
   },
 
   faq: {
@@ -233,8 +233,8 @@ export const fr: LandingDict = {
     g3: "Accès, flotte, prix",
 
     q1: "Comment le système prévient-il qu’un document de conducteur arrive à expiration ?",
-    a1: "Chaque matin à 8:00, G-Track contrôle les documents de toute la flotte. Le passeport est signalé 180 jours à l’avance, la déclaration 60, tous les autres 90. L’alerte part par trois canaux à la fois : un e-mail au bureau, un marqueur dans l’application elle-même et un push Telegram au conducteur.",
-    a1b: "Vous réglez vous-même les canaux et la fréquence des e-mails, type de notification par type de notification. Le rappel ne repose donc pas sur une seule personne et ne disparaît pas pendant que les RH sont en congés.",
+    a1: "Chaque matin, G-Track contrôle les documents de toute la flotte. Le passeport est signalé 180 jours à l’avance, tous les autres 90. L’alerte part par trois canaux à la fois : un e-mail au bureau, un marqueur dans l’application elle-même et un push Telegram au conducteur.",
+    a1b: "Vous choisissez vous-même quelles alertes passent par quels canaux, type de notification par type de notification. Le rappel ne repose donc pas sur une seule personne et ne disparaît pas pendant que les RH sont en congés.",
 
     q2: "Qui est responsable si un conducteur part en tournée avec un document expiré ?",
     a2: "Dans la plupart des pays de l’UE, c’est le transporteur et pas seulement le conducteur : l’amende est adressée à l’entreprise et, dans plusieurs pays, également au gestionnaire de transport à titre personnel. Les montants et la procédure dépendent du pays où a lieu le contrôle. C’est précisément pour cela que G-Track alerte le bureau et non le conducteur — celui qui inscrit la tournée au planning.",
@@ -260,7 +260,7 @@ export const fr: LandingDict = {
     a8: "Oui, et c’est le réglage par défaut. Les permissions se donnent une par une — il y en a plus de trente. Le numéro d’identification national et le compte bancaire sont derrière une permission distincte et s’affichent masqués. Quels types de documents sont considérés comme confidentiels, chaque entreprise le décide pour elle-même.",
 
     q9: "Et les conducteurs des pays tiers — Ukraine, Serbie, Ouzbékistan ?",
-    a9: "Pour les ressortissants hors UE, la liste obligatoire est différente et plus longue : visa, passeport, Code 95, attestation de domicile. La préparation au trajet se calcule précisément sur cette liste étendue — un conducteur n’apparaît pas comme prêt tant que ses propres documents ne sont pas en règle, et non selon un modèle générique.",
+    a9: "Pour les ressortissants hors UE, la liste obligatoire est plus longue : au passeport, au permis de conduire et à la carte conducteur s’ajoutent un visa, une licence de transport et le Code 95. La préparation au trajet se calcule précisément sur cette liste étendue — un conducteur n’apparaît pas comme prêt tant que ses propres documents ne sont pas en règle, et non selon un modèle générique.",
 
     q10: "Combien cela coûte pour 40 véhicules et 45 remorques ? Faut-il payer par utilisateur ?",
     a10: "Le plan Starter est à 150 € par mois, 125 € en facturation annuelle. Il comprend 50 véhicules, 100 conducteurs et 75 remorques — votre flotte y entre avec de la marge. Les postes de dispatcher et de RH ne sont pas comptés : créez-les pour tous ceux qui en ont besoin.",
@@ -269,7 +269,7 @@ export const fr: LandingDict = {
     notHead: "Ce que G-Track ne fait pas",
     notSub: "Pour que vous ne passiez pas trente jours de démo à chercher ce qui n’est pas là.",
     not1: "Ne dépouille pas les tachygraphes. Nous ne lisons pas les fichiers DDD, nous ne calculons pas les temps de conduite et de repos, et nous ne comptons pas le cabotage 3/7.",
-    not2: "Ne suit pas les véhicules. Ni trace GPS, ni itinéraires en temps réel — c’est votre télématique.",
+    not2: "N’affiche pas les véhicules sur une carte. G-Track récupère le kilométrage et les déplacements depuis le camion, mais il n’y a ni carte ni itinéraires — c’est votre télématique.",
     not3: "Ne gère pas les commandes ni le fret. Les commandes et les factures sont à l’horizon, elles ne sont pas là aujourd’hui.",
     not4: "Ne calcule pas les salaires et ne remplace pas la comptabilité.",
     notBridge: "Nous ne remplaçons ni votre logiciel tachygraphe ni votre télématique. Nous couvrons ce qui leur manque : les personnes, les documents, les échéances, et qui roule quel jour.",
@@ -320,7 +320,6 @@ export const fr: LandingDict = {
     confid: "Confidentiel", confNote: "Les données bancaires ne sont visibles que par ceux qui en ont besoin.",
     cardTitle: "Fiche chauffeur", remindTitle: "Documents · rappel",
     remindT: "Le visa expire le 12.07.2026", remindD: "Rappel automatique 30 jours avant · responsable : RH",
-    tgBot: "G-Track Bot",
     tgMsg: "Petr, votre visa expire le 12.07. Téléversez un nouveau document ou contactez les RH.",
     tgTime: "aujourd’hui · 08:00",
     dlgTitle: "Ajouter un document", dlgQuick: "Remplissage rapide depuis le document",
@@ -344,15 +343,13 @@ export const fr: LandingDict = {
     svcSource: "du camion",
     svcPlanned: "entretien planifié",
     chipSvc: "Entretien · 4 200 km",
-    unloadTitle: "Trajet · déchargement",
-    unloadOk: "Déchargement validé",
-    unloadNote: "Le conducteur a validé le déchargement dans l'application — le trajet s'est clôturé tout seul.",
-    unloadWhere: "Lieu",
-    unloadPlace: "Barcelone · ES",
+    unloadTitle: "Trajet · changement de camion",
+    unloadOk: "Trajet déplacé par le système",
+    unloadNote: "Carte conducteur dans un autre camion — ancien trajet clôturé, nouveau trajet ouvert.",
+    unloadWhere: "Nouveau camion",
+    unloadPlace: "4TC 2190 · Barcelone",
     unloadWhen: "Heure",
-    unloadDocV: "CMR · photo",
-    tgUnload: "Déchargé à Barcelone, photo du CMR envoyée.",
-    tgTimeUnload: "aujourd'hui · 14:22",
+    unloadDocV: "Carte tachygraphe",
     sumOnTime: "trajet à l'heure",
     sumKm: "km du trajet",
     sumDocs: "documents",

@@ -329,7 +329,7 @@ export function Scrolly() {
                   </div>
                 </figure>
 
-                {/* Кадр 3: выгрузка — конец участка Лион → Барселона */}
+                {/* Кадр 3: смена машины в Барселоне — автопилот по тахокарте (2.0.0), конец участка Лион → Барселона */}
                 <figure className="frame" data-frame="3">
                   <figcaption><span className="snum">03</span><b>{s.cap3b}</b>{s.cap3}</figcaption>
                   <div className="scene-card">
@@ -346,10 +346,6 @@ export function Scrolly() {
                     <div className="ai-rows">
                       <div className="ai-row"><span className="k">{m.unloadWhere}</span><span className="v" style={{ fontFamily: "var(--font-sans)" }}>{m.unloadPlace}</span></div>
                       <div className="ai-row"><span className="k">{m.unloadWhen}</span><span className="v">14:20 CET</span></div>
-                    </div>
-                    <div className="tg-push">
-                      <span className="tgic"><svg fill="currentColor" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z" /></svg></span>
-                      <div><b>{m.tgBot}</b><span>{m.tgUnload}</span><time>{m.tgTimeUnload}</time></div>
                     </div>
                     <span className="scursor" style={{ left: "84%", top: "46%" }} aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-cursor" /></svg></span>
                   </div>

@@ -8,7 +8,8 @@
    founding-leksika (founding kaina, kaina užfiksuota, po oficialaus
    paleidimo, veiksmų planas), dokumentai (Viza, Pridėti dokumentą,
    Dokumento tipas, Skubu), dienų vienetas «d.».
-   Kainos, procentai ir skaičiai — baitas į baitą kaip en/ru.
+   Kainos, procentai ir skaičiai — baitas į baitą kaip en/ru, išskyrus
+   dešimtainį skyriklį: kablelis (≈ 2,25 €, −6,7%).
    ============================================================================ */
 
 import type { LandingDict } from "../landing-i18n";
@@ -40,7 +41,7 @@ export const lt: LandingDict = {
     kicker: "EU atitiktis · planavimas · parkas",
     h1: "Kiekvienas vairuotojas pasirengęs reisui.",
     h1dim: "Visada.",
-    sub: " — EU atitikties ir reisų planavimo sistema vežėjams, turintiems 25 ir daugiau transporto priemonių. Vairuotojai, dokumentai, dispečerinė lenta ir parkas — naršyklėje, be papildomos įrangos ir diegimo konsultantų. Įdiegiama per dieną.",
+    sub: " — EU atitikties ir reisų planavimo sistema vežėjams, turintiems 50 ir daugiau transporto priemonių. Vairuotojai, dokumentai, dispečerinė lenta ir parkas — naršyklėje, be papildomos įrangos ir diegimo konsultantų. Įdiegiama per dieną.",
     ctaTrial: "Išbandyti 30 dienų",
     ctaPricing: "Pamatyti kainas",
     micro1: "Be banko kortelės",
@@ -86,9 +87,9 @@ export const lt: LandingDict = {
     fact1a: "Viza rasta ",
     fact1b: "likus 3 savaitėms iki galiojimo pabaigos",
     fact1c: " — atsitiktinai, senoje susirašinėjimo gijoje.",
-    fact2a: "Bauda už kabotažo pažeidimą — ",
-    fact2b: "iki 7 500 €", // U+202F kaip ru/en šaltinyje
-    fact2c: " už vieną reisą. Daugiau nei metinė prenumerata.",
+    fact2a: "Vairuotojas su pasibaigusiu Kodu 95 — ",
+    fact2b: "iki 20 000 €", // U+202F kaip ru/en šaltinyje
+    fact2c: " baudos įmonei Vokietijoje. Daugiau nei bet kurio plano metinė prenumerata.",
     fact3a: "Dispečeris laiko ",
     fact3b: "40 vairuotojų galvoje",
     fact3c: ". Kol neišeina atostogų.",
@@ -101,16 +102,16 @@ export const lt: LandingDict = {
     s1p: "Kortelė, statusas, dokumentai ir pasirengimas reisui — viskas vienoje vietoje. Banko duomenys — pagal vaidmenis.",
     s2h: "Iki techninės — 4 200 km",
     s2p: "Odometras atkeliauja tiesiai iš automobilio. G-Track pats suskaičiuoja, kiek liko iki techninės, ir įrašo ją į planą — be sąsiuvinių ir skambučių į servisą.",
-    s3h: "Iškrovimas Barselonoje",
-    s3p: "Vairuotojas pažymi iškrovimą programėlėje ir prisega CMR nuotrauką. Dispečeris tai mato tą pačią minutę.",
+    s3h: "Barselona: automobilio keitimas",
+    s3p: "Automobilis išvažiuoja į servisą, vairuotojas įkiša savo kortelę į kitą. G-Track pats perkelia reisą į naują automobilį — arba paklausia dispečerio, kaip nustatysite.",
     s4h: "Vėl į reisą",
     s4p: "Reisas gula ant lentos, užsakymas prisegtas. Kiekvienas pakeitimas — istorijoje.",
     cap1b: "Vairuotojas sistemoje.",
     cap1: " Kortelė: statusas, dokumentai, konfidencialūs duomenys — pagal vaidmenis.",
     cap2b: "Kilometrai iki techninės.",
     cap2: " Odometras iš automobilio, likutis iki techninės ir įrašas aptarnavimo plane.",
-    cap3b: "Iškrovimas patvirtintas.",
-    cap3: " CMR nuotrauka iš Telegram prisegta prie reiso.",
+    cap3b: "Reisas persikėlė pats.",
+    cap3: " Vairuotojo kortelė naujame automobilyje — įrašas istorijoje.",
     cap4b: "Vėl į reisą.",
     cap4: " Reisas lentoje, kiekvienas pakeitimas — istorijoje.",
     mapAria: "Europos žemėlapis: reisas Praha → Miunchenas → Lionas → Barselona, automobilis dabartinėje maršruto atkarpoje",
@@ -126,9 +127,9 @@ export const lt: LandingDict = {
   vid: {
     overline: "Europos rinka",
     h2: "Sukurta Europos vežėjams.",
-    sub: "A1, posted workers, Code 95, vizos — jau šiandien suvaldyta. Kabotažas 3/7 — plėtros plane.",
+    sub: "A1, Code 95, vizos — terminai suvaldyti jau šiandien. Kabotažas 3/7 — plėtros plane.",
     chip1: "Kabotažas 3/7",
-    chip2: "A1 / posted workers",
+    chip2: "A1",
     chip3: "Code 95",
     chip4: "ADR",
     chip5: "Tachografas",
@@ -145,7 +146,7 @@ export const lt: LandingDict = {
   europe: {
     overline: "Geografija",
     h2: "Visa Europa vienoje lentoje",
-    sub: "A1, posted workers, vairuotojų dokumentai — sukurta pagal ES taisykles. Kiekvienas reisas vienoje lentoje.",
+    sub: "A1, Code 95, vairuotojų dokumentai — sukurta pagal ES taisykles. Kiekvienas reisas vienoje lentoje.",
     mapAria: "Europos maršrutų žemėlapis, pereinantis į planavimo lentą",
     captionB: "Visas šis chaosas valdomas iš čia",
     caption: " — iš vienos dispečerinės lentos.",
@@ -163,7 +164,7 @@ export const lt: LandingDict = {
     m5: "Užsakymai", m5d: "Užsakymas → reisas → dokumentai",
     m6: "Sąskaitų išrašymas", m6d: "Sąskaitos iš reisų",
     m7: "Transporto priemonės ekonomika", m7d: "Cost-per-km kiekvienam vilkikui",
-    m8: "Vairuotojo Telegram programėlė", m8d: "Dokumentai ir reisai kišenėje",
+    m8: "Vairuotojo Telegram programėlė", m8d: "Dokumentai, pamainos ir užklausos",
     m9: "Žinutės", m9d: "Pokalbis su vairuotoju su integruotu vertimu",
     cta: "Visas veiksmų planas",
   },
@@ -171,14 +172,13 @@ export const lt: LandingDict = {
   pricing: {
     overline: "Kainos",
     h2: "Visa rinka slepia kainas už „contact sales“. Mes — ne.",
-    sub: "Kainos — čia pat. Registracija be skambučio, 30 dienų demo. Visi moduliai — visuose planuose: skiriasi tik parko pajėgumas. ",
-    subB: "Jokių užrakintų funkcijų.",
+    sub: "Kainos — čia pat. Registracija be skambučio, 30 dienų demo. Visi moduliai — visuose planuose: skiriasi tik parko pajėgumas.",
     periodAria: "Atsiskaitymo laikotarpis",
     perMo: "Mėnuo",
     perQ: "Ketvirtis",
     perY: "Metai",
-    discQ: "−6.7%",
-    discY: "−16.7%",
+    discQ: "−6,7%",
+    discY: "−16,7%",
     /* SKAIČIAI SINCHRONIZUOTI SU STRIPE LIVEMODE — NEKEISTI */
     billedMo: "apmokestinama kas mėnesį",
     billedQ: "per ketvirtį",
@@ -218,7 +218,7 @@ export const lt: LandingDict = {
     anchorOverline: "Skaičiavimas",
     anchorBig: "≈ 2,25 €",
     anchorUnit: "už vienetą/mėn. · 200 vienetų parkas",
-    anchorArg: "Viena kabotažo bauda — iki 7 500 €. Viena pasibaigusi viza — sustabdytas reisas. G-Track laiko visą parką kontroliuojamą pigiau, nei kainuoja vienas toks sutrikimas.",
+    anchorArg: "Vienas vairuotojas su pasibaigusiu Kodu 95 — iki 20 000 € baudos Vokietijoje. Viena pasibaigusi viza — sustabdytas reisas. G-Track laiko visą parką kontroliuojamą pigiau, nei kainuoja vienas toks sutrikimas.",
   },
 
   /* Klausimai: formuluotės paimtos iš realių vežėjų prieštaravimų, atsakymai —
@@ -238,8 +238,8 @@ export const lt: LandingDict = {
     g3: "Prieiga, parkas, kaina",
 
     q1: "Kaip sistema primins, kad vairuotojui baigia galioti dokumentas?",
-    a1: "Kiekvieną rytą 8:00 G-Track patikrina viso parko dokumentus. Pasas pakelia žymą prieš 180 dienų, gyvenamosios vietos deklaracija — prieš 60, visi kiti — prieš 90. Pranešimas išeina trimis kanalais vienu metu: el. laišku į biurą, žyma pačioje programoje ir Telegram pranešimu vairuotojui.",
-    a1b: "Kanalus ir laiškų dažnumą kiekvienam pranešimo tipui nustatote patys. Todėl priminimas nekabo ant vieno žmogaus ir nepražūva, kol HR atostogauja.",
+    a1: "Kiekvieną rytą G-Track patikrina viso parko dokumentus. Pasas pakelia žymą prieš 180 dienų, visi kiti — prieš 90. Pranešimas išeina trimis kanalais vienu metu: el. laišku į biurą, žyma pačioje programoje ir Telegram pranešimu vairuotojui.",
+    a1b: "Kokius pranešimus ir kokiais kanalais gauti, kiekvienam pranešimo tipui nustatote patys. Todėl priminimas nekabo ant vieno žmogaus ir nepražūva, kol HR atostogauja.",
 
     q2: "Kas atsako, jei vairuotojas išvyko į reisą su nebegaliojančiu dokumentu?",
     a2: "Daugumoje ES šalių — vežėjas, o ne vien vairuotojas: bauda skiriama įmonei, o kai kuriose šalyse atskirai ir už transportą atsakingam vadovui. Konkrečios sumos ir tvarka priklauso nuo tikrinančios šalies. Būtent todėl G-Track primena ne vairuotojui, o biurui — tam, kas įrašo reisą į planą.",
@@ -265,7 +265,7 @@ export const lt: LandingDict = {
     a8: "Taip, ir taip yra pagal nutylėjimą. Teisės dalijamos po vieną — jų daugiau nei trisdešimt. Asmens kodas ir banko sąskaitos numeris yra už atskiros teisės ir rodomi užmaskuoti. Kuriuos dokumentų tipus laikyti konfidencialiais, kiekviena įmonė sprendžia pati.",
 
     q9: "Kaip pas jus su vairuotojais iš trečiųjų šalių — Ukraina, Serbija, Uzbekistanas?",
-    a9: "Ne ES pilietybę turintiems vairuotojams privalomas sąrašas yra kitas ir ilgesnis: viza, pasas, Kodas 95, gyvenamosios vietos deklaracija. Pasirengimas reisui skaičiuojamas būtent pagal šį išplėstą sąrašą — vairuotojas nebus rodomas parengtas, kol neuždaryti būtent jo dokumentai, o ne bendras šablonas.",
+    a9: "Ne ES pilietybę turintiems vairuotojams privalomas sąrašas ilgesnis: prie paso, vairuotojo pažymėjimo ir tachografo kortelės prisideda viza, transporto licencija ir Kodas 95. Pasirengimas reisui skaičiuojamas būtent pagal šį išplėstą sąrašą — vairuotojas nebus rodomas parengtas, kol neuždaryti būtent jo dokumentai, o ne bendras šablonas.",
 
     q10: "Kiek tai kainuoja parkui iš 40 transporto priemonių ir 45 priekabų? Ar mokėti už kiekvieną naudotoją?",
     a10: "Starter planas — 150 € per mėnesį, mokant už metus 125 €. Į jį įeina 50 transporto priemonių, 100 vairuotojų ir 75 priekabos, tad jūsų parkas įsitalpina su atsarga. Dispečerių ir HR vietos neskaičiuojamos: įveskite visus, kam reikia.",
@@ -274,7 +274,7 @@ export const lt: LandingDict = {
     notHead: "Ko G-Track nedaro",
     notSub: "Kad nesugaištumėte trisdešimties demo dienų tikrindami tai, ko čia nėra.",
     not1: "Neanalizuoja tachografo. Neskaitome DDD failų, neskaičiuojame darbo ir atokvėpio režimo ir neskaičiuojame kabotažo 3/7.",
-    not2: "Neseka transporto priemonių. Nei GPS pėdsako, nei maršrutų realiu laiku — tai jūsų telematika.",
+    not2: "Nerodo transporto priemonių žemėlapyje. Ridą ir judėjimą G-Track ima tiesiai iš automobilio, bet žemėlapio ir maršrutų nėra — tai jūsų telematika.",
     not3: "Netvarko užsakymų ir frachto. Užsakymai ir sąskaitos — plėtros plane, šiandien jų nėra.",
     not4: "Neskaičiuoja atlyginimų ir nekeičia buhalterijos.",
     notBridge: "Mes nekeičiame tachografų programinės įrangos ir telematikos. Mes uždengiame tai, ko jose nėra: žmonės, dokumentai, terminai ir kas kurią dieną vyksta.",
@@ -325,7 +325,6 @@ export const lt: LandingDict = {
     confid: "Konfidencialu", confNote: "Banko duomenis mato tik tie, kuriems jie skirti.",
     cardTitle: "Vairuotojo kortelė", remindTitle: "Dokumentai · priminimas",
     remindT: "Viza baigia galioti 12.07.2026", remindD: "Automatinis priminimas prieš 30 dienų · atsakingas: HR",
-    tgBot: "G-Track Bot",
     tgMsg: "Petrai, jūsų viza baigia galioti 12.07. Įkelkite naują dokumentą arba kreipkitės į HR.",
     tgTime: "šiandien · 08:00",
     dlgTitle: "Pridėti dokumentą", dlgQuick: "Greitas užpildymas pagal dokumentą",
@@ -349,15 +348,13 @@ export const lt: LandingDict = {
     svcSource: "iš automobilio",
     svcPlanned: "techninė suplanuota",
     chipSvc: "Techninė · 4 200 km",
-    unloadTitle: "Reisas · iškrovimas",
-    unloadOk: "Iškrovimas patvirtintas",
-    unloadNote: "Vairuotojas pažymėjo iškrovimą programėlėje — reisas užsidarė pats.",
-    unloadWhere: "Vieta",
-    unloadPlace: "Barselona · ES",
+    unloadTitle: "Reisas · automobilio keitimas",
+    unloadOk: "Reisą perkėlė sistema",
+    unloadNote: "Vairuotojo kortelė kitame automobilyje — senas reisas uždarytas, naujas atidarytas.",
+    unloadWhere: "Naujas automobilis",
+    unloadPlace: "4TC 2190 · Barselona",
     unloadWhen: "Laikas",
-    unloadDocV: "CMR · nuotrauka",
-    tgUnload: "Iškroviau Barselonoje, CMR nuotrauką išsiunčiau.",
-    tgTimeUnload: "šiandien · 14:22",
+    unloadDocV: "Tachografo kortelė",
     sumOnTime: "reisas laiku",
     sumKm: "reiso rida",
     sumDocs: "dokumentai",

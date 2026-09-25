@@ -5,8 +5,8 @@
    модули (Kierowcy / Planowanie / Pojazdy / Zlecenia / Fakturowanie /
    Ekonomia pojazdu), Kod 95, founding / cena zablokowana, /mc, pojazdy ·
    kierowcy · naczepy · miejsca dyspozytorów, jednostka dni («VIS · 30 dni»).
-   Цены и проценты — байт-в-байт с RU/EN (7 500 € с U+202F, минус U+2212;
-   десятичная точка как в app-локали pl: −6.7%).
+   Цены и проценты — байт-в-байт с RU (20 000 € с U+202F, минус U+2212);
+   с EN расходится только десятичный разделитель: запятая (≈ 2,25 €, −6,7%).
    ============================================================================ */
 
 import type { LandingDict } from "../landing-i18n";
@@ -38,7 +38,7 @@ export const pl: LandingDict = {
     kicker: "EU-compliance · planowanie · flota",
     h1: "Każdy kierowca gotowy do trasy.",
     h1dim: "Zawsze.",
-    sub: " — system EU-compliance i planowania rejsów dla przewoźników z flotą od 25 pojazdów. Kierowcy, dokumenty, tablica dyspozytorska i flota — w przeglądarce, bez sprzętu i bez wdrożeniowców. Uruchomienie w jeden dzień.",
+    sub: " — system EU-compliance i planowania rejsów dla przewoźników z flotą od 50 pojazdów. Kierowcy, dokumenty, tablica dyspozytorska i flota — w przeglądarce, bez sprzętu i bez wdrożeniowców. Uruchomienie w jeden dzień.",
     ctaTrial: "Wypróbuj 30 dni",
     ctaPricing: "Zobacz cennik",
     micro1: "Bez karty",
@@ -84,9 +84,9 @@ export const pl: LandingDict = {
     fact1a: "Wiza znaleziona ",
     fact1b: "3 tygodnie przed wygaśnięciem",
     fact1c: " — przypadkiem, w starej korespondencji.",
-    fact2a: "Kara za naruszenie kabotażu — ",
-    fact2b: "do 7 500 €",
-    fact2c: " za jeden rejs. Więcej niż roczna subskrypcja.",
+    fact2a: "Kierowca z przeterminowanym Kodem 95 — ",
+    fact2b: "do 20 000 €",
+    fact2c: " kary dla firmy w Niemczech. Więcej niż roczna subskrypcja dowolnego planu.",
     fact3a: "Dyspozytor trzyma ",
     fact3b: "40 kierowców w głowie",
     fact3c: ". Dopóki nie pójdzie na urlop.",
@@ -99,16 +99,16 @@ export const pl: LandingDict = {
     s1p: "Profil, status, dokumenty i gotowość do trasy — wszystko w jednym miejscu. Dane bankowe — według ról.",
     s2h: "Do serwisu 4 200 km",
     s2p: "Licznik przychodzi wprost z pojazdu. G-Track sam liczy, ile zostało do serwisu, i wpisuje go do planu — bez notesów i telefonów do warsztatu.",
-    s3h: "Rozładunek w Barcelonie",
-    s3p: "Kierowca zaznacza rozładunek w aplikacji i dołącza zdjęcie CMR. Dyspozytor widzi to w tej samej minucie.",
+    s3h: "Barcelona: zmiana pojazdu",
+    s3p: "Pojazd zjeżdża do serwisu, kierowca wkłada swoją kartę do innego. G-Track sam przenosi trasę na nowy pojazd — albo pyta dyspozytora, jak ustawisz.",
     s4h: "Znów w trasie",
     s4p: "Rejs trafia na tablicę, zlecenie jest podpięte. Każda zmiana — w historii.",
     cap1b: "Kierowca w systemie.",
     cap1: " Profil: status, dokumenty, dane poufne — według ról.",
     cap2b: "Kilometry do serwisu.",
     cap2: " Licznik z pojazdu, pozostały przebieg i wpis w planie obsługi.",
-    cap3b: "Rozładunek potwierdzony.",
-    cap3: " Zdjęcie CMR z Telegrama dołączone do trasy.",
+    cap3b: "Trasa przeniosła się sama.",
+    cap3: " Karta kierowcy w nowym pojeździe — wpis w historii.",
     cap4b: "Znów w trasie.",
     cap4: " Rejs na tablicy, każda zmiana — w historii.",
     mapAria: "Mapa Europy: trasa Praga → Monachium → Lyon → Barcelona, pojazd na aktualnym odcinku trasy",
@@ -124,9 +124,9 @@ export const pl: LandingDict = {
   vid: {
     overline: "Rynek europejski",
     h2: "Stworzony dla europejskich przewoźników.",
-    sub: "A1, posted workers, Kod 95, wizy — już dziś pod kontrolą. Kabotaż 3/7 — w planie rozwoju.",
+    sub: "A1, Kod 95, wizy — terminy już dziś pod kontrolą. Kabotaż 3/7 — w planie rozwoju.",
     chip1: "Kabotaż 3/7",
-    chip2: "A1 / posted workers",
+    chip2: "A1",
     chip3: "Kod 95",
     chip4: "ADR",
     chip5: "Tachograf",
@@ -143,7 +143,7 @@ export const pl: LandingDict = {
   europe: {
     overline: "Geografia",
     h2: "Cała Europa na jednej tablicy",
-    sub: "A1, posted workers, dokumenty kierowców — zaprojektowane zgodnie z przepisami UE. Każda trasa na jednej tablicy.",
+    sub: "A1, Kod 95, dokumenty kierowców — zaprojektowane zgodnie z przepisami UE. Każda trasa na jednej tablicy.",
     mapAria: "Mapa tras po Europie przechodząca w tablicę planowania",
     captionB: "Cały ten chaos jest zarządzany stąd",
     caption: " — z jednej tablicy dyspozytorskiej.",
@@ -161,7 +161,7 @@ export const pl: LandingDict = {
     m5: "Zlecenia", m5d: "Zlecenie → rejs → dokumenty",
     m6: "Fakturowanie", m6d: "Faktury z rejsów",
     m7: "Ekonomia pojazdu", m7d: "Cost-per-km dla każdego ciągnika",
-    m8: "Telegram dla kierowców", m8d: "Dokumenty i rejsy w kieszeni",
+    m8: "Telegram dla kierowców", m8d: "Dokumenty, grafik i zgłoszenia",
     m9: "Wiadomości", m9d: "Czat z kierowcą z wbudowanym tłumaczeniem",
     cta: "Pełna roadmapa",
   },
@@ -169,14 +169,13 @@ export const pl: LandingDict = {
   pricing: {
     overline: "Cennik",
     h2: "Cały rynek chowa ceny za „contact sales”. My — nie.",
-    sub: "Ceny są tutaj. Rejestracja bez telefonu, demo 30 dni. Wszystkie moduły we wszystkich planach: różni się tylko pojemność floty. ",
-    subB: "Żadnych funkcji za paywallem.",
+    sub: "Ceny są tutaj. Rejestracja bez telefonu, demo 30 dni. Wszystkie moduły we wszystkich planach: różni się tylko pojemność floty.",
     periodAria: "Okres rozliczeniowy",
     perMo: "Miesięcznie",
     perQ: "Kwartalnie",
     perY: "Rocznie",
-    discQ: "−6.7%",
-    discY: "−16.7%",
+    discQ: "−6,7%",
+    discY: "−16,7%",
     /* LICZBY ZSYNCHRONIZOWANE ZE STRIPE LIVEMODE — NIE ZMIENIAĆ */
     billedMo: "rozliczane miesięcznie",
     billedQ: "rozliczane kwartalnie",
@@ -216,7 +215,7 @@ export const pl: LandingDict = {
     anchorOverline: "Rachunek",
     anchorBig: "≈ 2,25 €",
     anchorUnit: "za pojazd/mies. · flota 200 pojazdów",
-    anchorArg: "Jedna kara za kabotaż — do 7 500 €. Jedna przeterminowana wiza — wstrzymany rejs. G-Track trzyma całą flotę pod kontrolą taniej, niż kosztuje jedno takie potknięcie.",
+    anchorArg: "Jeden kierowca z przeterminowanym Kodem 95 — do 20 000 € kary w Niemczech. Jedna przeterminowana wiza — wstrzymany rejs. G-Track trzyma całą flotę pod kontrolą taniej, niż kosztuje jedno takie potknięcie.",
   },
 
   /* FAQ: nazwy typów dokumentów i „Gotowość do trasy” — z app-locale pl.
@@ -233,8 +232,8 @@ export const pl: LandingDict = {
     g3: "Dostępy, flota, cena",
 
     q1: "Jak system przypomni, że kierowcy kończy się dokument?",
-    a1: "Codziennie o 8:00 G-Track sprawdza dokumenty całej floty. Paszport odzywa się 180 dni wcześniej, oświadczenie 60, pozostałe 90. Powiadomienie idzie trzema kanałami jednocześnie: mailem do biura, oznaczeniem w samej aplikacji i pushem do kierowcy w Telegramie.",
-    a1b: "Kanały i częstotliwość maili ustawiasz sam dla każdego typu powiadomienia. Przypomnienie nie wisi więc na jednej osobie i nie ginie, kiedy kadry są na urlopie.",
+    a1: "Codziennie rano G-Track sprawdza dokumenty całej floty. Paszport odzywa się 180 dni wcześniej, pozostałe 90. Powiadomienie idzie trzema kanałami jednocześnie: mailem do biura, oznaczeniem w samej aplikacji i pushem do kierowcy w Telegramie.",
+    a1b: "Które powiadomienia i jakimi kanałami mają przychodzić, ustawiasz sam dla każdego typu. Przypomnienie nie wisi więc na jednej osobie i nie ginie, kiedy kadry są na urlopie.",
 
     q2: "Kto odpowiada, jeśli kierowca wyjedzie w trasę z nieważnym dokumentem?",
     a2: "W większości krajów UE przewoźnik, a nie tylko kierowca: kara trafia do firmy, a w części krajów dodatkowo do osoby zarządzającej transportem. Konkretne kwoty i tryb zależą od kraju kontroli. Właśnie dlatego G-Track przypomina biuru, a nie kierowcy — temu, kto wstawia rejs do planu.",
@@ -260,7 +259,7 @@ export const pl: LandingDict = {
     a8: "Tak, i tak jest domyślnie. Uprawnienia nadaje się punktowo — jest ich ponad trzydzieści. Numer identyfikacyjny i numer konta bankowego chroni osobne uprawnienie i pokazują się zamaskowane. Które typy dokumentów są poufne, każda firma decyduje sama.",
 
     q9: "Jak radzicie sobie z kierowcami z krajów trzecich — Ukraina, Serbia, Uzbekistan?",
-    a9: "Dla osób spoza UE obowiązkowa lista jest inna i dłuższa: wiza, paszport, Kod 95, zaświadczenie o zameldowaniu. Gotowość do trasy liczy się według tej rozszerzonej listy, a nie ogólnego szablonu: dopóki kierowcy brakuje jego dokumentów, nie pokaże się jako gotowy.",
+    a9: "Dla osób spoza UE obowiązkowa lista jest dłuższa: do paszportu, prawa jazdy i karty kierowcy dochodzą wiza, licencja transportowa i Kod 95. Gotowość do trasy liczy się według tej rozszerzonej listy, a nie ogólnego szablonu: dopóki kierowcy brakuje jego dokumentów, nie pokaże się jako gotowy.",
 
     q10: "Ile to kosztuje dla 40 pojazdów i 45 naczep? Płaci się za każdego użytkownika?",
     a10: "Plan Starter — 150 € miesięcznie, przy płatności rocznej 125 €. Obejmuje 50 pojazdów, 100 kierowców i 75 naczep, więc twoja flota mieści się z zapasem. Miejsca dyspozytorów i kadr nie są liczone: zakładaj konta wszystkim, którzy ich potrzebują.",
@@ -269,7 +268,7 @@ export const pl: LandingDict = {
     notHead: "Czego G-Track nie robi",
     notSub: "Żebyś nie stracił trzydziestu dni demo na szukanie czegoś, czego tu nie ma.",
     not1: "Nie analizuje tachografu. Nie czytamy plików DDD, nie liczymy czasu pracy i odpoczynku ani kabotażu 3/7.",
-    not2: "Nie śledzi pojazdów. Żadnego śladu GPS, żadnych tras na żywo — to twoja telematyka.",
+    not2: "Nie pokazuje pojazdów na mapie. Przebieg i ruch G-Track bierze prosto z pojazdu, ale mapy ani tras nie ma — to twoja telematyka.",
     not3: "Nie prowadzi zleceń i frachtu. Zlecenia i faktury są na horyzoncie, dziś ich nie ma.",
     not4: "Nie liczy wynagrodzeń i nie zastępuje księgowości.",
     notBridge: "Nie zastępujemy oprogramowania do tachografów ani telematyki. Domykamy to, czego w nich nie ma: ludzi, dokumenty, terminy i kto którego dnia jedzie.",
@@ -320,7 +319,6 @@ export const pl: LandingDict = {
     confid: "Poufne", confNote: "Dane bankowe widzą tylko osoby z odpowiednią rolą.",
     cardTitle: "Karta kierowcy", remindTitle: "Dokumenty · przypomnienie",
     remindT: "Wiza wygasa 12.07.2026", remindD: "Automatyczne przypomnienie 30 dni wcześniej · odpowiedzialny: HR",
-    tgBot: "G-Track Bot",
     tgMsg: "Petr, Twoja wiza wygasa 12.07. Prześlij nowy dokument lub skontaktuj się z HR.",
     tgTime: "dzisiaj · 08:00",
     dlgTitle: "Dodaj dokument", dlgQuick: "Szybkie wypełnienie z dokumentu",
@@ -344,15 +342,13 @@ export const pl: LandingDict = {
     svcSource: "z pojazdu",
     svcPlanned: "serwis w planie",
     chipSvc: "Serwis · 4 200 km",
-    unloadTitle: "Trasa · rozładunek",
-    unloadOk: "Rozładunek potwierdzony",
-    unloadNote: "Kierowca zaznaczył rozładunek w aplikacji — trasa zamknęła się sama.",
-    unloadWhere: "Miejsce",
-    unloadPlace: "Barcelona · ES",
+    unloadTitle: "Trasa · zmiana pojazdu",
+    unloadOk: "Trasę przeniósł system",
+    unloadNote: "Karta kierowcy w innym pojeździe — stara trasa zamknięta, nowa otwarta.",
+    unloadWhere: "Nowy pojazd",
+    unloadPlace: "4TC 2190 · Barcelona",
     unloadWhen: "Godzina",
-    unloadDocV: "CMR · zdjęcie",
-    tgUnload: "Rozładowałem w Barcelonie, zdjęcie CMR wysłane.",
-    tgTimeUnload: "dziś · 14:22",
+    unloadDocV: "Karta tachografu",
     sumOnTime: "trasa na czas",
     sumKm: "przebieg trasy",
     sumDocs: "dokumenty",
