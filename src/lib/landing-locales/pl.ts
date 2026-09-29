@@ -13,7 +13,7 @@ import type { LandingDict } from "../landing-i18n";
 
 export const pl: LandingDict = {
   meta: {
-    title: "G-Track — EU-compliance i planowanie rejsów dla przewoźników",
+    title: "G-Track — zarządzanie kierowcami i planowanie tras",
     description:
       "Kierowcy, dokumenty, planowanie i flota — w jednej aplikacji w przeglądarce. Uruchomienie w jeden dzień. Ceny — na tej stronie.",
   },
@@ -38,16 +38,16 @@ export const pl: LandingDict = {
     kicker: "EU-compliance · planowanie · flota",
     h1: "Każdy kierowca gotowy do trasy.",
     h1dim: "Zawsze.",
-    sub: " — system EU-compliance i planowania rejsów dla przewoźników z flotą od 50 pojazdów. Kierowcy, dokumenty, tablica dyspozytorska i flota — w przeglądarce, bez sprzętu i bez wdrożeniowców. Uruchomienie w jeden dzień.",
+    sub: " — system EU-compliance i planowania przejazdów dla przewoźników z flotą od 50 pojazdów. Kierowcy, dokumenty, tablica dyspozytorska i flota — w przeglądarce, bez sprzętu i bez wdrożeniowców. Uruchomienie w jeden dzień.",
     ctaTrial: "Wypróbuj 30 dni",
     ctaPricing: "Zobacz cennik",
     micro1: "Bez karty",
     micro2: "Rejestracja w 2 minuty",
     micro3: "Dane w UE",
     boardAria:
-      "Tablica dyspozytorska G-Track: kierowca przesyła skan przez Telegram, wiza zostaje przedłużona, kierowca wraca w trasę",
+      "Tablica dyspozytorska G-Track: kierowca przesyła skan przez Telegram, a system aktualizuje dane dokumentu",
     boardCaption:
-      "Kierowca przesłał skan przez Telegram → G-Track rozpoznał i przedłużył → znów w trasie",
+      "Kierowca przesyła skan przez Telegram → G-Track rozpoznaje dane → aktualizuje ewidencję dokumentu",
   },
 
   trust: {
@@ -102,7 +102,7 @@ export const pl: LandingDict = {
     s3h: "Barcelona: zmiana pojazdu",
     s3p: "Pojazd zjeżdża do serwisu, kierowca wkłada swoją kartę do innego. G-Track sam przenosi trasę na nowy pojazd — albo pyta dyspozytora, jak ustawisz.",
     s4h: "Znów w trasie",
-    s4p: "Rejs trafia na tablicę, zlecenie jest podpięte. Każda zmiana — w historii.",
+    s4p: "Przejazd trafia na tablicę, zlecenie jest podpięte. Każda zmiana — w historii.",
     cap1b: "Kierowca w systemie.",
     cap1: " Profil: status, dokumenty, dane poufne — według ról.",
     cap2b: "Kilometry do serwisu.",
@@ -110,7 +110,7 @@ export const pl: LandingDict = {
     cap3b: "Trasa przeniosła się sama.",
     cap3: " Karta kierowcy w nowym pojeździe — wpis w historii.",
     cap4b: "Znów w trasie.",
-    cap4: " Rejs na tablicy, każda zmiana — w historii.",
+    cap4: " Przejazd na tablicy, każda zmiana — w historii.",
     mapAria: "Mapa Europy: trasa Praga → Monachium → Lyon → Barcelona, pojazd na aktualnym odcinku trasy",
     leg1: "Praga → Monachium",
     leg2: "Monachium → Lyon",
@@ -156,10 +156,10 @@ export const pl: LandingDict = {
     soon: "Wkrótce",
     m1: "Kierowcy", m1d: "Profile, statusy, gotowość do trasy",
     m2: "Dokumenty", m2d: "16 typów, terminy, rozpoznawanie skanów",
-    m3: "Planowanie", m3d: "Tablica kierowcy × dni, rejsy, konflikty",
+    m3: "Planowanie", m3d: "Tablica kierowcy × dni, przejazdy, konflikty",
     m4: "Pojazdy", m4d: "Ciągniki i naczepy, TÜV, ubezpieczenia",
-    m5: "Zlecenia", m5d: "Zlecenie → rejs → dokumenty",
-    m6: "Fakturowanie", m6d: "Faktury z rejsów",
+    m5: "Zlecenia", m5d: "Zlecenie → przejazd → dokumenty",
+    m6: "Fakturowanie", m6d: "Faktury z przejazdów",
     m7: "Ekonomia pojazdu", m7d: "Cost-per-km dla każdego ciągnika",
     m8: "Telegram dla kierowców", m8d: "Dokumenty, grafik i zgłoszenia",
     m9: "Wiadomości", m9d: "Czat z kierowcą z wbudowanym tłumaczeniem",
@@ -246,7 +246,7 @@ export const pl: LandingDict = {
     anchorOverline: "Rachunek",
     anchorBig: "≈ 2,25 €",
     anchorUnit: "za pojazd/mies. · flota 200 pojazdów",
-    anchorArg: "Jeden kierowca z przeterminowanym Kodem 95 — do 20 000 € kary w Niemczech. Jedna przeterminowana wiza — wstrzymany rejs. G-Track trzyma całą flotę pod kontrolą taniej, niż kosztuje jedno takie potknięcie.",
+    anchorArg: "Jeden kierowca z przeterminowanym Kodem 95 — do 20 000 € kary w Niemczech. Jedna przeterminowana wiza — wstrzymany przejazd. G-Track trzyma całą flotę pod kontrolą taniej, niż kosztuje jedno takie potknięcie.",
   },
 
   /* FAQ: nazwy typów dokumentów i „Gotowość do trasy” — z app-locale pl.
@@ -267,7 +267,7 @@ export const pl: LandingDict = {
     a1b: "Które powiadomienia i jakimi kanałami mają przychodzić, ustawiasz sam dla każdego typu. Przypomnienie nie wisi więc na jednej osobie i nie ginie, kiedy kadry są na urlopie.",
 
     q2: "Kto odpowiada, jeśli kierowca wyjedzie w trasę z nieważnym dokumentem?",
-    a2: "W większości krajów UE przewoźnik, a nie tylko kierowca: kara trafia do firmy, a w części krajów dodatkowo do osoby zarządzającej transportem. Konkretne kwoty i tryb zależą od kraju kontroli. Właśnie dlatego G-Track przypomina biuru, a nie kierowcy — temu, kto wstawia rejs do planu.",
+    a2: "W większości krajów UE przewoźnik, a nie tylko kierowca: kara trafia do firmy, a w części krajów dodatkowo do osoby zarządzającej transportem. Konkretne kwoty i tryb zależą od kraju kontroli. Właśnie dlatego G-Track przypomina biuru, a nie kierowcy — temu, kto wstawia przejazd do planu.",
 
     q3: "Czy na tablicy planowania widać, kto nie może wyjechać z powodu dokumentu?",
     a3: "Tak, tablica zbiera ludzi, pojazdy i terminy w jednym miejscu: kto jest na urlopie, kto na zwolnieniu, kto bez pojazdu, komu nie zgadza się dokument. Każda zmiana planu trafia do historii — widzisz nie tylko obecny stan, ale i kto go kiedy zmienił.",
@@ -344,7 +344,7 @@ export const pl: LandingDict = {
     stActive: "Aktywny", stTrip: "W trasie", ready: "do trasy",
     vacUntil: "Urlop do 15.06", sick: "Zwolnienie",
     toastWarnT: "Wiza wygasa za 30 dni", toastWarnD: "P. Savchenko · przedłużyć do 12.07.2026",
-    toastOkT: "Wiza przedłużona do 08.2028", toastOkD: "Numer i data rozpoznane ze skanu",
+    toastOkT: "Ważność wizy w ewidencji: 08.2028", toastOkD: "Numer i data rozpoznane ze skanu",
     docs: "Dokumenty", urgent: "Pilne", nonEU: "NON-EU",
     tabOverview: "Przegląd", tabDocs: "Dokumenty", tabComments: "Komentarze", tabHistory: "Historia",
     confid: "Poufne", confNote: "Dane bankowe widzą tylko osoby z odpowiednią rolą.",
@@ -362,7 +362,7 @@ export const pl: LandingDict = {
     mcH: "Wiza · P. Savchenko",
     mc1: "Kierowca przesłał skan z Telegrama",
     mc2: "G-Track sam rozpoznał numer i datę",
-    mc3: "Wiza przedłużona do 08.2028",
+    mc3: "Ważność wizy w ewidencji: 08.2028",
     mcSub2: "CZ-4471920 · do 03.08.2028",
     chipVisaWarn: "VIS · 30 dni", chipVisaOk: "VIS · 2028",
     svcTitle: "Przebieg i serwis",

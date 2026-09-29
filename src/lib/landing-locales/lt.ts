@@ -48,9 +48,9 @@ export const lt: LandingDict = {
     micro2: "Registracija per 2 minutes",
     micro3: "Duomenys saugomi ES",
     boardAria:
-      "G-Track dispečerinė lenta: vairuotojas įkelia skenuotą dokumentą per Telegram, viza pratęsiama, vairuotojas vėl išvyksta į reisą",
+      "G-Track dispečerinė lenta: vairuotojas įkelia skenuotą dokumentą per Telegram, o sistema atnaujina dokumento įrašą",
     boardCaption:
-      "Vairuotojas įkėlė skeną per Telegram → G-Track atpažino ir pratęsė → vėl į reisą",
+      "Vairuotojas įkelia skenuotą dokumentą per Telegram → G-Track atpažįsta duomenis → atnaujina dokumento įrašą",
   },
 
   trust: {
@@ -350,7 +350,7 @@ export const lt: LandingDict = {
     stActive: "Aktyvus", stTrip: "Kelyje", ready: "parengtis",
     vacUntil: "Atostogos iki 15.06", sick: "Nedarbingumas",
     toastWarnT: "Viza baigia galioti po 30 dienų", toastWarnD: "P. Savchenko · pratęsti iki 12.07.2026",
-    toastOkT: "Viza pratęsta iki 08.2028", toastOkD: "Numeris ir data atpažinti iš skeno",
+    toastOkT: "Įrašytas vizos galiojimas: 08.2028", toastOkD: "Numeris ir data atpažinti iš skeno",
     docs: "Dokumentai", urgent: "Skubu", nonEU: "NON-EU",
     tabOverview: "Apžvalga", tabDocs: "Dokumentai", tabComments: "Komentarai", tabHistory: "Istorija",
     confid: "Konfidencialu", confNote: "Banko duomenis mato tik tie, kuriems jie skirti.",
@@ -368,7 +368,7 @@ export const lt: LandingDict = {
     mcH: "Viza · P. Savchenko",
     mc1: "Vairuotojas įkėlė skeną per Telegram",
     mc2: "G-Track pats atpažino numerį ir datą",
-    mc3: "Viza pratęsta iki 08.2028",
+    mc3: "Įrašytas vizos galiojimas: 08.2028",
     mcSub2: "CZ-4471920 · iki 03.08.2028",
     chipVisaWarn: "VIS · 30 d.", chipVisaOk: "VIS · 2028",
     svcTitle: "Rida ir aptarnavimas",

@@ -43,9 +43,9 @@ export const lv: LandingDict = {
     micro2: "Reģistrācija 2 minūtēs",
     micro3: "Dati glabājas ES",
     boardAria:
-      "G-Track dispečerpults: vadītājs augšupielādē skenējumu no Telegram, vīza tiek pagarināta, vadītājs dodas reisā",
+      "G-Track dispečerpults: vadītājs augšupielādē skenējumu, izmantojot Telegram, un sistēma atjaunina dokumenta ierakstu",
     boardCaption:
-      "Vadītājs augšupielādēja skenējumu Telegram → G-Track atpazina un pagarināja → atkal reisā",
+      "Vadītājs augšupielādē skenējumu, izmantojot Telegram → G-Track atpazīst datus → atjaunina dokumenta ierakstu",
   },
 
   trust: {
@@ -344,7 +344,7 @@ export const lv: LandingDict = {
     stActive: "Aktīvs", stTrip: "Reisā", ready: "gatavs reisam",
     vacUntil: "Atvaļinājums līdz 15.06", sick: "Slimības lapa",
     toastWarnT: "Vīza beidzas pēc 30 dienām", toastWarnD: "P. Savčenko · pagarināt līdz 12.07.2026",
-    toastOkT: "Vīza pagarināta līdz 08.2028", toastOkD: "Numurs un datums atpazīti no skenējuma",
+    toastOkT: "Reģistrētais vīzas derīgums: 08.2028", toastOkD: "Numurs un datums atpazīti no skenējuma",
     docs: "Dokumenti", urgent: "Steidzami", nonEU: "NON-EU",
     tabOverview: "Pārskats", tabDocs: "Dokumenti", tabComments: "Komentāri", tabHistory: "Vēsture",
     confid: "Konfidenciāli dati", confNote: "Bankas datus redz tikai tie, kam tas pienākas.",
@@ -362,7 +362,7 @@ export const lv: LandingDict = {
     mcH: "Vīza · P. Savčenko",
     mc1: "Vadītājs augšupielādēja skenējumu no Telegram",
     mc2: "G-Track pats atpazina numuru un datumu",
-    mc3: "Vīza pagarināta līdz 08.2028",
+    mc3: "Reģistrētais vīzas derīgums: 08.2028",
     mcSub2: "CZ-4471920 · līdz 03.08.2028",
     chipVisaWarn: "VIS · 30 d.", chipVisaOk: "VIS · 2028",
     svcTitle: "Nobraukums un apkope",

@@ -20,12 +20,12 @@ function languagesFor(
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
+  // Дату сборки нельзя выдавать за дату изменения каждой страницы.
+  // Вернём lastModified, когда появятся достоверные даты обновления контента.
 
   const homeLanguages = languagesFor(localePath, SITE_ORIGIN);
   const landingPages: MetadataRoute.Sitemap = LOCALES.map((l) => ({
     url: `${SITE_ORIGIN}${localePath(l)}`,
-    lastModified,
     changeFrequency: "monthly",
     priority: l === "en" ? 1 : 0.8,
     alternates: { languages: homeLanguages },
@@ -40,7 +40,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
   const roadmapPages: MetadataRoute.Sitemap = LOCALES.map((l) => ({
     url: `${SITE_ORIGIN}${roadmapPath(l)}`,
-    lastModified,
     changeFrequency: "monthly",
     priority: l === "en" ? 0.9 : 0.7,
     alternates: { languages: roadmapLanguages },
