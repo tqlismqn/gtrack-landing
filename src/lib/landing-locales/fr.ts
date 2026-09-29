@@ -48,9 +48,9 @@ export const fr: LandingDict = {
     micro2: "Inscription en 2 minutes",
     micro3: "Données dans l’UE",
     boardAria:
-      "Tableau de planification G-Track : un conducteur téléverse un scan depuis Telegram, le visa est renouvelé, le conducteur repart en tournée",
+      "Tableau de planification G-Track : un conducteur téléverse un scan via Telegram et le système met à jour la fiche du document",
     boardCaption:
-      "Le conducteur a téléversé un scan dans Telegram → G-Track l’a reconnu et renouvelé → de nouveau en tournée",
+      "Le conducteur téléverse un scan via Telegram → G-Track reconnaît les données → met à jour la fiche du document",
   },
 
   trust: {
@@ -344,7 +344,7 @@ export const fr: LandingDict = {
     stActive: "Actif", stTrip: "En tournée", ready: "prêt",
     vacUntil: "Congés jusqu’au 15.06", sick: "Arrêt maladie",
     toastWarnT: "Le visa expire dans 30 jours", toastWarnD: "P. Savchenko · renouveler avant le 12.07.2026",
-    toastOkT: "Visa renouvelé jusqu’au 08.2028", toastOkD: "Numéro et date reconnus depuis le scan",
+    toastOkT: "Validité du visa enregistrée : 08.2028", toastOkD: "Numéro et date reconnus depuis le scan",
     docs: "Documents", urgent: "Urgents", nonEU: "NON-EU",
     tabOverview: "Aperçu", tabDocs: "Documents", tabComments: "Commentaires", tabHistory: "Historique",
     confid: "Confidentiel", confNote: "Les données bancaires ne sont visibles que par ceux qui en ont besoin.",
@@ -362,7 +362,7 @@ export const fr: LandingDict = {
     mcH: "Visa · P. Savchenko",
     mc1: "Le conducteur a téléversé un scan depuis Telegram",
     mc2: "G-Track a reconnu lui-même le numéro et la date",
-    mc3: "Visa renouvelé jusqu’au 08.2028",
+    mc3: "Validité du visa enregistrée : 08.2028",
     mcSub2: "CZ-4471920 · jusqu’au 03.08.2028",
     chipVisaWarn: "VIS · 30 j", chipVisaOk: "VIS · 2028",
     svcTitle: "Kilométrage et entretien",

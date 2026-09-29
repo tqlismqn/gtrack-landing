@@ -45,9 +45,9 @@ export const de: LandingDict = {
     micro2: "Registrierung in 2 Minuten",
     micro3: "Daten in der EU",
     boardAria:
-      "G-Track-Dispositionsboard: Ein Fahrer lädt einen Scan über Telegram hoch, das Visum wird verlängert, der Fahrer geht wieder auf Tour",
+      "G-Track-Dispositionsboard: Ein Fahrer lädt einen Scan über Telegram hoch und das System aktualisiert den Dokumenteneintrag",
     boardCaption:
-      "Fahrer hat den Scan über Telegram hochgeladen → G-Track hat erkannt und verlängert → wieder auf Tour",
+      "Fahrer lädt einen Scan über Telegram hoch → G-Track erkennt die Daten → Dokumenteneintrag aktualisiert",
   },
 
   trust: {
@@ -341,7 +341,7 @@ export const de: LandingDict = {
     stActive: "Aktiv", stTrip: "Auf Tour", ready: "bereit",
     vacUntil: "Urlaub bis 15.06", sick: "Krank",
     toastWarnT: "Visum läuft in 30 Tagen ab", toastWarnD: "P. Savchenko · verlängern bis 12.07.2026",
-    toastOkT: "Visum verlängert bis 08.2028", toastOkD: "Nummer und Datum aus dem Scan erkannt",
+    toastOkT: "Erfasste Visumgültigkeit: 08.2028", toastOkD: "Nummer und Datum aus dem Scan erkannt",
     docs: "Dokumente", urgent: "Dringend", nonEU: "NON-EU",
     tabOverview: "Übersicht", tabDocs: "Dokumente", tabComments: "Kommentare", tabHistory: "Verlauf",
     confid: "Vertraulich", confNote: "Bankdaten sehen nur diejenigen, die dafür berechtigt sind.",
@@ -359,7 +359,7 @@ export const de: LandingDict = {
     mcH: "Visum · P. Savchenko",
     mc1: "Fahrer hat den Scan über Telegram hochgeladen",
     mc2: "G-Track hat Nummer und Datum von selbst erkannt",
-    mc3: "Visum verlängert bis 08.2028",
+    mc3: "Erfasste Visumgültigkeit: 08.2028",
     mcSub2: "CZ-4471920 · bis 03.08.2028",
     chipVisaWarn: "VIS · 30 Tage", chipVisaOk: "VIS · 2028",
     svcTitle: "Kilometer und Service",

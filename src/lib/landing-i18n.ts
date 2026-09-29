@@ -106,9 +106,9 @@ const ru = {
     micro2: "Регистрация за 2 минуты",
     micro3: "Данные в EU",
     boardAria:
-      "Диспетчерская доска G-Track: водитель загружает скан из Telegram, виза продлевается, водитель уходит в рейс",
+      "Диспетчерская доска G-Track: водитель загружает скан через Telegram, а система обновляет запись документа",
     boardCaption:
-      "Водитель загрузил скан в Telegram → G-Track распознал и продлил → снова в рейс",
+      "Водитель загружает скан через Telegram → G-Track распознаёт данные → обновляет запись документа",
   },
 
   trust: {
@@ -408,7 +408,7 @@ const ru = {
     stActive: "Активен", stTrip: "В рейсе", ready: "к рейсу",
     vacUntil: "Отпуск до 15.06", sick: "Больничный",
     toastWarnT: "Виза истекает через 30 дней", toastWarnD: "П. Савченко · продлить до 12.07.2026",
-    toastOkT: "Виза продлена до 08.2028", toastOkD: "Номер и дата распознаны из скана",
+    toastOkT: "Срок действия визы в системе: 08.2028", toastOkD: "Номер и дата распознаны из скана",
     docs: "Документы", urgent: "Срочные", nonEU: "NON-EU",
     tabOverview: "Обзор", tabDocs: "Документы", tabComments: "Комментарии", tabHistory: "История",
     confid: "Конфиденциальное", confNote: "Банковские данные видят только те, кому положено.",
@@ -426,7 +426,7 @@ const ru = {
     mcH: "Виза · П. Савченко",
     mc1: "Водитель загрузил скан из Telegram",
     mc2: "G-Track сам распознал номер и дату",
-    mc3: "Виза продлена до 08.2028",
+    mc3: "Срок действия визы в системе: 08.2028",
     mcSub2: "CZ-4471920 · до 03.08.2028",
     chipVisaWarn: "VIS · 30 дн", chipVisaOk: "VIS · 2028",
     svcTitle: "Пробег и обслуживание",
@@ -486,9 +486,9 @@ const en: LandingDict = {
     micro2: "Sign up in 2 minutes",
     micro3: "Data stored in the EU",
     boardAria:
-      "G-Track dispatch board: a driver uploads a scan via Telegram, the visa gets renewed, the driver goes back on a trip",
+      "G-Track dispatch board: a driver uploads a scan via Telegram and the system updates the document record",
     boardCaption:
-      "Driver uploaded a scan via Telegram → G-Track recognized and renewed → back on the road",
+      "Driver uploads a scan via Telegram → G-Track recognizes the details → updates the document record",
   },
 
   trust: {
@@ -782,7 +782,7 @@ const en: LandingDict = {
     stActive: "Active", stTrip: "On trip", ready: "ready",
     vacUntil: "Vacation till 15.06", sick: "Sick leave",
     toastWarnT: "Visa expires in 30 days", toastWarnD: "P. Savchenko · renew by 12.07.2026",
-    toastOkT: "Visa renewed until 08.2028", toastOkD: "Number and date recognized from the scan",
+    toastOkT: "Recorded visa validity: 08.2028", toastOkD: "Number and date recognized from the scan",
     docs: "Documents", urgent: "Urgent", nonEU: "NON-EU",
     tabOverview: "Overview", tabDocs: "Documents", tabComments: "Comments", tabHistory: "History",
     confid: "Confidential", confNote: "Bank details are visible only to those who need them.",
@@ -800,7 +800,7 @@ const en: LandingDict = {
     mcH: "Visa · P. Savchenko",
     mc1: "Driver uploaded a scan via Telegram",
     mc2: "G-Track recognized the number and date itself",
-    mc3: "Visa renewed until 08.2028",
+    mc3: "Recorded visa validity: 08.2028",
     mcSub2: "CZ-4471920 · until 03.08.2028",
     chipVisaWarn: "VIS · 30 d", chipVisaOk: "VIS · 2028",
     svcTitle: "Mileage and service",

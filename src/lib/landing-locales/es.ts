@@ -43,9 +43,9 @@ export const es: LandingDict = {
     micro2: "Registro en 2 minutos",
     micro3: "Datos en la UE",
     boardAria:
-      "Tablero de planificación de G-Track: el conductor sube un escaneo desde Telegram, el visado se renueva y el conductor vuelve al viaje",
+      "Tablero de planificación de G-Track: el conductor sube un escaneo por Telegram y el sistema actualiza el registro del documento",
     boardCaption:
-      "El conductor subió un escaneo por Telegram → G-Track lo reconoció y renovó el visado → de nuevo en viaje",
+      "El conductor sube un escaneo por Telegram → G-Track reconoce los datos → actualiza el registro del documento",
   },
 
   trust: {
@@ -339,7 +339,7 @@ export const es: LandingDict = {
     stActive: "Activo", stTrip: "En viaje", ready: "listo",
     vacUntil: "Vacaciones hasta el 15.06", sick: "Baja por enfermedad",
     toastWarnT: "El visado caduca en 30 días", toastWarnD: "P. Savchenko · renovar antes del 12.07.2026",
-    toastOkT: "Visado renovado hasta 08.2028", toastOkD: "Número y fecha reconocidos del escaneo",
+    toastOkT: "Validez del visado registrada: 08.2028", toastOkD: "Número y fecha reconocidos del escaneo",
     docs: "Documentos", urgent: "Urgente", nonEU: "no UE",
     tabOverview: "Resumen", tabDocs: "Documentos", tabComments: "Comentarios", tabHistory: "Historial",
     confid: "Confidencial", confNote: "Los datos bancarios solo los ven quienes deben verlos.",
@@ -357,7 +357,7 @@ export const es: LandingDict = {
     mcH: "Visado · P. Savchenko",
     mc1: "El conductor subió un escaneo desde Telegram",
     mc2: "G-Track reconoció el número y la fecha por sí solo",
-    mc3: "Visado renovado hasta 08.2028",
+    mc3: "Validez del visado registrada: 08.2028",
     mcSub2: "CZ-4471920 · hasta el 03.08.2028",
     chipVisaWarn: "VIS · 30 d", chipVisaOk: "VIS · 2028",
     svcTitle: "Kilómetros y mantenimiento",

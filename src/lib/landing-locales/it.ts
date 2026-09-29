@@ -44,9 +44,9 @@ export const it: LandingDict = {
     micro2: "Registrazione in 2 minuti",
     micro3: "Dati nell’UE",
     boardAria:
-      "Lavagna di disposizione G-Track: l’autista carica una scansione da Telegram, il visto viene rinnovato, l’autista riparte in viaggio",
+      "Lavagna di disposizione G-Track: l’autista carica una scansione tramite Telegram e il sistema aggiorna la scheda del documento",
     boardCaption:
-      "L’autista ha caricato la scansione su Telegram → G-Track l’ha riconosciuta e ha rinnovato → di nuovo in viaggio",
+      "L’autista carica una scansione tramite Telegram → G-Track riconosce i dati → aggiorna la scheda del documento",
   },
 
   trust: {
@@ -341,7 +341,7 @@ export const it: LandingDict = {
     stActive: "Attivo", stTrip: "In viaggio", ready: "pronto",
     vacUntil: "Ferie fino al 15.06", sick: "Malattia",
     toastWarnT: "Il visto scade tra 30 giorni", toastWarnD: "P. Savchenko · rinnovare entro il 12.07.2026",
-    toastOkT: "Visto rinnovato fino al 08.2028", toastOkD: "Numero e data riconosciuti dalla scansione",
+    toastOkT: "Validità del visto registrata: 08.2028", toastOkD: "Numero e data riconosciuti dalla scansione",
     docs: "Documenti", urgent: "Urgenti", nonEU: "NON-EU",
     tabOverview: "Panoramica", tabDocs: "Documenti", tabComments: "Commenti", tabHistory: "Cronologia",
     confid: "Riservato", confNote: "I dati bancari sono visibili solo a chi ne ha diritto.",
@@ -359,7 +359,7 @@ export const it: LandingDict = {
     mcH: "Visto · P. Savchenko",
     mc1: "L’autista ha caricato la scansione da Telegram",
     mc2: "G-Track ha riconosciuto da solo numero e data",
-    mc3: "Visto rinnovato fino al 08.2028",
+    mc3: "Validità del visto registrata: 08.2028",
     mcSub2: "CZ-4471920 · fino al 03.08.2028",
     chipVisaWarn: "VIS · 30 g", chipVisaOk: "VIS · 2028",
     svcTitle: "Chilometri e manutenzione",

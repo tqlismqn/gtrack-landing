@@ -46,9 +46,9 @@ export const ro: LandingDict = {
     micro2: "Înregistrare în 2 minute",
     micro3: "Date în UE",
     boardAria:
-      "Panoul de dispecerat G-Track: șoferul încarcă un scan din Telegram, viza se prelungește, șoferul pleacă din nou în cursă",
+      "Panoul de dispecerat G-Track: șoferul încarcă o scanare prin Telegram, iar sistemul actualizează evidența documentului",
     boardCaption:
-      "Șoferul a încărcat scanul în Telegram → G-Track l-a recunoscut și a prelungit viza → din nou în cursă",
+      "Șoferul încarcă o scanare prin Telegram → G-Track recunoaște datele → actualizează evidența documentului",
   },
 
   trust: {
@@ -346,7 +346,7 @@ export const ro: LandingDict = {
     stActive: "Activ", stTrip: "În cursă", ready: "pregătit",
     vacUntil: "Concediu până la 15.06", sick: "Concediu medical",
     toastWarnT: "Viza expiră în 30 de zile", toastWarnD: "P. Savchenko · de prelungit până la 12.07.2026",
-    toastOkT: "Viza prelungită până în 08.2028", toastOkD: "Numărul și data recunoscute din scan",
+    toastOkT: "Valabilitatea vizei înregistrată: 08.2028", toastOkD: "Numărul și data recunoscute din scan",
     docs: "Documente", urgent: "Urgente", nonEU: "NON-EU",
     tabOverview: "Prezentare generală", tabDocs: "Documente", tabComments: "Comentarii", tabHistory: "Istoric",
     confid: "Confidențial", confNote: "Datele bancare sunt vizibile doar celor care trebuie să le vadă.",
@@ -364,7 +364,7 @@ export const ro: LandingDict = {
     mcH: "Viză · P. Savchenko",
     mc1: "Șoferul a încărcat scanul din Telegram",
     mc2: "G-Track a recunoscut singur numărul și data",
-    mc3: "Viza prelungită până în 08.2028",
+    mc3: "Valabilitatea vizei înregistrată: 08.2028",
     mcSub2: "CZ-4471920 · până la 03.08.2028",
     chipVisaWarn: "VIS · 30 z", chipVisaOk: "VIS · 2028",
     svcTitle: "Kilometraj și revizie",
