@@ -188,6 +188,7 @@ export const es: LandingDict = {
       telematics: { t: "Integración telemática", d: "Conectamos su sistema de seguimiento de flota: los datos de los vehículos llegan solos, para planificar y analizar. También funciona en modo manual." },
       telegram: { t: "El conductor en Telegram", d: "Documentos, turnos, solicitudes y chat" },
       reports: { t: "Informes y notificaciones", d: "Informe semanal, centro de notificaciones, plazos de descarga DDD" },
+      companies: { t: "Empresas vinculadas", d: "Varias empresas de un mismo propietario: cada una con su suscripción y acceso de solo lectura a los vehículos y conductores de las demás" },
       finance: { t: "Pedidos y finanzas", d: "Pedidos, facturas, multas, economía del vehículo" },
       integrations: { t: "Mapa e integraciones", d: "Mapa y rutas, lectura de DDD, API, bolsas de carga" },
     },

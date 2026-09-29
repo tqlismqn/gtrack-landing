@@ -193,6 +193,7 @@ export const lt: LandingDict = {
       telematics: { t: "Telematikos integracija", d: "Prijungiame jūsų transporto stebėjimo sistemą — duomenys apie automobilius ateina patys, planavimui ir analizei. Galima ir rankiniu būdu." },
       telegram: { t: "Telegram vairuotojams", d: "Dokumentai, pamainos, užklausos ir pokalbiai" },
       reports: { t: "Ataskaitos ir pranešimai", d: "Savaitės ataskaita, pranešimų centras, tacho failų terminai" },
+      companies: { t: "Susietos įmonės", d: "Kelios vieno savininko įmonės: kiekviena su savo prenumerata, viena kitos transportą ir vairuotojus mato tik peržiūros režimu" },
       finance: { t: "Užsakymai ir finansai", d: "Užsakymai, sąskaitos, baudos, transporto priemonės ekonomika" },
       integrations: { t: "Žemėlapis ir integracijos", d: "Žemėlapis ir maršrutai, DDD iššifravimas, API, krovinių biržos" },
     },

@@ -188,6 +188,7 @@ export const lv: LandingDict = {
       telematics: { t: "Telemātikas integrācija", d: "Pieslēdzam tavu transporta uzraudzības sistēmu — dati par mašīnām pienāk paši, plānošanai un analītikai. Var arī manuāli." },
       telegram: { t: "Telegram vadītājiem", d: "Dokumenti, maiņas, pieteikumi un tērzēšana" },
       reports: { t: "Atskaites un paziņojumi", d: "Nedēļas atskaite, paziņojumu centrs, taho failu termiņi" },
+      companies: { t: "Saistītie uzņēmumi", d: "Vairāki viena īpašnieka uzņēmumi: katram savs abonements, viens otra mašīnas un vadītājus redz tikai lasīšanas režīmā" },
       finance: { t: "Pasūtījumi un finanses", d: "Pasūtījumi, rēķini, sodi, mašīnas ekonomika" },
       integrations: { t: "Karte un integrācijas", d: "Karte un maršruti, DDD atšifrēšana, API, kravu biržas" },
     },

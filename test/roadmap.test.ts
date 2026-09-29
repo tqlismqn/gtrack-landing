@@ -7,6 +7,7 @@
 
 import { describe, expect, it } from "vitest";
 import { buildRoadmapModel, PAST_SHARE, TRACKS } from "../src/lib/roadmap-content";
+import { LANDING_DICT, LOCALES } from "../src/lib/landing-i18n";
 
 const NOW = new Date("2026-09-25T12:00:00Z");
 const m = buildRoadmapModel("en", NOW);
@@ -42,8 +43,8 @@ describe("ось", () => {
 });
 
 describe("направления", () => {
-  it("восемь строк в утверждённом порядке", () => {
-    expect(m.tracks.map((t) => t.id)).toEqual(["drivers", "planning", "fleet", "telematics", "telegram", "reports", "finance", "integrations"]);
+  it("девять строк в утверждённом порядке", () => {
+    expect(m.tracks.map((t) => t.id)).toEqual(["drivers", "planning", "fleet", "telematics", "telegram", "reports", "companies", "finance", "integrations"]);
   });
 
   it("водители начались до оси — полоса от края, помечена «из прошлого»", () => {
@@ -72,12 +73,18 @@ describe("направления", () => {
     expect(track("planning").ms.map((x) => [x.version, x.x])).toEqual([["2.0", 57.82], ["2.1", 63.37], ["2.2", 65.69]]);
   });
 
-  it("отчёты, заказы и интеграции ещё не работают — полосы готового нет", () => {
-    for (const id of ["reports", "finance", "integrations"]) {
+  it("отчёты, связанные компании, заказы и интеграции ещё не работают — полосы готового нет", () => {
+    for (const id of ["reports", "companies", "finance", "integrations"]) {
       expect(track(id).segments.some((s) => s.phase === "done")).toBe(false);
     }
     expect(track("reports").segments).toEqual([{ phase: "wip", left: 68, width: 14.08, fromPast: false }]);
     expect(track("integrations").segments).toEqual([{ phase: "plan", left: 85.28, width: 14.72, fromPast: false }]);
+  });
+
+  it("связанные компании — только «в планах»: зона «Дальше» 32 %, кусок 0,18…0,52 → 68 + 5,76 и 0,34 × 32", () => {
+    expect(track("companies").icon).toBe("i-building");
+    expect(track("companies").segments).toEqual([{ phase: "plan", left: 73.76, width: 10.88, fromPast: false }]);
+    expect(track("companies").ms).toEqual([]);
   });
 
   it("инварианты: готовое упирается в «Сейчас», будущее — только правее, вехи — на готовом", () => {
@@ -96,6 +103,28 @@ describe("направления", () => {
         expect(x.x).toBeLessThanOrEqual(68);
       }
     }
-    expect(TRACKS).toHaveLength(8);
+    expect(TRACKS).toHaveLength(9);
+  });
+});
+
+describe("тексты направлений во всех 12 локалях", () => {
+  it("у каждой строки Ганта есть непустые t и d в каждом словаре", () => {
+    expect(LOCALES).toHaveLength(12);
+    for (const lang of LOCALES) {
+      for (const t of TRACKS) {
+        const tr = LANDING_DICT[lang].roadmap.tracks[t.id];
+        expect(tr.t.trim(), `${lang}.${t.id}.t`).not.toBe("");
+        expect(tr.d.trim(), `${lang}.${t.id}.d`).not.toBe("");
+      }
+    }
+  });
+
+  it("связанные компании: ru и en — утверждённые формулировки, остальные 10 — свой перевод, а не копия en", () => {
+    expect(LANDING_DICT.ru.roadmap.tracks.companies.t).toBe("Связанные компании");
+    expect(LANDING_DICT.en.roadmap.tracks.companies.t).toBe("Linked companies");
+    for (const lang of LOCALES.filter((l) => l !== "en")) {
+      expect(LANDING_DICT[lang].roadmap.tracks.companies.t, lang).not.toBe("Linked companies");
+      expect(LANDING_DICT[lang].roadmap.tracks.companies.d, lang).not.toBe(LANDING_DICT.en.roadmap.tracks.companies.d);
+    }
   });
 });
