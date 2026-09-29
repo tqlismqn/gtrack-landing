@@ -11,7 +11,7 @@ React 19, Tailwind 4, TypeScript strict, Node 22, деплой на Vercel. 12 �
 |---|---|
 | `npm install` | Установить зависимости |
 | `npm run dev` | Дев-сервер на :3000 |
-| `npm test` | vitest, 96 тестов в 3 файлах, ~0,3 с |
+| `npm test` | vitest, 99 тестов в 3 файлах, ~0,3 с |
 | `npx vitest run test/journey.test.ts` | Один файл тестов |
 | `npx tsc --noEmit` | Проверка типов |
 | `npm run lint` | ESLint (eslint-config-next: core-web-vitals + typescript) |
@@ -45,7 +45,7 @@ docs/adr/                несущие решения с числами зам�
 - `src/components/landing/Europe.tsx` — карта Европы; контур суши в `europe-land-path.ts`, проекция и формула — комментарием там же.
 - `src/lib/landing-i18n.ts` — `Lang`, `LOCALES`, `LANDING_DICT`, словари ru и en (802 строки).
 - `src/lib/journey.ts`, `src/lib/cta-variant.ts`, `src/lib/roadmap-content.ts` — чистая логика; ровно она и покрыта тестами.
-- `src/lib/roadmap-content.ts` — состав Ганта `/roadmap` (8 направлений, даты выпусков приложения, вехи); модель строится на сервере в `RoadmapPage`, «Сейчас» = день сборки.
+- `src/lib/roadmap-content.ts` — состав Ганта `/roadmap` (9 направлений, даты выпусков приложения, вехи); модель строится на сервере в `RoadmapPage`, «Сейчас» = день сборки.
 - `src/lib/analytics.ts` — GTM ID, Consent Mode v2, first-touch метки; порядок загрузки хрупкий и описан в шапке файла.
 - `next.config.ts` — CSP в Report-Only, security headers, редиректы `/privacy` и `/terms` на app-legal.
 

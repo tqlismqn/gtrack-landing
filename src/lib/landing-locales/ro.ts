@@ -191,6 +191,7 @@ export const ro: LandingDict = {
       telematics: { t: "Integrare telematică", d: "Conectăm sistemul tău de monitorizare a flotei — datele despre vehicule vin singure, pentru planificare și analiză. Merge și manual." },
       telegram: { t: "Șoferul pe Telegram", d: "Documente, ture, cereri și chat" },
       reports: { t: "Rapoarte și notificări", d: "Raport săptămânal, centru de notificări, termene fișiere tahograf" },
+      companies: { t: "Companii conectate", d: "Mai multe firme ale aceluiași proprietar: fiecare cu abonamentul său și acces doar în citire la vehiculele și șoferii celorlalte" },
       finance: { t: "Comenzi și finanțe", d: "Comenzi, facturi, amenzi, economia vehiculelor" },
       integrations: { t: "Hartă și integrări", d: "Hartă și rute, citirea fișierelor DDD, API, burse de marfă" },
     },

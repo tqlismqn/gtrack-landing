@@ -190,6 +190,7 @@ export const cs: LandingDict = {
       telematics: { t: "Integrace s telematikou", d: "Napojíme váš systém sledování vozidel — data o vozidlech přicházejí sama, pro plánování i analýzy. Jde to i ručně." },
       telegram: { t: "Řidič v Telegramu", d: "Doklady, směny, žádosti a chat" },
       reports: { t: "Reporty a oznámení", d: "Týdenní report, centrum oznámení, lhůty pro tacho soubory" },
+      companies: { t: "Propojené firmy", d: "Více firem jednoho majitele: každá má vlastní předplatné a vozidla i řidiče ostatních vidí jen pro čtení" },
       finance: { t: "Zakázky a finance", d: "Zakázky, faktury, pokuty, ekonomika vozidla" },
       integrations: { t: "Mapa a integrace", d: "Mapa a trasy, vyhodnocení DDD, API, burzy nákladů" },
     },
