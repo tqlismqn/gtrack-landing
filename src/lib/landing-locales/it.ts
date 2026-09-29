@@ -190,6 +190,7 @@ export const it: LandingDict = {
       telematics: { t: "Integrazione telematica", d: "Colleghiamo il tuo sistema di monitoraggio flotta: i dati dei veicoli arrivano da soli, per pianificazione e analisi. Funziona anche in manuale." },
       telegram: { t: "L’autista su Telegram", d: "Documenti, turni, richieste e chat" },
       reports: { t: "Report e notifiche", d: "Report settimanale, centro notifiche, scadenze scarico tachigrafo" },
+      companies: { t: "Aziende collegate", d: "Più aziende dello stesso titolare: ognuna con il proprio abbonamento, veicoli e autisti delle altre visibili in sola lettura" },
       finance: { t: "Ordini e finanze", d: "Ordini, fatture, multe, economia del veicolo" },
       integrations: { t: "Mappa e integrazioni", d: "Mappa e percorsi, analisi dei DDD, API, borse carichi" },
     },
