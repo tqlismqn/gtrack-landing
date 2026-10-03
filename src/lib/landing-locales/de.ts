@@ -45,9 +45,9 @@ export const de: LandingDict = {
     micro2: "Registrierung in 2 Minuten",
     micro3: "Daten in der EU",
     boardAria:
-      "G-Track-Dispositionsboard: Sie laden einen Dokumentenscan hoch, das System erkennt Nummer und Ablaufdatum und aktualisiert den Eintrag",
+      "G-Track-Dispositionsboard: Sie laden einen Dokumentenscan hoch, das System erkennt Nummer und Ablaufdatum, Sie prüfen und speichern den Eintrag",
     boardCaption:
-      "Sie laden einen Scan hoch → G-Track erkennt Nummer und Ablaufdatum → Dokumenteneintrag aktualisiert",
+      "Sie laden einen Scan hoch → G-Track erkennt Nummer und Ablaufdatum → Sie prüfen und speichern",
   },
 
   trust: {
@@ -65,7 +65,7 @@ export const de: LandingDict = {
 
   og: {
     docTypes: "Fahrer-Dokumenttypen",
-    trialDays: "Tage Demo ohne Anruf",
+    langs: "Oberflächensprachen",
   },
 
   pain: {
@@ -348,7 +348,7 @@ export const de: LandingDict = {
     kpiTrip: "Heute auf Tour", kpiVac: "Im Urlaub", kpiFree: "Frei",
     stActive: "Aktiv", stTrip: "Auf Tour", ready: "bereit",
     vacUntil: "Urlaub bis 15.06", sick: "Krank",
-    toastWarnT: "Morgenübersicht: Visum läuft am 12.07. ab", toastWarnD: "P. Savchenko · noch 32 Tage",
+    toastWarnT: "E-Mail-Übersicht: Visum läuft am 12.07. ab", toastWarnD: "P. Savchenko · noch 32 Tage",
     toastOkT: "Erfasste Visumgültigkeit: 08.2028", toastOkD: "Nummer und Datum aus dem Scan erkannt",
     docs: "Bereit", urgent: "Dringend", nonEU: "NON-EU",
     tabOverview: "Übersicht", tabDocs: "Dokumente", tabComments: "Kommentare", tabHistory: "Verlauf",

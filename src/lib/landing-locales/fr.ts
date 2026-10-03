@@ -48,9 +48,9 @@ export const fr: LandingDict = {
     micro2: "Inscription en 2 minutes",
     micro3: "Données dans l’UE",
     boardAria:
-      "Tableau de planification G-Track : vous téléversez le scan d’un document, le système reconnaît le numéro et la date d’expiration et met à jour la fiche",
+      "Tableau de planification G-Track : vous téléversez le scan d’un document, le système reconnaît le numéro et la date d’expiration, vous vérifiez et enregistrez la fiche",
     boardCaption:
-      "Vous téléversez un scan → G-Track reconnaît le numéro et la date d’expiration → la fiche du document est à jour",
+      "Vous téléversez un scan → G-Track reconnaît le numéro et la date d’expiration → vous vérifiez et enregistrez",
   },
 
   trust: {
@@ -68,7 +68,7 @@ export const fr: LandingDict = {
 
   og: {
     docTypes: "types de documents conducteur",
-    trialDays: "jours de démo sans appel",
+    langs: "langues d’interface",
   },
 
   pain: {
@@ -351,7 +351,7 @@ export const fr: LandingDict = {
     kpiTrip: "En tournée aujourd’hui", kpiVac: "En congés", kpiFree: "Libres",
     stActive: "Actif", stTrip: "En tournée", ready: "prêt",
     vacUntil: "Congés jusqu’au 15.06", sick: "Arrêt maladie",
-    toastWarnT: "Résumé du matin : le visa expire le 12.07", toastWarnD: "P. Savchenko · 32 jours restants",
+    toastWarnT: "Résumé par e-mail : le visa expire le 12.07", toastWarnD: "P. Savchenko · 32 jours restants",
     toastOkT: "Validité du visa enregistrée : 08.2028", toastOkD: "Numéro et date reconnus depuis le scan",
     docs: "Prêt", urgent: "Urgents", nonEU: "NON-EU",
     tabOverview: "Aperçu", tabDocs: "Documents", tabComments: "Commentaires", tabHistory: "Historique",

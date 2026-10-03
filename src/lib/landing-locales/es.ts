@@ -43,9 +43,9 @@ export const es: LandingDict = {
     micro2: "Registro en 2 minutos",
     micro3: "Datos en la UE",
     boardAria:
-      "Tablero de planificación de G-Track: usted sube el escaneo de un documento, el sistema reconoce el número y la fecha de caducidad y actualiza el registro",
+      "Tablero de planificación de G-Track: usted sube el escaneo de un documento, el sistema reconoce el número y la fecha de caducidad, usted revisa y guarda el registro",
     boardCaption:
-      "Usted sube un escaneo → G-Track reconoce el número y la fecha de caducidad → el registro del documento queda actualizado",
+      "Usted sube un escaneo → G-Track reconoce el número y la fecha de caducidad → usted revisa y guarda",
   },
 
   trust: {
@@ -63,7 +63,7 @@ export const es: LandingDict = {
 
   og: {
     docTypes: "tipos de documento del conductor",
-    trialDays: "días de demo sin llamada",
+    langs: "idiomas de interfaz",
   },
 
   pain: {
@@ -346,7 +346,7 @@ export const es: LandingDict = {
     kpiTrip: "En viaje hoy", kpiVac: "De vacaciones", kpiFree: "Libres",
     stActive: "Activo", stTrip: "En viaje", ready: "listo",
     vacUntil: "Vacaciones hasta el 15.06", sick: "Baja por enfermedad",
-    toastWarnT: "Resumen matinal: el visado caduca el 12.07", toastWarnD: "P. Savchenko · quedan 32 días",
+    toastWarnT: "Resumen por correo: el visado caduca el 12.07", toastWarnD: "P. Savchenko · quedan 32 días",
     toastOkT: "Validez del visado registrada: 08.2028", toastOkD: "Número y fecha reconocidos del escaneo",
     docs: "Listo", urgent: "Urgente", nonEU: "no UE",
     tabOverview: "Resumen", tabDocs: "Documentos", tabComments: "Comentarios", tabHistory: "Historial",

@@ -3,7 +3,9 @@
    Терминология сверена с app-локалью gtrack-tms/src/i18n/locales/it.ts:
    driverPill («In viaggio», «Ferie», «Malattia»), readiness («pronto»,
    «Preparazione al viaggio»), billing.redesign / roadmap (founding,
-   «prezzo bloccato», «lancio generale», «postazioni spedizioniere»),
+   «prezzo bloccato», «lancio generale»); места названы «postazioni dispatcher»
+   сознательно иначе, чем в биллинге приложения («postazioni spedizioniere»):
+   spedizioniere — экспедитор, а на экране Центра решений приложение само пишет «dispatcher»,
    единица дней — «g» («30 g»). Цены/проценты — байт-в-байт с RU; с EN расходится
    только десятичный разделитель: запятая (≈ 2,25 €, −6,7%).
    ============================================================================ */
@@ -44,9 +46,9 @@ export const it: LandingDict = {
     micro2: "Registrazione in 2 minuti",
     micro3: "Dati nell’UE",
     boardAria:
-      "Lavagna di disposizione G-Track: carichi la scansione di un documento, il sistema ne riconosce numero e scadenza e aggiorna la scheda",
+      "Lavagna di disposizione G-Track: carichi la scansione di un documento, il sistema ne riconosce numero e scadenza, tu controlli e salvi la scheda",
     boardCaption:
-      "Carichi una scansione → G-Track riconosce numero e scadenza → la scheda del documento è aggiornata",
+      "Carichi una scansione → G-Track riconosce numero e scadenza → controlli e salvi",
   },
 
   trust: {
@@ -64,7 +66,7 @@ export const it: LandingDict = {
 
   og: {
     docTypes: "tipi di documento autista",
-    trialDays: "giorni di demo senza telefonata",
+    langs: "lingue dell’interfaccia",
   },
 
   pain: {
@@ -99,7 +101,7 @@ export const it: LandingDict = {
     /*   = narrow no-break space — байт-в-байт с ru/en («20 000 €») */
     fact2b: "fino a 20 000 €",
     fact2c: " di multa per l’azienda in Germania. Più di un anno di abbonamento, con qualsiasi piano.",
-    fact3a: "Lo spedizioniere tiene ",
+    fact3a: "Il dispatcher tiene ",
     fact3b: "40 autisti a memoria",
     fact3c: ". Finché non va in ferie.",
   },
@@ -112,7 +114,7 @@ export const it: LandingDict = {
     s2h: "4 200 km al tagliando",
     s2p: "Il contachilometri arriva direttamente dal mezzo. G-Track calcola da solo quanto manca al tagliando e mette in evidenza i mezzi da portare in officina — senza quaderni né telefonate al meccanico.",
     s3h: "Barcellona: cambio di mezzo",
-    s3p: "Il mezzo va in officina, l’autista inserisce la sua carta in un altro. G-Track sposta da solo il viaggio sul nuovo mezzo — oppure chiede allo spedizioniere, come preferisci.",
+    s3p: "Il mezzo va in officina, l’autista inserisce la sua carta in un altro. G-Track sposta da solo il viaggio sul nuovo mezzo — oppure chiede al dispatcher, come preferisci.",
     s4h: "Di nuovo in viaggio",
     s4p: "Il viaggio finisce sulla lavagna. Ogni modifica resta nella cronologia.",
     cap1b: "Un autista nel sistema.",
@@ -148,7 +150,7 @@ export const it: LandingDict = {
   langs: {
     overline: "Localizzazione",
     h2: "12 lingue dell’interfaccia",
-    sub: "Lo spedizioniere e l’HR lavorano nella propria lingua — la formazione del personale richiede un giorno, non un mese.",
+    sub: "Il dispatcher e l’HR lavorano nella propria lingua — la formazione del personale richiede un giorno, non un mese.",
   },
 
   europe: {
@@ -231,7 +233,7 @@ export const it: LandingDict = {
     capTrucks: "veicoli",
     capDrivers: "conducenti",
     capTrailers: "rimorchi",
-    capSeats: "postazioni spedizioniere",
+    capSeats: "postazioni dispatcher",
     upTo: "fino a",
     plusTrucks: "veicoli",
     plusUnlim: "illimitati",
@@ -271,7 +273,7 @@ export const it: LandingDict = {
     q3: "Dalla lavagna di pianificazione si vede chi non può partire per un documento?",
     a3: "Sì, la lavagna riunisce persone, veicoli e scadenze in un unico posto: chi è in ferie, chi è in malattia, chi è senza veicolo, chi ha un documento non in ordine. Ogni modifica del piano finisce nella cronologia — vedi non solo la situazione attuale, ma anche chi l’ha cambiata e quando.",
 
-    q11: "Cosa fa G-Track da solo e cosa decide lo spedizioniere?",
+    q11: "Cosa fa G-Track da solo e cosa decide il dispatcher?",
     a11: "Se ne accorge da solo: chi rientra dalle ferie, quale viaggio finisce senza un seguito, quali autisti nuovi sono ancora senza piano — tutto questo confluisce nel Centro decisioni. Se il sistema può cambiare il piano al posto tuo, lo decidi tu scegliendo la modalità: «Manuale», «Centro» o «Automatico». Di default si limita a chiedere. Ogni sua modifica al piano finisce nel registro.",
 
     q4: "Ho 40–60 autisti e anni di scansioni tra Excel e cartelle di carta. Chi le trasferisce?",
@@ -288,7 +290,7 @@ export const it: LandingDict = {
     a7: "Niente: Telegram ce l’ha già. Nel bot invia la richiesta di ferie o di malattia — arriva in pianificazione e la risposta torna a lui. Vede su quale mezzo viaggia oggi e riceve i promemoria sulle scadenze dei suoi documenti.",
     a7b: "All’app serve internet. E non elimina l’obbligo di tenere gli originali in cabina.",
 
-    q8: "Uno spedizioniere può vedere la pianificazione ma non il passaporto e il certificato medico?",
+    q8: "Un dispatcher può vedere la pianificazione ma non il passaporto e il certificato medico?",
     a8: "Sì. I permessi si assegnano uno per uno — sono 36. Di default numero e scansione di passaporto, visto e carta d’identità li vede solo chi ha accesso ai dati riservati; gli altri vedono solo stato e scadenza. Qualsiasi altro tipo di documento, per esempio il certificato medico, l’azienda può renderlo riservato allo stesso modo nelle impostazioni. Codice fiscale e numero di conto bancario stanno dietro un permesso a parte e si vedono mascherati.",
 
     q9: "Come gestite gli autisti dai paesi terzi — Ucraina, Serbia, Uzbekistan?",
@@ -298,7 +300,7 @@ export const it: LandingDict = {
     a12: "Non è obbligatoria: documenti, lavagna, rotazione, riparazioni e manutenzione funzionano anche senza, e i chilometri si inseriscono a mano. Colleghiamo il tuo sistema di monitoraggio flotta e i chilometri arrivano dal mezzo; G-Track vede di chi è la carta nel tachigrafo e si accorge se un mezzo viaggia senza piano.",
 
     q10: "Quanto costa per 40 veicoli e 45 rimorchi? Si paga per ogni utente?",
-    a10: "Il piano Starter costa 150 € al mese, 125 € con pagamento annuale. Comprende 50 veicoli, 100 autisti e 75 rimorchi, quindi la tua flotta ci sta con margine. Le postazioni di spedizionieri e HR non si contano: registra tutti quelli che servono.",
+    a10: "Il piano Starter costa 150 € al mese, 125 € con pagamento annuale. Comprende 50 veicoli, 100 autisti e 75 rimorchi, quindi la tua flotta ci sta con margine. Le postazioni di dispatcher e HR non si contano: registra tutti quelli che servono.",
     a10b: "Trenta giorni di demo senza carta e senza telefonate commerciali. I prezzi sono su questa stessa pagina, non «su richiesta».",
 
     notHead: "Cosa G-Track non fa",
@@ -348,7 +350,7 @@ export const it: LandingDict = {
     kpiTrip: "In viaggio oggi", kpiVac: "In ferie", kpiFree: "Liberi",
     stActive: "Attivo", stTrip: "In viaggio", ready: "pronto",
     vacUntil: "Ferie fino al 15.06", sick: "Malattia",
-    toastWarnT: "Riepilogo del mattino: il visto scade il 12.07", toastWarnD: "P. Savchenko · mancano 32 giorni",
+    toastWarnT: "Riepilogo via email: il visto scade il 12.07", toastWarnD: "P. Savchenko · mancano 32 giorni",
     toastOkT: "Validità del visto registrata: 08.2028", toastOkD: "Numero e data riconosciuti dalla scansione",
     docs: "Pronto", urgent: "Urgenti", nonEU: "NON-EU",
     tabOverview: "Panoramica", tabDocs: "Documenti", tabComments: "Commenti", tabHistory: "Cronologia",

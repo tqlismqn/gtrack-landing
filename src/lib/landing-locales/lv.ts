@@ -43,9 +43,9 @@ export const lv: LandingDict = {
     micro2: "Reģistrācija 2 minūtēs",
     micro3: "Dati glabājas ES",
     boardAria:
-      "G-Track dispečerpults: tu augšupielādē dokumenta skenējumu, sistēma atpazīst numuru un derīguma termiņu un atjaunina ierakstu",
+      "G-Track dispečerpults: tu augšupielādē dokumenta skenējumu, sistēma atpazīst numuru un derīguma termiņu, tu pārbaudi un saglabā ierakstu",
     boardCaption:
-      "Tu augšupielādē skenējumu → G-Track atpazīst numuru un termiņu → dokumenta ieraksts atjaunināts",
+      "Tu augšupielādē skenējumu → G-Track atpazīst numuru un termiņu → tu pārbaudi un saglabā",
   },
 
   /* Полоса под первым экраном (TrustStrip): чипы-ссылки на модули, решение владельца 03.10.
@@ -71,7 +71,7 @@ export const lv: LandingDict = {
      дословно: полоса стала чипами (03.10), а картинка для шеров осталась прежней. */
   og: {
     docTypes: "vadītāja dokumentu veidi",
-    trialDays: "demo dienas bez zvana",
+    langs: "saskarnes valodas",
   },
 
   pain: {
@@ -356,7 +356,7 @@ export const lv: LandingDict = {
     kpiTrip: "Šobrīd reisā", kpiVac: "Atvaļinājumā", kpiFree: "Brīvi",
     stActive: "Aktīvs", stTrip: "Reisā", ready: "gatavs reisam",
     vacUntil: "Atvaļinājums līdz 15.06", sick: "Slimības lapa",
-    toastWarnT: "Rīta kopsavilkums: vīza beidzas 12.07", toastWarnD: "P. Savčenko · atlikušas 32 dienas",
+    toastWarnT: "Kopsavilkums e-pastā: vīza beidzas 12.07", toastWarnD: "P. Savčenko · atlikušas 32 dienas",
     toastOkT: "Reģistrētais vīzas derīgums: 08.2028", toastOkD: "Numurs un datums atpazīti no skenējuma",
     docs: "Gatavs reisam", urgent: "Steidzami", nonEU: "NON-EU",
     tabOverview: "Pārskats", tabDocs: "Dokumenti", tabComments: "Komentāri", tabHistory: "Vēsture",
