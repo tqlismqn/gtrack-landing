@@ -97,10 +97,9 @@ export function VideoSection() {
           <span className="pill sky"><span className="pdot sky"></span>{d.vid.chip2}</span>
           <span className="pill sky"><span className="pdot sky"></span>{d.vid.chip3}</span>
           <span className="pill sky"><span className="pdot sky"></span>{d.vid.chip4}</span>
-          {/* тахограф: карта-документ водителя хранится, но выгрузки данных DDD/CSV пока нет → amber «скоро» */}
-          <span className="pill amber"><span className="pdot amber"></span>{d.vid.chip5} · {d.modules.soon}</span>
-          {/* каботаж — ещё не реализован (нужен модуль «Заказы»): amber + «скоро», не sky */}
-          <span className="pill amber"><span className="pdot amber"></span>{d.vid.chip1} · {d.modules.soon}</span>
+          {/* расшифровки DDD в приложении нет — она в строке «Карта и интеграции» дорожной карты,
+              поэтому amber и хвост «Дальше» из словаря карты, а не своё «скоро» (решение 02.10) */}
+          <span className="pill amber"><span className="pdot amber"></span>{d.vid.chip5} · {d.roadmap.next}</span>
           <span className="pill zinc"><span className="pdot zinc"></span>{d.vid.chip6}</span>
         </div>
       </div>

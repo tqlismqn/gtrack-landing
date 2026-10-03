@@ -135,17 +135,19 @@ export function renderOgImage(locale: Lang): ImageResponse {
           <div style={{ display: "flex", fontSize: 25, color: ACCENT }}>
             g-track.eu
           </div>
-          {/* те же три факта, что в полосе доверия на странице — с числами,
-              иначе подпись читается как обрывок («days of demo») */}
+          {/* два факта с числами, иначе подпись читается как обрывок («days of demo»).
+              Раньше дублировали полосу доверия на странице; полоса стала рядом чипов
+              (решение владельца 03.10), а картинка для шеров осталась прежней —
+              подписи живут в своих ключах d.og.* */}
           <div style={{ display: "flex", gap: 26, fontSize: 21, color: DIM }}>
             <div style={{ display: "flex" }}>
               <span style={{ color: INK, marginRight: 7 }}>16</span>
-              {d.trust.m1}
+              {d.og.docTypes}
             </div>
             <div style={{ display: "flex", color: "#3F3F46" }}>·</div>
             <div style={{ display: "flex" }}>
               <span style={{ color: INK, marginRight: 7 }}>30</span>
-              {d.trust.m2}
+              {d.og.trialDays}
             </div>
           </div>
         </div>

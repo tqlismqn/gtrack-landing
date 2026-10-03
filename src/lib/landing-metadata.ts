@@ -20,11 +20,12 @@ export const SITE_ORIGIN = "https://www.g-track.eu";
 export function baseMetadata(): Metadata {
   return {
     metadataBase: new URL(SITE_ORIGIN),
+    /* без «driver tracking» (02.10): G-Track не следит за водителями и не показывает
+       машины на карте — слово обещало то, чего в продукте нет */
     keywords: [
       "TMS",
       "transport management",
       "fleet management",
-      "driver tracking",
       "logistics",
       "EU compliance",
       "G-Track",

@@ -13,7 +13,7 @@ export const lv: LandingDict = {
   meta: {
     title: "G-Track — ES atbilstība un reisu plānošana pārvadātājiem",
     description:
-      "Vadītāji, dokumenti, plānošana un autoparks — vienā pārlūka lietotnē. Darbam gatavs vienas dienas laikā. Cenas — šajā lapā.",
+      "Vadītāju dokumenti, reisi un atvaļinājumi, remonts un apkope — vienā pārlūka lietotnē pārvadātājiem ar 50+ mašīnām. 30 dienas bez maksas, cenas — lapā.",
   },
 
   nav: {
@@ -33,25 +33,45 @@ export const lv: LandingDict = {
   },
 
   hero: {
-    kicker: "ES atbilstība · plānošana · autoparks",
+    kicker: "ES atbilstība · plānošana · autoparks un apkope",
     h1: "Katrs vadītājs gatavs reisam.",
     h1dim: "Vienmēr.",
-    sub: " — ES atbilstības un reisu plānošanas sistēma pārvadātājiem ar 50 un vairāk mašīnām. Vadītāji, dokumenti, dispečerpults un autoparks — pārlūkā, bez aparatūras un ieviešanas konsultantiem. Darbam gatavs vienas dienas laikā.",
+    sub: " — ES atbilstības un plānošanas sistēma pārvadātājiem ar 50 un vairāk mašīnām. Vadītāju dokumenti, reisi un atvaļinājumi, remonts un apkope — pārlūkā, bez aparatūras un ieviešanas konsultantiem. Kas šodien gaida tavu lēmumu, sistēma parāda pati.",
     ctaTrial: "Izmēģināt 30 dienas",
     ctaPricing: "Apskatīt cenas",
     micro1: "Bez kartes",
     micro2: "Reģistrācija 2 minūtēs",
     micro3: "Dati glabājas ES",
     boardAria:
-      "G-Track dispečerpults: vadītājs augšupielādē skenējumu, izmantojot Telegram, un sistēma atjaunina dokumenta ierakstu",
+      "G-Track dispečerpults: tu augšupielādē dokumenta skenējumu, sistēma atpazīst numuru un derīguma termiņu un atjaunina ierakstu",
     boardCaption:
-      "Vadītājs augšupielādē skenējumu, izmantojot Telegram → G-Track atpazīst datus → atjaunina dokumenta ierakstu",
+      "Tu augšupielādē skenējumu → G-Track atpazīst numuru un termiņu → dokumenta ieraksts atjaunināts",
   },
 
+  /* Полоса под первым экраном (TrustStrip): чипы-ссылки на модули, решение владельца 03.10.
+     Термины — из app-локали lv: nav (Vadītāji, Plānošana, Lēmumu centrs, Remonts un apkope),
+     vehicles_sub (Vilcēji / Piekabes), «reisi»; c5 — «Autoparks» (группа меню и заголовок
+     roadmap.tracks.fleet), а не длинное «Transportlīdzekļi»; «pieteikumi» — как в
+     roadmap.tracks.telegram. c7 — фраза из telematics.d, c9 = vid.chip6. Бренд в aria
+     вынесен вперёд: «G-Track» не склоняется. */
   trust: {
-    m1: "vadītāja dokumentu veidi",
-    m2: "demo dienas bez zvana",
-    m3: "saskarnes valodas",
+    aria: "G-Track: kas jau darbojas",
+    c1: "Vadītāji · 16 dokumentu tipi",
+    c2: "Plānošana · dēlis un reisi",
+    c3: "Lēmumu centrs",
+    c4: "Rotācija · 3 mēnešus uz priekšu",
+    c5: "Autoparks · vilcēji un piekabes",
+    c6: "Remonts un apkope",
+    c7: "Telemātika · tava transporta uzraudzības sistēma",
+    c8: "Telegram vadītājiem · pieteikumi un atgādinājumi",
+    c9: "12 saskarnes valodas",
+  },
+
+  /* Подвал OG-картинки (og-image.tsx): подписи к числам 16 и 30 — бывшие trust.m1/m2
+     дословно: полоса стала чипами (03.10), а картинка для шеров осталась прежней. */
+  og: {
+    docTypes: "vadītāja dokumentu veidi",
+    trialDays: "demo dienas bez zvana",
   },
 
   pain: {
@@ -96,15 +116,15 @@ export const lv: LandingDict = {
     s1h: "Vadītājs sistēmā",
     s1p: "Kartīte, statuss, dokumenti un gatavība reisam — viss vienā vietā. Bankas dati — pēc lomām.",
     s2h: "Līdz apkopei 4 200 km",
-    s2p: "Odometrs nāk tieši no auto. G-Track pats saskaita, cik atlicis līdz apkopei, un ieraksta to plānā — bez burtnīcām un zvaniem servisam.",
+    s2p: "Odometrs nāk tieši no auto. G-Track pats saskaita, cik atlicis līdz apkopei, un izceļ mašīnas, kurām jābrauc uz servisu, — bez burtnīcām un zvaniem mehāniķim.",
     s3h: "Barselona: mašīnas maiņa",
     s3p: "Mašīna aiziet uz servisu, vadītājs ieliek savu karti citā. G-Track pats pārceļ reisu uz jauno mašīnu — vai pajautā dispečeram, kā iestatīsi.",
     s4h: "Atkal reisā",
-    s4p: "Reiss nonāk uz dēļa, pasūtījums piesaistīts. Katra izmaiņa — vēsturē.",
+    s4p: "Reiss nonāk uz dēļa. Katra izmaiņa — vēsturē.",
     cap1b: "Vadītājs sistēmā.",
     cap1: " Kartīte: statuss, dokumenti, konfidenciālie dati — pēc lomām.",
     cap2b: "Kilometri līdz apkopei.",
-    cap2: " Odometrs no auto, atlikums līdz apkopei un ieraksts apkopes plānā.",
+    cap2: " Odometrs no auto un atlikums līdz apkopei — redzams, kurām mašīnām jābrauc uz servisu.",
     cap3b: "Reiss pārcēlās pats.",
     cap3: " Vadītāja karte jaunajā mašīnā — ieraksts vēsturē.",
     cap4b: "Atkal reisā.",
@@ -114,7 +134,7 @@ export const lv: LandingDict = {
     leg2: "Minhene → Liona",
     leg3: "Liona → Barselona",
     arrived: "Ierašanās · Barselona",
-    outroB: "Viens vadītājs — desmitiem termiņu.",
+    outroB: "Viens vadītājs — vairāk nekā desmit termiņu.",
     outro: " Tev to ir simts.",
     skip: "Izlaist stāstu",
   },
@@ -122,12 +142,11 @@ export const lv: LandingDict = {
   vid: {
     overline: "Eiropas tirgus",
     h2: "Radīts Eiropas pārvadātājiem.",
-    sub: "A1, Code 95, vīzas — termiņi kontrolē jau šodien. Kabotāža 3/7 — attīstības plānā.",
-    chip1: "Kabotāža 3/7",
+    sub: "A1, Code 95, vīzas — termiņi kontrolē jau šodien.",
     chip2: "A1",
     chip3: "Code 95",
     chip4: "ADR",
-    chip5: "Tahogrāfs",
+    chip5: "DDD atšifrēšana",
     chip6: "12 saskarnes valodas",
     tag: "VIDEO · VIETTURIS",
   },
@@ -141,26 +160,14 @@ export const lv: LandingDict = {
   europe: {
     overline: "Ģeogrāfija",
     h2: "Visa Eiropa uz viena dēļa",
-    sub: "A1, Code 95, vadītāju dokumenti — veidots pēc ES noteikumiem. Katrs reiss uz viena dēļa.",
+    sub: "Kurš reisā, kurš atvaļinājumā, kura mašīna servisā — uz dēļa. Kurš atgriezīsies un kurš būs brīvs — 14 dienas, mēnesi vai trīs mēnešus uz priekšu.",
     mapAria: "Eiropas maršrutu karte, kas pārplūst plānošanas dēlī",
     captionB: "Viss šis haoss tiek vadīts no šejienes",
-    caption: " — no vienas dispečerpults.",
+    caption: " — no viena dēļa un viena lēmumu saraksta.",
   },
 
   modules: {
-    overline: "Moduļi",
-    h2: "Pamats strādā. Horizonts — atvērts.",
-    ready: "Gatavs",
-    soon: "Drīzumā",
-    m1: "Vadītāji", m1d: "Kartītes, statusi, gatavība reisam",
-    m2: "Dokumenti", m2d: "16 tipi, termiņi, skenējumu atpazīšana",
-    m3: "Plānošana", m3d: "Dēlis vadītāji × dienas, reisi, konflikti",
-    m4: "Transportlīdzekļi", m4d: "Vilcēji un piekabes, TÜV, apdrošināšana",
-    m5: "Pasūtījumi", m5d: "Pasūtījums → reiss → dokumenti",
-    m6: "Rēķinu izrakstīšana", m6d: "Rēķini no reisiem",
-    m7: "Mašīnas ekonomika", m7d: "Cost-per-km katram vilcējam",
-    m8: "Vadītāja Telegram lietotne", m8d: "Dokumenti, maiņas un pieteikumi",
-    m9: "Ziņas", m9d: "Tērzēšana ar vadītāju ar iebūvētu tulkojumu",
+    h2: "Nevis „drīzumā”. Tagad.",
     cta: "Pilns attīstības plāns",
   },
 
@@ -185,8 +192,8 @@ export const lv: LandingDict = {
       drivers: { t: "Vadītāji un dokumenti", d: "Kartītes, 16 dokumentu tipi, 8 valstu noteikumi" },
       planning: { t: "Plānošana un autopilots", d: "Dēlis, Lēmumu centrs, rotācija, taho kartes autopilots" },
       fleet: { t: "Autoparks un apkope", d: "Transportlīdzekļi, remonts un apkope, borta dati" },
-      telematics: { t: "Telemātikas integrācija", d: "Pieslēdzam tavu transporta uzraudzības sistēmu — dati par mašīnām pienāk paši, plānošanai un analītikai. Var arī manuāli." },
-      telegram: { t: "Telegram vadītājiem", d: "Dokumenti, maiņas, pieteikumi un tērzēšana" },
+      telematics: { t: "Telemātikas integrācija", d: "Pieslēdzam tavu transporta uzraudzības sistēmu — dati par mašīnām pienāk paši, plānošanai un apkopes intervālu aprēķinam. Var arī manuāli." },
+      telegram: { t: "Telegram vadītājiem", d: "Pieteikumi atvaļinājumam un slimības lapai, šodienas maiņa, atgādinājumi par dokumentu termiņiem" },
       reports: { t: "Atskaites un paziņojumi", d: "Nedēļas atskaite, paziņojumu centrs, taho failu termiņi" },
       companies: { t: "Saistītie uzņēmumi", d: "Vairāki viena īpašnieka uzņēmumi: katram savs abonements, viens otra mašīnas un vadītājus redz tikai lasīšanas režīmā" },
       finance: { t: "Pasūtījumi un finanses", d: "Pasūtījumi, rēķini, sodi, mašīnas ekonomika" },
@@ -263,14 +270,17 @@ export const lv: LandingDict = {
     g3: "Piekļuve, autoparks, cena",
 
     q1: "Kā sistēma atgādinās, ka vadītājam beidzas dokuments?",
-    a1: "Katru rītu G-Track pārbauda visa autoparka dokumentus. Pase paceļ karodziņu 180 dienas iepriekš, pārējie — 90. Paziņojums aiziet trīs kanālos uzreiz: e-pasts birojam, atzīme pašā lietotnē un push vadītājam Telegram.",
-    a1b: "Kādus paziņojumus un pa kādiem kanāliem saņemt, katram paziņojuma tipam iestati pats. Tāpēc atgādinājums nekarājas uz viena cilvēka un nepazūd, kamēr HR ir atvaļinājumā.",
+    a1: "Katru rītu G-Track pārbauda visu vadītāju dokumentus. Pase nonāk kopsavilkumā 180 dienas iepriekš, pārējie dokumenti — 90 dienas iepriekš. Birojs saņem e-pastu, lietotnē pie dokumenta parādās atzīme „Beidzas derīgums”, bet vadītājs, kurš pieslēdzies Telegram botam, saņem atgādinājumu.",
+    a1b: "Kopsavilkuma e-pastus ieslēdz pats un izvēlies, kam tie tiek sūtīti: tikai īpašniekam, administratoriem vai visiem dalībniekiem. Tāpēc atgādinājums nekarājas uz viena cilvēka un nepazūd, kamēr HR ir atvaļinājumā.",
 
     q2: "Kas atbild, ja vadītājs izbrauc reisā ar dokumentu, kuram beidzies termiņš?",
-    a2: "Lielākajā daļā ES valstu — pārvadātājs, nevis tikai vadītājs: sodu uzraksta firmai, un vairākās valstīs atsevišķi arī par transportu atbildīgajai personai. Konkrētās summas un kārtība atkarīgas no pārbaudes valsts. Tieši tāpēc G-Track atgādina nevis vadītājam, bet birojam — tam, kas ieliek reisu plānā.",
+    a2: "Lielākajā daļā ES valstu — pārvadātājs, nevis tikai vadītājs: sodu uzraksta firmai, un vairākās valstīs atsevišķi arī par transportu atbildīgajai personai. Konkrētās summas un kārtība atkarīgas no pārbaudes valsts. Tieši tāpēc G-Track vispirms atgādina birojam — tam, kas ieliek reisu plānā, — bet vadītājam, kurš pieslēdzies botam, atgādinājumu papildus nosūta Telegram.",
 
     q3: "Vai dispečerpultī ir redzams, kas nevar izbraukt dokumenta dēļ?",
     a3: "Jā, dispečerpults saved cilvēkus, mašīnas un termiņus vienā vietā: kas ir atvaļinājumā, kas uz slimības lapas, kam nav mašīnas, kam dokuments nav kārtībā. Katra plāna izmaiņa nonāk audita žurnālā — redzama ne tikai pašreizējā aina, bet arī tas, kas un kad to mainījis.",
+
+    q11: "Ko G-Track dara pats un ko izlemj dispečers?",
+    a11: "Pamana pats: kurš atgriežas no atvaļinājuma, kura reiss beidzas bez turpinājuma, kuriem jaunajiem vadītājiem nav plāna — tas viss tiek apkopots Lēmumu centrā. Vai sistēma mainīs plānu tavā vietā, nosaka režīms, ko izvēlies: „Manuāls”, „Centrs” vai „Automātisks”. Pēc noklusējuma sistēma tikai jautā. Katra tās veiktā plāna izmaiņa tiek ierakstīta žurnālā.",
 
     q4: "Man ir 40–60 vadītāju un gadiem krāti skenējumi Excel un mapēs. Kas to pārnesīs?",
     a4: "Sākt var arī bez arhīva: ievadi vadītājus un tos dokumentus, kuriem termiņš ir vistuvāk — atgādinājumi sāks strādāt jau no tā. Vecie skenējumi tiek augšupielādēti pa ceļam un neko nebloķē.",
@@ -280,17 +290,20 @@ export const lv: LandingDict = {
     a5: "Dati un faili — Eiropas Savienībā, datu centrs Īrijā. Datu apstrādes dokuments ir publicēts, saite lapas kājenē; parakstām. Piekļuvi sensitīviem laukiem tavā uzņēmumā ierobežo lomas, nevis viens kopējs ķeksītis.",
 
     q6: "Ja izlemšu aiziet — vai dabūšu savus datus?",
-    a6: "Datus jebkurā brīdī un bez atsevišķa pieprasījuma izgūsti CSV: vadītāju saraksts, dokumentu statusi, termiņi. Skenējumi paliek tavi: pašlaik tos lejupielādē pa vienam, visa arhīva izsniegšanu darām pēc pieprasījuma. Kontu izdzēs pats, bez zvana no „noturēšanas menedžera”.",
+    a6: "Kamēr konts ir aktīvs, datus jebkurā brīdī un bez atsevišķa pieprasījuma izgūsti CSV: vadītāju saraksts, dokumentu statusi, termiņi. Skenējumi paliek tavi: pašlaik tos lejupielādē pa vienam, visa arhīva izsniegšanu darām pēc pieprasījuma. Kontu īpašnieks izdzēš pats, bez zvana no „noturēšanas menedžera”.",
 
     q7: "Kas jādara vadītājam? Vai viņam kaut kas jāinstalē?",
-    a7: "Nekas. Vadītājs strādā Telegram, kas viņam jau ir: redz savus dokumentus un termiņus, savu maiņu un mašīnu, jauna dokumenta foto atsūta tieši čatā. Tulkojums ir iebūvēts — vadītājs raksta savā valodā, dispečers lasa savā.",
+    a7: "Nekas: Telegram viņam jau ir. Botā viņš iesniedz pieteikumu atvaļinājumam vai slimības lapai — tas nonāk plānošanā, un atbilde atgriežas pie viņa. Viņš redz, ar kuru mašīnu šodien brauc, un saņem atgādinājumus par savu dokumentu termiņiem.",
     a7b: "Lietotnei vajag internetu. Dokumentu oriģinālus kabīnē tas neatceļ.",
 
     q8: "Vai dispečers var redzēt grafiku, bet neredzēt pasi un medicīnisko izziņu?",
-    a8: "Jā, un tā ir pēc noklusējuma. Tiesības tiek dotas pa vienai — to ir vairāk nekā trīsdesmit. Personas kods un bankas konta numurs ir aiz atsevišķas tiesības un rādās maskēti. Kurus dokumentu tipus uzskatīt par konfidenciāliem, katrs uzņēmums izlemj pats.",
+    a8: "Jā. Tiesības tiek dotas pa vienai — to ir 36. Pases, vīzas un ID kartes numuru un skenējumu pēc noklusējuma redz tikai darbinieki ar piekļuvi konfidenciāliem datiem, pārējie — tikai statusu un termiņu. Jebkuru citu dokumenta tipu, piemēram, medicīnisko izziņu, uzņēmums tāpat var paslēpt iestatījumos. Personas kods un bankas konta numurs ir aiz atsevišķas tiesības un rādās maskēti.",
 
     q9: "Kā ir ar vadītājiem no trešajām valstīm — Ukraina, Serbija, Uzbekistāna?",
     a9: "Vadītājiem bez ES pilsonības obligātais saraksts ir garāks: pasei, vadītāja apliecībai un tahogrāfa kartei pievienojas vīza, transporta licence un Kods 95. Gatavība reisam tiek rēķināta tieši pēc šī paplašinātā saraksta — vadītājs nebūs gatavs, kamēr nav sakārtoti tieši viņa dokumenti, nevis kopēja veidne.",
+
+    q12: "Telemātika mums jau ir. Vai G-Track tā ir vajadzīga?",
+    a12: "Nav obligāta: dokumenti, plānošanas dēlis, rotācija, remonts un apkope darbojas arī bez tās, nobraukumu ievada manuāli. Pieslēdzam tavu transporta uzraudzības sistēmu — un nobraukums nāk no borta, G-Track redz, kura vadītāja karte ir tahogrāfā, un pamana mašīnu, kas brauc bez plāna.",
 
     q10: "Cik tas maksā autoparkam ar 40 mašīnām un 45 piekabēm? Vai jāmaksā par katru lietotāju?",
     a10: "Starter plāns — 150 € mēnesī, maksājot par gadu 125 €. Tajā ietilpst 50 mašīnas, 100 vadītāji un 75 piekabes, tāpēc tavs autoparks iekļaujas ar rezervi. Dispečeru un HR vietas netiek skaitītas: ievadi visus, kam vajag.",
@@ -314,7 +327,7 @@ export const lv: LandingDict = {
   },
 
   footer: {
-    tagline: "ES atbilstība un plānošana pārvadātājiem",
+    tagline: "ES atbilstība, plānošana, autoparks un apkope pārvadātājiem",
     legalHeading: "Juridiskā informācija",
     privacy: "Privātums",
     terms: "Lietošanas noteikumi",
@@ -340,12 +353,12 @@ export const lv: LandingDict = {
     planning: "Plānošana", week24: "24. nedēļa · 8.–13. jūnijs", colDriver: "Vadītājs",
     d1: "Pr 08", d2: "Ot 09", d3: "Tr 10", d4: "Ce 11", d5: "Pk 12",
     w1: "Pr 15", w2: "Ot 16", w3: "Tr 17", w4: "Ce 18", w5: "Pk 19",
-    kpiTrip: "Šobrīd reisā", kpiVac: "Atvaļinājumā", kpiNoVeh: "Bez transportlīdzekļa",
+    kpiTrip: "Šobrīd reisā", kpiVac: "Atvaļinājumā", kpiFree: "Brīvi",
     stActive: "Aktīvs", stTrip: "Reisā", ready: "gatavs reisam",
     vacUntil: "Atvaļinājums līdz 15.06", sick: "Slimības lapa",
-    toastWarnT: "Vīza beidzas pēc 30 dienām", toastWarnD: "P. Savčenko · pagarināt līdz 12.07.2026",
+    toastWarnT: "Rīta kopsavilkums: vīza beidzas 12.07", toastWarnD: "P. Savčenko · atlikušas 32 dienas",
     toastOkT: "Reģistrētais vīzas derīgums: 08.2028", toastOkD: "Numurs un datums atpazīti no skenējuma",
-    docs: "Dokumenti", urgent: "Steidzami", nonEU: "NON-EU",
+    docs: "Gatavs reisam", urgent: "Steidzami", nonEU: "NON-EU",
     tabOverview: "Pārskats", tabDocs: "Dokumenti", tabComments: "Komentāri", tabHistory: "Vēsture",
     confid: "Konfidenciāli dati", confNote: "Bankas datus redz tikai tie, kam tas pienākas.",
     cardTitle: "Vadītāja kartīte", remindTitle: "Dokumenti · atgādinājums",
@@ -356,22 +369,22 @@ export const lv: LandingDict = {
     fldType: "Dokumenta tips", fldTypeV: "Vīza (VIS)", fldNum: "Numurs", fldUntil: "Derīga līdz",
     recognized: "atpazīts",
     week25: "Plānošana · 25. nedēļa",
-    histTs1: "šodien 14:02", hist1: "Mainīts statuss — Reisā (3QR 6671)", histBy1: "disp. S. Maleks",
+    histTs1: "šodien 14:02", hist1: "Mainīts statuss — Reisā (4TC 2190)", histBy1: "disp. S. Maleks",
     histTs2: "šodien 13:58", hist2: "Atjaunināts dokuments — Vīza (VIS)", histBy2: "HR · I. Kovaļa",
     histNote: "Katra izmaiņa — vēsturē.",
     mcH: "Vīza · P. Savčenko",
-    mc1: "Vadītājs augšupielādēja skenējumu no Telegram",
+    mc1: "Augšupielādēts jauns vīzas skenējums",
     mc2: "G-Track pats atpazina numuru un datumu",
     mc3: "Reģistrētais vīzas derīgums: 08.2028",
     mcSub2: "CZ-4471920 · līdz 03.08.2028",
-    chipVisaWarn: "VIS · 30 d.", chipVisaOk: "VIS · 2028",
+    chipVisaWarn: "VIS · 32 d.", chipVisaOk: "VIS · 2028",
     svcTitle: "Nobraukums un apkope",
     svcOdo: "Odometrs",
     svcNext: "Līdz apkopei",
     svcInterval: "Apkopes intervāls",
     svcCap: "no intervāla",
     svcSource: "no auto",
-    svcPlanned: "apkope plānā",
+    svcSoon: "Tuvojas apkope",
     chipSvc: "Apkope · 4 200 km",
     unloadTitle: "Reiss · mašīnas maiņa",
     unloadOk: "Reisu pārcēla sistēma",
@@ -380,8 +393,8 @@ export const lv: LandingDict = {
     unloadPlace: "4TC 2190 · Barselona",
     unloadWhen: "Laiks",
     unloadDocV: "Tahogrāfa karte",
-    sumOnTime: "reiss laikā",
-    sumKm: "reisa nobraukums",
-    sumDocs: "dokumenti",
+    sumStatus: "reisā",
+    sumVehicle: "mašīna",
+    sumDocs: "gatavs reisam",
   },
 };

@@ -281,7 +281,13 @@ export function Scrolly() {
                         <div className="dc-pills"><span className="ppill ok md"><span className="d"></span><span>{m.stActive}</span></span></div>
                       </div>
                       <div className="dc-stats">
-                        <div className="dc-stat"><span className="dc-l">{m.docs}</span><span className="dc-v">11<span className="dim">/13</span></span></div>
+                        {/* Счётчик «К рейсу» — как в шапке карточки приложения: годные ИЛИ
+                            истекающие обязательные документы из шести слотов не-EU (LIC, VIS,
+                            PAS, DL, TCH, C95). В ряду чипов ниже пять из них ok, шестой — виза
+                            warn, то есть истекает и считается; DEC не обязателен. Поэтому 6/6, как
+                            и кольцо 100 % у того же водителя в Hero, — 5/6 приложение для
+                            этого ряда не покажет. */}
+                        <div className="dc-stat"><span className="dc-l">{m.docs}</span><span className="dc-v">6<span className="dim">/6</span></span></div>
                         <div className="dc-stat"><span className="dc-l">{m.urgent}</span><span className="dc-v"><span className="up">1 ▲</span><span className="down">0 ▼</span></span></div>
                       </div>
                     </div>
@@ -322,7 +328,7 @@ export function Scrolly() {
                     </div>
                     <span className="scursor" style={{ left: "18%", top: "58%" }} aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#i-cursor" /></svg></span>
                     <div className="scene-docs" style={{ alignItems: "center" }}>
-                      <span className="ppill ok md"><span className="d"></span><span>{m.svcPlanned}</span></span>
+                      <span className="ppill warn md"><span className="d"></span><span>{m.svcSoon}</span></span>
                       <span style={{ flex: 1 }}></span>
                       <Ring pct={96} big cap={m.svcCap} />
                     </div>
@@ -356,12 +362,14 @@ export function Scrolly() {
                   <figcaption><span className="snum">04</span><b>{s.cap4b}</b>{s.cap4}</figcaption>
                   <div className="scene-card">
                     <div className="scene-label">{m.week25}</div>
-                    {/* сводка по завершённому рейсу: собрана из существующих
-                        чипов карточки, а не из новых плашек */}
+                    {/* сводка по водителю снова в рейсе: статус, машина, готовность
+                        к рейсу — только то, что есть в приложении (статуса «в срок» и
+                        пробега рейса там нет). Собрана из существующих чипов карточки,
+                        а не из новых плашек */}
                     <div className="scene-sum">
-                      <span className="ppill ok md"><span className="d"></span><span>{m.sumOnTime}</span></span>
-                      <span className="dchip ok">2 340 km · {m.sumKm}</span>
-                      <span className="dchip ok">13/13 · {m.sumDocs}</span>
+                      <span className="ppill trip md"><span className="d"></span><span>{m.sumStatus}</span></span>
+                      <span className="dchip ok">4TC 2190 · {m.sumVehicle}</span>
+                      <span className="dchip ok">6/6 · {m.sumDocs}</span>
                     </div>
                     <div className="scene-board">
                       <div className="board-head">
@@ -373,10 +381,10 @@ export function Scrolly() {
                           <span className="avatar">{d.names.savchenkoAv}</span>
                           <span className="dmeta">
                             <span className="dname-row"><span className="dname">{d.names.savchenko}</span><span className="flag ua"></span></span>
-                            <span className="dtags"><span className="ppill trip"><span className="d"></span><span>{m.stTrip}</span><span className="spz">3QR 6671</span></span></span>
+                            <span className="dtags"><span className="ppill trip"><span className="d"></span><span>{m.stTrip}</span><span className="spz">4TC 2190</span></span></span>
                           </span>
                         </div>
-                        <div className="lane"><div className="tripbar" style={{ left: "2%", width: "76%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3QR 6671</span><span className="ocount">⊕ 1</span></div></div>
+                        <div className="lane"><div className="tripbar" style={{ left: "2%", width: "76%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">4TC 2190</span></div></div>
                       </div>
                       <div className="board-row">
                         <div className="cellbg"><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -387,7 +395,7 @@ export function Scrolly() {
                             <span className="dtags"><span className="ppill ok"><span className="d"></span><span>{m.stActive}</span></span></span>
                           </span>
                         </div>
-                        <div className="lane"><div className="tripbar" style={{ left: "40%", width: "58%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3SK 7702</span><span className="ocount">⊕ 2</span></div></div>
+                        <div className="lane"><div className="tripbar" style={{ left: "40%", width: "58%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3SK 7702</span></div></div>
                       </div>
                     </div>
                     <div className="dc-hist">

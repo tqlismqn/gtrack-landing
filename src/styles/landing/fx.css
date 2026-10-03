@@ -50,7 +50,6 @@
   transition: opacity 360ms var(--ease-soft), transform 360ms var(--ease-soft);
 }
 .mc-row .tic { width: 13px; height: 13px; flex: none; margin-top: 1px; color: var(--p-t3); }
-.mc-row.tg .tic { color: #2AABEE; }
 .mc-row.rec .tic { color: var(--p-violet); }
 .mc-row.ok .tic { color: var(--p-ok); }
 .mc-row .mono-sub { display: block; font-family: var(--font-mono); font-size: 9.5px; color: var(--p-t3); margin-top: 2px; }

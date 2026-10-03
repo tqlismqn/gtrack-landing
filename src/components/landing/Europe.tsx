@@ -394,7 +394,7 @@ export function Europe() {
                       <span className="dtags"><span className="ppill trip"><span className="d"></span><span>{d.mock.stTrip}</span></span></span>
                     </span>
                   </div>
-                  <div className="lane"><div className="tripbar" style={{ left: "4%", width: "60%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3QR 6671</span><span className="ocount">⊕ 1</span></div></div>
+                  <div className="lane"><div className="tripbar" style={{ left: "4%", width: "60%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3QR 6671</span></div></div>
                 </div>
                 <div className="board-row">
                   <div className="cellbg"><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -405,7 +405,7 @@ export function Europe() {
                       <span className="dtags"><span className="ppill trip"><span className="d"></span><span>{d.mock.stTrip}</span></span></span>
                     </span>
                   </div>
-                  <div className="lane"><div className="tripbar" style={{ left: "34%", width: "62%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3SK 7702</span><span className="ocount">⊕ 2</span></div></div>
+                  <div className="lane"><div className="tripbar" style={{ left: "34%", width: "62%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3SK 7702</span></div></div>
                 </div>
               </div>
             </div>

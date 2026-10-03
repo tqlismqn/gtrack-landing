@@ -4,7 +4,9 @@
    driverPill (Aktywny / W trasie / Urlop / Zwolnienie), «Gotowość do trasy»,
    модули (Kierowcy / Planowanie / Pojazdy / Zlecenia / Fakturowanie /
    Ekonomia pojazdu), Kod 95, founding / cena zablokowana, /mc, pojazdy ·
-   kierowcy · naczepy · miejsca dyspozytorów, jednostka dni («VIS · 30 dni»).
+   kierowcy · naczepy · miejsca dyspozytorów, jednostka dni («VIS · 32 dni»);
+   волна 02.10: Centrum decyzji, режимы Ręczny / Centrum / Automatyczny,
+   плитка «Wolni», Naprawy i serwis, rotacja, dziennik, podsumowanie, wnioski.
    Цены и проценты — байт-в-байт с RU (20 000 € с U+202F, минус U+2212);
    с EN расходится только десятичный разделитель: запятая (≈ 2,25 €, −6,7%).
    ============================================================================ */
@@ -15,7 +17,7 @@ export const pl: LandingDict = {
   meta: {
     title: "G-Track — zarządzanie kierowcami i planowanie tras",
     description:
-      "Kierowcy, dokumenty, planowanie i flota — w jednej aplikacji w przeglądarce. Uruchomienie w jeden dzień. Ceny — na tej stronie.",
+      "Dokumenty kierowców, przejazdy i urlopy, naprawy i serwis — w jednej aplikacji w przeglądarce dla przewoźników od 50 pojazdów. 30 dni za darmo, ceny na stronie.",
   },
 
   nav: {
@@ -35,25 +37,43 @@ export const pl: LandingDict = {
   },
 
   hero: {
-    kicker: "EU-compliance · planowanie · flota",
+    kicker: "EU-compliance · planowanie · flota i serwis",
     h1: "Każdy kierowca gotowy do trasy.",
     h1dim: "Zawsze.",
-    sub: " — system EU-compliance i planowania przejazdów dla przewoźników z flotą od 50 pojazdów. Kierowcy, dokumenty, tablica dyspozytorska i flota — w przeglądarce, bez sprzętu i bez wdrożeniowców. Uruchomienie w jeden dzień.",
+    sub: " — system EU-compliance i planowania dla przewoźników z flotą od 50 pojazdów. Dokumenty kierowców, przejazdy i urlopy, naprawy i serwis — w przeglądarce, bez sprzętu i bez wdrożeniowców. To, co dziś wymaga decyzji, system pokazuje sam.",
     ctaTrial: "Wypróbuj 30 dni",
     ctaPricing: "Zobacz cennik",
     micro1: "Bez karty",
     micro2: "Rejestracja w 2 minuty",
     micro3: "Dane w UE",
     boardAria:
-      "Tablica dyspozytorska G-Track: kierowca przesyła skan przez Telegram, a system aktualizuje dane dokumentu",
+      "Tablica dyspozytorska G-Track: przesyłasz skan dokumentu, system rozpoznaje numer oraz datę ważności i aktualizuje dane",
     boardCaption:
-      "Kierowca przesyła skan przez Telegram → G-Track rozpoznaje dane → aktualizuje ewidencję dokumentu",
+      "Przesyłasz skan → G-Track rozpoznaje numer i datę ważności → dane dokumentu zaktualizowane",
   },
 
+  /* Полоса под первым экраном (TrustStrip): чипы-ссылки на модули, решение владельца 03.10.
+     Термины — из app-локали pl: nav (Kierowcy, Planowanie, Centrum decyzji, Pojazdy,
+     Naprawy i serwis, Wnioski), vehicles_sub (Ciągniki / Naczepy), рейс = «trasa»;
+     c7 — фраза из roadmap.tracks.telematics.d, c9 = vid.chip6. «W trakcie» у c6 — d.roadmap.wip. */
   trust: {
-    m1: "typów dokumentów kierowcy",
-    m2: "dni demo bez rozmowy",
-    m3: "języków interfejsu",
+    aria: "Co już działa w G-Track",
+    c1: "Kierowcy · 16 typów dokumentów",
+    c2: "Planowanie · tablica i przejazdy",
+    c3: "Centrum decyzji",
+    c4: "Rotacja · na 3 miesiące naprzód",
+    c5: "Pojazdy · ciągniki i naczepy",
+    c6: "Naprawy i serwis",
+    c7: "Telematyka · twój system monitorowania floty",
+    c8: "Kierowca w Telegramie · wnioski i przypomnienia",
+    c9: "12 języków interfejsu",
+  },
+
+  /* Подвал OG-картинки (og-image.tsx): подписи к числам 16 и 30 — бывшие trust.m1/m2
+     дословно: полоса стала чипами (03.10), а картинка для шеров осталась прежней. */
+  og: {
+    docTypes: "typów dokumentów kierowcy",
+    trialDays: "dni demo bez rozmowy",
   },
 
   pain: {
@@ -98,15 +118,15 @@ export const pl: LandingDict = {
     s1h: "Kierowca w systemie",
     s1p: "Profil, status, dokumenty i gotowość do trasy — wszystko w jednym miejscu. Dane bankowe — według ról.",
     s2h: "Do serwisu 4 200 km",
-    s2p: "Licznik przychodzi wprost z pojazdu. G-Track sam liczy, ile zostało do serwisu, i wpisuje go do planu — bez notesów i telefonów do warsztatu.",
+    s2p: "Stan licznika przychodzi wprost z pojazdu. G-Track sam liczy, ile zostało do serwisu, i podświetla pojazdy, którym pora na serwis — bez notesów i telefonów do mechanika.",
     s3h: "Barcelona: zmiana pojazdu",
     s3p: "Pojazd zjeżdża do serwisu, kierowca wkłada swoją kartę do innego. G-Track sam przenosi trasę na nowy pojazd — albo pyta dyspozytora, jak ustawisz.",
     s4h: "Znów w trasie",
-    s4p: "Przejazd trafia na tablicę, zlecenie jest podpięte. Każda zmiana — w historii.",
+    s4p: "Przejazd trafia na tablicę. Każda zmiana — w historii.",
     cap1b: "Kierowca w systemie.",
     cap1: " Profil: status, dokumenty, dane poufne — według ról.",
     cap2b: "Kilometry do serwisu.",
-    cap2: " Licznik z pojazdu, pozostały przebieg i wpis w planie obsługi.",
+    cap2: " Licznik z pojazdu i pozostały przebieg — widzisz, którym pojazdom pora na serwis.",
     cap3b: "Trasa przeniosła się sama.",
     cap3: " Karta kierowcy w nowym pojeździe — wpis w historii.",
     cap4b: "Znów w trasie.",
@@ -116,7 +136,7 @@ export const pl: LandingDict = {
     leg2: "Monachium → Lyon",
     leg3: "Lyon → Barcelona",
     arrived: "Przyjazd · Barcelona",
-    outroB: "Jeden kierowca — dziesiątki terminów.",
+    outroB: "Jeden kierowca — ponad dziesięć terminów.",
     outro: " Ty masz ich stu.",
     skip: "Pomiń historię",
   },
@@ -124,12 +144,11 @@ export const pl: LandingDict = {
   vid: {
     overline: "Rynek europejski",
     h2: "Stworzony dla europejskich przewoźników.",
-    sub: "A1, Kod 95, wizy — terminy już dziś pod kontrolą. Kabotaż 3/7 — w planie rozwoju.",
-    chip1: "Kabotaż 3/7",
+    sub: "A1, Kod 95, wizy — terminy już dziś pod kontrolą.",
     chip2: "A1",
     chip3: "Kod 95",
     chip4: "ADR",
-    chip5: "Tachograf",
+    chip5: "Odczyt DDD",
     chip6: "12 języków interfejsu",
     tag: "VIDEO · PLACEHOLDER",
   },
@@ -143,26 +162,16 @@ export const pl: LandingDict = {
   europe: {
     overline: "Geografia",
     h2: "Cała Europa na jednej tablicy",
-    sub: "A1, Kod 95, dokumenty kierowców — zaprojektowane zgodnie z przepisami UE. Każda trasa na jednej tablicy.",
+    sub: "Kto jest w trasie, kto na urlopie, który pojazd stoi w serwisie — na tablicy. Kto wróci i kto będzie wolny — na 14 dni, miesiąc albo trzy miesiące naprzód.",
     mapAria: "Mapa tras po Europie przechodząca w tablicę planowania",
     captionB: "Cały ten chaos jest zarządzany stąd",
-    caption: " — z jednej tablicy dyspozytorskiej.",
+    caption: " — z jednej tablicy i jednej listy decyzji.",
   },
 
+  /* Секция «Работает сейчас» на главной: карточки строятся из TRACKS
+     (roadmap-content.ts) и текстов d.roadmap — здесь только заголовок и ссылка. */
   modules: {
-    overline: "Moduły",
-    h2: "Rdzeń działa. Horyzont — otwarty.",
-    ready: "Gotowe",
-    soon: "Wkrótce",
-    m1: "Kierowcy", m1d: "Profile, statusy, gotowość do trasy",
-    m2: "Dokumenty", m2d: "16 typów, terminy, rozpoznawanie skanów",
-    m3: "Planowanie", m3d: "Tablica kierowcy × dni, przejazdy, konflikty",
-    m4: "Pojazdy", m4d: "Ciągniki i naczepy, TÜV, ubezpieczenia",
-    m5: "Zlecenia", m5d: "Zlecenie → przejazd → dokumenty",
-    m6: "Fakturowanie", m6d: "Faktury z przejazdów",
-    m7: "Ekonomia pojazdu", m7d: "Cost-per-km dla każdego ciągnika",
-    m8: "Telegram dla kierowców", m8d: "Dokumenty, grafik i zgłoszenia",
-    m9: "Wiadomości", m9d: "Czat z kierowcą z wbudowanym tłumaczeniem",
+    h2: "Nie „wkrótce”. Już teraz.",
     cta: "Pełna roadmapa",
   },
 
@@ -187,8 +196,8 @@ export const pl: LandingDict = {
       drivers: { t: "Kierowcy i dokumenty", d: "Profile, 16 typów dokumentów, przepisy 8 krajów" },
       planning: { t: "Planowanie i autopilot", d: "Tablica, Centrum decyzji, rotacja, autopilot z karty tacho" },
       fleet: { t: "Pojazdy i serwis", d: "Flota, naprawy i serwis, dane pokładowe" },
-      telematics: { t: "Integracja z telematyką", d: "Podłączamy twój system monitorowania floty — dane o pojazdach spływają same, do planowania i analiz. Można też ręcznie." },
-      telegram: { t: "Kierowca w Telegramie", d: "Dokumenty, grafik, zgłoszenia i czat" },
+      telematics: { t: "Integracja z telematyką", d: "Podłączamy twój system monitorowania floty — dane o pojazdach spływają same, do planowania i pilnowania interwałów serwisowych. Można też ręcznie." },
+      telegram: { t: "Kierowca w Telegramie", d: "Wnioski o urlop i zwolnienie lekarskie, dzisiejsza zmiana, przypomnienia o wygasających dokumentach" },
       reports: { t: "Raporty i powiadomienia", d: "Raport tygodniowy, centrum powiadomień, terminy plików tacho" },
       companies: { t: "Powiązane firmy", d: "Kilka firm jednego właściciela: każda z własną subskrypcją, wzajemny dostęp do pojazdów i kierowców tylko do odczytu" },
       finance: { t: "Zlecenia i finanse", d: "Zlecenia, faktury, mandaty, ekonomia pojazdu" },
@@ -263,14 +272,17 @@ export const pl: LandingDict = {
     g3: "Dostępy, flota, cena",
 
     q1: "Jak system przypomni, że kierowcy kończy się dokument?",
-    a1: "Codziennie rano G-Track sprawdza dokumenty całej floty. Paszport odzywa się 180 dni wcześniej, pozostałe 90. Powiadomienie idzie trzema kanałami jednocześnie: mailem do biura, oznaczeniem w samej aplikacji i pushem do kierowcy w Telegramie.",
-    a1b: "Które powiadomienia i jakimi kanałami mają przychodzić, ustawiasz sam dla każdego typu. Przypomnienie nie wisi więc na jednej osobie i nie ginie, kiedy kadry są na urlopie.",
+    a1: "Codziennie rano G-Track sprawdza dokumenty wszystkich kierowców. Paszport trafia do podsumowania 180 dni wcześniej, pozostałe dokumenty — 90 dni wcześniej. Biuro dostaje e-mail, w aplikacji dokument zostaje oznaczony jako wygasający, a kierowca, który podłączył bota w Telegramie, dostaje przypomnienie.",
+    a1b: "E-maile z podsumowaniem włączasz sam i wybierasz, kto je dostaje: tylko właściciel, administratorzy albo wszyscy członkowie. Przypomnienie nie wisi więc na jednej osobie i nie ginie, kiedy kadry są na urlopie.",
 
     q2: "Kto odpowiada, jeśli kierowca wyjedzie w trasę z nieważnym dokumentem?",
-    a2: "W większości krajów UE przewoźnik, a nie tylko kierowca: kara trafia do firmy, a w części krajów dodatkowo do osoby zarządzającej transportem. Konkretne kwoty i tryb zależą od kraju kontroli. Właśnie dlatego G-Track przypomina biuru, a nie kierowcy — temu, kto wstawia przejazd do planu.",
+    a2: "W większości krajów UE przewoźnik, a nie tylko kierowca: kara trafia do firmy, a w części krajów dodatkowo do osoby zarządzającej transportem. Konkretne kwoty i tryb zależą od kraju kontroli. Właśnie dlatego G-Track przypomina przede wszystkim biuru — temu, kto wstawia przejazd do planu — a kierowcy, który podłączył bota, dodatkowo wysyła przypomnienie w Telegramie.",
 
     q3: "Czy na tablicy planowania widać, kto nie może wyjechać z powodu dokumentu?",
     a3: "Tak, tablica zbiera ludzi, pojazdy i terminy w jednym miejscu: kto jest na urlopie, kto na zwolnieniu, kto bez pojazdu, komu nie zgadza się dokument. Każda zmiana planu trafia do historii — widzisz nie tylko obecny stan, ale i kto go kiedy zmienił.",
+
+    q11: "Co G-Track robi sam, a o czym decyduje dyspozytor?",
+    a11: "Sam zauważa: kto wraca z urlopu, czyj przejazd się kończy, a dalej nic nie zaplanowano, którzy nowi kierowcy nie mają planu — wszystko to trafia do Centrum decyzji. Czy system może zmieniać plan za ciebie, zależy od wybranego trybu: „Ręczny”, „Centrum” lub „Automatyczny”. Domyślnie tylko pyta. Każda jego zmiana w planie zapisuje się w dzienniku.",
 
     q4: "Mam 40–60 kierowców i lata skanów w Excelu i w teczkach. Kto to przeniesie?",
     a4: "Można zacząć bez archiwum: wprowadź kierowców i te dokumenty, którym termin mija najbliżej — przypomnienia działają już od tego. Stare skany dogrywasz na bieżąco i nic nie blokują.",
@@ -280,17 +292,20 @@ export const pl: LandingDict = {
     a5: "Dane i pliki są w Unii Europejskiej, centrum danych w Irlandii. Dokument o przetwarzaniu danych jest opublikowany, link w stopce strony; podpisujemy go. Dostęp do wrażliwych pól wewnątrz twojej firmy ograniczają role, a nie jeden wspólny przełącznik.",
 
     q6: "Jeśli zdecyduję się odejść — zabiorę dane?",
-    a6: "Dane wyeksportujesz do CSV w każdej chwili i bez pytania nas: lista kierowców, statusy dokumentów, terminy. Skany zostają twoje: na razie pobiera się je pojedynczo, całe archiwum wydajemy na życzenie. Konto usuwasz sam, bez rozmowy z „opiekunem od zatrzymywania klientów”.",
+    a6: "Dopóki konto jest aktywne, dane wyeksportujesz do CSV w każdej chwili i bez pytania nas: lista kierowców, statusy dokumentów, terminy. Skany zostają twoje: na razie pobiera się je pojedynczo, całe archiwum wydajemy na życzenie. Właściciel usuwa konto sam, bez rozmowy z „opiekunem od zatrzymywania klientów”.",
 
     q7: "Co musi zrobić kierowca? Instaluje coś?",
-    a7: "Nic. Kierowca pracuje w Telegramie, którego już ma: widzi swoje dokumenty i terminy, swoją zmianę i pojazd, zdjęcie nowego dokumentu wysyła wprost na czat. Tłumaczenie jest wbudowane — kierowca pisze w swoim języku, dyspozytor czyta w swoim.",
+    a7: "Nic: Telegram już ma. W bocie składa wniosek o urlop lub zwolnienie lekarskie — trafia on do planowania, a odpowiedź wraca do kierowcy. Widzi, którym pojazdem jedzie dziś, i dostaje przypomnienia o terminach ważności swoich dokumentów.",
     a7b: "Aplikacja potrzebuje internetu. Oryginałów dokumentów w kabinie to nie zastępuje.",
 
     q8: "Czy dyspozytor może widzieć grafik, ale nie paszport i zaświadczenie lekarskie?",
-    a8: "Tak, i tak jest domyślnie. Uprawnienia nadaje się punktowo — jest ich ponad trzydzieści. Numer identyfikacyjny i numer konta bankowego chroni osobne uprawnienie i pokazują się zamaskowane. Które typy dokumentów są poufne, każda firma decyduje sama.",
+    a8: "Tak. Uprawnienia nadaje się punktowo — jest ich 36. Numer i skan paszportu, wizy i dowodu osobistego domyślnie widzą tylko pracownicy z uprawnieniem do danych poufnych, pozostali — tylko status i termin ważności. Każdy inny typ dokumentu, na przykład zaświadczenie lekarskie, firma może tak samo ukryć w ustawieniach. Numer identyfikacyjny i numer konta bankowego chroni osobne uprawnienie i pokazują się zamaskowane.",
 
     q9: "Jak radzicie sobie z kierowcami z krajów trzecich — Ukraina, Serbia, Uzbekistan?",
     a9: "Dla osób spoza UE obowiązkowa lista jest dłuższa: do paszportu, prawa jazdy i karty kierowcy dochodzą wiza, licencja transportowa i Kod 95. Gotowość do trasy liczy się według tej rozszerzonej listy, a nie ogólnego szablonu: dopóki kierowcy brakuje jego dokumentów, nie pokaże się jako gotowy.",
+
+    q12: "Mamy już telematykę. Czy G-Track jej potrzebuje?",
+    a12: "Nie jest konieczna: dokumenty, tablica, rotacja, naprawy i serwis działają bez niej, a przebieg wpisuje się ręcznie. Podłączamy twój system monitorowania floty — i przebieg przychodzi prosto z pojazdu, G-Track widzi, czyja karta jest w tachografie, i zauważa pojazd, który jedzie bez planu.",
 
     q10: "Ile to kosztuje dla 40 pojazdów i 45 naczep? Płaci się za każdego użytkownika?",
     a10: "Plan Starter — 150 € miesięcznie, przy płatności rocznej 125 €. Obejmuje 50 pojazdów, 100 kierowców i 75 naczep, więc twoja flota mieści się z zapasem. Miejsca dyspozytorów i kadr nie są liczone: zakładaj konta wszystkim, którzy ich potrzebują.",
@@ -314,7 +329,7 @@ export const pl: LandingDict = {
   },
 
   footer: {
-    tagline: "Zgodność z UE i planowanie dla przewoźników",
+    tagline: "Zgodność z UE, planowanie, flota i serwis dla przewoźników",
     legalHeading: "Informacje prawne",
     privacy: "Prywatność",
     terms: "Warunki korzystania",
@@ -340,12 +355,12 @@ export const pl: LandingDict = {
     planning: "Planowanie", week24: "Tydzień 24 · 8–13 czerwca", colDriver: "Kierowca",
     d1: "Pon 08", d2: "Wt 09", d3: "Śr 10", d4: "Czw 11", d5: "Pt 12",
     w1: "Pon 15", w2: "Wt 16", w3: "Śr 17", w4: "Czw 18", w5: "Pt 19",
-    kpiTrip: "Dziś w trasie", kpiVac: "Na urlopie", kpiNoVeh: "Bez pojazdu",
+    kpiTrip: "Dziś w trasie", kpiVac: "Na urlopie", kpiFree: "Wolni",
     stActive: "Aktywny", stTrip: "W trasie", ready: "do trasy",
     vacUntil: "Urlop do 15.06", sick: "Zwolnienie",
-    toastWarnT: "Wiza wygasa za 30 dni", toastWarnD: "P. Savchenko · przedłużyć do 12.07.2026",
+    toastWarnT: "Poranne podsumowanie: wiza wygasa 12.07", toastWarnD: "P. Savchenko · zostały 32 dni",
     toastOkT: "Ważność wizy w ewidencji: 08.2028", toastOkD: "Numer i data rozpoznane ze skanu",
-    docs: "Dokumenty", urgent: "Pilne", nonEU: "NON-EU",
+    docs: "Do trasy", urgent: "Pilne", nonEU: "NON-EU",
     tabOverview: "Przegląd", tabDocs: "Dokumenty", tabComments: "Komentarze", tabHistory: "Historia",
     confid: "Poufne", confNote: "Dane bankowe widzą tylko osoby z odpowiednią rolą.",
     cardTitle: "Karta kierowcy", remindTitle: "Dokumenty · przypomnienie",
@@ -356,22 +371,22 @@ export const pl: LandingDict = {
     fldType: "Typ dokumentu", fldTypeV: "Wiza (VIS)", fldNum: "Numer", fldUntil: "Ważna do",
     recognized: "rozpoznano",
     week25: "Planowanie · tydzień 25",
-    histTs1: "dzisiaj 14:02", hist1: "Zmieniono status — W trasie (3QR 6671)", histBy1: "dysp. S. Malek",
+    histTs1: "dzisiaj 14:02", hist1: "Zmieniono status — W trasie (4TC 2190)", histBy1: "dysp. S. Malek",
     histTs2: "dzisiaj 13:58", hist2: "Zaktualizowano dokument — Wiza (VIS)", histBy2: "HR · I. Koval",
     histNote: "Każda zmiana — w historii.",
     mcH: "Wiza · P. Savchenko",
-    mc1: "Kierowca przesłał skan z Telegrama",
+    mc1: "Przesłano nowy skan wizy",
     mc2: "G-Track sam rozpoznał numer i datę",
     mc3: "Ważność wizy w ewidencji: 08.2028",
     mcSub2: "CZ-4471920 · do 03.08.2028",
-    chipVisaWarn: "VIS · 30 dni", chipVisaOk: "VIS · 2028",
+    chipVisaWarn: "VIS · 32 dni", chipVisaOk: "VIS · 2028",
     svcTitle: "Przebieg i serwis",
     svcOdo: "Licznik",
     svcNext: "Do serwisu",
     svcInterval: "Interwał serwisowy",
     svcCap: "interwału",
     svcSource: "z pojazdu",
-    svcPlanned: "serwis w planie",
+    svcSoon: "Wkrótce serwis",
     chipSvc: "Serwis · 4 200 km",
     unloadTitle: "Trasa · zmiana pojazdu",
     unloadOk: "Trasę przeniósł system",
@@ -380,8 +395,8 @@ export const pl: LandingDict = {
     unloadPlace: "4TC 2190 · Barcelona",
     unloadWhen: "Godzina",
     unloadDocV: "Karta tachografu",
-    sumOnTime: "trasa na czas",
-    sumKm: "przebieg trasy",
-    sumDocs: "dokumenty",
+    sumStatus: "w trasie",
+    sumVehicle: "pojazd",
+    sumDocs: "do trasy",
   },
 };

@@ -11,7 +11,10 @@
 
 import { LANDING_DICT, localePath, type Lang } from "@/lib/landing-i18n";
 import { SITE_ORIGIN } from "@/lib/landing-metadata";
+import { trackGroups } from "@/lib/roadmap-content";
 import { SALES_EMAIL } from "./urls";
+
+const FEATURE_IDS = trackGroups().shipped;
 
 /* синхронизировано с Pricing.tsx и `subscription_plans` */
 const PLAN_OFFERS = [
@@ -61,6 +64,9 @@ export function JsonLd({ locale }: { locale: Lang }) {
         operatingSystem: "Web",
         inLanguage: locale,
         description: d.meta.description,
+        /* только то, что уже работает: названия направлений с since из TRACKS —
+           тот же состав, что у секции «Работает сейчас»; «в работе» и «дальше» сюда не идут */
+        featureList: FEATURE_IDS.map((id) => d.roadmap.tracks[id].t),
         publisher: { "@id": `${SITE_ORIGIN}/#organization` },
         offers: PLAN_OFFERS.map((p) => ({
           "@type": "Offer",

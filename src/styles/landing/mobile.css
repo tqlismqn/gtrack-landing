@@ -60,7 +60,6 @@ main { overflow-x: clip; }
   .dtags { flex-wrap: wrap; gap: 3px; }
   .drv .ringbox { display: none; }
   .tripbar { font-size: 8.5px; padding: 0 6px; gap: 4px; }
-  .tripbar .ocount { display: none; }
   .tripbar .tic { display: none; }
   .btoast { width: 208px; }
   .pwin-week { display: none; }
