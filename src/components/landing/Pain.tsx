@@ -60,7 +60,7 @@ export function Pain() {
                   <span className="dchip ok">VIS</span><span className="dchip ok">A1</span><span className="dchip ok">DL</span><span className="dchip ok">TCH</span><span className="dchip ok">MED</span><span className="dchip ok">C95</span>
                 </span>
               </span>
-              <span className="ppill ok"><span className="d"></span><span>{d.mock.ready}</span>&nbsp;98%</span>
+              <span className="ppill ok"><span className="d"></span><span>{d.mock.ready}</span>&nbsp;100%</span>
             </div>
           </div>
           {/* ячейки Excel «перелетают» в чипы G-Track (driven by --decay) */}
@@ -76,7 +76,6 @@ export function Pain() {
           <div className="pain-facts">
             <div className="fact reveal" data-delay="100"><span className="fnum">01</span>
               <p>{p.fact1a}<b>{p.fact1b}</b>{p.fact1c}</p></div>
-            {/* TODO (из прототипа): уточнить сумму штрафа по целевым странам (DE/FR) */}
             <div className="fact reveal" data-delay="160"><span className="fnum">02</span>
               <p>{p.fact2a}<span className="accent-bad">{p.fact2b}</span>{p.fact2c}</p></div>
             <div className="fact reveal" data-delay="220"><span className="fnum">03</span>

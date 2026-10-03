@@ -11,7 +11,7 @@ React 19, Tailwind 4, TypeScript strict, Node 22, деплой на Vercel. 12 �
 |---|---|
 | `npm install` | Установить зависимости |
 | `npm run dev` | Дев-сервер на :3000 |
-| `npm test` | vitest, 99 тестов в 3 файлах, ~0,3 с |
+| `npm test` | vitest, 103 теста в 3 файлах, ~0,3 с |
 | `npx vitest run test/journey.test.ts` | Один файл тестов |
 | `npx tsc --noEmit` | Проверка типов |
 | `npm run lint` | ESLint (eslint-config-next: core-web-vitals + typescript) |
@@ -43,9 +43,9 @@ docs/adr/                несущие решения с числами зам�
 - `src/components/landing/MotionRoot.tsx` — единственный цикл скролла и владелец класса `motion-ok`.
 - `src/components/landing/Scrolly.tsx` — пин-сцена истории: считает прогресс и публикует его.
 - `src/components/landing/Europe.tsx` — карта Европы; контур суши в `europe-land-path.ts`, проекция и формула — комментарием там же.
-- `src/lib/landing-i18n.ts` — `Lang`, `LOCALES`, `LANDING_DICT`, словари ru и en (802 строки).
+- `src/lib/landing-i18n.ts` — `Lang`, `LOCALES`, `LANDING_DICT`, словари ru и en (881 строк).
 - `src/lib/journey.ts`, `src/lib/cta-variant.ts`, `src/lib/roadmap-content.ts` — чистая логика; ровно она и покрыта тестами.
-- `src/lib/roadmap-content.ts` — состав Ганта `/roadmap` (9 направлений, даты выпусков приложения, вехи); модель строится на сервере в `RoadmapPage`, «Сейчас» = день сборки.
+- `src/lib/roadmap-content.ts` — состав Ганта `/roadmap` (9 направлений, даты выпусков приложения, вехи); модель строится на сервере в `RoadmapPage`, «Сейчас» = день сборки. Те же `TRACKS` через `trackGroups()` дают секцию «Работает сейчас» на главной (`Modules.tsx`) и `featureList` в `JsonLd.tsx`: появление `since` у направления меняет главную и разметку.
 - `src/lib/analytics.ts` — GTM ID, Consent Mode v2, first-touch метки; порядок загрузки хрупкий и описан в шапке файла.
 - `next.config.ts` — CSP в Report-Only, security headers, редиректы `/privacy` и `/terms` на app-legal.
 
@@ -110,3 +110,13 @@ vitest без конфига, окружение node — DOM не нужен. �
 Если работа продолжается — скажи «продолжи автопилот»: состояние поднимется
 из `.autopilot/state.js`, переспрашивать ничего не нужно.
 <!-- autopilot:end -->
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

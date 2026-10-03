@@ -12,10 +12,12 @@ import { useLanding } from "./LandingProvider";
 import { Ring } from "./Ring";
 import { appSignupUrl } from "./urls";
 
-const C = 97.39; /* 2π·15.5 */
-
 /* Фазы: 0 rest → 1 alert → 2 cursor-in → 3 click → 4 minicard →
-         5 resolve (чип зеленеет, кольцо 98) → 6 в рейс (бар+пилюля) → 7 hold */
+         5 resolve (чип зеленеет) → 6 в рейс (бар+пилюля) → 7 hold
+   Кольцо «к рейсу» живой строки стоит на 100 % всю сцену и не анимируется:
+   в приложении истекающий документ считается годным, готовность падает
+   только у просроченного или отсутствующего (сверено 02.10.2026). Прежний
+   отсчёт 86 → 98 показывал провал, которого продукт не рисует. */
 const PHASES = [
   { id: 0, dur: 1500 },
   { id: 1, dur: 2300 },
@@ -36,37 +38,6 @@ export function Hero() {
     const board = boardRef.current;
     if (!board) return;
     const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
-
-    const ring = board.querySelector<HTMLElement>(".ring[data-live]");
-    const ringVal = ring ? ring.querySelector<SVGCircleElement>(".val") : null;
-    const ringNum = ring ? ring.querySelector<HTMLElement>(".ring-num") : null;
-    let disposed = false;
-
-    function setRing(p: number, instant?: boolean) {
-      if (!ringVal || !ring) return;
-      if (instant) {
-        const prev = ringVal.style.transition;
-        ringVal.style.transition = "none";
-        ringVal.style.strokeDashoffset = String(C * (1 - p / 100));
-        void ringVal.getBoundingClientRect();
-        ringVal.style.transition = prev || "";
-      } else {
-        ringVal.style.strokeDashoffset = String(C * (1 - p / 100));
-      }
-      ring.classList.toggle("mid", p < 95);
-    }
-    function countRing(from: number, to: number, dur: number) {
-      if (!ringNum) return;
-      let start: number | null = null;
-      requestAnimationFrame(function step(ts: number) {
-        if (disposed || !ringNum) return;
-        if (start === null) start = ts;
-        const p = clamp((ts - start) / dur, 0, 1);
-        const e = 1 - Math.pow(1 - p, 3);
-        ringNum.textContent = Math.round(from + (to - from) * e) + "%";
-        if (p < 1) requestAnimationFrame(step);
-      });
-    }
 
     /* позиции курсора/миникарточки — по реальному чипу VIS */
     function measureCursor() {
@@ -96,16 +67,7 @@ export function Hero() {
       phaseIdx = idx;
       const ph = PHASES[idx].id;
       board?.setAttribute("data-phase", String(ph));
-      if (ph === 0) {
-        measureCursor();
-        setRing(86, true);
-        if (ringNum) ringNum.textContent = "86%";
-      }
-      if (ph === 5) {
-        setRing(98);
-        countRing(86, 98, 900);
-      }
-      if (ph === 6 && ringNum) ringNum.textContent = "98%"; /* страховка при троттлинге rAF */
+      if (ph === 0) measureCursor();
     }
     function loop() {
       if (!board) return;
@@ -120,11 +82,7 @@ export function Hero() {
         clearTimeout(phaseTimer);
         phaseTimer = null;
       }
-      if (board) {
-        board.setAttribute("data-phase", "7"); /* resolved end state */
-        setRing(98, true);
-        if (ringNum) ringNum.textContent = "98%";
-      }
+      if (board) board.setAttribute("data-phase", "7"); /* resolved end state */
     }
     function syncBoard() {
       if (!board) return;
@@ -145,7 +103,6 @@ export function Hero() {
     syncBoard();
 
     return () => {
-      disposed = true;
       if (phaseTimer) clearTimeout(phaseTimer);
       window.removeEventListener("resize", measureCursor);
       window.removeEventListener("gt-motion-applied", onApplied);
@@ -162,7 +119,10 @@ export function Hero() {
       <div className="wrap hero-grid">
         <div>
           <div className="hero-kicker reveal">
-            <span className="overline">{d.hero.kicker}</span>
+            {/* пробелы ВНУТРИ сегмента склеены неразрывными: и пробел ПЕРЕД «·» тоже — строка рвётся только после «·».
+                Замер 02.10: на 390 последнее слово («сервис», «Wartung») уезжало одно на вторую
+                строку во всех 12 локалях, на 320 es начинал строку с разделителя */}
+            <span className="overline">{d.hero.kicker.split(" · ").map((s) => s.replaceAll(" ", "\u00A0")).join("\u00A0· ")}</span>
           </div>
           <h1 id="hero-h1" className="reveal" data-delay="60">
             {d.hero.h1} <span className="dim">{d.hero.h1dim}</span>
@@ -201,7 +161,7 @@ export function Hero() {
             <div className="pwin-kpis">
               <div className="kpi"><span className="kv blue">14</span><span className="kl">{d.mock.kpiTrip}</span></div>
               <div className="kpi"><span className="kv amber">3</span><span className="kl">{d.mock.kpiVac}</span></div>
-              <div className="kpi"><span className="kv rose">2</span><span className="kl">{d.mock.kpiNoVeh}</span></div>
+              <div className="kpi"><span className="kv green">2</span><span className="kl">{d.mock.kpiFree}</span></div>
             </div>
             <div className="board">
               <div className="board-head">
@@ -220,8 +180,8 @@ export function Hero() {
                   <Ring pct={100} cap={d.mock.ready} />
                 </div>
                 <div className="lane">
-                  <div className="tripbar" style={{ left: "0%", width: "44%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3SK 7702</span><span className="ocount">⊕ 2</span></div>
-                  <div className="tripbar" style={{ left: "56%", width: "43%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3SK 7702</span><span className="ocount">⊕ 1</span></div>
+                  <div className="tripbar" style={{ left: "0%", width: "44%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3SK 7702</span></div>
+                  <div className="tripbar" style={{ left: "56%", width: "43%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3SK 7702</span></div>
                 </div>
               </div>
               <div className="board-row">
@@ -241,10 +201,10 @@ export function Hero() {
                       </span>
                     </span>
                   </span>
-                  <Ring pct={98} live cap={d.mock.ready} />
+                  <Ring pct={100} cap={d.mock.ready} />
                 </div>
                 <div className="lane">
-                  <div className="tripbar appear" style={{ left: "42%", width: "56%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3QR 6671</span><span className="ocount">⊕ 1</span></div>
+                  <div className="tripbar appear" style={{ left: "42%", width: "56%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3QR 6671</span></div>
                 </div>
               </div>
               <div className="board-row">
@@ -257,10 +217,10 @@ export function Hero() {
                       <span className="ppill warn"><span className="d"></span><span>{d.mock.kpiVac}</span></span>
                     </span>
                   </span>
-                  <Ring pct={92} cap={d.mock.ready} />
+                  <Ring pct={100} cap={d.mock.ready} />
                 </div>
                 <div className="lane">
-                  <div className="tripbar" style={{ left: "0%", width: "28%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">5KL 3311</span><span className="ocount">⊕ 2</span></div>
+                  <div className="tripbar" style={{ left: "0%", width: "28%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">5KL 3311</span></div>
                   <div className="tripbar vac" style={{ left: "62%", width: "37%" }}><span className="bartext">{d.mock.vacUntil}</span></div>
                 </div>
               </div>
@@ -274,11 +234,11 @@ export function Hero() {
                       <span className="ppill warn"><span className="d"></span><span>{d.mock.sick}</span></span>
                     </span>
                   </span>
-                  <Ring pct={71} mid cap={d.mock.ready} />
+                  <Ring pct={67} mid cap={d.mock.ready} />
                 </div>
                 <div className="lane">
                   <div className="tripbar sick" style={{ left: "0%", width: "30%" }}><span className="bartext">{d.mock.sick}</span></div>
-                  <div className="tripbar" style={{ left: "44%", width: "55%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">8AL 2104</span><span className="ocount">⊕ 3</span></div>
+                  <div className="tripbar" style={{ left: "44%", width: "55%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">8AL 2104</span></div>
                 </div>
               </div>
             </div>
@@ -293,7 +253,7 @@ export function Hero() {
             </span>
             <div className="minicard" aria-hidden="true">
               <div className="mc-h"><span>{d.mock.mcH}</span></div>
-              <div className="mc-row tg"><svg className="tic"><use href="#i-send" /></svg><div><span>{d.mock.mc1}</span><span className="mono-sub">visa_savchenko_2028.pdf · 07:58</span></div></div>
+              <div className="mc-row"><svg className="tic"><use href="#i-upload" /></svg><div><span>{d.mock.mc1}</span><span className="mono-sub">visa_savchenko_2028.pdf · 10:12</span></div></div>
               <div className="mc-row rec"><svg className="tic"><use href="#i-zap" /></svg><div><span>{d.mock.mc2}</span><span className="mono-sub">{d.mock.mcSub2}</span></div></div>
               <div className="mc-row ok"><svg className="tic"><use href="#i-check" /></svg><div><span>{d.mock.mc3}</span></div></div>
             </div>

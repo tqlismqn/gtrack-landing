@@ -1,43 +1,81 @@
 "use client";
 
 /* ============================================================================
-   МОДУЛИ И ГОРИЗОНТ — две колонки «Готово / Скоро».
+   РАБОТАЕТ СЕЙЧАС — что уже работает у клиентов (решение владельца 02.10).
+   Не список модулей и не колонка «Скоро»: карточка на каждое направление
+   дорожной карты, у которого есть since, с вехами-чипами — те же чипы, что
+   на /roadmap. Состав берётся из TRACKS (roadmap-content.ts) через trackGroups,
+   своего списка здесь нет: иначе главная и /roadmap разойдутся в том, что уже
+   работает. Будущее — одна приглушённая строка и ссылка на всю карту.
    ============================================================================ */
 
 import { roadmapPath } from "@/lib/landing-i18n";
+import { TRACKS, trackGroups, type TrackId } from "@/lib/roadmap-content";
 import { useLanding } from "./LandingProvider";
+
+/* Широкая карточка на l: у планирования три вехи — им нужна строка в две колонки,
+   а ряды сетки выходят 1+2 / 1+1+1 без дыр (сетка — в story.css, «4.7»). */
+const WIDE: TrackId = "planning";
+
+/* TRACKS — константа, группы считаются один раз на модуль, а не на рендер */
+const GROUPS = trackGroups();
+const SHIPPED = TRACKS.filter((t) => GROUPS.shipped.includes(t.id));
+
+/* Якорь карточки направления. На него ведут чипы полосы под первым экраном
+   (TrustStrip, решение владельца 03.10) — формат id живёт в одном месте, иначе
+   чип и карточка разойдутся молча: битый якорь не видят ни tsc, ни линтер. */
+export const moduleAnchor = (id: TrackId): string => `mod-${id}`;
+
+/* Есть ли у направления карточка на главной: карточка рождается только у тех,
+   у кого в TRACKS есть since. Чип ссылается сюда, чтобы не вести в пустоту. */
+export const hasModuleCard = (id: TrackId): boolean => GROUPS.shipped.includes(id);
 
 export function Modules() {
   const { d, lang } = useLanding();
   const m = d.modules;
+  const r = d.roadmap;
+  /* во французском перед двоеточием стоит неразрывный пробел */
+  const colon = lang === "fr" ? "\u00A0:" : ":";
+  const titles = (ids: readonly TrackId[]) => ids.map((id) => r.tracks[id].t).join(" · ");
+
   return (
-    <section className="sect" id="modules" data-screen-label="Модули и горизонт">
+    <section className="sect" id="modules" data-screen-label="Работает сейчас">
       <div className="wrap">
-        <span className="overline">{m.overline}</span>
+        <span className="overline">{r.now}</span>
         <h2 className="h2 reveal">{m.h2}</h2>
-        <div className="mods-cols">
-          <div>
-            <div className="mods-col-head reveal"><span className="pill green"><span className="pdot green"></span>{m.ready}</span></div>
-            <div className="mod-list">
-              <div className="mod reveal"><svg className="mic"><use href="#i-users" /></svg><span className="grow"><b>{m.m1}</b><span className="desc">{m.m1d}</span></span></div>
-              <div className="mod reveal" data-delay="60"><svg className="mic"><use href="#i-file" /></svg><span className="grow"><b>{m.m2}</b><span className="desc">{m.m2d}</span></span></div>
-              <div className="mod reveal" data-delay="120"><svg className="mic"><use href="#i-board" /></svg><span className="grow"><b>{m.m3}</b><span className="desc">{m.m3d}</span></span></div>
-              <div className="mod reveal" data-delay="180"><svg className="mic"><use href="#i-truck" /></svg><span className="grow"><b>{m.m4}</b><span className="desc">{m.m4d}</span></span></div>
-              <div className="mod reveal" data-delay="240"><svg className="mic"><use href="#i-send" /></svg><span className="grow"><b>{m.m8}</b><span className="desc">{m.m8d}</span></span></div>
-              <div className="mod reveal" data-delay="300"><svg className="mic"><use href="#i-chat" /></svg><span className="grow"><b>{m.m9}</b><span className="desc">{m.m9d}</span></span></div>
-            </div>
-          </div>
-          <div>
-            <div className="mods-col-head reveal"><span className="pill amber"><span className="pdot amber"></span>{m.soon}</span></div>
-            <div className="mod-list">
-              <div className="mod soon reveal"><svg className="mic"><use href="#i-package" /></svg><span className="grow"><b>{m.m5}</b><span className="desc">{m.m5d}</span></span></div>
-              <div className="mod soon reveal" data-delay="60"><svg className="mic"><use href="#i-receipt" /></svg><span className="grow"><b>{m.m6}</b><span className="desc">{m.m6d}</span></span></div>
-              <div className="mod soon reveal" data-delay="120"><svg className="mic"><use href="#i-chart" /></svg><span className="grow"><b>{m.m7}</b><span className="desc">{m.m7d}</span></span></div>
-            </div>
-          </div>
-        </div>
-        <div className="mods-cta reveal">
-          <a className="link-arrow" href={roadmapPath(lang)}>{m.cta} <span className="arr">→</span></a>
+
+        <ul className="mods-grid">
+          {SHIPPED.map((t, i) => (
+            <li key={t.id} id={moduleAnchor(t.id)} className={`mod reveal${t.id === WIDE ? " wide" : ""}`} data-delay={i * 60}>
+              <span className="mod-head" aria-hidden="true">
+                <span className="mod-ic"><svg className="mic"><use href={`#${t.icon}`} /></svg></span>
+                <span className="mod-live"></span>
+              </span>
+              <h3 className="mod-t">{r.tracks[t.id].t}</h3>
+              <p className="desc">{r.tracks[t.id].d}</p>
+              {t.ms && t.ms.length > 0 && (
+                <span className="rm-ms-list">
+                  {t.ms.map((ms) => (
+                    <span key={ms.id} className="rm-ms-chip"><span className="v">{ms.version}</span>{r.ms[ms.id]}</span>
+                  ))}
+                </span>
+              )}
+            </li>
+          ))}
+        </ul>
+
+        <div className="mods-foot reveal">
+          <p className="mods-later">
+            <span className="mods-later-part">
+              <span className="rm-swatch wip" aria-hidden="true"></span>
+              <span><span className="mods-later-k">{r.wip}{colon}</span> {titles(GROUPS.wipOnly)}</span>
+            </span>
+            <span className="mods-later-part">
+              <span className="rm-swatch plan" aria-hidden="true"></span>
+              <span><span className="mods-later-k">{r.next}{colon}</span> {titles(GROUPS.nextOnly)}</span>
+            </span>
+          </p>
+          <a className="link-arrow" href={roadmapPath(lang)}>{m.cta} <span className="arr" aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>

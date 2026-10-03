@@ -151,7 +151,7 @@ html.motion-ok .atmo .blob.b3 { animation: atmo-c 38s ease-in-out infinite alter
 .kpi .kv { font-family: var(--font-mono); font-size: 17px; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .kpi .kv.blue { color: var(--p-trip); }
 .kpi .kv.amber { color: var(--p-warn); }
-.kpi .kv.rose { color: var(--p-bad); }
+.kpi .kv.green { color: var(--p-ok); }
 .kpi .kl { font-size: 10px; color: var(--p-t3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* ---- board grid -------------------------------------------------------------- */
@@ -336,8 +336,10 @@ html.motion-ok .atmo .blob.b3 { animation: atmo-c 38s ease-in-out infinite alter
    Почему нужен хук в разметке, а не одно правило здесь: текст стоял ГОЛЫМ текстовым узлом
    внутри флекс-бара, то есть АНОНИМНЫМ флекс-элементом, а `text-overflow` не наследуется
    и к анонимным элементам не применяется. Чисто CSS-вариант ровно один — сделать `.tripbar`
-   блочным контейнером, но тогда `margin-left: auto` у `.ocount` перестаёт работать и бейдж
-   «⊕ N» уезжает от правого края у всех баров. Это решение об облике, и оно владельца.
+   блочным контейнером; пока на полосах стоял бейдж «⊕ N», это ломало его `margin-left: auto`.
+   Бейдж (число заказов рейса) снят волной главной 02.10.2026 — из доски приложения он ушёл
+   ещё 09.06, и заказы сайт не продаёт, — но флекс-бар с хуком оставлен: он работает,
+   а блочный бар — решение об облике, и оно владельца.
    🔴 Полос ТРИ доски, а не две: `Hero.tsx` (5), `Scrolly.tsx` (2) и `Europe.tsx` (2) —
    плюс подписи «отпуск»/«больничный» в `Hero.tsx`, где текст пропорциональным шрифтом
    и разброс по локалям больше, чем у номера. Хук стоит на ВСЕХ 11 полосах, исключений нет.
@@ -355,26 +357,23 @@ html.motion-ok .atmo .blob.b3 { animation: atmo-c 38s ease-in-out infinite alter
    отступы, и остаток дефицита всё равно берётся у номера — на 1100 первая строка читалась
    «3SK 77…» там, где до правки номер был виден целиком, а строка «отпуск» — «5.», то есть
    обрез перестал читаться как обрез. Правильный порядок: сначала уходит ДЕКОР
-   (иконка машины и счётчик остановок «⊕ N»), и только если тексту всё равно не хватает —
-   многоточие у текста.
+   (иконка машины), и только если тексту всё равно не хватает — многоточие у текста.
    Порог КОНТЕНТНЫЙ, по ширине самой полосы, а не по окну: `@container trip-bar` меряет
-   СОДЕРЖИМОЕ (боковые отступы 8+8 в число не входят). 96 px = иконка 11 + зазор 5 +
-   номер 45 (моно 9,5 px, «3SK 7702») + зазор 5 + счётчик 30. Ниже этого декор и номер
-   вместе не помещаются, а номер — данные, декор — нет.
+   СОДЕРЖИМОЕ (боковые отступы 8+8 в число не входят). 96 px считались как иконка 11 +
+   зазор 5 + номер 45 (моно 9,5 px, «3SK 7702») + зазор 5 + бейдж «⊕ N» 30. Бейдж снят
+   02.10.2026, и строгий минимум теперь 61 px, но порог оставлен на 96 намеренно: волна
+   меняла только цифры и подписи, а сдвиг порога — это видимая смена того, на каких
+   ширинах у полосы есть иконка. Опускать его — отдельное решение с замером.
    Это не новое решение об облике: тот же выбор проект уже сделал ниже `m`, где
-   `mobile.css` гасит `.tic` и `.ocount` по той же причине. Ширины баров мока не тронуты. */
+   `mobile.css` гасит `.tic` по той же причине. Ширины баров мока не тронуты. */
 .tripbar { container: trip-bar / inline-size; }
-.tripbar .ocount {
-  margin-left: auto; display: inline-flex; align-items: center; gap: 3px;
-  background: var(--p-trip); color: var(--p-bg);
-  border-radius: 99px; padding: 1.5px 6px; font-size: 8.5px; font-weight: 600;
-}
-/* 🔴 Блок стоит ПОСЛЕ базовых правил `.tic` и `.ocount` намеренно: `@container`
-   специфичности не добавляет, и выше по файлу он молча проигрывал `display: inline-flex`
-   у `.ocount` — первый заход именно так и промахнулся (иконка гасла, счётчик нет,
-   и номер всё равно ужимался). Проверено замером, не чтением. */
+/* 🔴 Блок стоит ПОСЛЕ базового правила `.tic` намеренно: `@container` специфичности
+   не добавляет, и выше по файлу он молча проигрывал базовому `display` — первый заход
+   так и промахнулся на бейдже «⊕ N» (иконка гасла, бейдж нет, номер всё равно ужимался).
+   Проверено замером, не чтением. Бейджа больше нет, порядок держим: следующее базовое
+   правило с `display` у потомка полосы проиграло бы так же. */
 @container trip-bar (width < 96px) {
-  .tripbar .tic, .tripbar .ocount { display: none; }
+  .tripbar .tic { display: none; }
 }
 .tripbar.vac {
   background: var(--p-warn-bg); color: var(--p-warn-tx);
@@ -411,7 +410,7 @@ html.motion-ok .atmo .blob.b3 { animation: atmo-c 38s ease-in-out infinite alter
 .btoast .tic { width: 16px; height: 16px; flex: none; margin-top: 1px; }
 .btoast.warn .tic { color: var(--p-warn); }
 .btoast.ok .tic { color: var(--p-ok); }
-.btoast b { display: block; font-size: 12px; font-weight: 600; color: var(--p-t1); }
+.btoast b { display: block; font-size: 12px; font-weight: 600; color: var(--p-t1); text-wrap: balance; }
 .btoast span { display: block; font-size: 11px; color: var(--p-t2); margin-top: 2px; text-wrap: pretty; }
 
 /* ---- phase choreography --------------------------------------------------------
@@ -445,18 +444,90 @@ html:not(.motion-ok) .hero-board .btoast { display: none; }
   font-family: var(--font-mono); font-size: 11.5px; color: var(--text-3); letter-spacing: 0.02em;
 }
 
-/* ---- trust strip (живые метрики вместо лого-стены) ------------------------- */
+/* ---- trust strip: широта продукта рядом чипов-ссылок ------------------------
+   Решение владельца 03.10: не три числа (16 · 30 · 50+), а девять возможностей,
+   каждая — ссылка на свою карточку «Работает сейчас». Ряд статичный: ни бегущей
+   строки, ни count-up. Облик взят из словаря чипов страницы, своих цветов нет:
+   фон --raised и рамка --border-1 — как у вех .rm-ms-chip, плашка «В работе» —
+   готовый .pill.amber, как у чипа DDD в видео; здесь ему задан только размер.
+   Горизонтального скролла нет ни на одной ширине: ряд переносится, чип ужимается.
+
+   Раскладка mobile-first, как у .mods-grid: ниже m — плитки по две в строку, от m —
+   центрированный ряд пилюль. Почему не пилюли везде (замер ru, «номинал − 10»):
+   однострочные чипы — 158…351 px, и в строке 354 px (400/390) они вставали по одному —
+   9 рядов, 486 px полосы; на 440/430 — те же 9 рядов, на 600/590 — 6 рядов, 342 px.
+   Плитки дают 5 рядов на любой ширине ниже m: 346 px на 400/390, 409 px на 320/310.
+   Порог — m, а не s, потому что 9 рядов стояли и на 440, сразу над s; верхней
+   границы m шкала не допускает, поэтому плитки — база, а пилюли — правило «от m». */
 .trust { border-top: 1px solid var(--border-1); border-bottom: 1px solid var(--border-1); background: var(--bg); }
-.trust-grid { display: grid; gap: 28px; padding: 40px 0; grid-template-columns: 1fr; }
-/* было 760 → m */
+.cap-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 24px 0; }
+/* Основа 50% − 8 px, а не ровно 50% − 4 px: при точной сумме с зазором дробная ширина
+   роняла бы вторую плитку на новую строку. Нечётный последний («12 языков»)
+   растягивается на всю строку сам (flex-grow). min-width: 0 — длинный перевод
+   ужимает плитку и переносит текст внутри, а не выталкивает её за край. */
+.cap-chips > li { display: flex; min-width: 0; max-width: 100%; flex: 1 1 calc(50% - 8px); }
+/* Скругление пилюли на двух-трёх строках — капля, поэтому у плитки радиус 12 px;
+   иконка — к первой строке текста. */
+.cap-chip {
+  display: flex; flex: 1; align-items: flex-start; gap: 7px; min-width: 0; max-width: 100%;
+  min-height: 38px; padding: 8px 10px; border-radius: 12px;
+  background: var(--raised); border: 1px solid var(--border-1); color: var(--text-1);
+  font-size: 13px; font-weight: 500; line-height: 1.3;
+  transition: border-color 160ms var(--ease-soft), transform 160ms var(--ease-soft);
+}
+.cap-chip .mic {
+  width: 16px; height: 16px; flex: none; margin-top: 1px;
+  color: var(--text-3); transition: color 160ms var(--ease-soft);
+}
+/* break-word, а не anywhere: anywhere обнуляет min-content (см. base.css у .h2), а здесь
+   перенос по слогам не нужен — только страховка от одного слова шире чипа */
+.cap-t { min-width: 0; overflow-wrap: break-word; }
+/* «· уточнение» тише направления: иерархия внутри чипа, текст — та же строка словаря.
+   В плитке уточнение — своей строкой, разделитель « · » скрыт: перенос в общем потоке
+   рвал фразу посередине («Ротация · на 3 / месяца вперёд», кадр 400 до правки). */
+.cap-q {
+  display: block; margin-top: 1px; font-size: 12.5px; font-weight: 400; text-wrap: pretty;
+  color: var(--text-3); transition: color 160ms var(--ease-soft);
+}
+.cap-sep { display: none; }
+.cap-chip .pill { height: 20px; padding: 0 8px; gap: 5px; font-size: 11px; }
+/* наведение — как у кнопок сайта: рамка на ступень ярче и подъём на 1 px только при
+   motion-ok; иконка берёт цвет ссылки, уточнение светлеет */
+.cap-chip:hover { border-color: var(--border-2); }
+.cap-chip:hover .mic { color: var(--info); }
+.cap-chip:hover .cap-q { color: var(--text-2); }
+html.motion-ok .cap-chip:hover { transform: translateY(-1px); }
+/* Кольцо фокуса — общее a:focus-visible из base.css, но оно ставит border-radius: 6px
+   и сильнее простого класса: без этой строки чип на фокусе терял бы своё скругление.
+   (0,2,0) против (0,1,1) — побеждает по силе, а не по порядку файлов. */
+.cap-chip:focus-visible { border-radius: 12px; outline-offset: 3px; }
+
+/* 🔴 Блок стоит ПОСЛЕ базовых правил намеренно: @media специфичности не добавляет,
+   и выше по файлу он молча проиграл бы базе (тот же урок, что у .board и trip-bar выше).
+   От m чип — пилюля по ширине содержимого, уточнение — в той же строке через « · ». */
 @media (width >= theme(--breakpoint-m)) {
-  .trust-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .cap-chips { justify-content: center; gap: 10px; padding: 32px 0; }
+  .cap-chips > li { flex: 0 1 auto; }
+  .cap-chip {
+    flex: 0 1 auto; align-items: center; gap: 8px;
+    padding: 7px 15px 7px 12px; border-radius: 999px; font-size: 14px;
+  }
+  .cap-chip .mic { margin-top: 0; }
+  .cap-q { display: inline; margin-top: 0; font-size: inherit; }
+  .cap-sep { display: inline; }
+  .cap-chip:focus-visible { border-radius: 999px; }
 }
-.metric { text-align: center; }
-.metric .num {
-  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
-  font-size: clamp(30px, 3.6vw, 42px); font-weight: 600; letter-spacing: -0.02em;
-  color: var(--text-1);
+
+/* На s плитка — одна в строку, уточнение в той же строке через « · ». Замер 03.10 на
+   двух колонках: колонка 88 px рвала слово без дефиса — de «Entscheidung|szentrum»
+   (+50,5 px на 320, чисто только с раскладки 430), ru «Планировани|е» (+3,1 на 320).
+   Одна колонка даёт те же ~9 строк по высоте, что и 5 рядов двухстрочных плиток,
+   а слово целиком. Блок стоит после «от m»: диапазоны не пересекаются, порядок ради
+   читаемости каскада. */
+@media (width <= theme(--breakpoint-s)) {
+  .cap-chips > li { flex: 1 1 100%; }
+  .cap-chip { align-items: center; }
+  .cap-chip .mic { margin-top: 0; }
+  .cap-q { display: inline; margin-top: 0; font-size: inherit; }
+  .cap-sep { display: inline; }
 }
-.metric .num .suffix { color: var(--info); }
-.metric .lbl { margin-top: 6px; font-size: 13.5px; color: var(--text-3); }

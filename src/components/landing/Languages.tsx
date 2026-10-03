@@ -13,6 +13,10 @@ import { useEffect, useRef } from "react";
 import { TRIP12 } from "@/lib/landing-i18n";
 import { useLanding } from "./LandingProvider";
 
+/* id секции — якорь чипа «12 языков» в полосе под первым экраном (TrustStrip, 03.10):
+   одна константа на оба места, чтобы ссылка не разошлась с секцией молча */
+export const LANGUAGES_SECTION_ID = "languages";
+
 function localeIdx(lang: string): number {
   const want = lang.toUpperCase();
   const i = TRIP12.findIndex((p) => p[0] === want);
@@ -100,7 +104,7 @@ export function Languages() {
   }, [lang]);
 
   return (
-    <section className="langs sect-tight" id="languages" data-screen-label="12 языков">
+    <section className="langs sect-tight" id={LANGUAGES_SECTION_ID} data-screen-label="12 языков">
       <div className="wrap langs-grid">
         <div>
           <span className="overline">{d.langs.overline}</span>

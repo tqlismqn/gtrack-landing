@@ -626,7 +626,7 @@ html:not(.motion-ok) .frame figcaption .snum { font-family: var(--font-mono); fo
    больше не может растянуть колонку своим min-content. По негативному контролю
    (см. блок D04 ниже) это ВТОРОЙ, самостоятельный барьер против обреза.
    Про layout containment, который приходит вместе с `inline-size`: containing
-   block для абсолютных потомков карточка образует и БЕЗ него — `fx.css:79`
+   block для абсолютных потомков карточка образует и БЕЗ него — `fx.css:78`
    `.frame .scene-card { position: relative }`. Проверено замером: `.scursor`
    (`left/top` в процентах) имеет `offsetParent = .scene-card` и при
    принудительно выключенном контейнере, а растяжение кадра с 433 до 788 px
@@ -894,28 +894,66 @@ html:not(.motion-ok) .vid-streak.s3 { transform: translate3d(30vw, -3px, 0) rota
 .vid .sect-sub { max-width: 52ch; }
 .vid-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
 
-/* ---- 4.7 модули и горизонт --------------------------------------------------- */
-.mods-cols { display: grid; gap: 40px; margin-top: 48px; }
-/* было 880 → l */
-@media (width >= theme(--breakpoint-l)) {
-  .mods-cols { grid-template-columns: 1fr 1fr; gap: 56px; }
+/* ---- 4.7 работает сейчас ------------------------------------------------------
+   Карточка на направление из TRACKS, у которого есть since (Modules.tsx). Вехи —
+   чипы .rm-ms-chip из roadmap.css: одна визуальная речь с /roadmap, своих чипов нет.
+   Ритм сетки: на l три колонки, широкая карточка (планирование, три вехи) — на две,
+   ряды 1+2 / 1+1+1 без дыр. На m две колонки, и нечётная последняя карточка встаёт
+   на всю строку, а не сиротой слева. Ниже m — одна колонка: в две при 430–767
+   описания и чипы ломались бы в столбик по слову.
+   Верхней границы у m нет (единственная верхняя граница шкалы — s), поэтому правило
+   «на всю строку» на l сбрасывается явно, а широкая карточка перечислена вторым
+   селектором сильнее сброса — он не отнимет у неё две колонки, даже если она
+   окажется последней нечётной. */
+.mods-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin-top: 48px; }
+/* Якорь из полосы чипов: общий scroll-margin 76 px (index.css) считается по ещё не
+   раскрытой карточке — .reveal держит её на translateY(16px), и после раскрытия верх
+   уходил под шапку на ~5 px (замер 03.10, первый клик на свежей странице). 76 + 16. */
+.mods-grid > .mod { scroll-margin-top: 92px; }
+@media (width >= theme(--breakpoint-m)) {
+  .mods-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .mods-grid > .mod:last-child:nth-child(odd) { grid-column: 1 / -1; }
 }
-.mods-col-head { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
-.mods-col-head h3 { font-size: 14px; font-weight: 600; letter-spacing: 0.02em; color: var(--text-2); text-transform: uppercase; font-size: 12px; letter-spacing: 0.12em; }
-.mod-list { display: flex; flex-direction: column; gap: 10px; }
+@media (width >= theme(--breakpoint-l)) {
+  .mods-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .mods-grid > .mod:last-child:nth-child(odd) { grid-column: auto; }
+  .mods-grid > .mod.wide, .mods-grid > .mod.wide:last-child:nth-child(odd) { grid-column: span 2; }
+}
 .mod {
-  display: flex; align-items: center; gap: 14px;
-  background: var(--card); border: 1px solid var(--border-1); border-radius: 13px;
-  padding: 15px 18px;
+  display: flex; flex-direction: column; align-items: flex-start; min-width: 0;
+  background: var(--card); border: 1px solid var(--border-1); border-radius: 16px;
+  padding: 22px 22px 20px;
   transition: transform 240ms var(--ease-soft), border-color 240ms var(--ease-soft), box-shadow 240ms var(--ease-soft);
 }
 html.motion-ok .mod:hover { transform: translateY(-2px); border-color: var(--border-2); box-shadow: var(--shadow-lift); }
-.mod.soon { border-style: dashed; background: transparent; }
-.mod .mic { width: 19px; height: 19px; color: var(--text-3); flex: none; }
-.mod b { font-size: 15px; font-weight: 600; }
-.mod span.desc { font-size: 13px; color: var(--text-3); display: block; margin-top: 1px; }
-.mod .grow { flex: 1; min-width: 0; }
-.mods-cta { margin-top: 36px; display: flex; justify-content: center; }
+.mod-head { display: flex; align-items: center; justify-content: space-between; align-self: stretch; margin-bottom: 18px; }
+.mod-ic {
+  display: grid; place-items: center; width: 40px; height: 40px; border-radius: 11px;
+  background: var(--raised); border: 1px solid var(--border-1); color: var(--text-2);
+}
+.mod .mic { width: 19px; height: 19px; flex: none; }
+/* «работает» — та же зелёная точка с ореолом, что у «50+ обновлений» на /roadmap */
+.mod-live {
+  width: 7px; height: 7px; border-radius: 999px; background: var(--ok);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ok) 22%, transparent);
+}
+.mod-t { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; }
+.mod .desc { font-size: 13.5px; color: var(--text-3); margin-top: 6px; max-width: 52ch; text-wrap: pretty; }
+/* чипы прижаты к низу карточки: в ряду равной высоты они встают на одну линию.
+   Сила селектора выше, чем у .rm-ms-list в roadmap.css, — порядок импорта не решает */
+.mod .rm-ms-list { margin-top: auto; padding-top: 16px; }
+
+/* будущее — одна приглушённая строка под сеткой и ссылка на всю карту; метки —
+   те же образцы полос, что в легенде /roadmap (полосатая «в работе», пунктир «дальше») */
+.mods-foot {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 40px;
+  margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--border-1);
+}
+.mods-later { display: flex; flex-wrap: wrap; gap: 8px 28px; min-width: 0; font-size: 14px; color: var(--text-3); text-wrap: pretty; }
+.mods-later-part { display: flex; align-items: flex-start; gap: 10px; min-width: 0; }
+/* образец полосы по центру первой строки текста, а не по базовой линии */
+.mods-later-part .rm-swatch { margin-top: calc(0.5lh - 4px); }
+.mods-later-k { color: var(--text-2); font-weight: 500; }
 .link-arrow {
   display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: var(--info);
 }

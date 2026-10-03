@@ -1,12 +1,14 @@
 "use client";
 
 /* ============================================================================
-   FOOTER — двухколоночный: бренд + tagline, секции «Правовое» и «Безопасность
-   данных» (trust-сигналы подписаны группой), нижняя строка © + языки.
+   FOOTER — двухколоночный: бренд + tagline + почта + ссылка на дорожную карту,
+   секции «Правовое» и «Безопасность данных» (trust-сигналы подписаны группой),
+   нижняя строка © + языки.
    Правовые ссылки ведут на app-legal (app.g-track.eu/legal?tab=…) — единый
    источник (Privacy / Terms / DPA), решение Thomas 06-15: не дублируем legal.
    ============================================================================ */
 
+import { roadmapPath } from "@/lib/landing-i18n";
 import { useLanding } from "./LandingProvider";
 import { SALES_MAILTO, SALES_EMAIL, legalUrl } from "./urls";
 
@@ -41,6 +43,9 @@ export function Footer() {
             </a>
             <p className="footer-tagline">{d.footer.tagline}</p>
             <a className="footer-mail" href={SALES_MAILTO}>{SALES_EMAIL}</a>
+            {/* карта — в колонке бренда, а не третьей колонкой: колонки подвала —
+                «Правовое» и «Безопасность», продуктовой ссылке там не место (решение 02.10) */}
+            <a className="footer-link" href={roadmapPath(lang)}>{d.nav.roadmap}</a>
           </div>
           <div className="footer-cols">
             <div className="footer-col">

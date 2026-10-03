@@ -5,7 +5,9 @@
    cestu», модули (Řidiči / Dokumenty / Plánování / Vozidla / Zakázky /
    Fakturace), founding/price-lock (founding cena, «Cena zamčená N měs po
    spuštění», oficiální spuštění), типы документов (Vízum, Kód 95, Tachograf,
-   Lékařská prohlídka, TÜV/STK). Цифры — байт-в-байт с en (Stripe livemode),
+   Lékařská prohlídka, TÜV/STK), волна 02.10: Centrum rozhodnutí, режимы
+   Ruční / Centrum / Automatický, плитка «Volní», Opravy a servis, Rotace,
+   žurnál, souhrn, končící. Цифры — байт-в-байт с en (Stripe livemode),
    кроме десятичного разделителя: запятая (≈ 2,25 €, −6,7%).
    ============================================================================ */
 
@@ -15,7 +17,7 @@ export const cs: LandingDict = {
   meta: {
     title: "G-Track — správa řidičů a plánování jízd pro dopravce",
     description:
-      "Řidiči, dokumenty, plánování a vozový park — v jedné aplikaci v prohlížeči. Za den v provozu. Ceny — přímo na této stránce.",
+      "Dokumenty řidičů, jízdy a dovolené, opravy a servis — v jedné aplikaci v prohlížeči pro dopravce od 50 vozidel. 30 dní zdarma, ceny přímo na stránce.",
   },
 
   nav: {
@@ -35,25 +37,43 @@ export const cs: LandingDict = {
   },
 
   hero: {
-    kicker: "EU compliance · plánování · vozový park",
+    kicker: "EU compliance · plánování · vozidla a servis",
     h1: "Každý řidič připraven na cestu.",
     h1dim: "Vždy.",
-    sub: " — systém EU compliance a plánování jízd pro dopravce od 50 vozidel. Řidiči, dokumenty, dispečerská tabule a vozový park — v prohlížeči, bez hardwaru a bez implementačních konzultantů. Za den v provozu.",
+    sub: " — systém EU compliance a plánování pro dopravce od 50 vozidel. Dokumenty řidičů, jízdy a dovolené, opravy a servis — v prohlížeči, bez hardwaru a bez implementačních konzultantů. Co je dnes potřeba rozhodnout, vám systém ukáže sám.",
     ctaTrial: "Vyzkoušet na 30 dní",
     ctaPricing: "Zobrazit ceník",
     micro1: "Bez platební karty",
     micro2: "Registrace za 2 minuty",
     micro3: "Data uložená v EU",
     boardAria:
-      "Dispečerská tabule G-Track: řidič nahraje sken přes Telegram a systém aktualizuje evidenci dokladu",
+      "Dispečerská tabule G-Track: nahrajete sken dokumentu, systém rozpozná číslo a datum platnosti a aktualizuje záznam",
     boardCaption:
-      "Řidič nahraje sken přes Telegram → G-Track rozpozná údaje → aktualizuje evidenci dokladu",
+      "Nahrajete sken → G-Track rozpozná číslo a datum platnosti → záznam dokumentu aktualizován",
   },
 
+  /* Полоса под первым экраном (TrustStrip): чипы-ссылки на модули, решение владельца 03.10.
+     Термины — из app-локали cs: nav (Řidiči, Plánování, Centrum rozhodnutí, Vozidla,
+     Opravy a servis), vehicles_sub (Tahače / Návěsy), «jízdy», «Telegram připomínky»;
+     c7 — фраза из roadmap.tracks.telematics.d, c9 = vid.chip6. «Ve vývoji» у c6 — d.roadmap.wip. */
   trust: {
-    m1: "typů dokumentů řidiče",
-    m2: "dní dema bez telefonátu",
-    m3: "jazyků rozhraní",
+    aria: "Co už v G-Track funguje",
+    c1: "Řidiči · 16 typů dokumentů",
+    c2: "Plánování · tabule a jízdy",
+    c3: "Centrum rozhodnutí",
+    c4: "Rotace · na 3 měsíce dopředu",
+    c5: "Vozidla · tahače a návěsy",
+    c6: "Opravy a servis",
+    c7: "Telematika · váš systém sledování vozidel",
+    c8: "Řidič v Telegramu · žádosti a připomínky",
+    c9: "12 jazyků rozhraní",
+  },
+
+  /* Подвал OG-картинки (og-image.tsx): подписи к числам 16 и 30 — бывшие trust.m1/m2
+     дословно: полоса стала чипами (03.10), а картинка для шеров осталась прежней. */
+  og: {
+    docTypes: "typů dokumentů řidiče",
+    trialDays: "dní dema bez telefonátu",
   },
 
   pain: {
@@ -98,15 +118,15 @@ export const cs: LandingDict = {
     s1h: "Řidič v systému",
     s1p: "Karta, stav, dokumenty a připravenost na cestu — vše na jednom místě. Bankovní údaje — podle rolí.",
     s2h: "Do servisu 4 200 km",
-    s2p: "Tachometr přichází přímo z vozu. G-Track sám počítá, kolik zbývá do servisu, a zapíše ho do plánu — bez zápisníků a telefonátů do servisu.",
+    s2p: "Stav tachometru přichází přímo z vozu. G-Track sám počítá, kolik zbývá do servisu, a zvýrazňuje vozy, které už jsou na řadě — bez zápisníků a telefonátů mechanikovi.",
     s3h: "Barcelona: výměna vozu",
     s3p: "Vůz jde do servisu, řidič zasune svou kartu do jiného. G-Track sám přesune jízdu na nový vůz — nebo se zeptá dispečera, podle vašeho nastavení.",
     s4h: "Zase na cestě",
-    s4p: "Jízda se zobrazí na tabuli, zakázka je připojená. Každá změna — v historii.",
+    s4p: "Jízda se zobrazí na tabuli. Každá změna — v historii.",
     cap1b: "Řidič v systému.",
     cap1: " Karta: stav, dokumenty, důvěrné údaje — podle rolí.",
     cap2b: "Kilometry do servisu.",
-    cap2: " Tachometr z vozu, zbytek do servisu a záznam v plánu údržby.",
+    cap2: " Tachometr z vozu a zbývající kilometry — vidíte, kterým vozům je čas na servis.",
     cap3b: "Jízda se přesunula sama.",
     cap3: " Karta řidiče v novém voze — záznam v historii.",
     cap4b: "Zase na cestě.",
@@ -116,7 +136,7 @@ export const cs: LandingDict = {
     leg2: "Mnichov → Lyon",
     leg3: "Lyon → Barcelona",
     arrived: "Příjezd · Barcelona",
-    outroB: "Jeden řidič — desítky termínů.",
+    outroB: "Jeden řidič — přes deset termínů.",
     outro: " Vy jich máte sto.",
     skip: "Přeskočit příběh",
   },
@@ -124,12 +144,11 @@ export const cs: LandingDict = {
   vid: {
     overline: "Evropský trh",
     h2: "Postaveno pro evropské dopravce.",
-    sub: "A1, Kód 95, víza — lhůty pod kontrolou už dnes. Kabotáž 3/7 — v plánu rozvoje.",
-    chip1: "Kabotáž 3/7",
+    sub: "A1, Kód 95, víza — lhůty pod kontrolou už dnes.",
     chip2: "A1",
     chip3: "Kód 95",
     chip4: "ADR",
-    chip5: "Tachograf",
+    chip5: "Vyhodnocení DDD",
     chip6: "12 jazyků rozhraní",
     tag: "VIDEO · PLACEHOLDER",
   },
@@ -143,26 +162,16 @@ export const cs: LandingDict = {
   europe: {
     overline: "Geografie",
     h2: "Celá Evropa na jedné tabuli",
-    sub: "A1, Kód 95, doklady řidičů — navrženo podle pravidel EU. Každá cesta na jedné tabuli.",
+    sub: "Kdo je na cestě, kdo na dovolené, který vůz je v servisu — na tabuli. Kdo se vrátí a kdo bude volný — na 14 dní, měsíc nebo tři měsíce dopředu.",
     mapAria: "Mapa tras napříč Evropou přecházející v plánovací tabuli",
     captionB: "Celý tenhle chaos se řídí odsud",
-    caption: " — z jedné dispečerské tabule.",
+    caption: " — z jedné tabule a jednoho seznamu rozhodnutí.",
   },
 
+  /* Секция «Работает сейчас» на главной: карточки строятся из TRACKS
+     (roadmap-content.ts) и текстов d.roadmap — здесь только заголовок и ссылка. */
   modules: {
-    overline: "Moduly",
-    h2: "Jádro funguje. Horizont je otevřený.",
-    ready: "Hotovo",
-    soon: "Již brzy",
-    m1: "Řidiči", m1d: "Profily, stavy, připravenost na cestu",
-    m2: "Dokumenty", m2d: "16 typů, termíny, rozpoznávání skenů",
-    m3: "Plánování", m3d: "Tabule řidiči × dny, jízdy, konflikty",
-    m4: "Vozidla", m4d: "Tahače a návěsy, TÜV/STK, pojištění",
-    m5: "Zakázky", m5d: "Zakázka → jízda → dokumenty",
-    m6: "Fakturace", m6d: "Faktury z jízd",
-    m7: "Ekonomika vozidla", m7d: "Cost-per-km za každý tahač",
-    m8: "Telegram aplikace pro řidiče", m8d: "Doklady, směny a žádosti",
-    m9: "Zprávy", m9d: "Chat s řidičem s vestavěným překladem",
+    h2: "Ne „brzy“. Už teď.",
     cta: "Celá roadmapa",
   },
 
@@ -187,8 +196,8 @@ export const cs: LandingDict = {
       drivers: { t: "Řidiči a dokumenty", d: "Profily, 16 typů dokumentů, pravidla 8 zemí" },
       planning: { t: "Plánování a autopilot", d: "Tabule, Centrum rozhodnutí, rotace, autopilot podle tacho karty" },
       fleet: { t: "Vozidla a servis", d: "Vozový park, opravy a servis, palubní data" },
-      telematics: { t: "Integrace s telematikou", d: "Napojíme váš systém sledování vozidel — data o vozidlech přicházejí sama, pro plánování i analýzy. Jde to i ručně." },
-      telegram: { t: "Řidič v Telegramu", d: "Doklady, směny, žádosti a chat" },
+      telematics: { t: "Integrace s telematikou", d: "Napojíme váš systém sledování vozidel — data o vozidlech přicházejí sama, pro plánování i hlídání servisních intervalů. Jde to i ručně." },
+      telegram: { t: "Řidič v Telegramu", d: "Žádosti o dovolenou a nemocenskou, dnešní směna, upozornění na končící dokumenty" },
       reports: { t: "Reporty a oznámení", d: "Týdenní report, centrum oznámení, lhůty pro tacho soubory" },
       companies: { t: "Propojené firmy", d: "Více firem jednoho majitele: každá má vlastní předplatné a vozidla i řidiče ostatních vidí jen pro čtení" },
       finance: { t: "Zakázky a finance", d: "Zakázky, faktury, pokuty, ekonomika vozidla" },
@@ -263,14 +272,17 @@ export const cs: LandingDict = {
     g3: "Přístupy, vozový park, cena",
 
     q1: "Jak systém upozorní, že řidiči končí platnost dokumentu?",
-    a1: "Každé ráno G-Track prověří dokumenty celého vozového parku. Pas se ozve 180 dní dopředu, ostatní dokumenty 90. Upozornění jde třemi kanály současně: e-mailem do kanceláře, příznakem přímo v aplikaci a pushem řidiči do Telegramu.",
-    a1b: "Která upozornění chodí a jakými kanály, si u každého typu nastavíte sami. Připomínka tak nevisí na jednom člověku a nezmizí, když je personalista na dovolené.",
+    a1: "Každé ráno G-Track prověří dokumenty všech řidičů. Pas se v souhrnu objeví 180 dní předem, ostatní dokumenty 90 dní předem. Kancelář dostane e-mail, v aplikaci se dokument označí jako končící a řidiči, který má v Telegramu připojeného bota, přijde připomínka.",
+    a1b: "E-maily se souhrnem si zapnete sami a vyberete, komu chodí: jen vlastníkovi, administrátorům nebo všem členům. Připomínka tak nevisí na jednom člověku a nezmizí, když je personalista na dovolené.",
 
     q2: "Kdo nese odpovědnost, když řidič vyjede na cestu s propadlým dokumentem?",
-    a2: "Ve většině zemí EU dopravce, ne jen řidič: pokutu dostane firma a v řadě zemí navíc i odpovědný zástupce pro dopravu. Konkrétní výše i postup se liší podle země kontroly. Právě proto G-Track připomíná kanceláři, a ne řidiči — tomu, kdo zařazuje jízdu do plánu.",
+    a2: "Ve většině zemí EU dopravce, ne jen řidič: pokutu dostane firma a v řadě zemí navíc i odpovědný zástupce pro dopravu. Konkrétní výše i postup se liší podle země kontroly. Právě proto G-Track připomíná především kanceláři — tomu, kdo zařazuje jízdu do plánu — a řidiči, který si připojil bota, posílá připomínku navíc do Telegramu.",
 
     q3: "Je na dispečerské tabuli vidět, kdo nemůže vyjet kvůli dokumentu?",
     a3: "Ano, tabule sdružuje lidi, vozidla a termíny na jednom místě: kdo je na dovolené, kdo na nemocenské, kdo je bez vozidla, komu neplatí dokument. Každá změna plánu se zapisuje do historie — vidíte nejen aktuální stav, ale i kdo ho kdy změnil.",
+
+    q11: "Co G-Track dělá sám a o čem rozhoduje dispečer?",
+    a11: "Sám si všimne: kdo se vrací z dovolené, komu končí jízda a nic na ni nenavazuje, kdo z nových řidičů nemá plán — to vše se sejde v Centru rozhodnutí. Jestli má systém měnit plán za vás, určíte volbou režimu: „Ruční“, „Centrum“ nebo „Automatický“. Ve výchozím nastavení se jen ptá. Každá jeho změna plánu se zapisuje do žurnálu.",
 
     q4: "Mám 40–60 řidičů a roky skenů v Excelu a ve složkách. Kdo to převede?",
     a4: "Začít se dá i bez archivu: založte řidiče a ty dokumenty, kterým běží nejbližší termín — připomínky fungují už jen z toho. Staré skeny doplníte postupně a nic neblokují.",
@@ -280,17 +292,20 @@ export const cs: LandingDict = {
     a5: "Data i soubory jsou v Evropské unii, datové centrum v Irsku. Dokument o zpracování údajů je zveřejněný, odkaz najdete v patičce stránky; podepisujeme ho. Přístup k citlivým polím uvnitř vaší firmy je omezený rolemi, ne jedním společným přepínačem.",
 
     q6: "Když se rozhodnu odejít — vezmu si data s sebou?",
-    a6: "Data si kdykoli a bez žádosti vyexportujete do CSV: seznam řidičů, stavy dokumentů, termíny. Skeny zůstávají vaše: teď se stahují po jednom, celý archiv vydáváme na vyžádání. Účet si smažete sami, bez telefonátu s „manažerem pro udržení zákazníka“.",
+    a6: "Dokud je účet aktivní, data si kdykoli a bez žádosti vyexportujete do CSV: seznam řidičů, stavy dokumentů, termíny. Skeny zůstávají vaše: teď se stahují po jednom, celý archiv vydáváme na vyžádání. Účet si vlastník smaže sám, bez telefonátu s „manažerem pro udržení zákazníka“.",
 
     q7: "Co musí dělat řidič? Instaluje si něco?",
-    a7: "Nic. Řidič pracuje v Telegramu, který už má: vidí své dokumenty a termíny, svou směnu a vozidlo, fotku nového dokumentu posílá přímo do chatu. Překlad je vestavěný — řidič píše svým jazykem, dispečer čte svým.",
+    a7: "Nic: Telegram už má. Přes bota podá žádost o dovolenou nebo nemocenskou — ta putuje do plánování a odpověď mu přijde zpátky. Vidí, kterým vozem dnes jede, a dostává připomínky, když jeho dokumentům končí platnost.",
     a7b: "Aplikace potřebuje internet. Originály dokumentů v kabině to nenahrazuje.",
 
     q8: "Může dispečer vidět rozvrh, ale ne pas a lékařskou prohlídku?",
-    a8: "Ano, a tak je to i ve výchozím nastavení. Práva se přidělují jednotlivě — je jich víc než třicet. Identifikační číslo a číslo bankovního účtu chrání samostatné právo a zobrazují se maskovaná. Které typy dokumentů jsou důvěrné, si každá firma určuje sama.",
+    a8: "Ano. Práva se přidělují jednotlivě — je jich 36. Číslo a sken pasu, víza a občanského průkazu ve výchozím nastavení vidí jen zaměstnanci s právem na důvěrné údaje, ostatní jen stav a platnost. Jakýkoli jiný typ dokumentu, třeba lékařskou prohlídku, může firma stejným způsobem skrýt v nastavení. Identifikační číslo a číslo bankovního účtu chrání samostatné právo a zobrazují se maskovaná.",
 
     q9: "Jak jste na tom s řidiči ze třetích zemí — Ukrajina, Srbsko, Uzbekistán?",
     a9: "Pro občany mimo EU je povinný seznam delší: kromě pasu, řidičského průkazu a karty tachografu k němu patří i vízum, licence dopravce a Kód 95. Připravenost na cestu se počítá podle tohoto rozšířeného seznamu, ne podle obecné šablony: dokud řidiči chybí jeho dokumenty, jako připravený se neukáže.",
+
+    q12: "Telematiku už máme. Potřebuje ji G-Track?",
+    a12: "Není nutná: dokumenty, tabule, rotace, opravy a servis fungují i bez ní a kilometry se zadávají ručně. Napojíme váš systém sledování vozidel — a kilometry přicházejí přímo z vozu, G-Track vidí, čí karta je v tachografu, a všimne si vozu, který jede bez plánu.",
 
     q10: "Kolik to stojí pro 40 vozidel a 45 návěsů? Platí se za každého uživatele?",
     a10: "Tarif Starter — 150 € měsíčně, při roční platbě 125 €. Zahrnuje 50 vozidel, 100 řidičů a 75 návěsů, takže váš vozový park se vejde s rezervou. Místa dispečerů a personalistů se nepočítají: účet založte každému, kdo ho potřebuje.",
@@ -314,7 +329,7 @@ export const cs: LandingDict = {
   },
 
   footer: {
-    tagline: "EU compliance a plánování pro dopravce",
+    tagline: "EU compliance, plánování, vozidla a servis pro dopravce",
     legalHeading: "Právní informace",
     privacy: "Ochrana soukromí",
     terms: "Podmínky použití",
@@ -341,12 +356,12 @@ export const cs: LandingDict = {
     planning: "Plánování", week24: "Týden 24 · 8.–13. června", colDriver: "Řidič",
     d1: "Po 08", d2: "Út 09", d3: "St 10", d4: "Čt 11", d5: "Pá 12",
     w1: "Po 15", w2: "Út 16", w3: "St 17", w4: "Čt 18", w5: "Pá 19",
-    kpiTrip: "Právě na cestě", kpiVac: "Na dovolené", kpiNoVeh: "Bez vozidla",
+    kpiTrip: "Právě na cestě", kpiVac: "Na dovolené", kpiFree: "Volní",
     stActive: "Aktivní", stTrip: "Na cestě", ready: "na cestu",
     vacUntil: "Dovolená do 15.06", sick: "Nemocenská",
-    toastWarnT: "Vízum vyprší za 30 dní", toastWarnD: "P. Savchenko · prodloužit do 12.07.2026",
+    toastWarnT: "Ranní souhrn: vízum vyprší 12.07", toastWarnD: "P. Savchenko · zbývá 32 dní",
     toastOkT: "Platnost víza v evidenci: 08.2028", toastOkD: "Číslo a datum rozpoznány ze skenu",
-    docs: "Dokumenty", urgent: "Naléhavé", nonEU: "NON-EU",
+    docs: "Na cestu", urgent: "Naléhavé", nonEU: "NON-EU",
     tabOverview: "Přehled", tabDocs: "Dokumenty", tabComments: "Komentáře", tabHistory: "Historie",
     confid: "Důvěrné", confNote: "Bankovní údaje vidí jen ti, kdo je mají vidět.",
     cardTitle: "Karta řidiče", remindTitle: "Dokumenty · připomínka",
@@ -357,22 +372,22 @@ export const cs: LandingDict = {
     fldType: "Typ dokumentu", fldTypeV: "Vízum (VIS)", fldNum: "Číslo", fldUntil: "Platnost do",
     recognized: "rozpoznáno",
     week25: "Plánování · týden 25",
-    histTs1: "dnes 14:02", hist1: "Stav změněn — Na cestě (3QR 6671)", histBy1: "disp. S. Malek",
+    histTs1: "dnes 14:02", hist1: "Stav změněn — Na cestě (4TC 2190)", histBy1: "disp. S. Malek",
     histTs2: "dnes 13:58", hist2: "Dokument aktualizován — Vízum (VIS)", histBy2: "HR · I. Koval",
     histNote: "Každá změna je v historii.",
     mcH: "Vízum · P. Savchenko",
-    mc1: "Řidič nahrál sken z Telegramu",
+    mc1: "Nahrán nový sken víza",
     mc2: "G-Track sám rozpoznal číslo a datum",
     mc3: "Platnost víza v evidenci: 08.2028",
     mcSub2: "CZ-4471920 · do 03.08.2028",
-    chipVisaWarn: "VIS · 30 dní", chipVisaOk: "VIS · 2028",
+    chipVisaWarn: "VIS · 32 dní", chipVisaOk: "VIS · 2028",
     svcTitle: "Kilometry a servis",
     svcOdo: "Tachometr",
     svcNext: "Do servisu",
     svcInterval: "Servisní interval",
     svcCap: "intervalu",
     svcSource: "z vozu",
-    svcPlanned: "servis v plánu",
+    svcSoon: "Brzy servis",
     chipSvc: "Servis · 4 200 km",
     unloadTitle: "Jízda · výměna vozu",
     unloadOk: "Jízdu přesunul systém",
@@ -381,8 +396,8 @@ export const cs: LandingDict = {
     unloadPlace: "4TC 2190 · Barcelona",
     unloadWhen: "Čas",
     unloadDocV: "Karta tachografu",
-    sumOnTime: "jízda v termínu",
-    sumKm: "km jízdy",
-    sumDocs: "dokumenty",
+    sumStatus: "na cestě",
+    sumVehicle: "vůz",
+    sumDocs: "na cestu",
   },
 };

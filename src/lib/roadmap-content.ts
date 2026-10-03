@@ -37,7 +37,10 @@ export const LAUNCH = { version: "1.0", date: "2026-05-16" } as const;
 export const AXIS_START = "2026-05-01";
 /** доля ширины дорожки под прошлое; остальное — зона «Дальше» без дат */
 export const PAST_SHARE = 68;
-/** «50+ обновлений с запуска»: с 1.0 по 2.4.2 вышло 53 версии — формулировка остаётся правдой и дальше */
+/** «50+ обновлений с запуска»: в releaseNotes приложения с 1.0.0 по 2.4.2 — 52 записи, по 2.4.5 — 55
+ *  (пересчёт 02.10.2026). Пол 50, а не точное число: с каждым выпуском формулировка остаётся правдой
+ *  без правки сайта. Живёт только на /roadmap: с главной «50+» ушло вместе с числовой
+ *  полосой TrustStrip (решение владельца 03.10 — там теперь чипы возможностей). */
 export const RELEASES_SINCE_LAUNCH_FLOOR = 50;
 
 export const TRACKS: readonly TrackSpec[] = [
@@ -96,6 +99,32 @@ export const TRACKS: readonly TrackSpec[] = [
     future: [{ phase: "plan", from: 0.54, to: 1 }],
   },
 ];
+
+/* ---- статус направлений для главной ------------------------------------- */
+
+export interface TrackGroups {
+  /** работает у клиентов: у направления есть since */
+  readonly shipped: readonly TrackId[];
+  /** не работает, но уже строится: есть кусок «в работе» */
+  readonly wipOnly: readonly TrackId[];
+  /** не работает и не строится: только «в планах» */
+  readonly nextOnly: readonly TrackId[];
+}
+
+/** Разбивка TRACKS на три непересекающиеся группы в порядке Ганта. Секция
+ *  «Работает сейчас» на главной берёт состав отсюда, а не из своего списка:
+ *  иначе главная и /roadmap рано или поздно разойдутся в том, что уже работает. */
+export function trackGroups(): TrackGroups {
+  const shipped: TrackId[] = [];
+  const wipOnly: TrackId[] = [];
+  const nextOnly: TrackId[] = [];
+  for (const t of TRACKS) {
+    if (t.since) shipped.push(t.id);
+    else if (t.future.some((f) => f.phase === "wip")) wipOnly.push(t.id);
+    else nextOnly.push(t.id);
+  }
+  return { shipped, wipOnly, nextOnly };
+}
 
 /* ---- модель для отрисовки ------------------------------------------------ */
 

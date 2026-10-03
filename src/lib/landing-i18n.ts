@@ -75,7 +75,7 @@ const ru = {
   meta: {
     title: "G-Track — EU-compliance и планирование для перевозчиков",
     description:
-      "Водители, документы, планирование и парк — в одном браузерном приложении. Разворачивается за день. Цены — на этой странице.",
+      "Документы водителей, рейсы и отпуска, ремонт и ТО — в одном браузерном приложении для перевозчиков от 50 машин. 30 дней бесплатно, цены — на странице.",
   },
 
   nav: {
@@ -95,26 +95,44 @@ const ru = {
   },
 
   hero: {
-    kicker: "EU-compliance · планирование · парк",
+    kicker: "EU-compliance · планирование · парк и сервис",
     h1: "Каждый водитель готов к рейсу.",
     h1dim: "Всегда.",
     /* hero-sub: «G-Track» рендерится отдельно (бренд), морф убран при порте */
-    sub: " — система EU-compliance и планирования рейсов для перевозчиков от 50 машин. Водители, документы, диспетчерская доска и парк — в браузере, без железа и внедренцев. Разворачивается за день.",
+    sub: " — система EU-compliance и планирования для перевозчиков от 50 машин. Документы водителей, рейсы и отпуска, ремонт и ТО — в браузере, без железа и внедренцев. Что требует решения сегодня, система показывает сама.",
     ctaTrial: "Попробовать 30 дней",
     ctaPricing: "Смотреть тарифы",
     micro1: "Без карты",
     micro2: "Регистрация за 2 минуты",
     micro3: "Данные в EU",
     boardAria:
-      "Диспетчерская доска G-Track: водитель загружает скан через Telegram, а система обновляет запись документа",
+      "Диспетчерская доска G-Track: вы загружаете скан документа, система распознаёт номер и срок и обновляет запись",
     boardCaption:
-      "Водитель загружает скан через Telegram → G-Track распознаёт данные → обновляет запись документа",
+      "Загружаете скан → G-Track распознаёт номер и срок → запись документа обновлена",
   },
 
+  /* Полоса под первым экраном (TrustStrip): широта продукта рядом чипов-ссылок,
+     а не три числа (решение владельца 03.10). Плашка «В работе» у c6 — это
+     d.roadmap.wip, своего ключа у неё нет: слово обязано совпадать с /roadmap. */
   trust: {
-    m1: "типов документов водителя",
-    m2: "дней демо без звонка",
-    m3: "языков интерфейса",
+    aria: "Что уже работает в G-Track",
+    c1: "Водители · 16 типов документов",
+    c2: "Планирование · доска и рейсы",
+    c3: "Центр решений",
+    c4: "Ротация · на 3 месяца вперёд",
+    c5: "Транспорт · тягачи и прицепы",
+    c6: "Ремонт и ТО",
+    c7: "Телематика · ваша система мониторинга",
+    c8: "Водитель в Telegram · заявки и напоминания",
+    c9: "12 языков интерфейса",
+  },
+
+  /* Подвал OG-картинки (og-image.tsx): подписи к числам 16 и 30. Жили в trust.m1/m2,
+     пока полоса под первым экраном была из чисел; полоса стала чипами (03.10),
+     а картинка для шеров осталась прежней — подписи переехали сюда. */
+  og: {
+    docTypes: "типов документов водителя",
+    trialDays: "дней демо без звонка",
   },
 
   pain: {
@@ -159,15 +177,15 @@ const ru = {
     s1h: "Водитель в системе",
     s1p: "Карточка, статус, документы и готовность к рейсу — всё в одном месте. Банковские данные — по ролям.",
     s2h: "До ТО — 4 200 км",
-    s2p: "Одометр приходит прямо с борта машины. G-Track сам считает остаток до ТО и ставит его в план — без блокнотов и звонков механику.",
+    s2p: "Одометр приходит прямо с борта машины. G-Track сам считает остаток до ТО и подсвечивает машины, которым пора на сервис, — без блокнотов и звонков механику.",
     s3h: "Барселона: смена машины",
     s3p: "Машина ушла на ТО, водитель вставил карту в другую. G-Track сам переносит рейс на новую машину — или спрашивает диспетчера, как настроите.",
     s4h: "Снова в рейс",
-    s4p: "Рейс ложится на доску, заказ прикреплён. Каждое изменение — в истории.",
+    s4p: "Рейс ложится на доску. Каждое изменение — в истории.",
     cap1b: "Водитель в системе.",
     cap1: " Карточка: статус, документы, конфиденциальное — по ролям.",
     cap2b: "Пробег до ТО.",
-    cap2: " Одометр с борта, остаток до ТО и запись в плане обслуживания.",
+    cap2: " Одометр с борта и остаток до ТО — видно, каким машинам пора на сервис.",
     cap3b: "Рейс переехал сам.",
     cap3: " Карта водителя в новой машине — запись в истории.",
     cap4b: "Снова в рейс.",
@@ -177,7 +195,7 @@ const ru = {
     leg2: "Мюнхен → Лион",
     leg3: "Лион → Барселона",
     arrived: "Прибытие · Барселона",
-    outroB: "Один водитель — десятки сроков.",
+    outroB: "Один водитель — больше десятка сроков.",
     outro: " У вас их сто.",
     skip: "Пропустить историю",
   },
@@ -185,12 +203,11 @@ const ru = {
   vid: {
     overline: "Европейский рынок",
     h2: "Сделано для европейских перевозчиков.",
-    sub: "A1, Code 95, визы — сроки под контролем уже сегодня. Каботаж 3/7 — в дорожной карте.",
-    chip1: "Каботаж 3/7",
+    sub: "A1, Code 95, визы — сроки под контролем уже сегодня.",
     chip2: "A1",
     chip3: "Code 95",
     chip4: "ADR",
-    chip5: "Тахограф",
+    chip5: "Расшифровка DDD",
     chip6: "12 языков интерфейса",
     tag: "VIDEO · ПЛЕЙСХОЛДЕР",
   },
@@ -204,27 +221,17 @@ const ru = {
   europe: {
     overline: "География",
     h2: "Вся Европа на одной доске",
-    sub: "A1, Code 95, документы водителей — спроектировано под правила ЕС. Каждый рейс — на одной доске.",
+    sub: "Кто в рейсе, кто в отпуске, какая машина в сервисе — на доске. Кто вернётся и кто будет свободен — на 14 дней, месяц или три месяца вперёд.",
     mapAria: "Карта маршрутов по Европе, перетекающая в доску планирования",
     captionB: "Весь этот хаос управляется отсюда",
-    caption: " — с одной диспетчерской доски.",
+    caption: " — с одной доски и одного списка решений.",
   },
 
+  /* Секция «Работает сейчас» на главной: карточки строятся из TRACKS
+     (roadmap-content.ts) и текстов d.roadmap — здесь только заголовок и ссылка. */
   modules: {
-    overline: "Модули",
-    h2: "Ядро работает. Горизонт — открыт.",
-    ready: "Готово",
-    soon: "Скоро",
-    m1: "Водители", m1d: "Карточки, статусы, готовность к рейсу",
-    m2: "Документы", m2d: "16 типов, сроки, распознавание сканов",
-    m3: "Планирование", m3d: "Доска водители × дни, рейсы, конфликты",
-    m4: "Машины", m4d: "Тягачи и прицепы, TÜV, страховки",
-    m5: "Заказы", m5d: "Заказ → рейс → документы",
-    m6: "Инвойсинг", m6d: "Счета из рейсов",
-    m7: "Экономика машин", m7d: "Cost-per-km по каждому тягачу",
-    m8: "Telegram для водителей", m8d: "Документы, смена и заявки",
-    m9: "Сообщения", m9d: "Чат с водителем со встроенным переводом",
-    cta: "Вся карта развития",
+    h2: "Не «скоро». Уже сегодня.",
+    cta: "Вся дорожная карта",
   },
 
   /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
@@ -248,8 +255,8 @@ const ru = {
       drivers: { t: "Водители и документы", d: "Карточки, 16 типов документов, правила 8 стран" },
       planning: { t: "Планирование и автопилот", d: "Доска, Центр решений, ротация, автопилот по тахокарте" },
       fleet: { t: "Транспорт и сервис", d: "Парк, ремонт и ТО, данные с борта" },
-      telematics: { t: "Интеграция с телематикой", d: "Подключаем вашу систему мониторинга — данные о машинах идут сами, для планирования и аналитики. Можно и вручную." },
-      telegram: { t: "Водитель в Telegram", d: "Документы, смена, заявки и чат" },
+      telematics: { t: "Интеграция с телематикой", d: "Подключаем вашу систему мониторинга — данные о машинах идут сами, для планирования и расчёта ТО. Можно и вручную." },
+      telegram: { t: "Водитель в Telegram", d: "Заявки на отпуск и больничный, смена на сегодня, напоминания о сроках документов" },
       reports: { t: "Отчёты и уведомления", d: "Недельный отчёт, центр уведомлений, сроки тахо-файлов" },
       companies: { t: "Связанные компании", d: "Несколько фирм одного владельца: у каждой своя подписка, машины и водители друг друга — в режиме просмотра" },
       finance: { t: "Заказы и финансы", d: "Заказы, счета, штрафы, экономика машины" },
@@ -326,14 +333,17 @@ const ru = {
     g3: "Доступ, парк, цена",
 
     q1: "Как система напомнит, что у водителя истекает документ?",
-    a1: "Каждое утро G-Track проверяет документы всего парка. Паспорт поднимает флаг за 180 дней, остальные — за 90. Уведомление уходит тремя каналами сразу: письмом в офис, отметкой в самом приложении и пушем водителю в Telegram.",
-    a1b: "Какие уведомления и по каким каналам получать, настраиваете сами по каждому типу. Поэтому напоминание не висит на одном человеке и не пропадает, пока кадровик в отпуске.",
+    a1: "Каждое утро G-Track проверяет документы всех водителей. Паспорт попадает в сводку за 180 дней, остальные документы — за 90. Офис получает письмо, в приложении документ помечается как истекающий, а водителю, который подключил Telegram-бота, приходит напоминание.",
+    a1b: "Письма со сводкой включаете сами и выбираете, кому они уходят: только владельцу, администраторам или всем участникам. Поэтому напоминание не висит на одном человеке и не пропадает, пока кадровик в отпуске.",
 
     q2: "Кто отвечает, если водитель уехал в рейс с просроченным документом?",
-    a2: "В большинстве стран EU — перевозчик, а не только водитель: штраф выписывают фирме, а в ряде стран отдельно и ответственному за транспорт. Конкретные суммы и порядок зависят от страны проверки. Именно поэтому G-Track напоминает не водителю, а офису — тому, кто ставит рейс в план.",
+    a2: "В большинстве стран EU — перевозчик, а не только водитель: штраф выписывают фирме, а в ряде стран отдельно и ответственному за транспорт. Конкретные суммы и порядок зависят от страны проверки. Именно поэтому G-Track напоминает прежде всего офису — тому, кто ставит рейс в план, — а водителю, подключившему бота, дублирует напоминание в Telegram.",
 
     q3: "Видно ли по доске планирования, кто не может выехать из-за документа?",
     a3: "Да, доска сводит людей, машины и сроки в одно место: кто в отпуске, кто на больничном, у кого нет машины, у кого документ не в порядке. Каждое изменение плана пишется в журнал — видно не только текущую картину, но и кто когда её поменял.",
+
+    q11: "Что G-Track делает сам, а что решает диспетчер?",
+    a11: "Замечает сам: кто возвращается из отпуска, чей рейс кончается без продолжения, кто из новых водителей без плана — всё это собирается в Центре решений. Менять ли план за вас, выбираете режимом: «Ручной», «Центр» или «Автоматический». По умолчанию система только спрашивает. Каждое её изменение плана записывается в журнал.",
 
     q4: "У меня 40–60 водителей и годы сканов в Excel и папках. Кто это перенесёт?",
     a4: "Начать можно без архива: заведите водителей и те документы, у которых срок ближе всего — напоминания заработают уже с этого. Старые сканы догружаются по ходу и ничего не блокируют.",
@@ -343,17 +353,20 @@ const ru = {
     a5: "Данные и файлы — в Европейском союзе, дата-центр в Ирландии. Документ об обработке данных опубликован, ссылка в подвале страницы; подписываем. Доступ к чувствительным полям внутри вашей компании ограничен ролями, а не общей галочкой.",
 
     q6: "Если решу уйти — заберу данные?",
-    a6: "Данные выгружаются в CSV в любой момент и без запроса: список водителей, статусы документов, сроки. Сканы остаются вашими: сейчас они скачиваются по одному, выгрузку всего архива делаем по запросу. Аккаунт удаляете сами, без звонка «менеджеру по удержанию».",
+    a6: "Пока аккаунт активен, данные выгружаются в CSV в любой момент и без запроса: список водителей, статусы документов, сроки. Сканы остаются вашими: сейчас они скачиваются по одному, выгрузку всего архива делаем по запросу. Аккаунт владелец удаляет сам, без звонка «менеджеру по удержанию».",
 
     q7: "Что должен делать водитель? Ему что-то устанавливать?",
-    a7: "Ничего. Водитель работает в Telegram, который у него уже стоит: видит свои документы и сроки, свою смену и машину, присылает фото нового документа прямо в чат. Есть встроенный перевод — водитель пишет на своём языке, диспетчер читает на своём.",
+    a7: "Ничего: Telegram у него уже есть. В боте он подаёт заявку на отпуск или больничный — она приходит в планирование, а ответ возвращается ему. Видит, на какой он сегодня машине, и получает напоминания о сроках своих документов.",
     a7b: "Приложению нужен интернет. Оригиналы документов в кабине это не отменяет.",
 
     q8: "Может ли диспетчер видеть график, но не видеть паспорт и медзаключение?",
-    a8: "Да, и так по умолчанию. Права раздаются точечно — их больше тридцати. Личный номер и банковский счёт закрыты отдельным правом и показываются маской. Какие типы документов считать конфиденциальными, каждая компания решает за себя.",
+    a8: "Да. Права раздаются точечно — их 36. Номер и скан паспорта, визы и ID-карты по умолчанию видят только сотрудники с правом на конфиденциальные данные, остальные — только статус и срок. Любой другой тип документа, например медзаключение, компания закрывает так же в настройках. Личный номер и банковский счёт закрыты отдельным правом и показываются маской.",
 
     q9: "Как у вас с водителями из третьих стран — Украина, Сербия, Узбекистан?",
     a9: "Для не-граждан EU обязательный список длиннее: к паспорту, правам и тахокарте добавляются виза, транспортная лицензия и Код 95. Готовность к рейсу считается именно по расширенному списку — водитель не покажется готовым, пока не закрыты его документы, а не общий шаблон.",
+
+    q12: "Телематика у нас уже есть. Нужна ли она G-Track?",
+    a12: "Не обязательна: документы, доска, ротация, ремонт и ТО работают и без неё, пробег вносится вручную. Подключаем вашу систему мониторинга — и пробег приходит с борта, G-Track видит, чья карта в тахографе, и замечает машину, которая едет без плана.",
 
     q10: "Сколько это стоит для 40 машин и 45 прицепов? Платить за каждого пользователя?",
     a10: "Тариф Starter — 150 € в месяц, при оплате за год 125 €. В него входят 50 машин, 100 водителей и 75 прицепов, так что ваш парк укладывается с запасом. Места диспетчеров и кадровиков не считаются: заводите всех, кому нужно.",
@@ -377,7 +390,7 @@ const ru = {
   },
 
   footer: {
-    tagline: "EU-compliance и планирование для перевозчиков",
+    tagline: "EU-compliance, планирование, парк и сервис для перевозчиков",
     legalHeading: "Правовое",
     privacy: "Конфиденциальность",
     terms: "Условия использования",
@@ -405,12 +418,12 @@ const ru = {
     planning: "Планирование", week24: "Неделя 24 · 8–13 июня", colDriver: "Водитель",
     d1: "Пн 08", d2: "Вт 09", d3: "Ср 10", d4: "Чт 11", d5: "Пт 12",
     w1: "Пн 15", w2: "Вт 16", w3: "Ср 17", w4: "Чт 18", w5: "Пт 19",
-    kpiTrip: "В рейсе сегодня", kpiVac: "В отпуске", kpiNoVeh: "Без машины",
+    kpiTrip: "В рейсе сегодня", kpiVac: "В отпуске", kpiFree: "Свободны",
     stActive: "Активен", stTrip: "В рейсе", ready: "к рейсу",
     vacUntil: "Отпуск до 15.06", sick: "Больничный",
-    toastWarnT: "Виза истекает через 30 дней", toastWarnD: "П. Савченко · продлить до 12.07.2026",
+    toastWarnT: "Утренняя сводка: виза истекает 12.07", toastWarnD: "П. Савченко · осталось 32 дня",
     toastOkT: "Срок действия визы в системе: 08.2028", toastOkD: "Номер и дата распознаны из скана",
-    docs: "Документы", urgent: "Срочные", nonEU: "NON-EU",
+    docs: "К рейсу", urgent: "Срочные", nonEU: "NON-EU",
     tabOverview: "Обзор", tabDocs: "Документы", tabComments: "Комментарии", tabHistory: "История",
     confid: "Конфиденциальное", confNote: "Банковские данные видят только те, кому положено.",
     cardTitle: "Карточка водителя", remindTitle: "Документы · напоминание",
@@ -421,22 +434,22 @@ const ru = {
     fldType: "Тип документа", fldTypeV: "Виза (VIS)", fldNum: "Номер", fldUntil: "Действительна до",
     recognized: "распознано",
     week25: "Планирование · неделя 25",
-    histTs1: "сегодня 14:02", hist1: "Изменён статус — В рейсе (3QR 6671)", histBy1: "дисп. С. Малек",
+    histTs1: "сегодня 14:02", hist1: "Изменён статус — В рейсе (4TC 2190)", histBy1: "дисп. С. Малек",
     histTs2: "сегодня 13:58", hist2: "Обновлён документ — Виза (VIS)", histBy2: "HR · И. Коваль",
     histNote: "Каждое изменение — в истории.",
     mcH: "Виза · П. Савченко",
-    mc1: "Водитель загрузил скан из Telegram",
+    mc1: "Загружен новый скан визы",
     mc2: "G-Track сам распознал номер и дату",
     mc3: "Срок действия визы в системе: 08.2028",
     mcSub2: "CZ-4471920 · до 03.08.2028",
-    chipVisaWarn: "VIS · 30 дн", chipVisaOk: "VIS · 2028",
+    chipVisaWarn: "VIS · 32 дн", chipVisaOk: "VIS · 2028",
     svcTitle: "Пробег и обслуживание",
     svcOdo: "Одометр",
     svcNext: "До ТО",
     svcInterval: "Интервал ТО",
     svcCap: "интервала",
     svcSource: "с борта",
-    svcPlanned: "ТО в плане",
+    svcSoon: "Скоро ТО",
     chipSvc: "ТО · 4 200 км",
     unloadTitle: "Рейс · смена машины",
     unloadOk: "Рейс перенесён системой",
@@ -445,9 +458,9 @@ const ru = {
     unloadPlace: "4TC 2190 · Барселона",
     unloadWhen: "Время",
     unloadDocV: "Тахокарта",
-    sumOnTime: "рейс в срок",
-    sumKm: "пробег рейса",
-    sumDocs: "документы",
+    sumStatus: "в рейсе",
+    sumVehicle: "машина",
+    sumDocs: "к рейсу",
   },
 };
 
@@ -457,7 +470,7 @@ const en: LandingDict = {
   meta: {
     title: "G-Track — EU compliance and trip planning for carriers",
     description:
-      "Drivers, documents, planning and fleet — in one browser app. Up and running in a day. Pricing is on this page.",
+      "Driver documents, trips and leave, repairs and maintenance — in one browser app for carriers running 50 trucks and up. 30 days free, prices on the page.",
   },
 
   nav: {
@@ -477,25 +490,37 @@ const en: LandingDict = {
   },
 
   hero: {
-    kicker: "EU compliance · planning · fleet",
+    kicker: "EU compliance · planning · fleet & service",
     h1: "Every driver ready for the road.",
     h1dim: "Always.",
-    sub: " — an EU-compliance and trip-planning system for carriers running 50 trucks and up. Drivers, documents, dispatch board and fleet — in the browser, no hardware, no implementation consultants. Up and running in a day.",
+    sub: " — an EU-compliance and planning system for carriers running 50 trucks and up. Driver documents, trips and leave, repairs and maintenance — in the browser, no hardware, no implementation consultants. The system itself shows you what needs a decision today.",
     ctaTrial: "Try 30 days",
     ctaPricing: "See pricing",
     micro1: "No credit card",
     micro2: "Sign up in 2 minutes",
     micro3: "Data stored in the EU",
     boardAria:
-      "G-Track dispatch board: a driver uploads a scan via Telegram and the system updates the document record",
+      "G-Track dispatch board: you upload a document scan, the system reads the number and expiry date and updates the record",
     boardCaption:
-      "Driver uploads a scan via Telegram → G-Track recognizes the details → updates the document record",
+      "You upload a scan → G-Track reads the number and expiry date → the document record is updated",
   },
 
   trust: {
-    m1: "driver document types",
-    m2: "days of demo, no sales call",
-    m3: "interface languages",
+    aria: "What already works in G-Track",
+    c1: "Drivers · 16 document types",
+    c2: "Planning · board and trips",
+    c3: "Decision Center",
+    c4: "Rotation · 3 months ahead",
+    c5: "Fleet · tractors and trailers",
+    c6: "Repairs & maintenance",
+    c7: "Telematics · your fleet tracking system",
+    c8: "Driver in Telegram · requests and reminders",
+    c9: "12 interface languages",
+  },
+
+  og: {
+    docTypes: "driver document types",
+    trialDays: "days of demo, no sales call",
   },
 
   pain: {
@@ -540,15 +565,15 @@ const en: LandingDict = {
     s1h: "A driver in the system",
     s1p: "Profile, status, documents and trip readiness — all in one place. Bank details — role-based.",
     s2h: "4 200 km to service",
-    s2p: "The odometer comes straight from the truck. G-Track counts the distance left to service and puts it in the plan — no notebooks, no calls to the workshop.",
+    s2p: "The odometer comes straight from the truck. G-Track works out the distance left to the next service and highlights the trucks that are due — no notebooks, no calls to the mechanic.",
     s3h: "Barcelona: truck swap",
     s3p: "The truck goes in for service, the driver puts his card into another one. G-Track moves the trip to the new truck itself — or asks the dispatcher, as you choose.",
     s4h: "Back on the road",
-    s4p: "The trip lands on the board, the order is attached. Every change is in the history.",
+    s4p: "The trip lands on the board. Every change is in the history.",
     cap1b: "A driver in the system.",
     cap1: " Profile: status, documents, confidential data — role-based.",
     cap2b: "Mileage to service.",
-    cap2: " Odometer from the truck, distance left and a slot in the service plan.",
+    cap2: " Odometer from the truck and distance to service — you see which trucks are due.",
     cap3b: "The trip moved itself.",
     cap3: " Driver card in the new truck — logged in the history.",
     cap4b: "Back on the road.",
@@ -558,7 +583,7 @@ const en: LandingDict = {
     leg2: "Munich → Lyon",
     leg3: "Lyon → Barcelona",
     arrived: "Arrived · Barcelona",
-    outroB: "One driver — dozens of deadlines.",
+    outroB: "One driver — more than ten expiry dates.",
     outro: " You have a hundred of them.",
     skip: "Skip the story",
   },
@@ -566,12 +591,11 @@ const en: LandingDict = {
   vid: {
     overline: "European market",
     h2: "Built for European carriers.",
-    sub: "A1, Code 95, visas — deadlines under control today. Cabotage 3/7 — on the roadmap.",
-    chip1: "Cabotage 3/7",
+    sub: "A1, Code 95, visas — expiry dates under control today.",
     chip2: "A1",
     chip3: "Code 95",
     chip4: "ADR",
-    chip5: "Tachograph",
+    chip5: "DDD decoding",
     chip6: "12 interface languages",
     tag: "VIDEO · PLACEHOLDER",
   },
@@ -585,27 +609,15 @@ const en: LandingDict = {
   europe: {
     overline: "Geography",
     h2: "All of Europe on one board",
-    sub: "A1, Code 95, driver documents — designed around EU rules. Every trip on one board.",
+    sub: "Who is on a trip, who is on leave, which truck is in service — on the board. Who is coming back and who will be free — 14 days, a month or three months ahead.",
     mapAria: "A map of routes across Europe flowing into a planning board",
     captionB: "All this chaos is managed from here",
-    caption: " — from a single dispatch board.",
+    caption: " — from one board and one list of decisions.",
   },
 
   modules: {
-    overline: "Modules",
-    h2: "The core works. The horizon is open.",
-    ready: "Live",
-    soon: "Coming soon",
-    m1: "Drivers", m1d: "Profiles, statuses, trip readiness",
-    m2: "Documents", m2d: "16 types, deadlines, scan recognition",
-    m3: "Planning", m3d: "Drivers × days board, trips, conflicts",
-    m4: "Vehicles", m4d: "Tractors and trailers, TÜV, insurance",
-    m5: "Orders", m5d: "Order → trip → documents",
-    m6: "Invoicing", m6d: "Invoices from trips",
-    m7: "Vehicle economics", m7d: "Cost-per-km for every tractor",
-    m8: "Telegram for drivers", m8d: "Documents, shifts and requests",
-    m9: "Messages", m9d: "Driver chat with built-in translation",
-    cta: "Full roadmap",
+    h2: "Not “soon”. Now.",
+    cta: "The full roadmap",
   },
 
   /* Страница дорожной карты (/roadmap). Свой H1 и свои meta: заголовок главной
@@ -629,8 +641,8 @@ const en: LandingDict = {
       drivers: { t: "Drivers & documents", d: "Profiles, 16 document types, rules of 8 countries" },
       planning: { t: "Planning & autopilot", d: "Board, Decision Center, rotation, tacho-card autopilot" },
       fleet: { t: "Fleet & service", d: "Fleet, repairs & maintenance, on-board data" },
-      telematics: { t: "Telematics integration", d: "We connect your fleet tracking system — vehicle data flows in by itself, for planning and analytics. Manual works too." },
-      telegram: { t: "Driver in Telegram", d: "Documents, shifts, requests and chat" },
+      telematics: { t: "Telematics integration", d: "We connect your fleet tracking system — vehicle data flows in by itself, for planning and service intervals. Manual works too." },
+      telegram: { t: "Driver in Telegram", d: "Leave and sick-leave requests, today’s shift, document expiry reminders" },
       reports: { t: "Reports & notifications", d: "Weekly report, notification center, tacho file deadlines" },
       companies: { t: "Linked companies", d: "Several firms under one owner: each on its own subscription, seeing each other’s trucks and drivers read-only" },
       finance: { t: "Orders & finance", d: "Orders, invoices, fines, truck economics" },
@@ -703,14 +715,17 @@ const en: LandingDict = {
     g3: "Access, fleet, price",
 
     q1: "How does the system warn me that a driver’s document is expiring?",
-    a1: "Every morning G-Track checks the documents of your whole fleet. A passport raises the flag 180 days ahead, everything else 90. The alert goes out through three channels at once: an email to the office, a marker inside the app, and a Telegram push to the driver.",
-    a1b: "You choose which alerts go through which channels, per notification type. So the reminder doesn’t hang on one person and doesn’t vanish while your HR manager is on holiday.",
+    a1: "Every morning G-Track checks every driver’s documents. A passport shows up in the digest 180 days ahead, other documents 90 days ahead. The office gets an email, the document is marked as expiring in the app, and a driver who has connected the Telegram bot gets a reminder.",
+    a1b: "You switch the digest emails on yourself and choose who gets them: the owner only, the admins, or every member. So the reminder doesn’t hang on one person and doesn’t vanish while your HR manager is on holiday.",
 
     q2: "Who is liable if a driver leaves on a trip with an expired document?",
-    a2: "In most EU countries it is the carrier, not only the driver: the fine goes to the company, and in several countries to the transport manager personally as well. Exact amounts and procedure depend on the country of the check. That is why G-Track reminds the office rather than the driver — whoever puts the trip on the board.",
+    a2: "In most EU countries it is the carrier, not only the driver: the fine goes to the company, and in several countries to the transport manager personally as well. Exact amounts and procedure depend on the country of the check. That is why G-Track reminds the office first — the people who put the trip into the plan — and repeats the reminder in Telegram to a driver who has connected the bot.",
 
     q3: "Does the planning board show who can’t leave because of a document?",
     a3: "Yes. The board pulls people, vehicles and deadlines into one place: who is on holiday, who is on sick leave, who has no truck, whose document isn’t in order. Every change to the plan is written to a log — you see the current picture and who changed it when.",
+
+    q11: "What does G-Track do by itself, and what does the dispatcher decide?",
+    a11: "It notices things itself: who is coming back from leave, whose trip ends with nothing planned after it, which new drivers have no plan — all of this is collected in the Decision Center. Whether it changes the plan for you depends on the mode you choose: “Manual”, “Center” or “Automatic”. By default the system only asks. Every change it makes to the plan is written to a journal.",
 
     q4: "I have 40–60 drivers and years of scans in Excel and folders. Who moves all that?",
     a4: "You can start without the archive: enter the drivers and the documents whose deadlines are closest — reminders start working from that alone. Old scans get uploaded along the way and block nothing.",
@@ -720,17 +735,20 @@ const en: LandingDict = {
     a5: "Data and files sit in the European Union, in a data centre in Ireland. The data processing document is published — the link is in the page footer — and we do sign it. Access to sensitive fields inside your company is limited by roles, not by one global switch.",
 
     q6: "If I decide to leave, can I take my data?",
-    a6: "Data exports to CSV any time, without asking us: driver list, document statuses, deadlines. The scans stay yours — right now they download one by one, and we hand over the whole archive on request. You delete the account yourself, with no call from a “retention manager”.",
+    a6: "While the account is active, data exports to CSV any time, without asking us: driver list, document statuses, deadlines. The scans stay yours — right now they download one by one, and we hand over the whole archive on request. The owner deletes the account themselves, with no call from a “retention manager”.",
 
     q7: "What does the driver have to do? Does he install anything?",
-    a7: "Nothing. The driver works in Telegram, which he already has: he sees his own documents and deadlines, his shift and his truck, and sends a photo of a new document straight into the chat. Translation is built in — the driver writes in his language, the dispatcher reads in hers.",
+    a7: "Nothing: he already has Telegram. In the bot he requests leave or sick leave — the request lands in planning and the answer comes back to him. He sees which truck he is on today and gets reminders about his documents’ expiry dates.",
     a7b: "The app needs internet. It doesn’t replace the original documents in the cab.",
 
     q8: "Can a dispatcher see the schedule but not the passport and medical certificate?",
-    a8: "Yes, and that is the default. Permissions are granted one by one — there are more than thirty of them. Personal ID number and bank account sit behind a separate permission and show up masked. Which document types count as confidential is each company’s own call.",
+    a8: "Yes. Permissions are granted one by one — there are 36. By default the number and scan of a passport, visa and ID card are visible only to staff with the confidential-data permission; everyone else sees only the status and expiry date. Any other document type, a medical certificate for example, can be restricted the same way in settings. The personal ID number and bank account sit behind a separate permission and are shown masked.",
 
     q9: "How do you handle drivers from third countries — Ukraine, Serbia, Uzbekistan?",
     a9: "For non-EU nationals the mandatory list is longer: on top of passport, driving licence and tacho card come a visa, a transport licence and Code 95. Trip readiness is calculated against that extended list — a driver won’t show as ready until his documents are closed, not a generic template.",
+
+    q12: "We already have telematics. Does G-Track need it?",
+    a12: "It is optional: documents, the board, rotation, repairs and maintenance work without it, and mileage is entered by hand. We connect your fleet tracking system — and mileage comes from the truck, G-Track sees whose card is in the tachograph and notices a truck that is moving without a plan.",
 
     q10: "What does it cost for 40 trucks and 45 trailers? Do I pay per user?",
     a10: "Starter is 150 € a month, or 125 € on yearly billing. It covers 50 trucks, 100 drivers and 75 trailers, so your fleet fits with room to spare. Dispatcher and HR seats aren’t counted — add everyone who needs one.",
@@ -754,7 +772,7 @@ const en: LandingDict = {
   },
 
   footer: {
-    tagline: "EU compliance and planning for carriers",
+    tagline: "EU compliance, planning, fleet and service for carriers",
     legalHeading: "Legal",
     privacy: "Privacy",
     terms: "Terms",
@@ -780,12 +798,12 @@ const en: LandingDict = {
     planning: "Planning", week24: "Week 24 · 8–13 Jun", colDriver: "Driver",
     d1: "Mon 08", d2: "Tue 09", d3: "Wed 10", d4: "Thu 11", d5: "Fri 12",
     w1: "Mon 15", w2: "Tue 16", w3: "Wed 17", w4: "Thu 18", w5: "Fri 19",
-    kpiTrip: "On trip today", kpiVac: "On vacation", kpiNoVeh: "No vehicle",
+    kpiTrip: "On trip today", kpiVac: "On vacation", kpiFree: "Free",
     stActive: "Active", stTrip: "On trip", ready: "ready",
     vacUntil: "Vacation till 15.06", sick: "Sick leave",
-    toastWarnT: "Visa expires in 30 days", toastWarnD: "P. Savchenko · renew by 12.07.2026",
+    toastWarnT: "Morning digest: visa expires 12.07", toastWarnD: "P. Savchenko · 32 days left",
     toastOkT: "Recorded visa validity: 08.2028", toastOkD: "Number and date recognized from the scan",
-    docs: "Documents", urgent: "Urgent", nonEU: "NON-EU",
+    docs: "Ready", urgent: "Urgent", nonEU: "NON-EU",
     tabOverview: "Overview", tabDocs: "Documents", tabComments: "Comments", tabHistory: "History",
     confid: "Confidential", confNote: "Bank details are visible only to those who need them.",
     cardTitle: "Driver card", remindTitle: "Documents · reminder",
@@ -796,22 +814,22 @@ const en: LandingDict = {
     fldType: "Document type", fldTypeV: "Visa (VIS)", fldNum: "Number", fldUntil: "Valid until",
     recognized: "recognized",
     week25: "Planning · week 25",
-    histTs1: "today 14:02", hist1: "Status changed — On trip (3QR 6671)", histBy1: "disp. S. Malek",
+    histTs1: "today 14:02", hist1: "Status changed — On trip (4TC 2190)", histBy1: "disp. S. Malek",
     histTs2: "today 13:58", hist2: "Document updated — Visa (VIS)", histBy2: "HR · I. Koval",
     histNote: "Every change is in the history.",
     mcH: "Visa · P. Savchenko",
-    mc1: "Driver uploaded a scan via Telegram",
+    mc1: "New visa scan uploaded",
     mc2: "G-Track recognized the number and date itself",
     mc3: "Recorded visa validity: 08.2028",
     mcSub2: "CZ-4471920 · until 03.08.2028",
-    chipVisaWarn: "VIS · 30 d", chipVisaOk: "VIS · 2028",
+    chipVisaWarn: "VIS · 32 d", chipVisaOk: "VIS · 2028",
     svcTitle: "Mileage and service",
     svcOdo: "Odometer",
     svcNext: "To service",
     svcInterval: "Service interval",
     svcCap: "of interval",
     svcSource: "from truck",
-    svcPlanned: "service planned",
+    svcSoon: "Service due soon",
     chipSvc: "Service · 4 200 km",
     unloadTitle: "Trip · truck swap",
     unloadOk: "Trip moved by the system",
@@ -820,9 +838,9 @@ const en: LandingDict = {
     unloadPlace: "4TC 2190 · Barcelona",
     unloadWhen: "Time",
     unloadDocV: "Tacho card",
-    sumOnTime: "trip on time",
-    sumKm: "trip distance",
-    sumDocs: "documents",
+    sumStatus: "on trip",
+    sumVehicle: "vehicle",
+    sumDocs: "ready",
   },
 };
 

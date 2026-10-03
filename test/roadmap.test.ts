@@ -6,7 +6,7 @@
    ============================================================================ */
 
 import { describe, expect, it } from "vitest";
-import { buildRoadmapModel, PAST_SHARE, TRACKS } from "../src/lib/roadmap-content";
+import { buildRoadmapModel, PAST_SHARE, trackGroups, TRACKS } from "../src/lib/roadmap-content";
 import { LANDING_DICT, LOCALES } from "../src/lib/landing-i18n";
 
 const NOW = new Date("2026-09-25T12:00:00Z");
@@ -104,6 +104,30 @@ describe("направления", () => {
       }
     }
     expect(TRACKS).toHaveLength(9);
+  });
+});
+
+/* Секция «Работает сейчас» на главной: состав разобран вручную по TRACKS —
+   since есть у пяти направлений, у отчётов только «в работе», у остальных трёх только «в планах». */
+describe("статус направлений для главной (trackGroups)", () => {
+  const g = trackGroups();
+
+  it("работает сейчас — пять направлений, в порядке Ганта", () => {
+    expect(g.shipped).toEqual(["drivers", "planning", "fleet", "telematics", "telegram"]);
+  });
+
+  it("только в работе — отчёты и уведомления", () => {
+    expect(g.wipOnly).toEqual(["reports"]);
+  });
+
+  it("только в планах — связанные компании, заказы и финансы, карта и интеграции", () => {
+    expect(g.nextOnly).toEqual(["companies", "finance", "integrations"]);
+  });
+
+  it("группы не пересекаются и вместе дают все девять направлений", () => {
+    const all = [...g.shipped, ...g.wipOnly, ...g.nextOnly];
+    expect(all).toHaveLength(9);
+    expect(new Set(all).size).toBe(9);
   });
 });
 
