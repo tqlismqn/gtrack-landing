@@ -106,9 +106,9 @@ const ru = {
     micro2: "Регистрация за 2 минуты",
     micro3: "Данные в EU",
     boardAria:
-      "Диспетчерская доска G-Track: вы загружаете скан документа, система распознаёт номер и срок и обновляет запись",
+      "Диспетчерская доска G-Track: вы загружаете скан документа, система распознаёт номер и срок, вы сверяете и сохраняете запись",
     boardCaption:
-      "Загружаете скан → G-Track распознаёт номер и срок → запись документа обновлена",
+      "Загружаете скан → G-Track распознаёт номер и срок → вы сверяете и сохраняете",
   },
 
   /* Полоса под первым экраном (TrustStrip): широта продукта рядом чипов-ссылок,
@@ -132,7 +132,7 @@ const ru = {
      а картинка для шеров осталась прежней — подписи переехали сюда. */
   og: {
     docTypes: "типов документов водителя",
-    trialDays: "дней демо без звонка",
+    langs: "языков интерфейса",
   },
 
   pain: {
@@ -421,7 +421,7 @@ const ru = {
     kpiTrip: "В рейсе сегодня", kpiVac: "В отпуске", kpiFree: "Свободны",
     stActive: "Активен", stTrip: "В рейсе", ready: "к рейсу",
     vacUntil: "Отпуск до 15.06", sick: "Больничный",
-    toastWarnT: "Утренняя сводка: виза истекает 12.07", toastWarnD: "П. Савченко · осталось 32 дня",
+    toastWarnT: "Сводка на почте: виза истекает 12.07", toastWarnD: "П. Савченко · осталось 32 дня",
     toastOkT: "Срок действия визы в системе: 08.2028", toastOkD: "Номер и дата распознаны из скана",
     docs: "К рейсу", urgent: "Срочные", nonEU: "NON-EU",
     tabOverview: "Обзор", tabDocs: "Документы", tabComments: "Комментарии", tabHistory: "История",
@@ -500,9 +500,9 @@ const en: LandingDict = {
     micro2: "Sign up in 2 minutes",
     micro3: "Data stored in the EU",
     boardAria:
-      "G-Track dispatch board: you upload a document scan, the system reads the number and expiry date and updates the record",
+      "G-Track dispatch board: you upload a document scan, the system reads the number and expiry date, you check and save the record",
     boardCaption:
-      "You upload a scan → G-Track reads the number and expiry date → the document record is updated",
+      "You upload a scan → G-Track reads the number and expiry date → you check and save",
   },
 
   trust: {
@@ -520,7 +520,7 @@ const en: LandingDict = {
 
   og: {
     docTypes: "driver document types",
-    trialDays: "days of demo, no sales call",
+    langs: "interface languages",
   },
 
   pain: {
@@ -801,7 +801,7 @@ const en: LandingDict = {
     kpiTrip: "On trip today", kpiVac: "On vacation", kpiFree: "Free",
     stActive: "Active", stTrip: "On trip", ready: "ready",
     vacUntil: "Vacation till 15.06", sick: "Sick leave",
-    toastWarnT: "Morning digest: visa expires 12.07", toastWarnD: "P. Savchenko · 32 days left",
+    toastWarnT: "Digest email: visa expires 12.07", toastWarnD: "P. Savchenko · 32 days left",
     toastOkT: "Recorded visa validity: 08.2028", toastOkD: "Number and date recognized from the scan",
     docs: "Ready", urgent: "Urgent", nonEU: "NON-EU",
     tabOverview: "Overview", tabDocs: "Documents", tabComments: "Comments", tabHistory: "History",

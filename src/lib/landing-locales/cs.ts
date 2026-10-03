@@ -47,9 +47,9 @@ export const cs: LandingDict = {
     micro2: "Registrace za 2 minuty",
     micro3: "Data uložená v EU",
     boardAria:
-      "Dispečerská tabule G-Track: nahrajete sken dokumentu, systém rozpozná číslo a datum platnosti a aktualizuje záznam",
+      "Dispečerská tabule G-Track: nahrajete sken dokumentu, systém rozpozná číslo a datum platnosti, vy záznam zkontrolujete a uložíte",
     boardCaption:
-      "Nahrajete sken → G-Track rozpozná číslo a datum platnosti → záznam dokumentu aktualizován",
+      "Nahrajete sken → G-Track rozpozná číslo a datum platnosti → vy zkontrolujete a uložíte",
   },
 
   /* Полоса под первым экраном (TrustStrip): чипы-ссылки на модули, решение владельца 03.10.
@@ -73,7 +73,7 @@ export const cs: LandingDict = {
      дословно: полоса стала чипами (03.10), а картинка для шеров осталась прежней. */
   og: {
     docTypes: "typů dokumentů řidiče",
-    trialDays: "dní dema bez telefonátu",
+    langs: "jazyků rozhraní",
   },
 
   pain: {
@@ -359,7 +359,7 @@ export const cs: LandingDict = {
     kpiTrip: "Právě na cestě", kpiVac: "Na dovolené", kpiFree: "Volní",
     stActive: "Aktivní", stTrip: "Na cestě", ready: "na cestu",
     vacUntil: "Dovolená do 15.06", sick: "Nemocenská",
-    toastWarnT: "Ranní souhrn: vízum vyprší 12.07", toastWarnD: "P. Savchenko · zbývá 32 dní",
+    toastWarnT: "Souhrn e-mailem: vízum vyprší 12.07", toastWarnD: "P. Savchenko · zbývá 32 dní",
     toastOkT: "Platnost víza v evidenci: 08.2028", toastOkD: "Číslo a datum rozpoznány ze skenu",
     docs: "Na cestu", urgent: "Naléhavé", nonEU: "NON-EU",
     tabOverview: "Přehled", tabDocs: "Dokumenty", tabComments: "Komentáře", tabHistory: "Historie",

@@ -46,9 +46,9 @@ export const ro: LandingDict = {
     micro2: "Înregistrare în 2 minute",
     micro3: "Date în UE",
     boardAria:
-      "Panoul de dispecerat G-Track: încarci scanul unui document, sistemul recunoaște numărul și data de expirare și actualizează evidența",
+      "Panoul de dispecerat G-Track: încarci scanul unui document, sistemul recunoaște numărul și data de expirare, tu verifici și salvezi evidența",
     boardCaption:
-      "Încarci un scan → G-Track recunoaște numărul și data de expirare → evidența documentului e actualizată",
+      "Încarci un scan → G-Track recunoaște numărul și data de expirare → verifici și salvezi",
   },
 
   trust: {
@@ -66,7 +66,7 @@ export const ro: LandingDict = {
 
   og: {
     docTypes: "tipuri de documente ale șoferului",
-    trialDays: "zile de demo fără apel",
+    langs: "limbi de interfață",
   },
 
   pain: {
@@ -353,7 +353,7 @@ export const ro: LandingDict = {
     kpiTrip: "În cursă astăzi", kpiVac: "În concediu", kpiFree: "Liberi",
     stActive: "Activ", stTrip: "În cursă", ready: "pregătit",
     vacUntil: "Concediu până la 15.06", sick: "Concediu medical",
-    toastWarnT: "Rezumatul de dimineață: viza expiră pe 12.07", toastWarnD: "P. Savchenko · mai sunt 32 de zile",
+    toastWarnT: "Rezumat pe e-mail: viza expiră pe 12.07", toastWarnD: "P. Savchenko · mai sunt 32 de zile",
     toastOkT: "Valabilitatea vizei înregistrată: 08.2028", toastOkD: "Numărul și data recunoscute din scan",
     docs: "Pregătit", urgent: "Urgente", nonEU: "NON-EU",
     tabOverview: "Prezentare generală", tabDocs: "Documente", tabComments: "Comentarii", tabHistory: "Istoric",

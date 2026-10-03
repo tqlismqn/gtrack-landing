@@ -47,9 +47,9 @@ export const pl: LandingDict = {
     micro2: "Rejestracja w 2 minuty",
     micro3: "Dane w UE",
     boardAria:
-      "Tablica dyspozytorska G-Track: przesyłasz skan dokumentu, system rozpoznaje numer oraz datę ważności i aktualizuje dane",
+      "Tablica dyspozytorska G-Track: przesyłasz skan dokumentu, system rozpoznaje numer oraz datę ważności, a ty sprawdzasz i zapisujesz dane",
     boardCaption:
-      "Przesyłasz skan → G-Track rozpoznaje numer i datę ważności → dane dokumentu zaktualizowane",
+      "Przesyłasz skan → G-Track rozpoznaje numer i datę ważności → sprawdzasz i zapisujesz",
   },
 
   /* Полоса под первым экраном (TrustStrip): чипы-ссылки на модули, решение владельца 03.10.
@@ -73,7 +73,7 @@ export const pl: LandingDict = {
      дословно: полоса стала чипами (03.10), а картинка для шеров осталась прежней. */
   og: {
     docTypes: "typów dokumentów kierowcy",
-    trialDays: "dni demo bez rozmowy",
+    langs: "języków interfejsu",
   },
 
   pain: {
@@ -358,7 +358,7 @@ export const pl: LandingDict = {
     kpiTrip: "Dziś w trasie", kpiVac: "Na urlopie", kpiFree: "Wolni",
     stActive: "Aktywny", stTrip: "W trasie", ready: "do trasy",
     vacUntil: "Urlop do 15.06", sick: "Zwolnienie",
-    toastWarnT: "Poranne podsumowanie: wiza wygasa 12.07", toastWarnD: "P. Savchenko · zostały 32 dni",
+    toastWarnT: "Podsumowanie e‑mailem: wiza wygasa 12.07", toastWarnD: "P. Savchenko · zostały 32 dni",
     toastOkT: "Ważność wizy w ewidencji: 08.2028", toastOkD: "Numer i data rozpoznane ze skanu",
     docs: "Do trasy", urgent: "Pilne", nonEU: "NON-EU",
     tabOverview: "Przegląd", tabDocs: "Dokumenty", tabComments: "Komentarze", tabHistory: "Historia",

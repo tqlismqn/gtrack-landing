@@ -146,8 +146,8 @@ export function renderOgImage(locale: Lang): ImageResponse {
             </div>
             <div style={{ display: "flex", color: "#3F3F46" }}>·</div>
             <div style={{ display: "flex" }}>
-              <span style={{ color: INK, marginRight: 7 }}>30</span>
-              {d.og.trialDays}
+              <span style={{ color: INK, marginRight: 7 }}>12</span>
+              {d.og.langs}
             </div>
           </div>
         </div>

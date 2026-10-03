@@ -442,6 +442,9 @@ html:not(.motion-ok) .hero-board .btoast { display: none; }
 .board-caption {
   margin-top: 14px; text-align: center;
   font-family: var(--font-mono); font-size: 11.5px; color: var(--text-3); letter-spacing: 0.02em;
+  /* balance: замер 03.10 — в ru/it/pl/uk/lt на 1440 последнее слово подписи («сохраняете»)
+     оставалось одно на второй строке */
+  text-wrap: balance;
 }
 
 /* ---- trust strip: широта продукта рядом чипов-ссылок ------------------------

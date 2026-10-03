@@ -48,9 +48,9 @@ export const lt: LandingDict = {
     micro2: "Registracija per 2 minutes",
     micro3: "Duomenys saugomi ES",
     boardAria:
-      "G-Track dispečerinė lenta: jūs įkeliate dokumento skeną, sistema atpažįsta numerį bei galiojimo terminą ir atnaujina įrašą",
+      "G-Track dispečerinė lenta: jūs įkeliate dokumento skeną, sistema atpažįsta numerį bei galiojimo terminą, jūs patikrinate ir išsaugote įrašą",
     boardCaption:
-      "Įkeliate skeną → G-Track atpažįsta numerį ir terminą → dokumento įrašas atnaujintas",
+      "Įkeliate skeną → G-Track atpažįsta numerį ir terminą → jūs patikrinate ir išsaugote",
   },
 
   /* Полоса под первым экраном (TrustStrip): чипы-ссылки на модули, решение владельца 03.10.
@@ -75,7 +75,7 @@ export const lt: LandingDict = {
      дословно: полоса стала чипами (03.10), а картинка для шеров осталась прежней. */
   og: {
     docTypes: "vairuotojo dokumentų tipų",
-    trialDays: "demo dienų be skambučio",
+    langs: "sąsajos kalbų",
   },
 
   pain: {
@@ -361,7 +361,7 @@ export const lt: LandingDict = {
     kpiTrip: "Šiandien reise", kpiVac: "Atostogose", kpiFree: "Laisvi",
     stActive: "Aktyvus", stTrip: "Kelyje", ready: "parengtis",
     vacUntil: "Atostogos iki 15.06", sick: "Nedarbingumas",
-    toastWarnT: "Rytinė suvestinė: viza baigia galioti 12.07", toastWarnD: "P. Savchenko · liko 32 dienos",
+    toastWarnT: "Suvestinė el. paštu: viza baigia galioti 12.07", toastWarnD: "P. Savchenko · liko 32 dienos",
     toastOkT: "Įrašytas vizos galiojimas: 08.2028", toastOkD: "Numeris ir data atpažinti iš skeno",
     docs: "Parengtis", urgent: "Skubu", nonEU: "NON-EU",
     tabOverview: "Apžvalga", tabDocs: "Dokumentai", tabComments: "Komentarai", tabHistory: "Istorija",
