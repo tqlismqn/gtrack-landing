@@ -1,0 +1,527 @@
+/* ============================================================================
+   G-Track Landing — полоса «было → стало» и витрина «Одна заявка» (#product).
+   Перенос макетов волны 04.10.2026 (канва «Design», пять артбордов): значения
+   взяты из артбордов 1440 / 768 / 390, новые примитивы помечены NEW там же.
+   Три кадра собраны mobile-first одиночными условиями шкалы:
+     база      < m   — телефон: одна колонка (1) → (2) → ↩ → (3) → (4)
+     ≥ m             — планшет: телефон | планировщик + ↩, ниже ротация | машина
+     ≥ l             — десктоп: колонка телефона с ↩ во всю высоту, справа 2 ряда
+   Составных условий нет намеренно (см. шапку шкалы в globals.css).
+   Доска витрины стоит на примитивах доски первого экрана (hero.css): здесь
+   только модификатор `.board.sc` и новые детали. Правила `.bh` и `.dtags .spz`
+   остаются едиными на все доски (ADR 0009, 0010), копий нет.
+   Все числа макетов — из src/lib/showcase-data.ts.
+   ============================================================================ */
+
+/* ---- токены витрины ---------------------------------------------------------- */
+.loop {
+  /* AA: общий --p-t3 (58 %) даёт 4,47:1 на --p-bg и 4,23:1 на --p-raised;
+     61 % → 5,05 / 4,78. Мелких подписей в витрине больше, чем в первом экране. */
+  --p-t3: oklch(61% 0.005 240);
+  --p-on-solid: #07111C;                 /* текст на сплошной заливке статуса (= --btn-accent-fg) */
+  --tg-sky-bg: color-mix(in oklch, var(--info) 13%, var(--p-bg));
+  --tg-sky-tx: var(--info);
+  --tg-scrim: rgb(0 0 0 / 0.22);         /* под листом действий: весь текст хаба остаётся ≥ 4,5:1 */
+  --pop-shadow: 0 12px 32px -12px rgb(0 0 0 / 0.45), 0 0 0 1px rgb(0 0 0 / 0.03);   /* = .btoast */
+  --sheet-shadow: 0 -12px 28px -14px rgb(0 0 0 / 0.6);
+  /* цвета событий мини-приложения (driver-dash-telegram tokens.css --evt-*) */
+  --evt-vac: #f97316;
+  --evt-sick: #f43f5e;
+  --evt-other: #8b5cf6;
+  --on-evt: #FFFFFF;
+  /* заливка подсветки сквозного значения = --info этой темы на 14 %; литералом, без color-mix:
+     сборка подкладывает под color-mix с var() сплошной запасной цвет, и в браузере, который
+     знает :has(), но не color-mix (Safari 15.4–16.1, Chrome 105–110), текст лёг бы на сплошной синий */
+  --thread-hl: rgb(56 189 248 / 0.14);
+}
+html[data-theme="light"] .loop {
+  /* AA: общий 56 % даёт 4,08:1 на --p-sunken; 53 % = светлый --text-3 сайта → 4,63:1 */
+  --p-t3: oklch(53% 0.012 250);
+  --p-on-solid: #FFFFFF;
+  --tg-sky-bg: #f0f9ff;
+  --tg-sky-tx: #0369a1;
+  --tg-scrim: rgb(0 0 0 / 0.14);
+  --sheet-shadow: 0 -12px 28px -14px rgb(16 24 40 / 0.24);
+  --thread-hl: rgb(6 111 176 / 0.14);
+}
+
+/* ============================================================================
+   ПОЛОСА «было → стало» — на месте секции «Статус-кво», ≈ ⅓ её высоты.
+   Четыре пары, по одной на экран витрины, номера те же.
+   ============================================================================ */
+.bstrip { background: var(--sunken); border-top: 1px solid var(--border-1); border-bottom: 1px solid var(--border-1); padding: 56px 0; }
+/* полоса возможностей выше уже несёт нижнюю границу — вторую линию не кладём */
+.trust + .bstrip { border-top: 0; }
+.bs-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; }
+.bs-pair { display: flex; flex-direction: column; min-width: 0; }
+.bs-head { display: flex; align-items: center; gap: 12px; }
+.bs-head::after { content: ""; flex: 1; height: 1px; background: var(--border-1); }
+.bs-num { font-family: var(--font-mono); font-size: 12px; color: var(--text-3); }
+.bs-lbl { display: block; margin-top: 14px; font-family: var(--font-mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-3); }
+.bs-txt { display: block; margin-top: 6px; font-size: 15.5px; line-height: 1.5; color: var(--text-2); text-wrap: pretty; }
+.bs-now { display: flex; align-items: center; gap: 10px; margin-top: auto; padding-top: 16px; color: var(--text-3); min-width: 0; }
+.bs-now > svg { width: 16px; height: 16px; flex: none; }
+/* «стало» — тот же чип, что в полосе возможностей: плитка ниже m, пилюля выше */
+.bs-screen {
+  display: inline-flex; align-items: center; gap: 7px; min-width: 0; min-height: 38px;
+  padding: 8px 10px; border-radius: 12px; background: var(--raised); border: 1px solid var(--border-1);
+  color: var(--text-1); font-size: 13px; font-weight: 500; line-height: 1.3;
+}
+.bs-screen svg { width: 16px; height: 16px; flex: none; color: var(--text-3); }
+@media (width >= theme(--breakpoint-m)) {
+  .bs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; row-gap: 32px; }
+  .bs-screen { gap: 8px; min-height: 0; padding: 7px 15px 7px 12px; border-radius: 999px; font-size: 14px; }
+  .bs-screen svg { color: var(--text-2); }
+}
+@media (width >= theme(--breakpoint-l)) {
+  .bs-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+}
+
+/* ============================================================================
+   ВИТРИНА — раскладка
+   ============================================================================ */
+/* overflow-x: clip — сетка-подложка шире контента и на узком десктопе выходит за окно */
+.loop { background: var(--bg); overflow-x: clip; }
+.legend { margin-top: 18px; font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.01em; color: var(--text-3); }
+.legend .thread { color: var(--text-2); white-space: nowrap; }
+
+/* Контейнер нужен ради единиц cqw: шаг сетки-подложки считается от ширины бенто,
+   чтобы линии ложились на колонки дней планировщика на любой ширине, а не на трёх. */
+.bento-wrap { position: relative; margin-top: 48px; container: loop-bento / inline-size; }
+/* Сетка доски первого экрана (≈ 4,5 %), шаг = трек дня планировщика этого кадра,
+   смещение = левый край дорожки дней. Арифметика кадра — в комментарии у каждого. */
+.loop-grid {
+  position: absolute; z-index: 0; pointer-events: none;
+  /* < m: трек = (W − 6 − 124) / 7; дорожка начинается в 130 px от края бенто */
+  inset: -40px -18px;
+  --pitch: calc((100cqw - 130px) / 7);
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--pitch) var(--pitch);
+  background-position: 148px 0;
+  -webkit-mask-image: radial-gradient(ellipse 70% 62% at 50% 48%, #fff 30%, transparent 82%);
+  mask-image: radial-gradient(ellipse 70% 62% at 50% 48%, #fff 30%, transparent 82%);
+}
+.bento { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 24px; }
+.bento figure { position: relative; min-width: 0; }
+.bx-phone, .bx-side { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+/* ответ водителю нарисован дважды: под телефоном (≥ l) и под планировщиком (< l) */
+.bx-phone .ph-ans { display: none; }
+.ph-main { container: loop-phone / inline-size; }
+.vconn { display: flex; justify-content: center; color: var(--text-3); }
+.vconn svg { width: 12px; height: 20px; }
+.conn { display: none; }
+
+@media (width >= theme(--breakpoint-m)) {
+  .bento-wrap { margin-top: 56px; }
+  /* 12 колонок, зазоры 24 / 40: ряд 1 — телефон 5/12 | планировщик + ↩ 7/12; ряд 2 — 6/12 | 6/12 */
+  .bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 40px; align-items: start; }
+  .vconn { display: none; }
+  .bx-phone { grid-column: 1 / span 5; grid-row: 1; }
+  .bx-side { grid-column: 6 / span 7; grid-row: 1; gap: 36px; }
+  .bx-rot { grid-column: 1 / span 6; grid-row: 2; }
+  .bx-veh { grid-column: 7 / span 6; grid-row: 2; }
+  /* трек = (7 кол. + 6 зазоров − 20 − 164) / 8; дорожка = 5 кол. + 5 зазоров + 10 + 164 */
+  .loop-grid {
+    inset: -56px -40px;
+    --pitch: calc((7 * (100cqw - 264px) / 12 - 40px) / 8);
+    background-position: calc(5 * (100cqw - 264px) / 12 + 334px) 0;
+  }
+}
+@media (width >= theme(--breakpoint-l)) {
+  .bento-wrap { margin-top: 64px; }
+  /* колонка телефона 4/12 во всю высоту; планировщик 8/12; ротация и машина по 4/12 */
+  .bx-phone { grid-column: 1 / span 4; grid-row: 1 / span 2; gap: 36px; }
+  .bx-phone .ph-ans { display: block; }
+  .bx-side { display: contents; }
+  .bx-side .ph-ans { display: none; }
+  .bx-plan { grid-column: 5 / span 8; grid-row: 1; }
+  .bx-rot { grid-column: 5 / span 4; grid-row: 2; }
+  .bx-veh { grid-column: 9 / span 4; grid-row: 2; }
+  /* трек = (8 кол. + 7 зазоров − 20 − 232) / 15; дорожка = 4 кол. + 4 зазора + 10 + 232 */
+  .loop-grid {
+    inset: -72px -96px;
+    --pitch: calc(((100cqw - 264px) * 2 / 3 - 84px) / 15);
+    background-position: calc((100cqw - 264px) / 3 + 434px) 0;
+  }
+  /* стрелки в зазорах сетки — фиксированные отступы от верха панели, от локали не зависят */
+  .conn { display: block; position: absolute; z-index: 2; color: var(--text-3); pointer-events: none; }
+  .conn svg { width: 20px; height: 12px; }
+  .conn.down svg { width: 12px; height: 20px; }
+  .conn.c12 { left: -22px; top: 150px; }     /* (1) → (2) */
+  .conn.c2r { left: -22px; top: 475px; }     /* (2) → ↩, на уровне кнопок окна заявки */
+  .conn.c23 { left: 96px; top: -36px; }      /* (2) → (3), в зазоре рядов */
+  .conn.c34 { left: -22px; top: 150px; }     /* (3) → (4) */
+}
+
+/* подписи: бейдж + заголовок / текст */
+.cap { display: flex; flex-direction: column; gap: 4px; margin-top: 14px; max-width: 62ch; }
+.cap-h { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; color: var(--text-1); }
+.cap-b { padding-left: 26px; font-size: 14.5px; line-height: 1.5; color: var(--text-2); text-wrap: pretty; }
+.loop-foot { margin-top: 48px; text-align: center; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.02em; color: var(--text-3); }
+
+/* бейдж шага на левом верхнем углу панели и его номер (он же — в подписи) */
+.step {
+  position: absolute; top: -13px; left: -10px; z-index: 6;
+  display: inline-flex; align-items: center; gap: 7px; height: 26px; padding: 0 10px 0 3px;
+  border-radius: 999px; background: var(--card); border: 1px solid var(--border-2); box-shadow: var(--shadow-lift);
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 600; color: var(--text-2); white-space: nowrap;
+}
+.step.solo { padding-right: 3px; }
+.step-n {
+  display: inline-grid; place-items: center; width: 18px; height: 18px; flex: none; border-radius: 999px;
+  background: color-mix(in oklch, var(--info) 16%, var(--card)); border: 1px solid color-mix(in oklch, var(--info) 45%, transparent);
+  color: var(--text-1); font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; line-height: 1;
+}
+
+/* сквозное значение — одно и то же на всех экранах: подчёркивание 1 px цветом --info */
+.thread { text-decoration-line: underline; text-decoration-thickness: 1px; text-decoration-color: var(--info); text-underline-offset: 2px; text-decoration-skip-ink: none; }
+/* наведение подсвечивает то же значение на остальных экранах; раскладку не трогает.
+   Только там, где наведение есть: на тач-экране :hover «залипает» после касания */
+@media (hover: hover) {
+  .loop:has(.thread[data-t="marek"]:hover) .thread[data-t="marek"],
+  .loop:has(.thread[data-t="gt114"]:hover) .thread[data-t="gt114"],
+  .loop:has(.thread[data-t="dates"]:hover) .thread[data-t="dates"],
+  .loop:has(.thread[data-t="stk"]:hover) .thread[data-t="stk"] {
+    background: var(--thread-hl);
+    box-shadow: 0 0 0 2px var(--info); border-radius: 3px;
+  }
+}
+
+/* ============================================================================
+   ЭКРАН 1 — мини-приложение Telegram: колонка без корпуса телефона
+   ============================================================================ */
+.tgphone { position: relative; width: 100%; border-radius: 28px; overflow: hidden; background: var(--p-sunken); color: var(--p-t1); box-shadow: var(--p-shadow); font-size: 14px; line-height: 1.4; letter-spacing: -0.004em; }
+.tg-hub { position: relative; padding-bottom: 22px; }
+.tg-hub::after { content: ""; position: absolute; inset: 0; background: var(--tg-scrim); pointer-events: none; }
+.tg-top { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 16px; background: var(--p-bg); border-bottom: 1px solid var(--p-border); }
+.tg-mark { width: 26px; height: 26px; border-radius: 7px; flex: none; display: grid; place-items: center; background: linear-gradient(135deg, var(--brand-deep), var(--info)); color: var(--on-evt); font-family: var(--font-mono); font-size: 11px; font-weight: 600; }
+.tg-app { font-size: 15px; font-weight: 600; }
+.tg-greet { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding: 20px 16px 0; }
+.tg-greet > :first-child { min-width: 0; }
+.tg-hi { display: block; font-size: 13px; color: var(--p-t2); }
+.tg-first { display: block; margin-top: 2px; font-size: 26px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+/* дата — как её печатает Intl в каждой локали; длинная (lt, lv, es) переносится, а не режется */
+.tg-date { padding-bottom: 5px; font-family: var(--font-mono); font-size: 11.5px; color: var(--p-t2); text-align: right; text-wrap: balance; }
+.tg-dcard { margin: 16px 16px 0; padding: 16px; background: var(--p-bg); border: 1px solid var(--p-border); border-radius: 18px; }
+.tg-drow { display: flex; align-items: center; gap: 12px; }
+.tg-av { width: 52px; height: 52px; border-radius: 999px; flex: none; display: grid; place-items: center; background: var(--p-sunken); color: var(--p-t2); font-family: var(--font-mono); font-size: 15px; font-weight: 600; }
+.tg-who { min-width: 0; }
+.tg-name { display: block; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+.tg-tel { display: flex; align-items: center; gap: 6px; margin-top: 3px; font-family: var(--font-mono); font-size: 12px; color: var(--p-t2); }
+.tg-status { display: flex; margin-top: 14px; }
+.tg-pill { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 999px; background: var(--tg-sky-bg); color: var(--tg-sky-tx); font-size: 13px; font-weight: 600; white-space: nowrap; }
+.tg-pill svg { width: 15px; height: 15px; flex: none; }
+.tg-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tg-chip { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px; border-radius: 9px; background: var(--p-sunken); border: 1px solid var(--p-border); font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--p-t1); white-space: nowrap; }
+.tg-chip svg { width: 14px; height: 14px; flex: none; color: var(--p-t2); }
+.tg-cta { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 16px 16px 0; min-height: 56px; padding: 6px 12px; border-radius: 14px; background: var(--info); color: var(--btn-accent-fg); font-size: 16px; font-weight: 600; text-align: center; }
+.tg-sheet { position: relative; margin-top: -8px; padding: 10px 16px 30px; background: var(--p-bg); border-radius: 22px 22px 0 0; box-shadow: var(--sheet-shadow); }
+.tg-handle { width: 38px; height: 5px; margin: 0 auto; border-radius: 999px; background: var(--p-border); }
+.tg-sheet-t { margin-top: 16px; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+.tg-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 16px; }
+/* подпись плитки переносится по словам и, если слово длиннее плитки, внутри слова:
+   «Krankschreibung», «Zwolnienie lekarskie (L4)» — строки мини-приложения, их не сокращаем.
+   hyphens: auto ставит дефис там, где у движка есть словарь переносов языка страницы
+   («Krankschrei-bung»); где словаря нет, слово рвётся без дефиса — текст не теряется в обоих случаях */
+.tg-tile { display: flex; flex-direction: column; align-items: center; gap: 10px; min-width: 0; padding: 16px 6px 14px; border-radius: 16px; background: var(--p-sunken); border: 1px solid var(--p-border); color: var(--p-t1); font-size: 14px; font-weight: 500; line-height: 1.25; text-align: center; overflow-wrap: anywhere; -webkit-hyphens: auto; hyphens: auto; }
+.tg-tile.on { border-color: var(--evt-vac); box-shadow: 0 0 0 2px color-mix(in oklch, var(--evt-vac) 40%, transparent); }
+.tg-ico { width: 48px; height: 48px; border-radius: 14px; flex: none; display: grid; place-items: center; color: var(--on-evt); }
+.tg-ico svg { width: 24px; height: 24px; }
+.tg-ico.vac { background: var(--evt-vac); }
+.tg-ico.sick { background: var(--evt-sick); }
+.tg-ico.other { background: var(--evt-other); }
+.tg-cancel { display: grid; place-items: center; height: 52px; margin-top: 14px; border-radius: 14px; background: var(--p-sunken); color: var(--p-t1); font-size: 16px; font-weight: 500; }
+/* Колонка уже настоящего телефона (на планшете 273 px, на узком десктопе 281–330 px,
+   на телефоне 320 — 274 px): мини-приложение ужимает собственные отступы и кегли.
+   Порог контентный: 340 px — ширина, ниже которой три плитки листа не вмещают
+   подпись 14 px. Области нажатия остаются ≥ 44 px. */
+@container loop-phone (width < 340px) {
+  .tgphone { border-radius: 24px; font-size: 13px; }
+  .tg-hub { padding-bottom: 20px; }
+  .tg-top { height: 46px; padding: 0 12px; gap: 8px; }
+  .tg-mark { width: 24px; height: 24px; font-size: 10px; }
+  .tg-app { font-size: 14px; }
+  .tg-greet { padding: 16px 12px 0; gap: 8px; }
+  .tg-hi { font-size: 12.5px; }
+  .tg-first { font-size: 22px; }
+  .tg-date { padding-bottom: 4px; font-size: 10.5px; }
+  .tg-dcard { margin: 14px 12px 0; padding: 14px 12px; border-radius: 16px; }
+  .tg-drow { gap: 10px; }
+  .tg-av { width: 44px; height: 44px; font-size: 13px; }
+  .tg-name { font-size: 15.5px; }
+  .tg-tel { font-size: 11px; }
+  .tg-status { margin-top: 12px; }
+  .tg-pill { height: 26px; padding: 0 10px; font-size: 12.5px; }
+  .tg-chip { height: 28px; font-size: 11.5px; }
+  .tg-cta { margin: 14px 12px 0; min-height: 48px; border-radius: 12px; font-size: 15px; }
+  .tg-sheet { padding: 10px 12px 22px; border-radius: 20px 20px 0 0; }
+  .tg-sheet-t { margin-top: 14px; font-size: 16.5px; }
+  .tg-tiles { gap: 8px; margin-top: 14px; }
+  .tg-tile { gap: 8px; padding: 12px 2px 10px; border-radius: 14px; font-size: 12px; }
+  .tg-ico { width: 40px; height: 40px; border-radius: 12px; }
+  .tg-ico svg { width: 20px; height: 20px; }
+  .tg-cancel { height: 46px; margin-top: 12px; border-radius: 12px; font-size: 15px; }
+}
+
+/* карточка ответа: фрагмент «Мои заявки» мини-приложения */
+.tgcard { position: relative; border-radius: 24px; background: var(--p-sunken); color: var(--p-t1); box-shadow: var(--p-shadow); padding: 22px 16px 16px; font-size: 14px; line-height: 1.4; }
+.tgcard-h { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+/* в области карточки: голое .req совпало бы с пунктирной полосой планировщика (.tripbar.vac.req) */
+.tgcard .req { display: flex; align-items: flex-start; gap: 12px; margin-top: 14px; padding: 14px; background: var(--p-bg); border: 1px solid var(--p-border); border-radius: 16px; }
+.req-ic { width: 38px; height: 38px; border-radius: 999px; flex: none; display: grid; place-items: center; background: var(--evt-vac); color: var(--on-evt); }
+.req-ic svg { width: 18px; height: 18px; }
+.req-body { flex: 1; min-width: 0; }
+.req-l1 { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 8px; }
+.req-t { font-size: 15px; font-weight: 600; }
+.req-st { display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 10px; border-radius: 999px; background: var(--p-ok-bg); color: var(--p-ok-tx); border: 1px solid color-mix(in oklch, var(--p-ok) 35%, transparent); font-size: 12px; font-weight: 600; white-space: nowrap; }
+.req-range { margin-top: 6px; font-size: 13.5px; color: var(--p-t1); }
+.req-meta { margin-top: 3px; font-size: 12.5px; color: var(--p-t2); }
+
+/* ============================================================================
+   ЭКРАН 2 — планировщик: модификатор доски `.board.sc` и её детали
+   ============================================================================ */
+/* плитка приложения (подпись · значение · сноска), PlanningMetricCards */
+.loop .pwin-kpis { flex-wrap: wrap; }
+.kpi.app { flex: 1 1 0; gap: 3px; }
+/* подпись плитки ПЕРЕНОСИТСЯ, а не уходит в многоточие: на 320 двум плиткам по 130 px не хватало
+   30 px на «Отпуск и больничный» (замер 04.10: 9 локалей из 12 резались). Значения стоят в ряд
+   и при разном числе строк подписи — их прижимает к низу margin-top: auto. */
+.kpi .kh { font-size: 9.5px; font-weight: 600; letter-spacing: 0.1em; line-height: 1.3; text-transform: uppercase; color: var(--p-t3); overflow-wrap: anywhere; }
+.kpi.app .kv { margin-top: auto; }
+.kpi .kf { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: var(--p-t2); white-space: nowrap; }
+.kpi .kf .d { width: 6px; height: 6px; border-radius: 99px; flex: none; background: var(--p-warn); }
+.kpi .kf .d.bad { background: var(--p-bad); }
+/* AA: янтарь первого экрана (--p-warn, светлая #F59E0B) даёт 2,1:1; тон -tx проходит в обеих темах */
+.loop .kpi .kv.amber { color: var(--p-warn-tx); }
+.loop .kpi .kv.red { color: var(--p-bad-tx); }
+/* ЕДИНСТВЕННОЕ движение витрины: точка «ждут ответа» мигает прозрачностью, как в приложении */
+@keyframes loop-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+html.motion-ok .loop .pulse { animation: loop-pulse 1.6s ease-in-out infinite; }
+/* «Требуют решения N» — сплошной красный чип-дверь (NeedsDecisionChip); ниже m — своей строкой под плитками */
+.need-row { display: flex; flex: 1 0 100%; margin-top: 2px; }
+.needchip { display: inline-flex; align-items: center; gap: 7px; height: 28px; padding: 0 10px; border-radius: 999px; background: var(--p-bad); color: var(--p-on-solid); font-size: 12px; font-weight: 600; white-space: nowrap; }
+.needchip .d { width: 6px; height: 6px; border-radius: 99px; background: var(--p-on-solid); flex: none; }
+.needchip .n { font-family: var(--font-mono); font-size: 11.5px; padding-left: 7px; border-left: 1px solid color-mix(in oklch, var(--p-on-solid) 35%, transparent); }
+/* плитка «Отпуск и больничный» — на телефоне и десктопе; на планшете её место занимает доска */
+.kpi.hide-m { display: flex; }
+/* подпись окна: у каждого кадра свой диапазон дат; ниже m подписи нет (mobile.css) */
+.pwin-week.wk-l { display: none; }
+
+/* Доска. Кадр ниже m — СВОЙ: 3 строки × 7 дней, а не ужатый Гант. Колонка водителя 124 px,
+   правый край открыт: полосы, идущие дальше 11.10, уходят за край окна (.pwin.clip). */
+.pwin.clip { overflow: hidden; }
+.board.sc { position: relative; padding: 4px 0 10px 6px; --drv: 124px; --now: var(--now-s); }
+.board.sc .board-head, .board.sc .board-row, .board.sc .colbg { grid-template-columns: var(--drv) repeat(7, minmax(0, 1fr)); }
+.board.sc .lane { grid-column: 2 / -1; }
+.board.sc .bh { display: flex; flex-direction: column; align-items: center; padding: 3px 0; border-radius: 5px; }
+.board.sc .bh:first-child { align-items: flex-start; }
+.board.sc .bh.we { background: color-mix(in oklch, var(--p-bad) 13%, transparent); color: var(--p-bad-tx); }
+.board.sc .tripbar .bartext { line-height: 16px; }
+.bh-l { display: block; }
+.bh-p { display: block; margin-top: 3px; font-size: 8.5px; letter-spacing: 0; text-transform: none; color: var(--p-t2); font-weight: 500; }
+.bh-bars { display: flex; align-items: flex-end; justify-content: center; height: 14px; margin-top: 2px; }
+.bh-bar { display: block; width: 10px; border-radius: 2px 2px 0 0; }
+.bh-bar.ok { background: var(--p-ok); }
+.bh-bar.warn { background: var(--p-warn); }
+.board-rows { position: relative; display: flex; flex-direction: column; }
+/* окно заявки внутри доски живёт с m; ниже m его рисует карточка `.pop.flat` под доской */
+.board-rows > .pop { display: none; }
+.colbg { position: absolute; inset: 0; display: grid; pointer-events: none; }
+.colbg i { border-left: 1px solid color-mix(in oklch, var(--p-border) 60%, transparent); }
+.colbg i:first-child { border-left: 0; }
+.colbg i.we { background: color-mix(in oklch, var(--p-bad) 6%, transparent); }
+/* дни и строки вне кадра: data-crop — самый узкий кадр, где ячейка есть (s ⊂ m ⊂ l) */
+.board.sc [data-crop="m"], .board.sc [data-crop="l"] { display: none; }
+.board.sc .board-row[data-s="0"] { display: none; }
+/* полоса берёт геометрию своего кадра (showcase-data.barBox); не попавшей в кадр на нём нет (--d*: none) */
+.board.sc .tripbar { left: var(--ls); width: var(--ws); display: var(--ds, flex); }
+/* линия «сейчас»: 05.10, 08:12 */
+.todayline {
+  position: absolute; top: 0; bottom: 0; z-index: 3; pointer-events: none;
+  left: calc(var(--drv) + (100% - var(--drv)) * var(--now)); width: 2px; margin-left: -1px;
+  background: var(--p-trip); box-shadow: 0 0 8px color-mix(in oklch, var(--p-trip) 55%, transparent);
+}
+/* аватар в кольце готовности (геометрия Ring.tsx: r 15,5) — на доске только с l */
+.avring { position: relative; width: 34px; height: 34px; flex: none; display: grid; place-items: center; }
+.avring svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.avring .track { stroke: var(--p-sunken); }
+.avring .val { stroke: var(--p-ok); }
+.avring.mid .val { stroke: var(--p-warn); }
+.avring .avatar { width: 24px; height: 24px; font-size: 9px; }
+.board.sc .drv .avring { display: none; }
+.dnum { font-family: var(--font-mono); font-size: 9.5px; color: var(--p-t3); flex: none; }
+.loop .dchip { gap: 3px; }
+.loop .dchip svg { width: 9px; height: 9px; flex: none; }
+.ppill.bad { background: var(--p-bad-bg); color: var(--p-bad-tx); }
+/* заявка в ожидании — пунктир и штриховка (приложение: «Заявка в ожидании») */
+.tripbar.req {
+  border-style: dashed;
+  border-color: color-mix(in oklch, var(--p-warn) 75%, transparent);
+  box-shadow: none;
+  background: repeating-linear-gradient(135deg, color-mix(in oklch, var(--p-warn) 18%, var(--p-warn-bg)) 0 6px, var(--p-warn-bg) 6px 12px);
+}
+/* где кончается пунктир, когда его конец за кадром: «до 18.10» под полосой (< m), «→ 18.10» над ней (m) */
+.bar-until { position: absolute; right: 6px; bottom: 3px; font-family: var(--font-mono); font-size: 9px; font-weight: 600; line-height: 1; color: var(--p-warn-tx); white-space: nowrap; }
+.req-tail { display: none; position: absolute; right: 4px; top: 3px; z-index: 2; font-family: var(--font-mono); font-size: 9.5px; font-weight: 600; line-height: 1; color: var(--p-warn-tx); white-space: nowrap; }
+
+/* окно «Запрос на …» (LeaveRequestPopover): ниже m — карточкой под доской, выше — под пунктиром */
+.pop { display: flex; flex-direction: column; gap: 9px; padding: 12px 14px; background: var(--p-raised); border: 1px solid var(--p-border); border-radius: 12px; box-shadow: var(--pop-shadow); font-family: var(--font-sans); white-space: normal; }
+/* 🔴 имя `.flat`, а не `.inline`: `inline` — утилита Tailwind (слой utilities выше gt-landing),
+   она молча ставила карточке display: inline и перебивала display: none на ≥ m (замер 04.10) */
+.pop.flat { margin: 6px 10px 12px; }
+.pop-t { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--p-t1); }
+.pop-t .d, .pop-state .d { width: 7px; height: 7px; border-radius: 99px; flex: none; background: var(--p-warn); }
+.pop-who { margin-top: -6px; font-size: 12px; color: var(--p-t2); }
+.pop-num { font-family: var(--font-mono); font-size: 11px; color: var(--p-t3); }
+.pop-f { display: flex; flex-direction: column; gap: 3px; }
+.pop-k { font-family: var(--font-mono); font-size: 9.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--p-t3); }
+.pop-v { font-size: 12.5px; color: var(--p-t1); }
+.pop-v.mono { font-size: 12px; }
+.pop-state { display: flex; align-items: center; gap: 6px; color: var(--p-warn-tx); font-weight: 500; }
+.pop-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 2px; }
+.pbtn { display: inline-grid; place-items: center; height: 30px; padding: 0 12px; border-radius: 8px; border: 1px solid transparent; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.pbtn.ghost-bad { background: transparent; color: var(--p-bad-tx); border-color: color-mix(in oklch, var(--p-bad) 40%, transparent); }
+.pbtn.primary { background: var(--p-trip); color: var(--p-on-solid); }
+
+@media (width >= theme(--breakpoint-m)) {
+  /* плитка и чип — одной строкой: плитка ужимается (её подпись переносится), чип не переносится */
+  .loop .pwin-kpis { flex-wrap: nowrap; }
+  .kpi.app { flex: 0 1 204px; }
+  .kpi.hide-m { display: none; }
+  .need-row { flex: 0 0 auto; margin: 0 0 0 auto; align-self: center; }
+  /* кадр m: 4 строки × 8 дней 05–12.10, колонка водителя 156 px, без колец; Марек — последней
+     строкой, окно заявки открывается под его полосой и не накрывает чужих строк */
+  .pwin.clip { overflow: visible; }
+  /* колонка водителя 164, не 156 макета: «Arrêt maladie · jusqu'au 14.10» (fr) не хватало 7 px.
+     es и ro («Baja por enfermedad · hasta 14.10») не помещаются и в 164 — там пилюля ставит
+     многоточие (принятый режим отказа, hero.css D06); шире колонку не делаем: день ужался бы до 23 px */
+  .board.sc { padding: 6px 10px 12px; --drv: 164px; --now: var(--now-m); }
+  .board.sc .board-head, .board.sc .board-row, .board.sc .colbg { grid-template-columns: var(--drv) repeat(8, minmax(0, 1fr)); }
+  .board.sc [data-crop="m"] { display: flex; }
+  .board.sc .colbg [data-crop="m"] { display: block; }
+  .board.sc .board-row[data-s="0"] { display: grid; }
+  .board.sc .board-row[data-m="0"] { display: none; }
+  /* Строки и окно заявки — элементы ОДНОЙ сетки. Окно стоит в потоке, поэтому доска сама
+     вырастает под его высоту: абсолютное окно на 268 px у длинных локалей (it: период в две
+     строки) вылезало из окна планировщика на 16 px — замер 04.10. Строки расставлены явно
+     (--om / --rl): при автоподстановке строка не встала бы в ряд, уже занятый окном. */
+  .board.sc .board-rows { display: grid; grid-template-columns: var(--drv) repeat(8, minmax(0, 1fr)); }
+  .board.sc .board-row { grid-column: 1 / -1; grid-row: var(--om); }
+  .board.sc .tripbar { left: var(--lm); width: var(--wm); display: var(--dm, flex); }
+  .board.sc .drv { padding: 0 8px 0 6px; }
+  .board.sc .dtags { flex-wrap: wrap; row-gap: 3px; }   /* длинная пилюля статуса уходит под номер, а не режется */
+  .pop.flat { display: none; }
+  /* кадр m: окно под последней строкой (Марек), прижато к правому краю; на 12 px заходит на строку */
+  .board-rows > .pop { display: flex; position: relative; z-index: 5; grid-column: 1 / -1; grid-row: var(--pop-row-m); justify-self: end; align-self: start; width: 262px; margin-top: -12px; }
+  .board-rows > .pop .pop-hist { display: none; }
+  .bar-until { display: none; }
+  /* пунктир уходит за кадр: гаснет к правому краю, хвост называет его конец */
+  .board.sc .tripbar.req {
+    -webkit-mask-image: linear-gradient(90deg, #fff 72%, transparent);
+    mask-image: linear-gradient(90deg, #fff 72%, transparent);
+  }
+  .req-tail { display: block; }
+}
+@media (width >= theme(--breakpoint-l)) {
+  .kpi.hide-m { display: flex; }
+  .pwin-week.wk-l { display: inline; }
+  .pwin-week.wk-m { display: none; }
+  /* кадр l: 5 строк × 15 дней 04–18.10, колонка водителя 232 px, аватар в кольце */
+  .board.sc { --drv: 232px; --now: var(--now-l); }
+  .board.sc .board-head, .board.sc .board-row, .board.sc .colbg { grid-template-columns: var(--drv) repeat(15, minmax(0, 1fr)); }
+  .board.sc [data-crop="l"] { display: flex; }
+  .board.sc .colbg [data-crop="l"] { display: block; }
+  .board.sc .board-row[data-m="0"] { display: grid; }
+  .board.sc .board-rows { grid-template-columns: var(--drv) repeat(15, minmax(0, 1fr)); }
+  .board.sc .board-row { grid-row: var(--rl); }
+  .board.sc .tripbar { left: var(--ll); width: var(--wl); display: var(--dl, flex); }
+  .board.sc .drv { padding: 0 10px 0 6px; }
+  .board.sc .drv .avring { display: grid; }
+  /* Окно — под началом пунктира: колонка дня 10.10 (--pop-col), строки 2–5 плюс неявная шестая,
+     которая появляется, только если окну не хватило четырёх строк. −10 px снизу — окно вправе
+     зайти на нижний отступ доски (так в макете). Левый отступ — в процентах от ширины области
+     сетки: на узком десктопе область уже 268 px, и окно сдвигается влево, оставаясь в дорожке. */
+  .board-rows > .pop { grid-column: var(--pop-col) / -1; grid-row: 2 / span 5; justify-self: start; width: 268px; margin: -12px 0 -10px min(0px, calc(100% - 268px)); }
+  .board-rows > .pop .pop-hist { display: flex; }
+  .board.sc .tripbar.req { -webkit-mask-image: none; mask-image: none; }
+  .req-tail { display: none; }
+}
+
+/* ============================================================================
+   ЭКРАН 3 — ротация: карточка-список «Возвращаются»
+   ============================================================================ */
+/* пилюля строк ротации и машины: 22 px, с контуром (анатомия приложения) */
+.rpill { display: inline-flex; align-items: center; gap: 5px; min-width: 0; max-width: 100%; height: 22px; padding: 0 8px; border-radius: 999px; font-family: var(--font-sans); font-size: 11px; font-weight: 500; line-height: 1; white-space: nowrap; border: 1px solid transparent; }
+.rpill svg { width: 12px; height: 12px; flex: none; }
+.rpill b, .rpill.mono { font-family: var(--font-mono); font-weight: 600; }
+.rpill.ok     { background: var(--p-ok-bg);     color: var(--p-ok-tx);     border-color: color-mix(in oklch, var(--p-ok) 35%, transparent); }
+.rpill.warn   { background: var(--p-warn-bg);   color: var(--p-warn-tx);   border-color: color-mix(in oklch, var(--p-warn) 40%, transparent); }
+.rpill.bad    { background: var(--p-bad-bg);    color: var(--p-bad-tx);    border-color: color-mix(in oklch, var(--p-bad) 35%, transparent); }
+.rpill.trip   { background: var(--p-trip-bg);   color: var(--p-trip-tx);   border-color: color-mix(in oklch, var(--p-trip) 35%, transparent); }
+.rpill.violet { background: var(--p-violet-bg); color: var(--p-violet-tx); border-color: color-mix(in oklch, var(--p-violet) 35%, transparent); }
+.rpill.zinc   { background: var(--p-sunken);    color: var(--p-t2);        border-color: var(--p-border); }
+.rot { padding: 12px 14px 6px; }
+.rot-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; }
+.rot-h { display: flex; align-items: baseline; gap: 8px; }
+.rot-t { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--p-t1); }
+.rot-c { font-family: var(--font-mono); font-size: 11.5px; color: var(--p-t2); }
+.rot-note { margin-top: 2px; font-size: 11px; color: var(--p-t3); }
+.rot-week { margin-top: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--p-border); font-size: 11.5px; color: var(--p-t2); }
+.rot-row { display: flex; gap: 10px; padding: 10px 0; }
+.rot-row + .rot-row { border-top: 1px solid var(--p-border); }
+.rot-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.rot-l1 { display: flex; align-items: center; gap: 6px; min-width: 0; min-height: 18px; }
+.rot-l2, .rot-l3 { display: flex; flex-wrap: wrap; gap: 5px; }
+@media (width >= theme(--breakpoint-m)) {
+  /* на планшете панель 332 px: пилюля машины и пилюля готовности всегда в столбик — у строк один ритм */
+  .rot-l3 { flex-direction: column; align-items: flex-start; }
+}
+@media (width >= theme(--breakpoint-l)) {
+  .rot-l3 { flex-direction: row; align-items: stretch; }
+}
+
+/* ============================================================================
+   ЭКРАН 4 — карточка машины: шапка и вкладка «Документы»
+   ============================================================================ */
+.veh { padding: 16px 14px 12px; }
+.veh-head { display: flex; align-items: flex-start; gap: 14px; }
+.veh-ring { position: relative; width: 72px; height: 72px; flex: none; display: grid; place-items: center; }
+.veh-ring svg.arc { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.veh-ring .track { stroke: var(--p-sunken); }
+.veh-ring .val { stroke: var(--p-ok); }
+.veh-av { width: 56px; height: 56px; border-radius: 999px; display: grid; place-items: center; background: var(--p-trip); color: var(--p-on-solid); }
+.veh-av svg { width: 26px; height: 26px; }
+.veh-id { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.veh-type { align-self: flex-start; padding: 2px 6px; border-radius: 5px; border: 1px solid var(--p-border); background: var(--p-sunken); color: var(--p-t2); font-size: 10px; font-weight: 600; line-height: 1.3; }
+.veh-name { font-size: 16px; font-weight: 600; letter-spacing: -0.015em; display: flex; align-items: center; gap: 8px; }
+.veh-name .flag { width: 16px; height: 11px; }
+.veh-spec { font-size: 11.5px; color: var(--p-t2); }
+.veh-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.veh-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 14px; }
+.veh-chips .dchip { height: 18px; font-size: 8.5px; padding: 0 5px; border-radius: 5px; }
+.veh-tabs { display: flex; gap: 2px; margin-top: 16px; border-bottom: 1px solid var(--p-border); overflow-x: auto; scrollbar-width: none; }
+.veh-tab { padding: 7px 11px; font-size: 12px; color: var(--p-t3); border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; }
+/* панель уже 340 px (320 и узкий десктоп): «Panoramica · Documenti · Manutenzione» (it) не помещались
+   на 28 px и последняя вкладка уезжала за край — вкладки сближаются */
+.bx-veh { container: loop-veh / inline-size; }
+@container loop-veh (width < 340px) {
+  .veh-tab { padding: 7px 6px; }
+}
+.veh-tab.active { color: var(--p-t1); font-weight: 600; border-bottom-color: var(--p-trip); }
+.veh-grp { margin-top: 14px; font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--p-t3); }
+.doclist { margin-top: 4px; }
+.docline { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; column-gap: 8px; row-gap: 3px; align-items: center; padding: 8px 0; }
+.docline + .docline { border-top: 1px solid var(--p-border); }
+.docline .dchip { grid-column: 1; grid-row: 1; justify-self: start; height: 20px; font-size: 9.5px; padding: 0 7px; border-radius: 5px; }
+.docline-n { grid-column: 2 / 4; grid-row: 1; font-size: 12.5px; font-weight: 500; color: var(--p-t1); }
+.docline-d { grid-column: 2; grid-row: 2; font-family: var(--font-mono); font-size: 11.5px; color: var(--p-t2); }
+.docline-s { grid-column: 3; grid-row: 2; display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 500; white-space: nowrap; }
+.docline-s .d { width: 6px; height: 6px; border-radius: 99px; flex: none; }
+.docline-s.warn { color: var(--p-warn-tx); }
+.docline-s.warn .d { background: var(--p-warn); }
+.docline-s.ok { color: var(--p-ok-tx); }
+.docline-s.ok .d { background: var(--p-ok); }
+@media (width >= theme(--breakpoint-m)) {
+  .veh-name { font-size: 18px; }
+  .veh-chips .dchip { height: 20px; font-size: 9.5px; padding: 0 7px; }
+}
