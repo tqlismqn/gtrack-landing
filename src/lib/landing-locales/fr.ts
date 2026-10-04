@@ -189,7 +189,8 @@ export const fr: LandingDict = {
     docCal: "Étalonnage du tachygraphe",
     docTdl: "Téléchargement des données du tachygraphe",
     daysLeft: "{n} jours restants",
-    days: "{n} jours",
+    daysCal: "{n} jours",
+    daysTdl: "{n} jours",
   },
 
   vid: {

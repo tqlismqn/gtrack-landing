@@ -96,7 +96,7 @@ export const ro: LandingDict = {
     c2h: "Cererea e deja pe panou",
     c2p: "O bară punctată pe rândul șoferului; deasupra — cât din echipă e deja în concediu. Aprobarea — un clic.",
     cAns: "Răspunsul ajunge la șofer pe Telegram",
-    c3h: "Revenirea — pregătită din timp",
+    c3h: "Revenirea — din timp",
     c3p: "Cine se întoarce în următoarele {n} zile și dacă îi e pregătit camionul: liber, nu e în service, documentele la zi.",
     c4h: "Camionul are propriile termene",
     c4p: "ITP-ul expiră cât timp șoferul e în concediu — mai e timp să faci programarea.",
@@ -187,7 +187,8 @@ export const ro: LandingDict = {
     docCal: "Calibrare tahograf",
     docTdl: "Descărcare date tahograf",
     daysLeft: "{n} zile rămase",
-    days: "{n} zile",
+    daysCal: "{n} zile",
+    daysTdl: "{n} de zile",
   },
 
   vid: {

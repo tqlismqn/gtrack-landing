@@ -17,7 +17,7 @@ import {
   RING_C, ROTATION, ROTATION_ROWS, TODAY, VEHICLE, WINDOW_DAYS, WINDOW_START,
   awayPct, awayTone, barBox, daysBetween, daysLeft, fill, fmtDM, fmtDMY, fmtKm, nowLine, requestDays, ringOffset,
   splitAt, windowDay,
-  type Bar, type BoardRow, type CropId, type RotationRow,
+  type Bar, type BoardRow, type CropId, type InspectionCode, type RotationRow,
 } from "@/lib/showcase-data";
 
 type S = LandingDict["showcase"];
@@ -125,13 +125,20 @@ const DAYS = Array.from({ length: WINDOW_DAYS }, (_, i) => {
   return { ...d, crop: cropOf(i), weekend: d.weekday === 0 || d.weekday === 6, today: d.iso === TODAY, away: AWAY_BY_DAY[i] };
 });
 
-const NO_BAR = { left: "0%", width: "0%" };
-
+/** Геометрия полосы на трёх кадрах. Полосы, не попавшей в кадр, на нём нет (`--d*: none`):
+    нулевая ширина оставила бы от неё огрызок из отступов и рамки. */
 function barStyle(bar: Bar): CSSProperties {
-  const l = barBox(bar, "l") ?? NO_BAR;
-  const m = barBox(bar, "m") ?? NO_BAR;
-  const sm = barBox(bar, "s") ?? NO_BAR;
-  return { "--ll": l.left, "--wl": l.width, "--lm": m.left, "--wm": m.width, "--ls": sm.left, "--ws": sm.width } as CSSProperties;
+  const vars: Record<string, string> = {};
+  for (const crop of ["l", "m", "s"] as const) {
+    const box = barBox(bar, crop);
+    if (box) {
+      vars[`--l${crop}`] = box.left;
+      vars[`--w${crop}`] = box.width;
+    } else {
+      vars[`--d${crop}`] = "none";
+    }
+  }
+  return vars as CSSProperties;
 }
 
 const BAR_CLASS: Record<Bar["kind"], string> = { trip: "", vac: " vac", sick: " sick", req: " vac req" };
@@ -153,8 +160,8 @@ function statusPill(r: BoardRow, s: S): { tone: string; label: string } {
   switch (r.status) {
     case "trip": return { tone: "trip", label: s.stTrip };
     case "free": return { tone: "ok", label: s.stFree };
-    case "sick": return { tone: "bad", label: fill(s.stUntil, { status: s.stSick, date: fmtDM(r.until ?? TODAY) }) };
-    case "vac": return { tone: "warn", label: fill(s.stUntil, { status: s.stVac, date: fmtDM(r.until ?? TODAY) }) };
+    case "sick": return { tone: "bad", label: fill(s.stUntil, { status: s.stSick, date: fmtDM(r.until) }) };
+    case "vac": return { tone: "warn", label: fill(s.stUntil, { status: s.stVac, date: fmtDM(r.until) }) };
   }
 }
 
@@ -285,10 +292,10 @@ export function PlannerScreen({ s, label }: { s: S; label: string }) {
 
 function ReadinessPill({ r, s }: { r: RotationRow; s: S }) {
   if (r.readiness === "ready") return <span className="rpill ok">{s.rotReady}</span>;
-  if (r.readiness === "busy") return <span className="rpill trip">{fill(s.rotBusy, { name: r.busyBy ? s[r.busyBy] : "" })}</span>;
+  if (r.readiness === "busy") return <span className="rpill trip">{fill(s.rotBusy, { name: s[r.busyBy] })}</span>;
   return (
     <span className="rpill violet">
-      <T t="stk">{fill(s.rotDoc, { doc: r.docCode ?? "", date: fmtDM(r.docUntil ?? TODAY) })}</T>
+      <T t="stk">{fill(s.rotDoc, { doc: r.docCode, date: fmtDM(r.docUntil) })}</T>
     </span>
   );
 }
@@ -348,7 +355,9 @@ export function RotationScreen({ s, label }: { s: S; label: string }) {
 
 /* ---- (4) карточка машины: шапка и группа «Осмотр» вкладки «Документы» -------- */
 
-const DOC_NAME = { STK: "docStk", CAL: "docCal", TDL: "docTdl" } as const;
+const DOC_NAME: Record<InspectionCode, "docStk" | "docCal" | "docTdl"> = { STK: "docStk", CAL: "docCal", TDL: "docTdl" };
+/* шаблон срока — свой у каждой строки: форма слова «дней» зависит от числа, а оно у каждой своё */
+const DOC_DAYS: Record<InspectionCode, "daysLeft" | "daysCal" | "daysTdl"> = { STK: "daysLeft", CAL: "daysCal", TDL: "daysTdl" };
 
 export function VehicleScreen({ s, label }: { s: S; label: string }) {
   return (
@@ -394,10 +403,10 @@ export function VehicleScreen({ s, label }: { s: S; label: string }) {
             return (
               <div key={doc.code} className="docline">
                 <span className={`dchip ${doc.tone}`}>{doc.code}</span>
-                <span className="docline-n">{s[DOC_NAME[doc.code as keyof typeof DOC_NAME]]}</span>
+                <span className="docline-n">{s[DOC_NAME[doc.code]]}</span>
                 <span className="docline-d">{doc.tone === "warn" ? <T t="stk">{date}</T> : date}</span>
                 <span className={`docline-s ${doc.tone}`}>
-                  <span className="d"></span>{fill(doc.tone === "warn" ? s.daysLeft : s.days, { n: left })}
+                  <span className="d"></span>{fill(s[DOC_DAYS[doc.code]], { n: left })}
                 </span>
               </div>
             );

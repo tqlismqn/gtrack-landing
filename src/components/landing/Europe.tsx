@@ -72,10 +72,10 @@ const VIEW_BOX = "0 0 860 560";
 
 /** Карта секции «Вся Европа на одной доске». Вариант `inline` — карта-поле истории
  *  водителя с маршрутом и машиной — снят вместе с историей (04.10.2026, ADR 0012). */
-export function EuropeMap() {
+function EuropeMap() {
   const { d } = useLanding();
   return (
-    <svg className="euro-map euro-map--full" viewBox={VIEW_BOX} role="img" aria-label={d.europe.mapAria}>
+    <svg className="euro-map" viewBox={VIEW_BOX} role="img" aria-label={d.europe.mapAria}>
       <path className="land" d={EUROPE_LAND} />
       <g>
         {ROUTE_GEOMETRY.map((r, i) => (

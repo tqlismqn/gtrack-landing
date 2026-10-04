@@ -186,7 +186,8 @@ export const de: LandingDict = {
     docCal: "Tachograph-Kalibrierung",
     docTdl: "Tachograph-Datendownload",
     daysLeft: "{n} Tage verbleibend",
-    days: "{n} Tage",
+    daysCal: "{n} Tage",
+    daysTdl: "{n} Tage",
   },
 
   vid: {

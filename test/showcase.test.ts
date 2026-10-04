@@ -7,15 +7,17 @@
 
 import { describe, expect, it } from "vitest";
 import {
-  AWAY_BY_DAY, BOARD_ROWS, DRIVER_PHONE, FLEET, NEEDS_DECISION, PENDING_REQUESTS, REQUEST, ROTATION,
+  AWAY_BY_DAY, BOARD_ROWS, CROPS, DRIVER_PHONE, FLEET, NEEDS_DECISION, PENDING_REQUESTS, REQUEST, ROTATION,
   ROTATION_ROWS, TODAY, VEHICLE, WINDOW_DAYS,
-  awayPct, awayTone, barBox, daysLeft, fill, fmtDM, fmtDMY, fmtKm, nowLine, requestDays, ringOffset,
+  awayPct, awayTone, barBox, daysBetween, daysLeft, fill, fmtDM, fmtDMY, fmtKm, nowLine, requestDays, ringOffset,
   splitAt, windowDay,
   RING_C,
 } from "../src/lib/showcase-data";
 import { LANDING_DICT, LOCALES } from "../src/lib/landing-i18n";
 
 const row = (id: string) => BOARD_ROWS.find((r) => r.id === id)!;
+/** «до ДД.ММ» строки; у рейса и «свободен» даты нет */
+const until = (id: string) => { const r = row(id); return r.status === "sick" || r.status === "vac" ? r.until : null; };
 
 describe("парк и плитки", () => {
   it("плитки дают «Все»: 9 + 49 + 8 + 0 = 66", () => {
@@ -28,8 +30,12 @@ describe("парк и плитки", () => {
     expect(AWAY_BY_DAY[1]).toBe(8);
   });
 
-  it("одна заявка в ожидании, десять решений в очереди", () => {
+  it("заявок в ожидании столько же, сколько пунктирных полос на доске, — одна", () => {
+    expect(BOARD_ROWS.flatMap((r) => r.bars).filter((b) => b.kind === "req")).toHaveLength(1);
     expect(PENDING_REQUESTS).toBe(1);
+  });
+
+  it("в очереди решений десять — это же число покажет окно Центра решений во втором выкате", () => {
     expect(NEEDS_DECISION).toBe(10);
   });
 });
@@ -105,12 +111,12 @@ describe("строки доски", () => {
   });
 
   it("«до ДД.ММ» в пилюле совпадает с концом полосы отсутствия", () => {
-    const sick = row("andrzej");
-    expect(sick.until).toBe("2026-10-14");
-    expect(windowDay(sick.bars[0].to - 1).iso).toBe("2026-10-14");
-    const vac = row("lukas");
-    expect(vac.until).toBe("2026-10-07");
-    expect(windowDay(vac.bars[0].to - 1).iso).toBe("2026-10-07");
+    expect(until("andrzej")).toBe("2026-10-14");
+    expect(windowDay(row("andrzej").bars[0].to - 1).iso).toBe("2026-10-14");
+    expect(until("lukas")).toBe("2026-10-07");
+    expect(windowDay(row("lukas").bars[0].to - 1).iso).toBe("2026-10-07");
+    expect(until("marek")).toBeNull();
+    expect(until("mihai")).toBeNull();
   });
 
   it("рейс Михая начинается 06.10 — сегодня он свободен", () => {
@@ -152,6 +158,20 @@ describe("геометрия полос", () => {
     expect(box("mihai", 0, "m")).toEqual({ left: "12.9%", width: "87.1%" });
   });
 
+  it("у каждой строки каждого кадра все её полосы попадают в кадр", () => {
+    for (const r of BOARD_ROWS) {
+      const crops = (["l", "m", "s"] as const).filter((c) => c === "l" || (c === "m" ? r.orderM !== null : r.onS));
+      for (const c of crops) for (const b of r.bars) expect(barBox(b, c), `${r.id} ${b.kind} ${c}`).not.toBeNull();
+    }
+  });
+
+  it("полоса вне кадра — null, а не нулевая ширина", () => {
+    expect(barBox({ kind: "trip", from: 12, to: 15 }, "m")).toBeNull();
+    expect(barBox({ kind: "trip", from: 9, to: 15 }, "s")).toBeNull();
+    expect(CROPS.m).toEqual({ start: 1, days: 8 });
+    expect(CROPS.s).toEqual({ start: 1, days: 7 });
+  });
+
   it("кадр s, 7 дней 05–11.10: зазор 2 px, уходящая полоса выезжает на 10 px", () => {
     expect(box("marek", 0, "s")).toEqual({ left: "0%", width: "calc(71.43% - 2px)" });
     expect(box("marek", 1, "s")).toEqual({ left: "calc(71.43% + 2px)", width: "calc(28.57% + 8px)" });
@@ -178,29 +198,29 @@ describe("ротация", () => {
     expect(ROTATION_ROWS.filter((r) => r.readiness !== "ready")).toHaveLength(2);
   });
 
-  it("все возвращения — внутри горизонта 14 дней", () => {
+  it("все возвращения — внутри горизонта 14 дней (ротация считает календарными днями)", () => {
     expect(ROTATION.horizonDays).toBe(14);
-    expect(ROTATION_ROWS.map((r) => daysLeft(r.returnDate))).toEqual([9, 11, 13]);
+    expect(ROTATION_ROWS.map((r) => daysBetween(TODAY, r.returnDate))).toEqual([9, 11, 13]);
   });
 
   it("Марек возвращается в последний день заявки, а STK его машины кончается раньше", () => {
     const marek = ROTATION_ROWS.find((r) => r.id === "marek")!;
     expect(marek.returnDate).toBe("2026-10-18");
     expect(marek.truck).toBe("GT-114");
-    expect(marek.docCode).toBe("STK");
-    expect(marek.docUntil).toBe("2026-10-14");
+    expect(marek).toMatchObject({ readiness: "doc", docCode: "STK", docUntil: "2026-10-14" });
+    expect(VEHICLE.inspection.find((d) => d.code === "STK")!.until).toBe("2026-10-14");
   });
 
   it("машину Юриса занимает Михай — та же GT-109, что на его полосе рейса", () => {
     const juris = ROTATION_ROWS.find((r) => r.id === "juris")!;
-    expect(juris.busyBy).toBe("mihai");
+    expect(juris).toMatchObject({ readiness: "busy", busyBy: "mihai" });
     expect(juris.truck).toBe("GT-109");
     expect(row("mihai").bars[0].truck).toBe("GT-109");
   });
 
   it("возврат Анджея = конец его больничного на доске", () => {
     expect(ROTATION_ROWS[0].returnDate).toBe("2026-10-14");
-    expect(row("andrzej").until).toBe("2026-10-14");
+    expect(until("andrzej")).toBe("2026-10-14");
   });
 });
 
@@ -216,12 +236,20 @@ describe("карточка машины", () => {
     expect([0, 25, 50, 75, 100]).toContain(VEHICLE.ready);
   });
 
-  it("сроки = дата − сегодня: STK 9, калибровка 207, выгрузка 58 дней", () => {
+  /* Числа сняты с date-fns самого приложения (gtrack-tms), 04.10.2026:
+     differenceInDays(parseISO(срок), new Date(2026, 9, 5, 8, 12)) → 8 / 206 / 57.
+     Приложение отбрасывает неполные сутки, поэтому это на день меньше календарной разницы. */
+  it("сроки — как в карточке приложения: STK 8, калибровка 206, выгрузка 57 полных суток", () => {
     expect(VEHICLE.inspection.map((d) => [d.code, d.until, daysLeft(d.until)])).toEqual([
-      ["STK", "2026-10-14", 9],
-      ["CAL", "2027-04-30", 207],
-      ["TDL", "2026-12-02", 58],
+      ["STK", "2026-10-14", 8],
+      ["CAL", "2027-04-30", 206],
+      ["TDL", "2026-12-02", 57],
     ]);
+  });
+
+  it("завтрашний срок — «0 дней»: до полуночи меньше суток", () => {
+    expect(daysLeft("2026-10-06")).toBe(0);
+    expect(daysLeft("2026-10-07")).toBe(1);
   });
 
   it("десять чипов документов, янтарный один — STK, и он же янтарный в списке", () => {
@@ -233,7 +261,7 @@ describe("карточка машины", () => {
 
 describe("подстановки", () => {
   it("fill подставляет значения и оставляет неизвестное имя как есть", () => {
-    expect(fill("{n} дн. осталось", { n: 9 })).toBe("9 дн. осталось");
+    expect(fill("{n} дн. осталось", { n: 8 })).toBe("8 дн. осталось");
     expect(fill("{status} · до {date}", { status: "Отпуск", date: "07.10" })).toBe("Отпуск · до 07.10");
     expect(fill("{doc} до {date}", { doc: "STK" })).toBe("STK до {date}");
   });
@@ -259,8 +287,8 @@ describe("русские строки макетов, собранные из д
 
   it("планировщик", () => {
     expect(fill(s.kpiAwaySub, { pct: awayPct(FLEET.away) })).toBe("12% парка");
-    expect(fill(s.stUntil, { status: s.stSick, date: fmtDM(row("andrzej").until!) })).toBe("Больничный · до 14.10");
-    expect(fill(s.stUntil, { status: s.stVac, date: fmtDM(row("lukas").until!) })).toBe("Отпуск · до 07.10");
+    expect(fill(s.stUntil, { status: s.stSick, date: fmtDM(until("andrzej")!) })).toBe("Больничный · до 14.10");
+    expect(fill(s.stUntil, { status: s.stVac, date: fmtDM(until("lukas")!) })).toBe("Отпуск · до 07.10");
     expect(fill(s.popDays, { n: requestDays() })).toBe("9 дн.");
     expect(fill(s.barUntil, { date: fmtDM(REQUEST.to) })).toBe("до 18.10");
     expect(fill(s.dayFmt, { wd: s.wd[windowDay(0).weekday], d: windowDay(0).day })).toBe("Вс, 4");
@@ -278,9 +306,9 @@ describe("русские строки макетов, собранные из д
   });
 
   it("карточка машины", () => {
-    expect(fill(s.daysLeft, { n: daysLeft("2026-10-14") })).toBe("9 дн. осталось");
-    expect(fill(s.days, { n: daysLeft("2027-04-30") })).toBe("207 дн.");
-    expect(fill(s.days, { n: daysLeft("2026-12-02") })).toBe("58 дн.");
+    expect(fill(s.daysLeft, { n: daysLeft("2026-10-14") })).toBe("8 дн. осталось");
+    expect(fill(s.daysCal, { n: daysLeft("2027-04-30") })).toBe("206 дн.");
+    expect(fill(s.daysTdl, { n: daysLeft("2026-12-02") })).toBe("57 дн.");
   });
 });
 
@@ -322,9 +350,42 @@ describe("словари витрины, 12 локалей", () => {
     }
   });
 
+  /* «Искусственный интеллект» сокращением каждого языка. Границы слова — по буквам Юникода:
+     `\b` в JS знает только ASCII и кириллическое «ИИ» не поймал бы никогда. */
+  const AI_WORD: Record<string, string> = {
+    ru: "ИИ", uk: "ШІ", en: "AI", de: "KI", fr: "IA", es: "IA", it: "IA", ro: "IA", pl: "SI", cs: "UI", lt: "DI", lv: "MI",
+  };
+  const aiPattern = (lang: string) => new RegExp(`(?<![\\p{L}])(?:AI|${AI_WORD[lang]})(?![\\p{L}])`, "u");
+
+  it("сторож слова «AI» умеет краснеть — в том числе на кириллице", () => {
+    expect("это ИИ тут").toMatch(aiPattern("ru"));
+    expect("план від ШІ").toMatch(aiPattern("uk"));
+    expect("Made by AI.").toMatch(aiPattern("en"));
+    expect("KI-Planung").toMatch(aiPattern("de"));
+    expect("РОССИИ и ИИСУС").not.toMatch(aiPattern("ru"));
+    expect("Di 6.").not.toMatch(aiPattern("lt"));
+  });
+
   it.each(LOCALES)("%s: слово «AI» в полосе и витрине не встречается", (lang) => {
     const { strip, showcase } = LANDING_DICT[lang];
     const all = [...Object.values(strip), ...Object.values(showcase).flat()].join(" \n ");
-    expect(all).not.toMatch(/\bAI\b|\bИИ\b|\bKI\b|\bIA\b/);
+    expect(all).not.toMatch(aiPattern(lang));
+  });
+
+  /* Дата в шапке телефона — строка словаря (так её печатает Intl в каждой локали), а «сегодня» —
+     в showcase-data. Связывает их этот тест: сдвинешь TODAY — шапка обязана сдвинуться следом. */
+  it.each(LOCALES)("%s: дата в шапке телефона — это «сегодня» макета", (lang) => {
+    const { tgDate } = LANDING_DICT[lang].showcase;
+    const [year, , day] = TODAY.split("-");
+    expect(tgDate).toMatch(new RegExp(`(?<!\\d)${Number(day)}(?!\\d)`));
+    expect(tgDate).toContain(year);
+  });
+});
+
+describe("один месяц и один год на все даты макета", () => {
+  /* словарь несёт ОДНО название месяца (tgMonth, plMonth), разметка подставляет его ко всем датам */
+  it("окно доски, заявка и её подача — октябрь 2026", () => {
+    const dates = [windowDay(0).iso, windowDay(14).iso, REQUEST.from, REQUEST.to, REQUEST.createdDate, TODAY];
+    expect(dates.map((d) => d.slice(0, 7))).toEqual(Array(6).fill("2026-10"));
   });
 });

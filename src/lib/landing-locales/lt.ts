@@ -196,7 +196,8 @@ export const lt: LandingDict = {
     docCal: "Tachografo kalibravimas",
     docTdl: "Tachografo duomenų nuskaitymas",
     daysLeft: "liko {n} dienos",
-    days: "{n} dienos",
+    daysCal: "{n} dienos",
+    daysTdl: "{n} dienos",
   },
 
   vid: {

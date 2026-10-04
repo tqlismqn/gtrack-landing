@@ -253,7 +253,8 @@ const ru = {
     docCal: "Калибровка тахографа",
     docTdl: "Выгрузка данных тахографа",
     daysLeft: "{n} дн. осталось",
-    days: "{n} дн.",
+    daysCal: "{n} дн.",
+    daysTdl: "{n} дн.",
   },
 
   vid: {
@@ -571,7 +572,7 @@ const en: LandingDict = {
     c2h: "The request is already on the board",
     c2p: "A dashed bar on the driver’s row; above it, how much of the team is already away. Approving takes one click.",
     cAns: "The answer reaches the driver in Telegram",
-    c3h: "The return, planned ahead",
+    c3h: "The return — ahead of time",
     c3p: "Who returns within {n} days and whether his truck is ready: free, not in service, documents in date.",
     c4h: "The truck has its own deadlines",
     c4p: "The inspection expires while the driver is on vacation — there is still time to book the truck in.",
@@ -662,7 +663,8 @@ const en: LandingDict = {
     docCal: "Tachograph calibration",
     docTdl: "Tachograph data download",
     daysLeft: "{n} days remaining",
-    days: "{n} days",
+    daysCal: "{n} days",
+    daysTdl: "{n} days",
   },
 
   vid: {

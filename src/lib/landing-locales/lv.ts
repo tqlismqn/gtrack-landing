@@ -192,7 +192,8 @@ export const lv: LandingDict = {
     docCal: "Tahogrāfa kalibrēšana",
     docTdl: "Tahogrāfa datu lejupielāde",
     daysLeft: "Atlikušas {n} dienas",
-    days: "{n} dienas",
+    daysCal: "{n} dienas",
+    daysTdl: "{n} dienas",
   },
 
   vid: {

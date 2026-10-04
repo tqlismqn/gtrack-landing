@@ -187,7 +187,8 @@ export const it: LandingDict = {
     docCal: "Taratura tachigrafo",
     docTdl: "Scarico dati tachigrafo",
     daysLeft: "{n} giorni rimanenti",
-    days: "{n} giorni",
+    daysCal: "{n} giorni",
+    daysTdl: "{n} giorni",
   },
 
   vid: {

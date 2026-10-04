@@ -24,11 +24,13 @@ export function BeforeAfter() {
   return (
     <section className="bstrip" data-screen-label="Было → стало" aria-label={t.aria}>
       <div className="wrap">
-        <ol className="bs-grid">
+        {/* role="list": Safari с VoiceOver снимает семантику списка у list-style: none */}
+        <ol className="bs-grid" role="list">
           {PAIRS.map((p, i) => (
             <li key={p.was} className="bs-pair reveal" data-delay={i * 60}>
-              <div className="bs-head"><span className="bs-num">{`0${i + 1}`}</span></div>
-              <p className="bs-was">
+              {/* номер рисует вёрстка; порядок в списке читалка называет сама */}
+              <div className="bs-head" aria-hidden="true"><span className="bs-num">{`0${i + 1}`}</span></div>
+              <p>
                 <span className="bs-lbl">{t.was}</span>
                 <span className="bs-txt">{t[p.was]}</span>
               </p>

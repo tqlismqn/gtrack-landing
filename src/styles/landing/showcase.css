@@ -29,6 +29,10 @@
   --evt-sick: #f43f5e;
   --evt-other: #8b5cf6;
   --on-evt: #FFFFFF;
+  /* заливка подсветки сквозного значения = --info этой темы на 14 %; литералом, без color-mix:
+     сборка подкладывает под color-mix с var() сплошной запасной цвет, и в браузере, который
+     знает :has(), но не color-mix (Safari 15.4–16.1, Chrome 105–110), текст лёг бы на сплошной синий */
+  --thread-hl: rgb(56 189 248 / 0.14);
 }
 html[data-theme="light"] .loop {
   /* AA: общий 56 % даёт 4,08:1 на --p-sunken; 53 % = светлый --text-3 сайта → 4,63:1 */
@@ -38,6 +42,7 @@ html[data-theme="light"] .loop {
   --tg-sky-tx: #0369a1;
   --tg-scrim: rgb(0 0 0 / 0.14);
   --sheet-shadow: 0 -12px 28px -14px rgb(16 24 40 / 0.24);
+  --thread-hl: rgb(6 111 176 / 0.14);
 }
 
 /* ============================================================================
@@ -170,13 +175,16 @@ html[data-theme="light"] .loop {
 
 /* сквозное значение — одно и то же на всех экранах: подчёркивание 1 px цветом --info */
 .thread { text-decoration-line: underline; text-decoration-thickness: 1px; text-decoration-color: var(--info); text-underline-offset: 2px; text-decoration-skip-ink: none; }
-/* наведение подсвечивает то же значение на остальных экранах; раскладку не трогает */
-.loop:has(.thread[data-t="marek"]:hover) .thread[data-t="marek"],
-.loop:has(.thread[data-t="gt114"]:hover) .thread[data-t="gt114"],
-.loop:has(.thread[data-t="dates"]:hover) .thread[data-t="dates"],
-.loop:has(.thread[data-t="stk"]:hover) .thread[data-t="stk"] {
-  background: color-mix(in oklch, var(--info) 14%, transparent);
-  box-shadow: 0 0 0 2px var(--info); border-radius: 3px;
+/* наведение подсвечивает то же значение на остальных экранах; раскладку не трогает.
+   Только там, где наведение есть: на тач-экране :hover «залипает» после касания */
+@media (hover: hover) {
+  .loop:has(.thread[data-t="marek"]:hover) .thread[data-t="marek"],
+  .loop:has(.thread[data-t="gt114"]:hover) .thread[data-t="gt114"],
+  .loop:has(.thread[data-t="dates"]:hover) .thread[data-t="dates"],
+  .loop:has(.thread[data-t="stk"]:hover) .thread[data-t="stk"] {
+    background: var(--thread-hl);
+    box-shadow: 0 0 0 2px var(--info); border-radius: 3px;
+  }
 }
 
 /* ============================================================================
@@ -212,8 +220,10 @@ html[data-theme="light"] .loop {
 .tg-sheet-t { margin-top: 16px; font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
 .tg-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 16px; }
 /* подпись плитки переносится по словам и, если слово длиннее плитки, внутри слова:
-   «Krankschreibung», «Zwolnienie lekarskie (L4)» — строки мини-приложения, их не сокращаем */
-.tg-tile { display: flex; flex-direction: column; align-items: center; gap: 10px; min-width: 0; padding: 16px 6px 14px; border-radius: 16px; background: var(--p-sunken); border: 1px solid var(--p-border); color: var(--p-t1); font-size: 14px; font-weight: 500; line-height: 1.25; text-align: center; overflow-wrap: anywhere; }
+   «Krankschreibung», «Zwolnienie lekarskie (L4)» — строки мини-приложения, их не сокращаем.
+   hyphens: auto ставит дефис там, где у движка есть словарь переносов языка страницы
+   («Krankschrei-bung»); где словаря нет, слово рвётся без дефиса — текст не теряется в обоих случаях */
+.tg-tile { display: flex; flex-direction: column; align-items: center; gap: 10px; min-width: 0; padding: 16px 6px 14px; border-radius: 16px; background: var(--p-sunken); border: 1px solid var(--p-border); color: var(--p-t1); font-size: 14px; font-weight: 500; line-height: 1.25; text-align: center; overflow-wrap: anywhere; -webkit-hyphens: auto; hyphens: auto; }
 .tg-tile.on { border-color: var(--evt-vac); box-shadow: 0 0 0 2px color-mix(in oklch, var(--evt-vac) 40%, transparent); }
 .tg-ico { width: 48px; height: 48px; border-radius: 14px; flex: none; display: grid; place-items: center; color: var(--on-evt); }
 .tg-ico svg { width: 24px; height: 24px; }
@@ -323,8 +333,8 @@ html.motion-ok .loop .pulse { animation: loop-pulse 1.6s ease-in-out infinite; }
 /* дни и строки вне кадра: data-crop — самый узкий кадр, где ячейка есть (s ⊂ m ⊂ l) */
 .board.sc [data-crop="m"], .board.sc [data-crop="l"] { display: none; }
 .board.sc .board-row[data-s="0"] { display: none; }
-/* полоса берёт геометрию своего кадра (showcase-data.barBox) */
-.board.sc .tripbar { left: var(--ls); width: var(--ws); }
+/* полоса берёт геометрию своего кадра (showcase-data.barBox); не попавшей в кадр на нём нет (--d*: none) */
+.board.sc .tripbar { left: var(--ls); width: var(--ws); display: var(--ds, flex); }
 /* линия «сейчас»: 05.10, 08:12 */
 .todayline {
   position: absolute; top: 0; bottom: 0; z-index: 3; pointer-events: none;
@@ -374,7 +384,7 @@ html.motion-ok .loop .pulse { animation: loop-pulse 1.6s ease-in-out infinite; }
 .pbtn.primary { background: var(--p-trip); color: var(--p-on-solid); }
 
 @media (width >= theme(--breakpoint-m)) {
-  /* плитка и чип — одной строкой: плитка ужимается (подпись уходит в многоточие), чип не переносится */
+  /* плитка и чип — одной строкой: плитка ужимается (её подпись переносится), чип не переносится */
   .loop .pwin-kpis { flex-wrap: nowrap; }
   .kpi.app { flex: 0 1 204px; }
   .kpi.hide-m { display: none; }
@@ -397,7 +407,7 @@ html.motion-ok .loop .pulse { animation: loop-pulse 1.6s ease-in-out infinite; }
      (--om / --rl): при автоподстановке строка не встала бы в ряд, уже занятый окном. */
   .board.sc .board-rows { display: grid; grid-template-columns: var(--drv) repeat(8, minmax(0, 1fr)); }
   .board.sc .board-row { grid-column: 1 / -1; grid-row: var(--om); }
-  .board.sc .tripbar { left: var(--lm); width: var(--wm); }
+  .board.sc .tripbar { left: var(--lm); width: var(--wm); display: var(--dm, flex); }
   .board.sc .drv { padding: 0 8px 0 6px; }
   .board.sc .dtags { flex-wrap: wrap; row-gap: 3px; }   /* длинная пилюля статуса уходит под номер, а не режется */
   .pop.flat { display: none; }
@@ -424,7 +434,7 @@ html.motion-ok .loop .pulse { animation: loop-pulse 1.6s ease-in-out infinite; }
   .board.sc .board-row[data-m="0"] { display: grid; }
   .board.sc .board-rows { grid-template-columns: var(--drv) repeat(15, minmax(0, 1fr)); }
   .board.sc .board-row { grid-row: var(--rl); }
-  .board.sc .tripbar { left: var(--ll); width: var(--wl); }
+  .board.sc .tripbar { left: var(--ll); width: var(--wl); display: var(--dl, flex); }
   .board.sc .drv { padding: 0 10px 0 6px; }
   .board.sc .drv .avring { display: grid; }
   /* Окно — под началом пунктира: колонка дня 10.10 (--pop-col), строки 2–5 плюс неявная шестая,

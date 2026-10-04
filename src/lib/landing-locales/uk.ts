@@ -190,7 +190,8 @@ export const uk: LandingDict = {
     docCal: "Калібрування тахографа",
     docTdl: "Вивантаження даних тахографа",
     daysLeft: "залишилося {n} днів",
-    days: "{n} днів",
+    daysCal: "{n} днів",
+    daysTdl: "{n} днів",
   },
 
   vid: {

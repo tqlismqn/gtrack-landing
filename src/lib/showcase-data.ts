@@ -12,15 +12,15 @@
 /** «Сегодня» макетов: понедельник 05.10.2026, 08:12 на доске. */
 export const TODAY = "2026-10-05";
 /** Доля суток, прошедшая к 08:12 (8,2 / 24 ≈ 0,34) — положение линии «сейчас». */
-export const NOW_FRACTION = 0.34;
+const NOW_FRACTION = 0.34;
 
 /** Парк глазами планировщика: «Все» = свободны + в рейсе + отпуск и больничный + прочее. */
 export const FLEET = { all: 66, free: 9, onTrip: 49, away: 8, other: 0 } as const;
 
 /** Лимит отсутствий приложения (companies.settings.max_leave_percent, по умолчанию 0,15). */
-export const ABSENCE_LIMIT = 0.15;
+const ABSENCE_LIMIT = 0.15;
 /** Полоса шапки зелёная до 0,66 лимита, янтарная до лимита (PlanningMatrix). */
-export const ABSENCE_GREEN_SHARE = 0.66;
+const ABSENCE_GREEN_SHARE = 0.66;
 
 /** Окно доски: 15 дней, вс 04.10 … вс 18.10. Индекс дня = смещение от 04.10. */
 export const WINDOW_START = "2026-10-04";
@@ -72,17 +72,18 @@ export interface Bar {
 
 export type DriverId = "marek" | "oleg" | "andrzej" | "mihai" | "lukas" | "juris";
 export type FlagId = "cz" | "ua" | "pl" | "ro" | "lv";
-export type DriverStatus = "trip" | "free" | "sick" | "vac";
+/** Статус водителя в пилюле. У отсутствия дата обязательна: «· до ДД.ММ» — последний его день,
+    и тип не даёт нарисовать пилюлю отпуска без даты. */
+export type BoardStatus =
+  | { status: "trip" | "free" }
+  | { status: "sick" | "vac"; until: string };
 
-export interface BoardRow {
+export type BoardRow = BoardStatus & {
   id: DriverId;
   num: string;
   flag: FlagId;
   /** готовность водителя, % — достижимые значения слотовой модели: 0 / 33 / 67 / 100 */
   ready: number;
-  status: DriverStatus;
-  /** «· до ДД.ММ» в пилюле статуса (последний день отсутствия) */
-  until?: string;
   /** число документов с истекающим сроком — янтарный чип «⚠ N» */
   docWarn?: number;
   bars: readonly Bar[];
@@ -90,7 +91,7 @@ export interface BoardRow {
   orderM: number | null;
   /** есть ли строка на кадре s */
   onS: boolean;
-}
+};
 
 const BEFORE = -1;
 const BEYOND = 99;
@@ -140,8 +141,14 @@ export const ROTATION = {
   week: { from: "2026-10-12", to: "2026-10-18", returning: 3 },
 } as const;
 
-export type RotationReadiness = "ready" | "busy" | "doc";
-export interface RotationRow {
+/** Готова ли прежняя машина к возвращению водителя: свободна и в срок · занята другим ·
+    у неё кончается документ (код и дата обязательны — пилюля печатает оба). */
+export type RotationReadiness =
+  | { readiness: "ready" }
+  | { readiness: "busy"; busyBy: DriverId }
+  | { readiness: "doc"; docCode: InspectionCode; docUntil: string };
+
+export type RotationRow = RotationReadiness & {
   id: DriverId;
   num: string;
   flag: FlagId;
@@ -149,13 +156,7 @@ export interface RotationRow {
   absence: "sick" | "vac";
   returnDate: string;
   truck: string;
-  readiness: RotationReadiness;
-  /** кем занята прежняя машина (readiness = busy) */
-  busyBy?: DriverId;
-  /** код документа, который кончится до возвращения (readiness = doc) */
-  docCode?: string;
-  docUntil?: string;
-}
+};
 
 export const ROTATION_ROWS: readonly RotationRow[] = [
   { id: "andrzej", num: "0203", flag: "pl", ready: 67, absence: "sick", returnDate: "2026-10-14", truck: "GT-122", readiness: "ready" },
@@ -166,8 +167,10 @@ export const ROTATION_ROWS: readonly RotationRow[] = [
 /* ---- карточка машины GT-114 ------------------------------------------------- */
 
 export type DocTone = "ok" | "warn";
+/** Документы группы «Осмотр»: только у них есть строка с названием в словаре витрины. */
+export type InspectionCode = "STK" | "CAL" | "TDL";
 export interface VehicleDoc {
-  code: string;
+  code: InspectionCode;
   until: string;
   tone: DocTone;
 }
@@ -179,7 +182,8 @@ export const VEHICLE = {
   make: "DAF",
   model: "XF 480",
   year: 2021,
-  plate: "5AB 1234",
+  /* код края R чешским краям не присвоен — такого номера в стандартной серии нет */
+  plate: "5RB 1234",
   odometerKm: 486548,
   /** готовность машины, % — достижимые значения: 0 / 25 / 50 / 75 / 100 (4 обязательных документа) */
   ready: 100,
@@ -212,9 +216,12 @@ export function daysBetween(fromIso: string, toIso: string): number {
   return Math.round((utc(toIso) - utc(fromIso)) / DAY_MS);
 }
 
-/** Сколько дней осталось до даты, считая от «сегодня» макета. */
+/** Сколько дней осталось до срока документа — как считает карточка приложения:
+    `differenceInDays(parseISO(expiry), new Date())` (VehicleDocRow.tsx) отбрасывает неполные сутки.
+    В 08:12 понедельника до полуночи 14.10 — 8 полных суток и 15 часов, приложение печатает 8.
+    Календарная разница (9) на экране приложения в этот день недостижима. */
 export function daysLeft(iso: string): number {
-  return daysBetween(TODAY, iso);
+  return Math.floor(daysBetween(TODAY, iso) - NOW_FRACTION);
 }
 
 /** Длительность заявки в днях, оба конца включительно. */

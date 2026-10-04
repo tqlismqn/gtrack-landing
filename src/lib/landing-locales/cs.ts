@@ -194,7 +194,8 @@ export const cs: LandingDict = {
     docCal: "Kalibrace tachografu",
     docTdl: "Stažení dat z tachografu",
     daysLeft: "{n} dní zbývá",
-    days: "{n} dní",
+    daysCal: "{n} dní",
+    daysTdl: "{n} dní",
   },
 
   vid: {
