@@ -301,7 +301,7 @@ describe("русские строки макетов, собранные из д
     expect(fill(s.rotWeek, { range: "12–18.10" })).toBe("Неделя 12–18.10");
     expect(fill(s.rotWeekCount, { n: ROTATION.week.returning })).toBe("возвращаются 3");
     expect(fill(s.rotReturn, { date: fmtDM(ROTATION_ROWS[2].returnDate) })).toBe("возврат 18.10");
-    expect(fill(s.rotBusy, { name: s.mihai })).toBe("Занята: Михай Русу");
+    expect(fill(s.rotBusy, { name: s.mihai })).toBe("Занята: Русу Михай");
     expect(fill(s.rotDoc, { doc: "STK", date: "14.10" })).toBe("STK до 14.10");
   });
 
@@ -341,13 +341,32 @@ describe("словари витрины, 12 локалей", () => {
     }
   });
 
-  it.each(LOCALES)("%s: инициалы и имя в приветствии взяты из полного имени", (lang) => {
+  /* Приложение 2.5.0 по умолчанию печатает «Фамилия Имя» (`DEFAULT_DRIVER_NAME_ORDER = 'last_first'`),
+     а инициалы в кружке всегда собирает как «имя + фамилия» — от порядка имени они не зависят. */
+  it.each(LOCALES)("%s: имя записано «Фамилия Имя», инициалы и приветствие взяты из него", (lang) => {
     const s = LANDING_DICT[lang].showcase;
-    const initials = (full: string) => full.split(" ").map((w) => w[0]).join("").toUpperCase();
-    expect(s.marek.startsWith(`${s.marekFirst} `)).toBe(true);
+    const initials = (full: string) => {
+      const [last, first] = full.split(" ");
+      return `${first[0]}${last[0]}`.toUpperCase();
+    };
+    expect(s.marek.endsWith(` ${s.marekFirst}`)).toBe(true);
     for (const id of ["marek", "oleg", "andrzej", "mihai", "lukas", "juris"] as const) {
+      expect(s[id].split(" "), id).toHaveLength(2);
       expect(s[`${id}Av` as const], id).toBe(initials(s[id]));
     }
+  });
+
+  /* Плитка Telegram — это мини-приложение, а оно печатает «Имя Фамилия» (`Hub.tsx`: `[first, last]`):
+     порядок имени компании действует только в приложении. */
+  it.each(LOCALES)("%s: в плитке Telegram водитель записан «Имя Фамилия»", (lang) => {
+    const s = LANDING_DICT[lang].showcase;
+    expect(s.marekTg).toBe(s.marek.split(" ").reverse().join(" "));
+    expect(s.marekTg.startsWith(`${s.marekFirst} `)).toBe(true);
+  });
+
+  it("ru: один водитель, два написания — «Гаек Марек» в приложении и «Марек Гаек» в Telegram", () => {
+    expect(LANDING_DICT.ru.showcase.marek).toBe("Гаек Марек");
+    expect(LANDING_DICT.ru.showcase.marekTg).toBe("Марек Гаек");
   });
 
   /* «Искусственный интеллект» сокращением каждого языка. Границы слова — по буквам Юникода:

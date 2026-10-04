@@ -64,7 +64,7 @@ export function TelegramScreen({ s, label }: { s: S; label: string }) {
           <div className="tg-drow">
             <span className="tg-av">{s.marekAv}</span>
             <div className="tg-who">
-              <span className="tg-name"><T t="marek">{s.marek}</T></span>
+              <span className="tg-name"><T t="marek">{s.marekTg}</T></span>
               <span className="tg-tel">{DRIVER_PHONE} · <span className={`flag ${VEHICLE.flag}`}></span></span>
             </div>
           </div>
