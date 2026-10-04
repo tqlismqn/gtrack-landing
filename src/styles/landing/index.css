@@ -6,7 +6,7 @@
    легальных страниц (/privacy, /terms).
    ============================================================================ */
 /* Шкала брейкпоинтов объявлена в src/app/globals.css (@theme).
-   @reference подтягивает её значения для theme(--breakpoint-*) / theme(--vh-*)
+   @reference подтягивает её значения для theme(--breakpoint-*)
    в медиазапросах ниже, ничего не добавляя в вывод. */
 @reference "../../app/globals.css";
 
@@ -15,6 +15,7 @@
 @import "./story.css" layer(gt-landing);
 @import "./roadmap.css" layer(gt-landing);
 @import "./scenes.css" layer(gt-landing);
+@import "./showcase.css" layer(gt-landing);
 @import "./faq.css" layer(gt-landing);
 @import "./fx.css" layer(gt-landing);
 @import "./mobile.css" layer(gt-landing);

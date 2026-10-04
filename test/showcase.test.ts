@@ -1,0 +1,330 @@
+/* ============================================================================
+   Витрина «Одна заявка»: арифметика макетов (src/lib/showcase-data.ts).
+   Ожидания вписаны литералами, посчитанными вручную по календарю октября 2026
+   и по макетам волны (канва 04.10.2026): тест не считает тем же способом, что
+   код, иначе он не смог бы с кодом не согласиться.
+   ============================================================================ */
+
+import { describe, expect, it } from "vitest";
+import {
+  AWAY_BY_DAY, BOARD_ROWS, DRIVER_PHONE, FLEET, NEEDS_DECISION, PENDING_REQUESTS, REQUEST, ROTATION,
+  ROTATION_ROWS, TODAY, VEHICLE, WINDOW_DAYS,
+  awayPct, awayTone, barBox, daysLeft, fill, fmtDM, fmtDMY, fmtKm, nowLine, requestDays, ringOffset,
+  splitAt, windowDay,
+  RING_C,
+} from "../src/lib/showcase-data";
+import { LANDING_DICT, LOCALES } from "../src/lib/landing-i18n";
+
+const row = (id: string) => BOARD_ROWS.find((r) => r.id === id)!;
+
+describe("парк и плитки", () => {
+  it("плитки дают «Все»: 9 + 49 + 8 + 0 = 66", () => {
+    expect(FLEET.free + FLEET.onTrip + FLEET.away + FLEET.other).toBe(66);
+    expect(FLEET.all).toBe(66);
+  });
+
+  it("«Отпуск и больничный» 8 = 12 % парка, и это же число стоит в шапке понедельника", () => {
+    expect(awayPct(FLEET.away)).toBe(12);
+    expect(AWAY_BY_DAY[1]).toBe(8);
+  });
+
+  it("одна заявка в ожидании, десять решений в очереди", () => {
+    expect(PENDING_REQUESTS).toBe(1);
+    expect(NEEDS_DECISION).toBe(10);
+  });
+});
+
+describe("окно доски 04–18.10.2026", () => {
+  it("15 дней: с воскресенья 4-го по воскресенье 18-го", () => {
+    expect(WINDOW_DAYS).toBe(15);
+    expect(windowDay(0)).toEqual({ iso: "2026-10-04", day: 4, weekday: 0 });
+    expect(windowDay(14)).toEqual({ iso: "2026-10-18", day: 18, weekday: 0 });
+  });
+
+  it("сегодня — понедельник 05.10, второй день окна", () => {
+    expect(TODAY).toBe("2026-10-05");
+    expect(windowDay(1)).toEqual({ iso: "2026-10-05", day: 5, weekday: 1 });
+  });
+
+  it("выходные окна: 4, 10, 11, 17, 18", () => {
+    const weekend = Array.from({ length: 15 }, (_, i) => windowDay(i))
+      .filter((d) => d.weekday === 0 || d.weekday === 6)
+      .map((d) => d.day);
+    expect(weekend).toEqual([4, 10, 11, 17, 18]);
+  });
+
+  it("проценты шапки по дням", () => {
+    expect(AWAY_BY_DAY).toHaveLength(15);
+    expect(AWAY_BY_DAY.map(awayPct)).toEqual([14, 12, 9, 9, 8, 8, 11, 11, 11, 11, 11, 9, 9, 8, 8]);
+  });
+
+  it("цвет полосы: янтарный выше 9,9 % (0,66 лимита 15 %), иначе зелёный", () => {
+    expect(AWAY_BY_DAY.map(awayTone)).toEqual([
+      "warn", "warn", "ok", "ok", "ok", "ok", "warn", "warn", "warn", "warn", "warn", "ok", "ok", "ok", "ok",
+    ]);
+  });
+
+  it("линия «сейчас» (08:12 понедельника) на трёх кадрах", () => {
+    expect(nowLine("l")).toBe(0.0893);
+    expect(nowLine("m")).toBe(0.0425);
+    expect(nowLine("s")).toBe(0.0486);
+  });
+});
+
+describe("заявка Марека", () => {
+  it("с субботы по воскресенье, 9 дней", () => {
+    expect(new Date("2026-10-10T12:00:00Z").getUTCDay()).toBe(6);
+    expect(new Date("2026-10-18T12:00:00Z").getUTCDay()).toBe(0);
+    expect(REQUEST.from).toBe("2026-10-10");
+    expect(REQUEST.to).toBe("2026-10-18");
+    expect(requestDays()).toBe(9);
+  });
+
+  it("подана сегодня", () => {
+    expect(REQUEST.createdDate).toBe(TODAY);
+  });
+
+  it("пунктир начинается в день начала отпуска и идёт до конца окна", () => {
+    const req = row("marek").bars[1];
+    expect(req.kind).toBe("req");
+    expect(windowDay(req.from).iso).toBe("2026-10-10");
+    expect(windowDay(req.to - 1).iso).toBe("2026-10-18");
+  });
+
+  it("форматы дат окна заявки", () => {
+    expect(fmtDMY(REQUEST.from)).toBe("10.10.2026");
+    expect(fmtDMY(REQUEST.to)).toBe("18.10.2026");
+    expect(fmtDM(REQUEST.to)).toBe("18.10");
+  });
+});
+
+describe("строки доски", () => {
+  it("готовность водителя — только достижимые значения 0 / 33 / 67 / 100", () => {
+    for (const r of BOARD_ROWS) expect([0, 33, 67, 100]).toContain(r.ready);
+    for (const r of ROTATION_ROWS) expect([0, 33, 67, 100]).toContain(r.ready);
+  });
+
+  it("«до ДД.ММ» в пилюле совпадает с концом полосы отсутствия", () => {
+    const sick = row("andrzej");
+    expect(sick.until).toBe("2026-10-14");
+    expect(windowDay(sick.bars[0].to - 1).iso).toBe("2026-10-14");
+    const vac = row("lukas");
+    expect(vac.until).toBe("2026-10-07");
+    expect(windowDay(vac.bars[0].to - 1).iso).toBe("2026-10-07");
+  });
+
+  it("рейс Михая начинается 06.10 — сегодня он свободен", () => {
+    expect(row("mihai").status).toBe("free");
+    expect(windowDay(row("mihai").bars[0].from).iso).toBe("2026-10-06");
+  });
+
+  it("кадр m: Олег, Михай, Анджей, Марек; кадр s: Марек, Олег, Михай", () => {
+    const m = BOARD_ROWS.filter((r) => r.orderM !== null).sort((a, b) => a.orderM! - b.orderM!).map((r) => r.id);
+    expect(m).toEqual(["oleg", "mihai", "andrzej", "marek"]);
+    expect(BOARD_ROWS.filter((r) => r.onS).map((r) => r.id)).toEqual(["marek", "oleg", "mihai"]);
+  });
+
+  it("кольцо: 100 % — полная дуга, 67 % — недобор 32,14 из 97,39", () => {
+    expect(ringOffset(100, RING_C.driver)).toBe("0");
+    expect(ringOffset(67, RING_C.driver)).toBe("32.14");
+    expect(ringOffset(100, RING_C.vehicle)).toBe("0");
+  });
+});
+
+describe("геометрия полос", () => {
+  const box = (id: string, i: number, crop: "l" | "m" | "s") => barBox(row(id).bars[i], crop);
+
+  it("кадр l, 15 дней", () => {
+    expect(box("marek", 0, "l")).toEqual({ left: "0%", width: "39.6%" });
+    expect(box("marek", 1, "l")).toEqual({ left: "40.4%", width: "59.6%" });
+    expect(box("oleg", 0, "l")).toEqual({ left: "0%", width: "100%" });
+    expect(box("andrzej", 0, "l")).toEqual({ left: "0%", width: "72.93%" });
+    expect(box("mihai", 0, "l")).toEqual({ left: "13.73%", width: "86.27%" });
+    expect(box("lukas", 0, "l")).toEqual({ left: "0%", width: "26.27%" });
+    expect(box("lukas", 1, "l")).toEqual({ left: "27.07%", width: "72.93%" });
+  });
+
+  it("кадр m, 8 дней 05–12.10", () => {
+    expect(box("marek", 0, "m")).toEqual({ left: "0%", width: "62.1%" });
+    expect(box("marek", 1, "m")).toEqual({ left: "62.9%", width: "37.1%" });
+    expect(box("oleg", 0, "m")).toEqual({ left: "0%", width: "100%" });
+    expect(box("andrzej", 0, "m")).toEqual({ left: "0%", width: "100%" });
+    expect(box("mihai", 0, "m")).toEqual({ left: "12.9%", width: "87.1%" });
+  });
+
+  it("кадр s, 7 дней 05–11.10: зазор 2 px, уходящая полоса выезжает на 10 px", () => {
+    expect(box("marek", 0, "s")).toEqual({ left: "0%", width: "calc(71.43% - 2px)" });
+    expect(box("marek", 1, "s")).toEqual({ left: "calc(71.43% + 2px)", width: "calc(28.57% + 8px)" });
+    expect(box("oleg", 0, "s")).toEqual({ left: "0%", width: "calc(100% + 10px)" });
+    expect(box("mihai", 0, "s")).toEqual({ left: "calc(14.29% + 2px)", width: "calc(85.71% + 8px)" });
+  });
+});
+
+describe("ротация", () => {
+  it("возвращаются 6 = готовы 4 + подготовить 2", () => {
+    expect(ROTATION.ready + ROTATION.toPrepare).toBe(6);
+    expect(ROTATION.returning).toBe(6);
+  });
+
+  it("в неделе 12–18.10 три строки, и столько же нарисовано", () => {
+    expect(ROTATION.week.returning).toBe(3);
+    expect(ROTATION_ROWS).toHaveLength(3);
+    for (const r of ROTATION_ROWS) {
+      expect(r.returnDate >= ROTATION.week.from && r.returnDate <= ROTATION.week.to).toBe(true);
+    }
+  });
+
+  it("«Подготовить 2» — это строки не «Машина готова»", () => {
+    expect(ROTATION_ROWS.filter((r) => r.readiness !== "ready")).toHaveLength(2);
+  });
+
+  it("все возвращения — внутри горизонта 14 дней", () => {
+    expect(ROTATION.horizonDays).toBe(14);
+    expect(ROTATION_ROWS.map((r) => daysLeft(r.returnDate))).toEqual([9, 11, 13]);
+  });
+
+  it("Марек возвращается в последний день заявки, а STK его машины кончается раньше", () => {
+    const marek = ROTATION_ROWS.find((r) => r.id === "marek")!;
+    expect(marek.returnDate).toBe("2026-10-18");
+    expect(marek.truck).toBe("GT-114");
+    expect(marek.docCode).toBe("STK");
+    expect(marek.docUntil).toBe("2026-10-14");
+  });
+
+  it("машину Юриса занимает Михай — та же GT-109, что на его полосе рейса", () => {
+    const juris = ROTATION_ROWS.find((r) => r.id === "juris")!;
+    expect(juris.busyBy).toBe("mihai");
+    expect(juris.truck).toBe("GT-109");
+    expect(row("mihai").bars[0].truck).toBe("GT-109");
+  });
+
+  it("возврат Анджея = конец его больничного на доске", () => {
+    expect(ROTATION_ROWS[0].returnDate).toBe("2026-10-14");
+    expect(row("andrzej").until).toBe("2026-10-14");
+  });
+});
+
+describe("карточка машины", () => {
+  it("это машина Марека с доски", () => {
+    expect(VEHICLE.name).toBe("GT-114");
+    expect(row("marek").bars[0].truck).toBe("GT-114");
+    expect(row("marek").bars[0].trailer).toBe("T-208");
+    expect(VEHICLE.trailer).toBe("T-208");
+  });
+
+  it("готовность машины — достижимое значение 0 / 25 / 50 / 75 / 100", () => {
+    expect([0, 25, 50, 75, 100]).toContain(VEHICLE.ready);
+  });
+
+  it("сроки = дата − сегодня: STK 9, калибровка 207, выгрузка 58 дней", () => {
+    expect(VEHICLE.inspection.map((d) => [d.code, d.until, daysLeft(d.until)])).toEqual([
+      ["STK", "2026-10-14", 9],
+      ["CAL", "2027-04-30", 207],
+      ["TDL", "2026-12-02", 58],
+    ]);
+  });
+
+  it("десять чипов документов, янтарный один — STK, и он же янтарный в списке", () => {
+    expect(VEHICLE.chips.map((c) => c.code)).toEqual(["RC", "COC", "STK", "CAL", "TDL", "ADR", "INS", "CMT", "LIC", "LRM"]);
+    expect(VEHICLE.chips.filter((c) => c.tone === "warn").map((c) => c.code)).toEqual(["STK"]);
+    expect(VEHICLE.inspection.filter((d) => d.tone === "warn").map((d) => d.code)).toEqual(["STK"]);
+  });
+});
+
+describe("подстановки", () => {
+  it("fill подставляет значения и оставляет неизвестное имя как есть", () => {
+    expect(fill("{n} дн. осталось", { n: 9 })).toBe("9 дн. осталось");
+    expect(fill("{status} · до {date}", { status: "Отпуск", date: "07.10" })).toBe("Отпуск · до 07.10");
+    expect(fill("{doc} до {date}", { doc: "STK" })).toBe("STK до {date}");
+  });
+
+  it("splitAt режет шаблон вокруг одной подстановки", () => {
+    expect(splitAt("возврат {date}", "date")).toEqual(["возврат ", ""]);
+    expect(splitAt("{d}, {wd}", "wd")).toEqual(["{d}, ", ""]);
+    expect(splitAt("без подстановки", "date")).toEqual(["без подстановки", ""]);
+  });
+
+  it("пробег — как в карточке машины приложения: разряды пробелом, km латиницей", () => {
+    expect(fmtKm(VEHICLE.odometerKm)).toBe("486 548 km");
+  });
+
+  it("телефон водителя — из резерва 74–76, который операторам не выделен", () => {
+    expect(DRIVER_PHONE).toMatch(/^\+4207[456]\d{7}$/);
+    expect(DRIVER_PHONE).toBe("+420750000217");
+  });
+});
+
+describe("русские строки макетов, собранные из данных", () => {
+  const s = LANDING_DICT.ru.showcase;
+
+  it("планировщик", () => {
+    expect(fill(s.kpiAwaySub, { pct: awayPct(FLEET.away) })).toBe("12% парка");
+    expect(fill(s.stUntil, { status: s.stSick, date: fmtDM(row("andrzej").until!) })).toBe("Больничный · до 14.10");
+    expect(fill(s.stUntil, { status: s.stVac, date: fmtDM(row("lukas").until!) })).toBe("Отпуск · до 07.10");
+    expect(fill(s.popDays, { n: requestDays() })).toBe("9 дн.");
+    expect(fill(s.barUntil, { date: fmtDM(REQUEST.to) })).toBe("до 18.10");
+    expect(fill(s.dayFmt, { wd: s.wd[windowDay(0).weekday], d: windowDay(0).day })).toBe("Вс, 4");
+    expect(fill(s.dayFmt, { wd: s.wd[windowDay(6).weekday], d: windowDay(6).day })).toBe("Сб, 10");
+  });
+
+  it("ротация", () => {
+    expect(fill(s.rotHorizon, { n: ROTATION.horizonDays })).toBe("за 14 дн");
+    expect(fill(s.rotPrepare, { n: ROTATION.toPrepare })).toBe("Подготовить 2");
+    expect(fill(s.rotWeek, { range: "12–18.10" })).toBe("Неделя 12–18.10");
+    expect(fill(s.rotWeekCount, { n: ROTATION.week.returning })).toBe("возвращаются 3");
+    expect(fill(s.rotReturn, { date: fmtDM(ROTATION_ROWS[2].returnDate) })).toBe("возврат 18.10");
+    expect(fill(s.rotBusy, { name: s.mihai })).toBe("Занята: Михай Русу");
+    expect(fill(s.rotDoc, { doc: "STK", date: "14.10" })).toBe("STK до 14.10");
+  });
+
+  it("карточка машины", () => {
+    expect(fill(s.daysLeft, { n: daysLeft("2026-10-14") })).toBe("9 дн. осталось");
+    expect(fill(s.days, { n: daysLeft("2027-04-30") })).toBe("207 дн.");
+    expect(fill(s.days, { n: daysLeft("2026-12-02") })).toBe("58 дн.");
+  });
+});
+
+describe("словари витрины, 12 локалей", () => {
+  const tokens = (v: string) => (v.match(/\{\w+\}/g) ?? []).sort().join(" ");
+  const ru = LANDING_DICT.ru;
+
+  it("локалей двенадцать", () => {
+    expect(LOCALES).toHaveLength(12);
+  });
+
+  it.each(LOCALES)("%s: ни одной пустой строки, семь дней недели", (lang) => {
+    const { strip, showcase } = LANDING_DICT[lang];
+    for (const [k, v] of Object.entries(strip)) expect(v, `strip.${k}`).not.toBe("");
+    for (const [k, v] of Object.entries(showcase)) {
+      if (k === "wd") continue;
+      expect(typeof v, `showcase.${k}`).toBe("string");
+      expect(v, `showcase.${k}`).not.toBe("");
+    }
+    expect(showcase.wd).toHaveLength(7);
+    for (const w of showcase.wd) expect(w.length).toBeLessThanOrEqual(3);
+  });
+
+  it.each(LOCALES)("%s: подстановки те же, что в русском словаре", (lang) => {
+    const { showcase } = LANDING_DICT[lang];
+    for (const [k, v] of Object.entries(ru.showcase)) {
+      if (typeof v !== "string") continue;
+      const other = showcase[k as keyof typeof showcase];
+      expect(tokens(other as string), `showcase.${k}`).toBe(tokens(v));
+    }
+  });
+
+  it.each(LOCALES)("%s: инициалы и имя в приветствии взяты из полного имени", (lang) => {
+    const s = LANDING_DICT[lang].showcase;
+    const initials = (full: string) => full.split(" ").map((w) => w[0]).join("").toUpperCase();
+    expect(s.marek.startsWith(`${s.marekFirst} `)).toBe(true);
+    for (const id of ["marek", "oleg", "andrzej", "mihai", "lukas", "juris"] as const) {
+      expect(s[`${id}Av` as const], id).toBe(initials(s[id]));
+    }
+  });
+
+  it.each(LOCALES)("%s: слово «AI» в полосе и витрине не встречается", (lang) => {
+    const { strip, showcase } = LANDING_DICT[lang];
+    const all = [...Object.values(strip), ...Object.values(showcase).flat()].join(" \n ");
+    expect(all).not.toMatch(/\bAI\b|\bИИ\b|\bKI\b|\bIA\b/);
+  });
+});

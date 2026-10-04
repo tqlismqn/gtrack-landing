@@ -1,8 +1,10 @@
 /* ============================================================================
    Сборка лендинга (общая для / и /[locale]).
-   Порядок секций = порядку прототипа:
-   hero → trust → pain → product(scrolly) → vid → languages → europe →
-   modules → pricing → faq → final → footer.
+   Порядок секций:
+   hero → trust → было/стало → product (витрина «Одна заявка») → vid →
+   languages → europe → modules → pricing → faq → final → footer.
+   Полоса «было → стало» и витрина стоят на местах секций «Статус-кво» и
+   «История одного водителя» (волна «Витрина модулей», 04.10.2026).
    Вопросы стоят между ценами и финальным призывом: возражения снимаются там,
    где решение уже почти принято, но ещё не нажата кнопка.
    MotionRoot монтируется последним: к его эффекту секции уже подписаны.
@@ -15,8 +17,8 @@ import { MotionRoot } from "./MotionRoot";
 import { Nav } from "./Nav";
 import { Hero } from "./Hero";
 import { TrustStrip } from "./TrustStrip";
-import { Pain } from "./Pain";
-import { Scrolly } from "./Scrolly";
+import { BeforeAfter } from "./BeforeAfter";
+import { Showcase } from "./Showcase";
 import { VideoSection } from "./VideoSection";
 import { Languages } from "./Languages";
 import { Europe } from "./Europe";
@@ -36,8 +38,8 @@ export function LandingPage({ locale }: { locale: Lang }) {
       <main id="top">
         <Hero />
         <TrustStrip />
-        <Pain />
-        <Scrolly />
+        <BeforeAfter />
+        <Showcase />
         <VideoSection />
         <Languages />
         <Europe />

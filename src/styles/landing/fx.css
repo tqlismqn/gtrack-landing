@@ -63,37 +63,6 @@ html:not(.motion-ok) .gcursor, html:not(.motion-ok) .minicard { display: none; }
 /* warn-тост виден в фазах 1–2 (определения в hero.css перекрываем тут) */
 .hero-board[data-phase="2"] .btoast.warn { opacity: 1; transform: translateY(0); }
 
-/* ---- курсор-призрак в кадрах scrollytelling --------------------------------- */
-.scursor {
-  position: absolute; z-index: 5; width: 16px; height: 16px; pointer-events: none;
-  opacity: 0; transform: translateY(6px) scale(0.9);
-}
-.scursor svg { width: 16px; height: 16px; filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.4)); }
-html.motion-ok .frame.active .scursor {
-  opacity: 1; transform: none;
-  transition: opacity 420ms var(--ease-soft) 900ms, transform 420ms var(--ease-soft) 900ms;
-}
-html:not(.motion-ok) .scursor { display: none; }
-.frame { position: relative; }
-.frame .scene-card { position: relative; }
-
-/* ---- 2. морф «Excel → G-Track»: fly-cells ------------------------------------ */
-.fly-cell { position: absolute; z-index: 4; pointer-events: none; }
-.fly-cell .ff, .fly-cell .ft { display: block; }
-.fly-cell .ff {
-  font-family: var(--font-mono); font-size: 10.5px; padding: 4px 8px;
-  background: var(--card); border: 1px solid var(--border-2); border-radius: 3px;
-  color: var(--bad); white-space: nowrap;
-  opacity: calc(1 - var(--decay, 0) * 1.4);
-}
-.fly-cell .ft {
-  position: absolute; left: 0; top: 0;
-  opacity: calc(var(--decay, 0) * 1.6 - 0.45);
-}
-.fly-cell { transform: translate(calc(var(--decay, 0) * var(--fx, 0px)), calc(var(--decay, 0) * var(--fy, 0px))) rotate(calc((1 - var(--decay, 0)) * var(--fr, 0deg))); }
-/* было 720 → ниже m */
-@media (width < theme(--breakpoint-m)) { .fly-cell { display: none; } }
-
 /* ---- 3. «Вся Европа на одной доске» ------------------------------------------ */
 .euro { background: var(--sunken); border-top: 1px solid var(--border-1); border-bottom: 1px solid var(--border-1); overflow: hidden; }
 .euro-head { max-width: 60ch; }
@@ -155,13 +124,9 @@ html:not(.motion-ok) .scursor { display: none; }
    431…767 масштаб 0,45…0,84 → 1,08…2,01 CSS-px
    ≤430  масштаб 0,32…0,45 → 1,43…2,03 CSS-px
    Нижняя точка каждого диапазона держит порог «не тоньше 1 CSS-px». */
-/* 🔴 МАРКЕР ЗАВИСИМОСТИ СНИЗУ: `.journey-map .euro-map .route` в story.css
-   перебивает `stroke-dashoffset: 1` этого правила. Причина: линии «проявляет»
-   только `.euro-stage.draw`, а у мини-карты внутри ожившей сцены стадии нет —
-   без перебивки сеть маршрутов там не видна вообще. Правя это правило или
-   добавляя рядом новое с тремя классами и больше, проверяй мини-карту сцены:
-   она проигрывает по порядку импорта (story.css идёт раньше fx.css) и держится
-   исключительно на специфичности. */
+/* Линии «проявляет» только `.euro-stage.draw`. Перебивка для мини-карты истории
+   водителя (`.journey-map …` в story.css) снята вместе с историей 04.10.2026 —
+   у правила больше нет зависимых снизу. */
 .euro-map .route {
   fill: none; stroke-width: var(--map-route-w, 1.5); stroke-linecap: round;
   stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0.85;
@@ -216,11 +181,8 @@ html.motion-ok .euro-stage.draw .halo { animation: node-pulse 2.8s var(--ease-so
 .euro-caption b { color: var(--text-1); }
 /* статичный фоллбэк: маршруты нарисованы, доска видна, карта приглушена */
 html:not(.motion-ok) .euro-map .route { stroke-dashoffset: 0; }
-/* 🔴 МАРКЕР ЗАВИСИМОСТИ СНИЗУ: приглушение относится только к карте секции.
-   `.journey-map .euro-map.euro-map--inline` в story.css возвращает мини-карте
-   сцены `opacity: 1` — без JS она остаётся единственным изображением маршрута,
-   и 0,35 сделали бы её нечитаемой. Специфичность этого селектора (0,2,1) —
-   часть контракта: усилив его, сломаешь мини-карту молча. */
+/* приглушение относится к карте секции; мини-карты истории, которой оно
+   мешало, больше нет (снята 04.10.2026) */
 html:not(.motion-ok) .euro-map { opacity: 0.35; }
 html:not(.motion-ok) .euro-board { opacity: 1; transform: none; }
 /* было 640 → ниже m */

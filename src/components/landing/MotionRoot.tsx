@@ -6,20 +6,15 @@
    - reveal / count-up — rAF/scroll-проверки (надёжно в headless/iframe);
      правило «не прятать above-the-fold» + committed-фиксация конечного
      состояния (см. оригинальные комментарии).
-   - pain-collage --decay, nav .scrolled, прокси на window.__gtScrolly.
+   - nav .scrolled. Распад коллажа «Статус-кво» (--decay) и прокси пин-сцены
+     истории (window.__gtScrolly) сняты 04.10.2026 вместе с этими секциями.
    Pricing-переключатель из landing.js живёт в Pricing.tsx (React-state).
    Монтируется ПОСЛЕДНИМ на странице: к моменту его эффекта секции уже
-   подписались на 'gt-motion-applied' и выставили window.__gtScrolly.
+   подписались на 'gt-motion-applied'.
    ============================================================================ */
 
 import { useEffect } from "react";
 import { formatNum } from "@/lib/landing-i18n";
-
-declare global {
-  interface Window {
-    __gtScrolly?: () => void;
-  }
-}
 
 export function MotionRoot() {
   useEffect(() => {
@@ -114,16 +109,6 @@ export function MotionRoot() {
       checkCounters();
     }
 
-    /* ---- pain collage decay ---- */
-    let collage: HTMLElement | null = null;
-    function updateCollage() {
-      if (!collage) return;
-      const r = collage.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const p = clamp((vh * 0.86 - r.top) / (vh * 0.95), 0, 1);
-      collage.style.setProperty("--decay", p.toFixed(4));
-    }
-
     /* ---- nav ---- */
     const nav = document.querySelector(".nav");
     function updateNav() {
@@ -140,9 +125,7 @@ export function MotionRoot() {
       }
       checkReveals();
       checkCounters();
-      updateCollage();
       updateNav();
-      if (window.__gtScrolly) window.__gtScrolly();
     }
 
     /* ---- motion mode switch ---- */
@@ -158,13 +141,8 @@ export function MotionRoot() {
           armReveals();
           armCounters();
         }
-        collage = document.querySelector<HTMLElement>(".pain-collage");
-        if (collage) collage.style.removeProperty("--decay");
-        updateCollage();
       } else {
         revealAllNow();
-        collage = document.querySelector<HTMLElement>(".pain-collage");
-        if (collage) collage.style.removeProperty("--decay"); /* CSS static fallback = 0.78 */
       }
       updateNav();
       window.dispatchEvent(new CustomEvent("gt-motion-applied", { detail: { ok } }));
