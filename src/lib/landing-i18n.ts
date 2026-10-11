@@ -71,6 +71,11 @@ export function roadmapPath(lang: Lang): string {
   return lang === "en" ? "/roadmap" : `/${lang}/roadmap`;
 }
 
+/* Путь страницы заявки той же локали (ворота 2 строят страницу по нему). */
+export function demoPath(lang: Lang): string {
+  return lang === "en" ? "/demo" : `/${lang}/demo`;
+}
+
 const ru = {
   meta: {
     title: "G-Track — EU-compliance и планирование для перевозчиков",

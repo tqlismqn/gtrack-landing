@@ -65,6 +65,8 @@ export const MARKETING_PARAMS = [
   "utm_id",
   "gclid",
   "gclsrc",
+  "gbraid",
+  "wbraid",
   "fbclid",
   "msclkid",
 ] as const;
@@ -92,6 +94,47 @@ export function isAttributionTarget(pathname: string): boolean {
   return ATTRIBUTION_TARGET_PATHS.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`),
   );
+}
+
+/**
+ * Путь страницы заявки `/demo` (en — на корне, остальные — `/{xx}/demo`).
+ * Список локалей явный, а не регэксп `[a-z]{2}`: иначе `/xx/demo` проходил бы.
+ * Префикс `/en` не допускается — у английского пути без префикса.
+ */
+export function isDemoPath(
+  pathname: string,
+  locales: readonly string[],
+): boolean {
+  const parts = pathname.split("/");
+  /* ["", "demo"] | ["", "demo", ""] | ["", "cs", "demo"] | ["", "cs", "demo", ""] */
+  if (parts[0] !== "") return false;
+  const rest = parts.slice(1);
+  if (rest[rest.length - 1] === "" && rest.length > 1) rest.pop();
+  if (rest.length === 1) return rest[0] === "demo";
+  if (rest.length === 2) {
+    return rest[1] === "demo" && rest[0] !== "en" && locales.includes(rest[0]);
+  }
+  return false;
+}
+
+/**
+ * Дописывать ли метки к ссылке: на приложение — по белому списку путей,
+ * на свой хост — только страница заявки; всё остальное (чужие хосты,
+ * поддомены) не трогаем.
+ */
+export function shouldAttribute(
+  url: URL,
+  pageHost: string,
+  locales: readonly string[],
+): boolean {
+  if (url.host === APP_HOST) return isAttributionTarget(url.pathname);
+  if (url.host === pageHost) return isDemoPath(url.pathname, locales);
+  return false;
+}
+
+/** Склейка пути с query и хешем как есть (`search` с `?`, `hash` с `#`). */
+export function keepQuery(path: string, search: string, hash: string): string {
+  return `${path}${search}${hash}`;
 }
 
 /**

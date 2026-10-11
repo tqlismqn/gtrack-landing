@@ -79,6 +79,10 @@ const nextConfig: NextConfig = {
 
   async redirects() {
     return [
+      /* /en → корень, метки (query) Next переносит сам. ДВА правила: одно
+         `/en/:path*` для голого /en даёт `location: ?utm…` — петлю. */
+      { source: "/en", destination: "/", permanent: false },
+      { source: "/en/:path+", destination: "/:path+", permanent: false },
       {
         source: "/privacy",
         destination: "https://app.g-track.eu/legal?tab=privacy",

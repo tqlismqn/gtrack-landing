@@ -21,9 +21,9 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 import {
-  APP_HOST,
-  isAttributionTarget,
+  keepQuery,
   MARKETING_PARAMS,
+  shouldAttribute,
   withMarketingParams,
 } from "@/lib/analytics";
 import {
@@ -140,6 +140,8 @@ export function LandingProvider({
       /* сломанный URL не должен ронять страницу */
     }
 
+    /* Ссылки на /demo — только обычный <a>, не next/link: Link навигирует
+       по своему пропу и мимо правки href. */
     /* Делегируем на document и матчим по хосту + белому списку путей, а не по
        data-атрибуту: ссылок на приложение десять в шести файлах, и атрибут
        в новой рано или поздно забудут. Capture-фаза — чтобы href был готов
@@ -158,8 +160,7 @@ export function LandingProvider({
       } catch {
         return;
       }
-      if (parsed.host !== APP_HOST) return;
-      if (!isAttributionTarget(parsed.pathname)) return;
+      if (!shouldAttribute(parsed, window.location.host, LOCALES)) return;
 
       anchor.href = withMarketingParams(anchor.href, params);
     }
@@ -186,13 +187,18 @@ export function LandingProvider({
     const nav = (navigator.language || "").toLowerCase();
     const hit = LOCALES.find((l) => nav.startsWith(l));
     writeLangCookie(hit ?? "en");
-    if (hit && hit !== "en") router.replace(pathFor(hit));
+    if (hit && hit !== "en") router.replace(
+        keepQuery(pathFor(hit), window.location.search, window.location.hash),
+      );
   }, [locale, router, pathFor]);
 
   const setLang = useCallback(
     (next: Lang) => {
       writeLangCookie(next);
-      router.push(pathFor(next), { scroll: false });
+      /* хеш не несём: он про секцию прежней страницы; метки (search) — несём */
+      router.push(keepQuery(pathFor(next), window.location.search, ""), {
+        scroll: false,
+      });
     },
     [router, pathFor],
   );
