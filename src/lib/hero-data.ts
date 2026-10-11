@@ -90,8 +90,12 @@ export interface HeroTruck {
   bars: readonly { left: number; width: number }[];
 }
 
+/* Дорожка — пн 00:00 … пт 24:00, по 20 % на день: ср 14:52 = 52,4 %, «сейчас» 15:04 = 52,6 %.
+   Первый рейс Кратохвила кончается в ср 16:48 (54 %), а не в ср 04:48 (44 %, как было у
+   прежнего hero): иначе «82 км/ч · 14:52» и пилюля «В рейсе» сцен A и C лежали бы в
+   разрыве плана — в приложении это «движение без плана» Центра решений (ревью r0, 11.10). */
 export const HERO_TRUCKS: readonly HeroTruck[] = [
-  { plate: "3SK 7702", driver: "kratochvil", kind: "moving", speedKmh: 82, positionAt: "2026-06-10T14:52", bars: [{ left: 0, width: 44 }, { left: 56, width: 43 }] },
+  { plate: "3SK 7702", driver: "kratochvil", kind: "moving", speedKmh: 82, positionAt: "2026-06-10T14:52", bars: [{ left: 0, width: 54 }, { left: 56, width: 43 }] },
   { plate: "3QR 6671", driver: "savchenko", kind: "stopped", positionAt: "2026-06-10T13:40", bars: [{ left: 56, width: 43 }] },
   { plate: "5KL 3311", driver: "novak", kind: "stale", positionAt: "2026-06-07T09:15", bars: [{ left: 0, width: 28 }] },
   /* трекер не подключён — строки факта нет */

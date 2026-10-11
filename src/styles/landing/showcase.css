@@ -298,8 +298,7 @@ html[data-theme="light"] :is(.loop, .hero) {
 .kpi .kf { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: var(--p-t2); white-space: nowrap; }
 .kpi .kf .d { width: 6px; height: 6px; border-radius: 99px; flex: none; background: var(--p-warn); }
 .kpi .kf .d.bad { background: var(--p-bad); }
-/* AA: янтарь первого экрана (--p-warn, светлая #F59E0B) даёт 2,1:1; тон -tx проходит в обеих темах */
-.loop .kpi .kv.amber { color: var(--p-warn-tx); }
+/* AA: янтарь плитки — базовый `.kpi .kv.amber` (тон -tx, hero.css); красный — свой, тоже -tx */
 .loop .kpi .kv.red { color: var(--p-bad-tx); }
 /* ЕДИНСТВЕННОЕ движение витрины: точка «ждут ответа» мигает прозрачностью, как в приложении */
 @keyframes loop-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }

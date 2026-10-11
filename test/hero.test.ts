@@ -67,6 +67,19 @@ describe("hero-data: телематика", () => {
     ).toThrow(/stale без positionAt/);
   });
 
+  /* «Факт рядом с планом»: едущая машина в момент факта и в «сейчас» стоит внутри своего
+     рейса — иначе сцена B рисует «движение без плана», а пилюля «В рейсе» сцен A и C
+     спорит с полосами. Дорожка пн–пт, по 20 % на день; проценты разобраны вручную:
+     ср 14:52 = 40 + 14,867 / 24 × 20 = 52,39; ср 15:04 = 40 + 15,067 / 24 × 20 = 52,56. */
+  it("едущая машина — внутри рейса в момент факта и «сейчас»", () => {
+    const moving = HERO_TRUCKS.find((t) => t.kind === "moving")!;
+    const inTrip = (pct: number) => moving.bars.some((b) => b.left <= pct && pct <= b.left + b.width);
+    expect(moving.positionAt).toBe("2026-06-10T14:52");
+    expect(HERO_NOW).toBe("2026-06-10T15:04");
+    expect(inTrip(52.39)).toBe(true);
+    expect(inTrip(52.56)).toBe(true);
+  });
+
   it("тексты фактов ru/uk/en/pl — литералы", () => {
     const [moving, stopped, stale, none] = HERO_TRUCKS;
     expect(factText(moving, LANDING_DICT.ru.showcase)).toBe("82 км/ч");

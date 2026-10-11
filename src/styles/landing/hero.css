@@ -150,10 +150,18 @@ html.motion-ok .atmo .blob.b3 { animation: atmo-c 38s ease-in-out infinite alter
   background: var(--p-raised); min-width: 0;
 }
 .kpi .kv { font-family: var(--font-mono); font-size: 17px; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
+/* AA (замер 11.10, светлая тема): янтарь --p-warn #F59E0B давал 2,09:1, зелёный --p-ok
+   #2BA56B — 3,05:1 при нужных 4,5 (цифра 14–17 px — не крупный текст). Тон -tx проходит
+   в обеих темах; синий --p-trip проходит и так. Витрина берёт тот же янтарь отсюда. */
 .kpi .kv.blue { color: var(--p-trip); }
-.kpi .kv.amber { color: var(--p-warn); }
-.kpi .kv.green { color: var(--p-ok); }
-.kpi .kl { font-size: 10px; color: var(--p-t3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kpi .kv.amber { color: var(--p-warn-tx); }
+.kpi .kv.green { color: var(--p-ok-tx); }
+/* Подпись переносится, а не режется: у подписи 64 px на 320 и 87 на 390, и «В рейсе
+   сегодня» (71), «У рейсі сьогодні» (69), «En tournée aujourd’hui» (94) теряли хвост
+   под многоточием (замер 11.10). Цена — вторая строка подписи: доска у ru/uk 320 и fr
+   320/390 выше на 12,5–12,6 px, во всех трёх сценах одинаково. Многоточие осталось
+   последним рубежом — для слова длиннее плитки; плитки ряда — флекс-элементы и растут вместе. */
+.kpi .kl { font-size: 10px; color: var(--p-t3); overflow: hidden; text-overflow: ellipsis; }
 
 /* ---- board grid -------------------------------------------------------------- */
 .board { padding: 6px 10px 12px; }

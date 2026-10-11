@@ -31,6 +31,19 @@ import { appSignupUrl } from "./urls";
 
 const STATIC_IDX = HERO_STEPS.indexOf(HERO_STATIC);
 
+/* Неразрывный пробел — кодом символа: невидимый литерал U+00A0 в исходнике в диффе неотличим
+   от пробела, и правка «нормализовать пробелы» молча вернула бы замеры ниже (ревью r0, 11.10);
+   escape-последовательность в кавычках декодируют инструменты правки — тот же литерал. */
+const NBSP = String.fromCharCode(0xa0);
+
+/** Тире ведущей части фразы не начинает строку: пробел перед ним склеен. Замер r0 11.10:
+    без склейки «—» открывал строку серой части в 67 случаях из 216 (12 локалей × 6 ширин ×
+    3 фразы), в том числе в каноническом en на 1280/1440; со склейкой — 0. Цена: где
+    «слово —» не влезает в строку, фраза получает строку больше — en 1280/1440 фраза A
+    5 строк вместо 4 (H1 и .hero +70,7 px), es 768 фраза C 3 вместо 2 (+46,3 px).
+    Словари не трогаем — hero-copy.test держит в них обычный пробел перед тире. */
+const lead = (s: string) => s.replace(/ —$/, NBSP + "—");
+
 /* Режим движения как внешний источник — тот же рецепт, что VideoSection.tsx:
    владеет им MotionRoot (класс на <html> + событие о смене). */
 const subscribeMotion = (onChange: () => void) => {
@@ -58,21 +71,26 @@ function boxIn(layer: HTMLElement, el: Element | null) {
 /** Цели курсора, окно заявки и миникарточка — по реальной раскладке слоя.
     Скрытый слой (visibility: hidden) раскладку сохраняет, поэтому мерить можно любой. */
 function measureLayer(layer: HTMLElement) {
+  /* сначала все чтения, потом записи: запись переменной перед чтением прямоугольника
+     заставляет браузер пересчитать раскладку ещё раз (ревью r0, 11.10) */
   const W = layer.offsetWidth;
   const H = layer.offsetHeight;
   if (!W || !H) return;
   const set = (k: string, v: number) => layer.style.setProperty(k, v.toFixed(1) + "px");
   /* курсор приходит из правого нижнего угла слоя и не выходит за доску */
-  set("--cx0", W - 40);
-  set("--cy0", H - 30);
+  const setOrigin = () => {
+    set("--cx0", W - 40);
+    set("--cy0", H - 30);
+  };
   const scene = layer.dataset.hs;
   if (scene === "a") {
     const bar = boxIn(layer, layer.querySelector(".hs-leave .tripbar.req"));
+    setOrigin();
     if (!bar) return;
     set("--cx", bar.x + bar.w * 0.45);
     set("--cy", bar.y + bar.h * 0.7);
     /* окно заявки — под полосой Новака; кнопку «Одобрить» меряем уже после того,
-       как окно встало на место (чтение прямоугольника пересчитает раскладку) */
+       как окно встало на место: это единственное чтение после записи, и оно нужно */
     set("--py", bar.y + bar.h + 6);
     const ok = boxIn(layer, layer.querySelector(".hs-pop .pbtn.primary"));
     if (!ok) return;
@@ -80,6 +98,8 @@ function measureLayer(layer: HTMLElement) {
     set("--cy2", ok.y + ok.h * 0.7);
   } else if (scene === "c") {
     const chip = boxIn(layer, layer.querySelector(".swap.visa"));
+    const mh = layer.querySelector<HTMLElement>(".minicard")?.offsetHeight ?? 0;
+    setOrigin();
     if (!chip) return;
     const cy = chip.y + chip.h * 0.85;
     set("--cx", chip.x + chip.w * 0.7);
@@ -89,7 +109,6 @@ function measureLayer(layer: HTMLElement) {
        на 28 px (ru, 1440) … 57 px (de, 320/390) и ложилась на подпись — так было
        и в прежнем цикле */
     set("--mx", clamp(chip.x - 20, 10, W - 286));
-    const mh = layer.querySelector<HTMLElement>(".minicard")?.offsetHeight ?? 0;
     set("--my", cy + 16 + mh <= H - 8 ? cy + 16 : Math.max(8, chip.y - mh - 8));
   }
 }
@@ -107,20 +126,28 @@ export function Hero() {
   const inView = useInViewport(heroRef, { rootMargin: "0px" });
   const motionOk = useSyncExternalStore(subscribeMotion, readMotionOk, readMotionOkOnServer);
 
-  /* замер целей: сразу, после загрузки шрифтов (ширины имён и чипов) и на resize */
+  /* замер целей: сразу, после загрузки шрифтов (ширины имён и чипов) и на resize —
+     не чаще кадра: перетаскивание окна шлёт resize пачкой, а замер трёх слоёв — это
+     несколько принудительных раскладок */
   useEffect(() => {
     const board = boardRef.current;
     if (!board) return;
     let alive = true;
+    let raf = 0;
     const remeasure = () => {
       if (alive) measureAll(board);
     };
+    const onResize = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(remeasure);
+    };
     remeasure();
     if ("fonts" in document) document.fonts.ready.then(remeasure);
-    window.addEventListener("resize", remeasure);
+    window.addEventListener("resize", onResize);
     return () => {
       alive = false;
-      window.removeEventListener("resize", remeasure);
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 
@@ -172,13 +199,13 @@ export function Hero() {
             {/* пробелы ВНУТРИ сегмента склеены неразрывными: и пробел ПЕРЕД «·» тоже — строка рвётся только после «·».
                 Замер 02.10: на 390 последнее слово («сервис», «Wartung») уезжало одно на вторую
                 строку во всех 12 локалях, на 320 es начинал строку с разделителя */}
-            <span className="overline">{d.hero.kicker.split(" · ").map((s) => s.replaceAll(" ", " ")).join(" · ")}</span>
+            <span className="overline">{d.hero.kicker.split(" · ").map((s) => s.replaceAll(" ", NBSP)).join(NBSP + "· ")}</span>
           </div>
           {/* три фразы — одна ячейка сетки (hero-scenes.css); пробелы между ними держат textContent читаемым */}
           <h1 id="hero-h1" className="reveal hs-h1" data-delay="60">
-            <span className="hs-ph" data-hs="a">{d.hero.phA} <span className="dim">{d.hero.phAdim}</span></span>{" "}
-            <span className="hs-ph" data-hs="b">{d.hero.phB} <span className="dim">{d.hero.phBdim}</span></span>{" "}
-            <span className="hs-ph" data-hs="c">{d.hero.phC} <span className="dim">{d.hero.phCdim}</span></span>
+            <span className="hs-ph" data-hs="a">{lead(d.hero.phA)} <span className="dim">{d.hero.phAdim}</span></span>{" "}
+            <span className="hs-ph" data-hs="b">{lead(d.hero.phB)} <span className="dim">{d.hero.phBdim}</span></span>{" "}
+            <span className="hs-ph" data-hs="c">{lead(d.hero.phC)} <span className="dim">{d.hero.phCdim}</span></span>
           </h1>
           <p className="hero-sub reveal" data-delay="120">
             G-Track{d.hero.sub}
@@ -207,10 +234,12 @@ export function Hero() {
             <SceneB d={d} />
             <SceneC d={d} />
           </div>
-          {/* подпись: A — пустая строка (неразрывный пробел держит высоту), B — трекер, C — скан */}
+          {/* подпись: A — пустая строка (неразрывный пробел держит высоту), B — трекер, C — скан.
+              Пробелы между строками — ради textContent (скринридер, поиск): без них «…к G-TrackЗагружаете…»;
+              в гриде пробельный текст элементом не становится и раскладку не трогает */}
           <p className="board-caption hs-caps">
-            <span className="hs-cap" data-hs="a">{" "}</span>
-            <span className="hs-cap" data-hs="b">{d.hero.trackerCaption}</span>
+            <span className="hs-cap" data-hs="a">{NBSP}</span>{" "}
+            <span className="hs-cap" data-hs="b">{d.hero.trackerCaption}</span>{" "}
             <span className="hs-cap" data-hs="c">{d.hero.boardCaption}</span>
           </p>
         </div>
