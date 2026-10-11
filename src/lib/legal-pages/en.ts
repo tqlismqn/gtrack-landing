@@ -20,8 +20,6 @@ export const impressum: ImpressumDict = {
     registerValue:
       "{court} (Municipal Court in Prague), Section {section}, Insert {insert}",
     director: "Managing Director (jednatel)",
-    vat: "VAT",
-    vatValue: "The company is not a VAT payer (neplátce DPH).",
     email: "E-mail",
     privacy: "Data protection",
     legalDocs: "Legal documents",
@@ -50,14 +48,14 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Meta as an independent controller",
       p: [
-        `Facebook and Instagram are operated by ${META_IE.name}, ${META_IE.address}, Ireland (“Meta”). Meta processes your data as an independent controller under its own [Privacy Policy](metaPrivacy); we have no influence on that processing.`,
+        `Facebook and Instagram are operated by ${META_IE.name}, ${META_IE.address}, Ireland (“Meta”). Meta processes your data as an independent controller under its own [Privacy Policy](metaPrivacy). We have no influence on the processing that Meta carries out for its own purposes.`,
         "Cookies on Facebook and Instagram are set by Meta, which asks for your consent itself where consent is required; see Meta’s [Cookies Policy](metaCookies).",
       ],
     },
     {
       h: "Facebook page statistics: joint responsibility with Meta",
       p: [
-        "When you visit or interact with our Facebook page, Meta records events, for example viewing the page or a post, following or liking the page, commenting, sharing or clicking a button, together with details such as the date and time, your country or city estimated from your IP address, your language, the type of device and, if you are logged in, your age group, gender and user ID. From these events Meta produces aggregated statistics (Page Insights). We see only the aggregated figures. From these statistics we cannot identify individual visitors.",
+        "When you visit or interact with our Facebook page, Meta records events, for example viewing the page or a post, following or liking the page, commenting, sharing or clicking a button, together with details such as the date and time, your country or city estimated from your IP address, your language, the type of device and, if you are logged in, your age group, gender and user ID. From these events Meta produces aggregated statistics (Page Insights). In these statistics we see only aggregated figures and cannot identify individual visitors from them.",
         "For this processing we and Meta are joint controllers under Article 26 GDPR. Under the arrangement, Meta has primary responsibility for informing you, for handling your rights under Articles 15–21 GDPR, for the security of the processing (Article 32 GDPR) and for notifying personal data breaches (Articles 33–34 GDPR). The essence of the arrangement is set out in the [Page Insights Controller Addendum](addendum) and in [Information about Page Insights](insightsInfo). The lead supervisory authority for this processing is the Irish Data Protection Commission.",
         "Legal basis: our legitimate interest in understanding how our posts reach transport companies and drivers and in improving them (Article 6(1)(f) GDPR).",
       ],
@@ -78,7 +76,7 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Advertising",
       p: [
-        "We advertise on Facebook and Instagram. Meta decides who sees our ads based on criteria we choose, such as country, language and interests. We never upload data about our customers or their drivers to Meta, and we do not use such data to target ads.",
+        "We advertise on Facebook and Instagram. Meta decides who sees our ads based on criteria we choose, such as country, language and interests. When Meta shows our ads according to criteria we choose, we and Meta may be joint controllers for that selection. We never upload data about our customers or their drivers to Meta, and we do not use such data to target ads.",
         `Our advertising is paid for on our behalf by ${MESARTIM.name} Our website loads the Meta pixel provided by that company only after you give your consent in the cookie banner.`,
       ],
     },

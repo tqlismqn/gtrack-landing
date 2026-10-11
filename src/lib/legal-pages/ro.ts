@@ -19,8 +19,6 @@ export const impressum: ImpressumDict = {
     registerValue:
       "{court} (Tribunalul Municipal din Praga), secțiunea {section}, fișa {insert}",
     director: "Administrator (jednatel)",
-    vat: "TVA",
-    vatValue: "Societatea nu este plătitoare de TVA (neplátce DPH).",
     email: "E-mail",
     privacy: "Protecția datelor",
     legalDocs: "Documente juridice",
@@ -49,14 +47,14 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Meta ca operator independent",
       p: [
-        `Facebook și Instagram sunt operate de ${META_IE.name}, ${META_IE.address}, Irlanda („Meta”). Meta prelucrează datele dumneavoastră în calitate de operator independent, conform propriei [Politici de confidențialitate](metaPrivacy); nu avem nicio influență asupra acestei prelucrări.`,
+        `Facebook și Instagram sunt operate de ${META_IE.name}, ${META_IE.address}, Irlanda („Meta”). Meta prelucrează datele dumneavoastră în calitate de operator independent, conform propriei [Politici de confidențialitate](metaPrivacy). Nu avem nicio influență asupra prelucrării pe care Meta o efectuează în scopuri proprii.`,
         "Modulele cookie de pe Facebook și Instagram sunt plasate de Meta, care vă solicită ea însăși consimțământul atunci când acesta este necesar; consultați [Politica privind modulele cookie](metaCookies) a Meta.",
       ],
     },
     {
       h: "Statisticile paginii de Facebook: operatori asociați cu Meta",
       p: [
-        "Atunci când vizitați pagina noastră de Facebook sau interacționați cu aceasta, Meta înregistrează evenimente, de exemplu vizualizarea paginii sau a unei postări, urmărirea paginii sau aprecierea ei, un comentariu, o distribuire sau un clic pe un buton, împreună cu informații asociate, cum ar fi data și ora, țara sau orașul estimate pe baza adresei IP, limba, tipul de dispozitiv și, în cazul utilizatorilor autentificați, grupa de vârstă, sexul și ID-ul de utilizator. Pe baza acestor evenimente, Meta întocmește statistici agregate (Page Insights). Noi vedem doar cifre agregate. Pe baza acestor statistici, nu putem identifica vizitatorii individuali.",
+        "Atunci când vizitați pagina noastră de Facebook sau interacționați cu aceasta, Meta înregistrează evenimente, de exemplu vizualizarea paginii sau a unei postări, urmărirea paginii sau aprecierea ei, un comentariu, o distribuire sau un clic pe un buton, împreună cu informații asociate, cum ar fi data și ora, țara sau orașul estimate pe baza adresei IP, limba, tipul de dispozitiv și, în cazul utilizatorilor autentificați, grupa de vârstă, sexul și ID-ul de utilizator. Pe baza acestor evenimente, Meta întocmește statistici agregate (Page Insights). În aceste statistici vedem doar cifre agregate și nu putem identifica pe baza lor vizitatorii individuali.",
         "Pentru această prelucrare, noi și Meta suntem operatori asociați în sensul articolului 26 din RGPD. Conform acordului, Meta are responsabilitatea principală pentru informarea persoanelor vizate, pentru soluționarea cererilor de exercitare a drepturilor dumneavoastră prevăzute la articolele 15–21 din RGPD, pentru securitatea prelucrării (articolul 32 din RGPD) și pentru notificarea și comunicarea încălcărilor securității datelor cu caracter personal (articolele 33–34 din RGPD). Elementele esențiale ale acordului sunt prezentate în [Page Insights Controller Addendum](addendum) și pe pagina [Information about Page Insights](insightsInfo). Autoritatea de supraveghere principală pentru această prelucrare este Comisia irlandeză pentru protecția datelor (Data Protection Commission).",
         "Temei juridic: interesul nostru legitim de a înțelege cum ajung postările noastre la firmele de transport și la șoferi și de a le îmbunătăți (articolul 6 alineatul (1) litera (f) din RGPD).",
       ],
@@ -77,7 +75,7 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Publicitate",
       p: [
-        "Facem publicitate pe Facebook și Instagram. Meta decide cui îi sunt afișate reclamele noastre pe baza criteriilor pe care le alegem, precum țara, limba și interesele. Nu încărcăm niciodată în Meta date despre clienții noștri sau despre șoferii acestora și nu le folosim pentru direcționarea reclamelor.",
+        "Facem publicitate pe Facebook și Instagram. Meta decide cui îi sunt afișate reclamele noastre pe baza criteriilor pe care le alegem, precum țara, limba și interesele. Atunci când Meta afișează reclamele noastre pe baza criteriilor pe care le alegem, noi și Meta putem fi operatori asociați pentru această selecție. Nu încărcăm niciodată în Meta date despre clienții noștri sau despre șoferii acestora și nu le folosim pentru direcționarea reclamelor.",
         `Publicitatea noastră este plătită din însărcinarea noastră de ${MESARTIM.name} Site-ul nostru încarcă pixelul Meta furnizat de această societate numai după ce vă exprimați consimțământul în bannerul de cookie-uri.`,
       ],
     },

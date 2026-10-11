@@ -19,8 +19,6 @@ export const impressum: ImpressumDict = {
     registerValue:
       "{court} (Sąd Miejski w Pradze), dział {section}, wkładka {insert}",
     director: "Członek zarządu (jednatel)",
-    vat: "VAT",
-    vatValue: "Spółka nie jest czynnym podatnikiem VAT (neplátce DPH).",
     email: "E-mail",
     privacy: "Ochrona danych osobowych",
     legalDocs: "Dokumenty prawne",
@@ -49,14 +47,14 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Meta jako odrębny administrator",
       p: [
-        `Serwisy Facebook i Instagram prowadzi spółka ${META_IE.name}, ${META_IE.address}, Irlandia („Meta”). Meta przetwarza Twoje dane jako odrębny administrator na podstawie własnej [Polityki prywatności](metaPrivacy); nie mamy wpływu na to przetwarzanie.`,
+        `Serwisy Facebook i Instagram prowadzi spółka ${META_IE.name}, ${META_IE.address}, Irlandia („Meta”). Meta przetwarza Twoje dane jako odrębny administrator na podstawie własnej [Polityki prywatności](metaPrivacy). Nie mamy wpływu na przetwarzanie, którego Meta dokonuje we własnych celach.`,
         "Pliki cookie na Facebooku i Instagramie zapisuje Meta, która sama prosi o Twoją zgodę tam, gdzie jest ona wymagana; zob. [Zasady dotyczące plików cookie](metaCookies) Meta.",
       ],
     },
     {
       h: "Statystyki strony na Facebooku: współadministrowanie z Meta",
       p: [
-        "Gdy odwiedzasz naszą stronę na Facebooku lub wchodzisz z nią w interakcję, Meta rejestruje zdarzenia, na przykład wyświetlenie strony lub posta, obserwowanie lub polubienie strony, komentarz, udostępnienie albo kliknięcie przycisku, wraz z informacjami towarzyszącymi, takimi jak data i godzina, kraj lub miasto określone na podstawie adresu IP, język, rodzaj urządzenia, a w przypadku zalogowanych użytkowników także grupa wiekowa, płeć i identyfikator użytkownika. Na podstawie tych zdarzeń Meta tworzy zbiorcze statystyki strony (Page Insights). Widzimy wyłącznie zbiorcze dane liczbowe. Na podstawie tych statystyk nie możemy zidentyfikować poszczególnych odwiedzających.",
+        "Gdy odwiedzasz naszą stronę na Facebooku lub wchodzisz z nią w interakcję, Meta rejestruje zdarzenia, na przykład wyświetlenie strony lub posta, obserwowanie lub polubienie strony, komentarz, udostępnienie albo kliknięcie przycisku, wraz z informacjami towarzyszącymi, takimi jak data i godzina, kraj lub miasto określone na podstawie adresu IP, język, rodzaj urządzenia, a w przypadku zalogowanych użytkowników także grupa wiekowa, płeć i identyfikator użytkownika. Na podstawie tych zdarzeń Meta tworzy zbiorcze statystyki strony (Page Insights). W tych statystykach widzimy wyłącznie zbiorcze dane liczbowe i nie możemy na ich podstawie zidentyfikować poszczególnych odwiedzających.",
         "W zakresie tego przetwarzania jesteśmy wraz z Meta współadministratorami w rozumieniu art. 26 RODO. Zgodnie z uzgodnieniem Meta ponosi główną odpowiedzialność za informowanie osób, których dane dotyczą, za rozpatrywanie żądań dotyczących wykonywania Twoich praw z art. 15–21 RODO, za bezpieczeństwo przetwarzania (art. 32 RODO) oraz za zgłaszanie naruszeń ochrony danych osobowych i zawiadamianie o nich (art. 33–34 RODO). Zasadnicza treść uzgodnienia jest przedstawiona w dokumentach [Page Insights Controller Addendum](addendum) i [Information about Page Insights](insightsInfo). Wiodącym organem nadzorczym dla tego przetwarzania jest irlandzka Komisja Ochrony Danych (Data Protection Commission).",
         "Podstawa prawna: nasz prawnie uzasadniony interes polegający na zrozumieniu, w jaki sposób nasze posty docierają do firm transportowych i kierowców, oraz na ich ulepszaniu (art. 6 ust. 1 lit. f RODO).",
       ],
@@ -77,7 +75,7 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Reklama",
       p: [
-        "Reklamujemy się na Facebooku i Instagramie. O tym, komu wyświetlić nasze reklamy, decyduje Meta na podstawie wybranych przez nas kryteriów, takich jak kraj, język i zainteresowania. Nigdy nie przesyłamy do Meta danych naszych klientów ani ich kierowców i nie wykorzystujemy ich do kierowania reklam.",
+        "Reklamujemy się na Facebooku i Instagramie. O tym, komu wyświetlić nasze reklamy, decyduje Meta na podstawie wybranych przez nas kryteriów, takich jak kraj, język i zainteresowania. Gdy Meta wyświetla nasze reklamy według wybranych przez nas kryteriów, w zakresie tego wyboru możemy być wraz z Meta współadministratorami. Nigdy nie przesyłamy do Meta danych naszych klientów ani ich kierowców i nie wykorzystujemy ich do kierowania reklam.",
         `Naszą reklamę na nasze zlecenie opłaca spółka ${MESARTIM.name} Piksel Meta udostępniany przez tę spółkę nasza strona internetowa wczytuje dopiero po wyrażeniu przez Ciebie zgody w banerze cookie.`,
       ],
     },

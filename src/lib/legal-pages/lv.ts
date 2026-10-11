@@ -19,8 +19,6 @@ export const impressum: ImpressumDict = {
     registerValue:
       "{court} (Prāgas pilsētas tiesa), sadaļa {section}, ieraksts {insert}",
     director: "Valdes loceklis (jednatel)",
-    vat: "PVN",
-    vatValue: "Sabiedrība nav PVN maksātāja (neplátce DPH).",
     email: "E-pasts",
     privacy: "Datu aizsardzība",
     legalDocs: "Juridiskie dokumenti",
@@ -49,14 +47,14 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Meta kā patstāvīgs pārzinis",
       p: [
-        `Facebook un Instagram darbību nodrošina ${META_IE.name}, ${META_IE.address}, Īrija („Meta”). Meta apstrādā jūsu datus kā patstāvīgs pārzinis saskaņā ar savu [Privātuma politiku](metaPrivacy); mēs šo apstrādi nevaram ietekmēt.`,
+        `Facebook un Instagram darbību nodrošina ${META_IE.name}, ${META_IE.address}, Īrija („Meta”). Meta apstrādā jūsu datus kā patstāvīgs pārzinis saskaņā ar savu [Privātuma politiku](metaPrivacy). Apstrādi, ko Meta veic savos nolūkos, mēs nevaram ietekmēt.`,
         "Sīkdatnes Facebook un Instagram vietnēs iestata Meta, kas pati lūdz jūsu piekrišanu, ja tā ir nepieciešama; skatiet Meta [Sīkdatņu politiku](metaCookies).",
       ],
     },
     {
       h: "Facebook lapas statistika: kopīga atbildība ar Meta",
       p: [
-        "Kad apmeklējat mūsu Facebook lapu vai mijiedarbojaties ar to, Meta reģistrē notikumus, piemēram, lapas vai ieraksta skatījumu, sekošanu lapai vai atzīmi „Patīk”, komentāru, kopīgošanu vai klikšķi uz pogas, kopā ar papildu informāciju, piemēram, datumu un laiku, pēc IP adreses noteiktu valsti vai pilsētu, valodu, ierīces veidu, bet pieteikušos lietotāju gadījumā arī vecuma grupu, dzimumu un lietotāja ID. No šiem notikumiem Meta veido apkopotu statistiku (Page Insights). Mēs redzam tikai apkopotus skaitļus. No šīs statistikas mēs nevaram identificēt atsevišķus apmeklētājus.",
+        "Kad apmeklējat mūsu Facebook lapu vai mijiedarbojaties ar to, Meta reģistrē notikumus, piemēram, lapas vai ieraksta skatījumu, sekošanu lapai vai atzīmi „Patīk”, komentāru, kopīgošanu vai klikšķi uz pogas, kopā ar papildu informāciju, piemēram, datumu un laiku, pēc IP adreses noteiktu valsti vai pilsētu, valodu, ierīces veidu, bet pieteikušos lietotāju gadījumā arī vecuma grupu, dzimumu un lietotāja ID. No šiem notikumiem Meta veido apkopotu statistiku (Page Insights). Šajā statistikā mēs redzam tikai apkopotus skaitļus un nevaram no tās identificēt atsevišķus apmeklētājus.",
         "Attiecībā uz šo apstrādi mēs un Meta esam kopīgi pārziņi saskaņā ar VDAR 26. pantu. Saskaņā ar vienošanos Meta uzņemas galveno atbildību par datu subjektu informēšanu, par pieprasījumu izskatīšanu saistībā ar jūsu tiesību īstenošanu saskaņā ar VDAR 15.–21. pantu, par apstrādes drošību (VDAR 32. pants) un par paziņošanu par personas datu aizsardzības pārkāpumiem (VDAR 33. un 34. pants). Vienošanās būtība ir izklāstīta dokumentos [Page Insights Controller Addendum](addendum) un [Information about Page Insights](insightsInfo). Vadošā uzraudzības iestāde šai apstrādei ir Īrijas Datu aizsardzības komisija (Data Protection Commission).",
         "Juridiskais pamats: mūsu leģitīmās intereses saprast, kā mūsu ieraksti sasniedz transporta uzņēmumus un vadītājus, un tos uzlabot (VDAR 6. panta 1. punkta f) apakšpunkts).",
       ],
@@ -77,7 +75,7 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Reklāma",
       p: [
-        "Mēs reklamējamies Facebook un Instagram. Kam rādīt mūsu reklāmas, Meta nosaka pēc mūsu izvēlētiem kritērijiem, piemēram, valsts, valodas un interesēm. Mēs nekad neaugšupielādējam Meta savu klientu vai viņu vadītāju datus un neizmantojam tos reklāmas mērķēšanai.",
+        "Mēs reklamējamies Facebook un Instagram. Kam rādīt mūsu reklāmas, Meta nosaka pēc mūsu izvēlētiem kritērijiem, piemēram, valsts, valodas un interesēm. Ja Meta rāda mūsu reklāmas pēc mūsu izvēlētiem kritērijiem, attiecībā uz šo atlasi mēs un Meta varam būt kopīgi pārziņi. Mēs nekad neaugšupielādējam Meta savu klientu vai viņu vadītāju datus un neizmantojam tos reklāmas mērķēšanai.",
         `Mūsu reklāmu pēc mūsu uzdevuma apmaksā ${MESARTIM.name} Šī uzņēmuma nodrošināto Meta pikseli mūsu tīmekļvietne ielādē tikai pēc tam, kad sīkdatņu joslā ir saņemta jūsu piekrišana.`,
       ],
     },

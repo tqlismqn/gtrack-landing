@@ -19,8 +19,6 @@ export const impressum: ImpressumDict = {
     registerValue:
       "{court} (Prahos miesto teismas), skyrius {section}, įrašas {insert}",
     director: "Direktorius (jednatel)",
-    vat: "PVM",
-    vatValue: "Bendrovė nėra PVM mokėtoja (neplátce DPH).",
     email: "El. paštas",
     privacy: "Duomenų apsauga",
     legalDocs: "Teisiniai dokumentai",
@@ -49,14 +47,14 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Meta kaip savarankiškas duomenų valdytojas",
       p: [
-        `Facebook ir Instagram valdo ${META_IE.name}, ${META_IE.address}, Airija („Meta“). Meta tvarko jūsų duomenis kaip savarankiškas duomenų valdytojas pagal savo [Privatumo politiką](metaPrivacy); šiam tvarkymui įtakos neturime.`,
+        `Facebook ir Instagram valdo ${META_IE.name}, ${META_IE.address}, Airija („Meta“). Meta tvarko jūsų duomenis kaip savarankiškas duomenų valdytojas pagal savo [Privatumo politiką](metaPrivacy). Duomenų tvarkymui, kurį Meta atlieka savo tikslais, įtakos neturime.`,
         "Slapukus Facebook ir Instagram įrašo Meta, kuri, kai to reikia, pati prašo jūsų sutikimo; žr. Meta [Slapukų politiką](metaCookies).",
       ],
     },
     {
       h: "Facebook puslapio statistika: bendra atsakomybė su Meta",
       p: [
-        "Kai lankotės mūsų Facebook puslapyje arba su juo sąveikaujate, Meta registruoja įvykius, pavyzdžiui, puslapio ar įrašo peržiūrą, puslapio sekimą ar paspaudimą „Patinka“, komentarą, bendrinimą ar mygtuko paspaudimą, kartu su susijusia informacija, pavyzdžiui, data ir laiku, pagal IP adresą nustatyta šalimi ar miestu, kalba, įrenginio tipu, o prisijungusių naudotojų atveju – ir amžiaus grupe, lytimi bei naudotojo ID. Iš šių įvykių Meta sudaro apibendrintą statistiką (Page Insights). Mes matome tik apibendrintus skaičius. Iš šios statistikos negalime nustatyti atskirų lankytojų tapatybės.",
+        "Kai lankotės mūsų Facebook puslapyje arba su juo sąveikaujate, Meta registruoja įvykius, pavyzdžiui, puslapio ar įrašo peržiūrą, puslapio sekimą ar paspaudimą „Patinka“, komentarą, bendrinimą ar mygtuko paspaudimą, kartu su susijusia informacija, pavyzdžiui, data ir laiku, pagal IP adresą nustatyta šalimi ar miestu, kalba, įrenginio tipu, o prisijungusių naudotojų atveju – ir amžiaus grupe, lytimi bei naudotojo ID. Iš šių įvykių Meta sudaro apibendrintą statistiką (Page Insights). Šioje statistikoje matome tik apibendrintus skaičius ir pagal ją negalime nustatyti atskirų lankytojų tapatybės.",
         "Šiam duomenų tvarkymui mes ir Meta esame bendri duomenų valdytojai pagal BDAR 26 straipsnį. Pagal susitarimą Meta prisiima pagrindinę atsakomybę už duomenų subjektų informavimą, už prašymų dėl jūsų teisių įgyvendinimo pagal BDAR 15–21 straipsnius nagrinėjimą, už duomenų tvarkymo saugumą (BDAR 32 straipsnis) ir už pranešimą apie asmens duomenų saugumo pažeidimus (BDAR 33–34 straipsniai). Susitarimo esmė išdėstyta dokumentuose [Page Insights Controller Addendum](addendum) ir [Information about Page Insights](insightsInfo). Šio duomenų tvarkymo vadovaujančioji priežiūros institucija yra Airijos duomenų apsaugos komisija (Data Protection Commission).",
         "Teisinis pagrindas: mūsų teisėtas interesas suprasti, kaip mūsų įrašai pasiekia transporto įmones ir vairuotojus, ir juos tobulinti (BDAR 6 straipsnio 1 dalies f punktas).",
       ],
@@ -77,7 +75,7 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Reklama",
       p: [
-        "Reklamuojamės Facebook ir Instagram. Kam rodyti mūsų reklamą, Meta sprendžia pagal mūsų pasirinktus kriterijus, pavyzdžiui, šalį, kalbą ir pomėgius. Niekada neįkeliame į Meta savo klientų ar jų vairuotojų duomenų ir nenaudojame jų reklamai nukreipti.",
+        "Reklamuojamės Facebook ir Instagram. Kam rodyti mūsų reklamą, Meta sprendžia pagal mūsų pasirinktus kriterijus, pavyzdžiui, šalį, kalbą ir pomėgius. Kai Meta rodo mūsų reklamą pagal mūsų pasirinktus kriterijus, šios atrankos atžvilgiu mes ir Meta galime būti bendri duomenų valdytojai. Niekada neįkeliame į Meta savo klientų ar jų vairuotojų duomenų ir nenaudojame jų reklamai nukreipti.",
         `Mūsų reklamą mūsų pavedimu apmoka ${MESARTIM.name} Šios bendrovės suteiktą Meta pikselį mūsų svetainė įkelia tik po to, kai slapukų juostoje duodate sutikimą.`,
       ],
     },

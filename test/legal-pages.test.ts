@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { COMPANY, MESARTIM, SOCIAL } from "../src/lib/company";
 import {
   IMPRESSUM,
+  impressumRows,
   SOCIAL_LINK_KEYS,
   SOCIAL_NOTICE,
   SOCIAL_NOTICE_EFFECTIVE,
@@ -53,8 +54,110 @@ describe("Impressum", () => {
 
   it.each(LOCALES)("%s: без запрещённого", (l) =>
     expect(JSON.stringify(IMPRESSUM[l])).not.toMatch(
-      /Lovable|Cloudflare|Vercel|Mesartim|ODR|TMG|DIČ:\s*(nemá|—|-)/,
+      /Lovable|Cloudflare|Vercel|Mesartim|ODR|TMG/,
     ));
+
+  /* решение владельца 12.10: статус НДС не указываем, пока нет оборотов (Г29).
+     § 435 OZ требует от сайта фирму, сидло, IČO и запись в реестре (oddíl,
+     vložka); DIČ указывает только плательщик DPH. Проверяется текст страницы
+     по её же данным — строки impressumRows (их рисует LegalNoticePage),
+     заголовок, вводка, описание, подписи правовых ссылок — и сам словарь.
+     Сокращения ловятся во всех локалях (в переводах стояло чешское «neplátce
+     DPH»), слова — по языку. Регулярка обязана поймать удалённую строку своей
+     локали (литералы ниже — из словарей до 12.10), иначе сторож пустой. */
+  const VAT_ABBR =
+    /\b(?:VAT|USt|MwSt|IVA|TVA|PVN|PVM)\b|DPH|DIČ|НДС|ПДВ|\bCZ\d{8}\b/;
+  const VAT_STATUS: Record<Lang, { re: RegExp; removed: [string, string] }> = {
+    cs: {
+      re: /přidané hodnoty|plátc/i,
+      removed: ["DPH", "Společnost není plátcem DPH."],
+    },
+    en: {
+      re: /\bvat\b|value[- ]added/i,
+      removed: ["VAT", "The company is not a VAT payer (neplátce DPH)."],
+    },
+    ru: {
+      re: /ндс|добавленн\S* стоимост|плательщик/i,
+      removed: ["НДС", "Компания не является плательщиком НДС (neplátce DPH)."],
+    },
+    de: {
+      re: /umsatzsteuer|mehrwertsteuer|steuernummer|\bust\b|\bmwst\b/i,
+      removed: [
+        "Umsatzsteuer",
+        "Die Gesellschaft ist kein Umsatzsteuerzahler (neplátce DPH).",
+      ],
+    },
+    fr: {
+      re: /\btva\b|valeur ajoutée|redevable/i,
+      removed: ["TVA", "La société n'est pas redevable de la TVA (neplátce DPH)."],
+    },
+    pl: {
+      re: /\bvat\b|wartości dodanej|podatnik/i,
+      removed: ["VAT", "Spółka nie jest czynnym podatnikiem VAT (neplátce DPH)."],
+    },
+    it: {
+      re: /\biva\b|valore aggiunto|contribuente/i,
+      removed: ["IVA", "La società non è contribuente IVA (neplátce DPH)."],
+    },
+    lv: {
+      re: /\bpvn\b|pievienotās vērtības|maksātāj/i,
+      removed: ["PVN", "Sabiedrība nav PVN maksātāja (neplátce DPH)."],
+    },
+    lt: {
+      re: /\bpvm\b|pridėtinės vertės|mokėtoj/i,
+      removed: ["PVM", "Bendrovė nėra PVM mokėtoja (neplátce DPH)."],
+    },
+    uk: {
+      re: /пдв|додан\S* вартіст|платник/i,
+      removed: ["ПДВ", "Компанія не є платником ПДВ (neplátce DPH)."],
+    },
+    es: {
+      re: /\biva\b|valor añadido|contribuyente/i,
+      removed: ["IVA", "La sociedad no es contribuyente del IVA (neplátce DPH)."],
+    },
+    ro: {
+      re: /\btva\b|valoarea adăugată|plătit/i,
+      removed: ["TVA", "Societatea nu este plătitoare de TVA (neplátce DPH)."],
+    },
+  };
+  const impressumText = (l: Lang) => {
+    const p = IMPRESSUM[l];
+    const f = LANDING_DICT[l].footer;
+    return [
+      p.title,
+      p.metaDescription,
+      p.lead,
+      ...impressumRows(l).flatMap((r) => [r.dt, r.dd]),
+      p.labels.legalDocs,
+      f.legalHeading,
+      f.privacy,
+      f.terms,
+      f.dpa,
+    ].join("\n");
+  };
+
+  it.each(LOCALES)("%s: статус НДС / DIČ не указан", (l) => {
+    const { re } = VAT_STATUS[l];
+    expect(
+      Object.keys(IMPRESSUM[l].labels).filter((k) => /vat|dic|tax/i.test(k)),
+    ).toEqual([]);
+    /* 8 строк реквизитов + строка правовых документов = 9 на странице */
+    expect(impressumRows(l)).toHaveLength(8);
+    for (const s of [impressumText(l), JSON.stringify(IMPRESSUM[l])]) {
+      expect(s).not.toMatch(VAT_ABBR);
+      expect(s).not.toMatch(re);
+    }
+  });
+
+  it.each(LOCALES)("%s: сторож НДС ловит удалённую строку", (l) => {
+    const {
+      re,
+      removed: [label, value],
+    } = VAT_STATUS[l];
+    expect(VAT_ABBR.test(label) || re.test(label)).toBe(true);
+    expect(re.test(value)).toBe(true);
+    expect(VAT_ABBR.test(value)).toBe(true);
+  });
 
   it("sitemap: impressum ×12", async () => {
     const urls = (await sitemap()).map((e) => e.url);
@@ -232,85 +335,223 @@ describe("Уведомление о соцсетях", () => {
     expect(ads).not.toMatch(PRIVACY_POLICY_NAME[l]);
   });
 
-  /* Статистика страницы (секция 3): идентифицировать посетителя нельзя ИЗ
-     СТАТИСТИКИ, а не «вообще» — администратор страницы видит по имени
-     подписчиков, лайкнувших и комментаторов, а секция запросов сама говорит,
-     что имя профиля комментатора мы обрабатываем (ревью ветки ворот 1,
-     legal-L2; Page Insights Controller Addendum: статистика агрегирована).
-     Фраза вписана литералом по локали. Оборот «не можем идентифицировать»
-     встречается во всём уведомлении ровно один раз — внутри неё, так что
+  /* Статистика страницы (секция 3): «видим только сводные цифры» и «не
+     можем идентифицировать» — ИЗ СТАТИСТИКИ, а не «вообще»: администратор
+     страницы видит по имени подписчиков, лайкнувших и комментаторов, а
+     секция запросов сама говорит, что имя профиля комментатора мы
+     обрабатываем (ревью ветки ворот 1, legal-L2; Page Insights Controller
+     Addendum: статистика агрегирована). С 12.10 обе части — одна фраза,
+     привязанная к статистике (ответ владельца, B). Фраза вписана литералом
+     по локали. Обороты «видим только» и «не можем идентифицировать»
+     встречаются во всём уведомлении ровно по разу — внутри неё, так что
      неограниченное утверждение не вернётся ни на старом месте, ни на новом.
-     Регулярка обязана поймать собственную фразу — иначе сторож пустой. */
+     Регулярки обязаны поймать собственную фразу — иначе сторож пустой. */
   const INSIGHTS = 3;
-  const NO_ID_FROM_STATS: Record<Lang, { sentence: string; claim: RegExp }> = {
+  const NO_ID_FROM_STATS: Record<
+    Lang,
+    { sentence: string; claim: RegExp; seeOnly: RegExp }
+  > = {
     cs: {
-      sentence: "Ze statistik jednotlivé návštěvníky identifikovat nemůžeme.",
+      sentence:
+        "Ze statistik vidíme jen souhrnná čísla a jednotlivé návštěvníky z nich identifikovat nemůžeme.",
       claim: /identifikovat nemůžeme|nemůžeme identifikovat/g,
+      seeOnly: /vidíme jen/g,
     },
     en: {
-      sentence: "From these statistics we cannot identify individual visitors.",
+      sentence:
+        "In these statistics we see only aggregated figures and cannot identify individual visitors from them.",
       claim: /cannot identify/g,
+      seeOnly: /see only/g,
     },
     ru: {
       sentence:
-        "На основании этой статистики мы не можем идентифицировать отдельных посетителей.",
+        "В этой статистике мы видим только сводные цифры и не можем идентифицировать по ней отдельных посетителей.",
       claim: /не можем (?:идентифицировать|определить)/g,
+      seeOnly: /видим только/g,
     },
     de: {
       sentence:
-        "Anhand dieser Statistiken können wir einzelne Besucher nicht identifizieren.",
+        "In diesen Statistiken sehen wir nur zusammengefasste Zahlen und können einzelne Besucher daraus nicht identifizieren.",
       claim: /nicht identifizieren/g,
+      seeOnly: /sehen wir nur|wir sehen nur/g,
     },
     fr: {
       sentence:
-        "À partir de ces statistiques, nous ne pouvons pas identifier les visiteurs individuellement.",
-      claim: /ne pouvons pas identifier/g,
+        "Dans ces statistiques, nous ne voyons que des chiffres agrégés et ne pouvons pas y identifier les visiteurs individuellement.",
+      claim: /ne pouvons pas (?:y )?identifier/g,
+      seeOnly: /ne voyons que/g,
     },
     pl: {
       sentence:
-        "Na podstawie tych statystyk nie możemy zidentyfikować poszczególnych odwiedzających.",
-      claim: /nie możemy zidentyfikować/g,
+        "W tych statystykach widzimy wyłącznie zbiorcze dane liczbowe i nie możemy na ich podstawie zidentyfikować poszczególnych odwiedzających.",
+      claim: /nie możemy (?:na ich podstawie )?zidentyfikować/g,
+      seeOnly: /widzimy wyłącznie/g,
     },
     it: {
       sentence:
-        "Sulla base di queste statistiche non possiamo identificare i singoli visitatori.",
+        "In queste statistiche vediamo solo dati aggregati e, sulla loro base, non possiamo identificare i singoli visitatori.",
       claim: /non possiamo identificare/g,
+      seeOnly: /vediamo solo/g,
     },
     lv: {
       sentence:
-        "No šīs statistikas mēs nevaram identificēt atsevišķus apmeklētājus.",
-      claim: /nevaram identificēt/g,
+        "Šajā statistikā mēs redzam tikai apkopotus skaitļus un nevaram no tās identificēt atsevišķus apmeklētājus.",
+      claim: /nevaram (?:no tās )?identificēt/g,
+      seeOnly: /redzam tikai/g,
     },
     lt: {
       sentence:
-        "Iš šios statistikos negalime nustatyti atskirų lankytojų tapatybės.",
+        "Šioje statistikoje matome tik apibendrintus skaičius ir pagal ją negalime nustatyti atskirų lankytojų tapatybės.",
       claim: /negalime nustatyti/g,
+      seeOnly: /matome tik/g,
     },
     uk: {
       sentence:
-        "На підставі цієї статистики ми не можемо ідентифікувати окремих відвідувачів.",
+        "У цій статистиці ми бачимо лише зведені показники й не можемо ідентифікувати за нею окремих відвідувачів.",
       claim: /не можемо ідентифікувати/g,
+      seeOnly: /бачимо лише/g,
     },
     es: {
       sentence:
-        "A partir de estas estadísticas, no podemos identificar a visitantes concretos.",
+        "En estas estadísticas solo vemos cifras agregadas y no podemos identificar a partir de ellas a visitantes concretos.",
       claim: /no podemos identificar/g,
+      seeOnly: /solo vemos/g,
     },
     ro: {
       sentence:
-        "Pe baza acestor statistici, nu putem identifica vizitatorii individuali.",
+        "În aceste statistici vedem doar cifre agregate și nu putem identifica pe baza lor vizitatorii individuali.",
       claim: /nu putem identifica/g,
+      seeOnly: /vedem doar/g,
+    },
+  };
+  const noticeText = (l: Lang) =>
+    SOCIAL_NOTICE[l].sections.flatMap((s) => s.p).join(" ");
+  it.each(LOCALES)(
+    "%s: «видим только» и «не можем идентифицировать» — только из статистики",
+    (l) => {
+      const { sentence, claim, seeOnly } = NO_ID_FROM_STATS[l];
+      expect(SOCIAL_NOTICE[l].sections[INSIGHTS].h).toContain("Facebook");
+      expect(sectionText(l, INSIGHTS)).toContain(sentence);
+      for (const re of [claim, seeOnly]) {
+        expect(sentence.match(re)).toHaveLength(1);
+        expect(noticeText(l).match(re)).toHaveLength(1);
+      }
+    },
+  );
+
+  /* Роль Meta (ответ владельца 12.10, Г28; EDPB Guidelines 8/2020 о
+     таргетинге пользователей соцсетей: рекламодатель, задающий критерии
+     таргетинга, — совместный контролёр с платформой для этого таргетинга).
+     Секция 2 «Meta как самостоятельный контролёр»: «не влияем» — только на
+     обработку, которую Meta ведёт в собственных целях; оборот «не влияем»
+     встречается во всём уведомлении ровно раз — внутри суженной фразы, так
+     что безоговорочное «на эту обработку мы не влияем» не вернётся. Секция 6
+     «Реклама»: при показе по нашим критериям мы и Meta можем быть
+     совместными контролёрами этого отбора; термин — тот же, что в секции 3
+     о статистике страницы (term ловит обе формы). Соглашения по ст. 26,
+     контактов и прав сверх уже названных фраза не вводит. Фразы вписаны
+     литералами по локали; регулярки обязаны поймать собственную фразу. */
+  const META_SECT = 2;
+  const META_ROLE: Record<
+    Lang,
+    { own: string; noInfluence: RegExp; joint: string; term: RegExp }
+  > = {
+    cs: {
+      own: "Na zpracování, které Meta provádí pro své vlastní účely, nemáme vliv.",
+      noInfluence: /nemáme vliv|vliv nemáme/g,
+      joint:
+        "Pokud Meta zobrazuje naši reklamu podle kritérií, která zvolíme, můžeme být pro tento výběr společnými správci spolu s Meta.",
+      term: /společnými správci/,
+    },
+    en: {
+      own: "We have no influence on the processing that Meta carries out for its own purposes.",
+      noInfluence: /no influence/g,
+      joint:
+        "When Meta shows our ads according to criteria we choose, we and Meta may be joint controllers for that selection.",
+      term: /joint controllers/,
+    },
+    ru: {
+      own: "На обработку, которую Meta осуществляет в собственных целях, мы не влияем.",
+      noInfluence: /не влияем/g,
+      joint:
+        "Когда Meta показывает нашу рекламу по выбранным нами критериям, в отношении такого отбора мы и Meta можем быть совместными контролёрами.",
+      term: /совместн\S* контролёр/,
+    },
+    de: {
+      own: "Auf die Verarbeitung, die Meta für eigene Zwecke vornimmt, haben wir keinen Einfluss.",
+      noInfluence: /keinen Einfluss/g,
+      joint:
+        "Wenn Meta unsere Anzeigen nach Kriterien ausspielt, die wir wählen, können wir und Meta für diese Auswahl gemeinsam Verantwortliche sein.",
+      term: /gemeinsam Verantwortliche/,
+    },
+    fr: {
+      own: "Nous n’avons aucune influence sur le traitement que Meta effectue pour ses propres finalités.",
+      noInfluence: /aucune influence/g,
+      joint:
+        "Lorsque Meta diffuse nos annonces selon des critères que nous choisissons, Meta et nous pouvons être responsables conjoints du traitement pour cette sélection.",
+      term: /responsables conjoints du traitement/,
+    },
+    pl: {
+      own: "Nie mamy wpływu na przetwarzanie, którego Meta dokonuje we własnych celach.",
+      noInfluence: /nie mamy wpływu/gi,
+      joint:
+        "Gdy Meta wyświetla nasze reklamy według wybranych przez nas kryteriów, w zakresie tego wyboru możemy być wraz z Meta współadministratorami.",
+      term: /współadministratorami/,
+    },
+    it: {
+      own: "Non abbiamo alcuna influenza sul trattamento che Meta effettua per finalità proprie.",
+      noInfluence: /alcuna influenza/g,
+      joint:
+        "Quando Meta mostra i nostri annunci in base a criteri scelti da noi, noi e Meta possiamo essere contitolari del trattamento per tale selezione.",
+      term: /contitolari del trattamento/,
+    },
+    lv: {
+      own: "Apstrādi, ko Meta veic savos nolūkos, mēs nevaram ietekmēt.",
+      noInfluence: /nevaram ietekmēt/g,
+      joint:
+        "Ja Meta rāda mūsu reklāmas pēc mūsu izvēlētiem kritērijiem, attiecībā uz šo atlasi mēs un Meta varam būt kopīgi pārziņi.",
+      term: /kopīgi pārziņi/,
+    },
+    lt: {
+      own: "Duomenų tvarkymui, kurį Meta atlieka savo tikslais, įtakos neturime.",
+      noInfluence: /įtakos neturime/g,
+      joint:
+        "Kai Meta rodo mūsų reklamą pagal mūsų pasirinktus kriterijus, šios atrankos atžvilgiu mes ir Meta galime būti bendri duomenų valdytojai.",
+      term: /bendri duomenų valdytojai/,
+    },
+    uk: {
+      own: "Ми не маємо впливу на обробку, яку Meta здійснює у власних цілях.",
+      noInfluence: /не маємо впливу/g,
+      joint:
+        "Коли Meta показує нашу рекламу за обраними нами критеріями, щодо такого відбору ми та Meta можемо бути спільними контролерами.",
+      term: /спільними контролерами/,
+    },
+    es: {
+      own: "No tenemos ninguna influencia sobre el tratamiento que Meta realiza para sus propios fines.",
+      noInfluence: /ninguna influencia/g,
+      joint:
+        "Cuando Meta muestra nuestros anuncios según criterios que elegimos nosotros, Meta y nosotros podemos ser corresponsables del tratamiento respecto de esa selección.",
+      term: /corresponsables del tratamiento/,
+    },
+    ro: {
+      own: "Nu avem nicio influență asupra prelucrării pe care Meta o efectuează în scopuri proprii.",
+      noInfluence: /nicio influență/g,
+      joint:
+        "Atunci când Meta afișează reclamele noastre pe baza criteriilor pe care le alegem, noi și Meta putem fi operatori asociați pentru această selecție.",
+      term: /operatori asociați/,
     },
   };
   it.each(LOCALES)(
-    "%s: «не можем идентифицировать» — только из статистики",
+    "%s: Meta — «не влияем» только на её цели, отбор рекламы — совместно",
     (l) => {
-      const { sentence, claim } = NO_ID_FROM_STATS[l];
-      expect(SOCIAL_NOTICE[l].sections[INSIGHTS].h).toContain("Facebook");
-      expect(sentence.match(claim)).toHaveLength(1);
-      expect(sectionText(l, INSIGHTS)).toContain(sentence);
-      const all = SOCIAL_NOTICE[l].sections.flatMap((s) => s.p).join(" ");
-      expect(all.match(claim)).toHaveLength(1);
+      const { own, noInfluence, joint, term } = META_ROLE[l];
+      expect(SOCIAL_NOTICE[l].sections[META_SECT].h).toContain("Meta");
+      expect(sectionText(l, META_SECT)).toContain(own);
+      expect(own.match(noInfluence)).toHaveLength(1);
+      expect(noticeText(l).match(noInfluence)).toHaveLength(1);
+      expect(sectionText(l, ADS)).toContain(joint);
+      expect(joint).toMatch(term);
+      expect(sectionText(l, INSIGHTS)).toMatch(term);
     },
   );
 

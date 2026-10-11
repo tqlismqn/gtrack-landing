@@ -19,8 +19,6 @@ export const impressum: ImpressumDict = {
     registerValue:
       "{court} (Tribunal Municipal de Praga), sección {section}, hoja {insert}",
     director: "Administrador (jednatel)",
-    vat: "IVA",
-    vatValue: "La sociedad no es contribuyente del IVA (neplátce DPH).",
     email: "Correo electrónico",
     privacy: "Protección de datos",
     legalDocs: "Documentos legales",
@@ -49,14 +47,14 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Meta como responsable independiente",
       p: [
-        `Facebook e Instagram son operados por ${META_IE.name}, ${META_IE.address}, Irlanda («Meta»). Meta trata sus datos como responsable independiente del tratamiento conforme a su propia [Política de privacidad](metaPrivacy); no tenemos ninguna influencia sobre ese tratamiento.`,
+        `Facebook e Instagram son operados por ${META_IE.name}, ${META_IE.address}, Irlanda («Meta»). Meta trata sus datos como responsable independiente del tratamiento conforme a su propia [Política de privacidad](metaPrivacy). No tenemos ninguna influencia sobre el tratamiento que Meta realiza para sus propios fines.`,
         "Las cookies de Facebook e Instagram las instala Meta, que solicita por sí misma su consentimiento cuando es necesario; consulte la [Política de cookies](metaCookies) de Meta.",
       ],
     },
     {
       h: "Estadísticas de la página de Facebook: corresponsabilidad con Meta",
       p: [
-        "Cuando usted visita nuestra página de Facebook o interactúa con ella, Meta registra eventos, por ejemplo la visualización de la página o de una publicación, seguir la página o indicar «Me gusta», comentar, compartir o hacer clic en un botón, junto con información asociada como la fecha y la hora, el país o la ciudad estimados a partir de la dirección IP, el idioma, el tipo de dispositivo y, en el caso de usuarios con sesión iniciada, el grupo de edad, el sexo y el identificador de usuario. A partir de estos eventos, Meta elabora estadísticas agregadas (Page Insights). Solo vemos cifras agregadas. A partir de estas estadísticas, no podemos identificar a visitantes concretos.",
+        "Cuando usted visita nuestra página de Facebook o interactúa con ella, Meta registra eventos, por ejemplo la visualización de la página o de una publicación, seguir la página o indicar «Me gusta», comentar, compartir o hacer clic en un botón, junto con información asociada como la fecha y la hora, el país o la ciudad estimados a partir de la dirección IP, el idioma, el tipo de dispositivo y, en el caso de usuarios con sesión iniciada, el grupo de edad, el sexo y el identificador de usuario. A partir de estos eventos, Meta elabora estadísticas agregadas (Page Insights). En estas estadísticas solo vemos cifras agregadas y no podemos identificar a partir de ellas a visitantes concretos.",
         "Para este tratamiento, Meta y nosotros somos corresponsables del tratamiento conforme al artículo 26 del RGPD. Según el acuerdo, Meta asume la responsabilidad principal de informar a los interesados, de atender las solicitudes de ejercicio de sus derechos previstos en los artículos 15 a 21 del RGPD, de la seguridad del tratamiento (artículo 32 del RGPD) y de la notificación y comunicación de las violaciones de la seguridad de los datos personales (artículos 33 y 34 del RGPD). Los aspectos esenciales del acuerdo figuran en el [Page Insights Controller Addendum](addendum) y en la página [Information about Page Insights](insightsInfo). La autoridad de control principal para este tratamiento es la Comisión de Protección de Datos de Irlanda (Data Protection Commission).",
         "Base jurídica: nuestro interés legítimo en entender cómo llegan nuestras publicaciones a las empresas de transporte y a los conductores, y en mejorarlas (artículo 6, apartado 1, letra f), del RGPD).",
       ],
@@ -77,7 +75,7 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Publicidad",
       p: [
-        "Hacemos publicidad en Facebook e Instagram. Meta decide a quién se muestran nuestros anuncios según criterios que elegimos nosotros, como el país, el idioma y los intereses. Nunca subimos a Meta datos de nuestros clientes ni de sus conductores, ni los utilizamos para segmentar anuncios.",
+        "Hacemos publicidad en Facebook e Instagram. Meta decide a quién se muestran nuestros anuncios según criterios que elegimos nosotros, como el país, el idioma y los intereses. Cuando Meta muestra nuestros anuncios según criterios que elegimos nosotros, Meta y nosotros podemos ser corresponsables del tratamiento respecto de esa selección. Nunca subimos a Meta datos de nuestros clientes ni de sus conductores, ni los utilizamos para segmentar anuncios.",
         `${MESARTIM.name} paga nuestra publicidad por cuenta nuestra. Nuestro sitio web carga el píxel de Meta que proporciona esta empresa solo después de que usted dé su consentimiento en el banner de cookies.`,
       ],
     },

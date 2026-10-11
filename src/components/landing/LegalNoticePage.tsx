@@ -12,18 +12,18 @@
    ============================================================================ */
 
 import type { ReactNode } from "react";
-import { COMPANY, SOCIAL, seatOf } from "@/lib/company";
+import { COMPANY, SOCIAL } from "@/lib/company";
 import { LANDING_DICT, type Lang } from "@/lib/landing-i18n";
 import {
   IMPRESSUM,
   META_LINKS,
   SOCIAL_LINK_KEYS,
   SOCIAL_NOTICE,
+  impressumRows,
   socialNoticeEffective,
   splitLinks,
   type SocialLinkKey,
 } from "@/lib/legal-pages";
-import { fill } from "@/lib/showcase-data";
 import { LandingProvider } from "./LandingProvider";
 import { LandingIcons } from "./LandingIcons";
 import { MotionRoot } from "./MotionRoot";
@@ -60,27 +60,17 @@ export function LegalNoticePage({
 
 function ImpressumBody({ locale }: { locale: Lang }) {
   const p = IMPRESSUM[locale];
-  const l = p.labels;
   const f = LANDING_DICT[locale].footer;
-  const seat = `${seatOf(COMPANY)}, ${l.country}`;
 
-  /* порядок строк — как в § 435 OZ / ст. 5 ECD: кто, где, реестр, кто
-     представляет, налоговый статус, связь */
+  /* строки реквизитов и их порядок — impressumRows (их же читает тест);
+     статуса DPH среди них нет — решение владельца 12.10 (Г29) */
   const rows: Array<{ dt: string; dd: ReactNode }> = [
-    { dt: l.company, dd: COMPANY.name },
-    { dt: l.legalForm, dd: l.legalFormValue },
-    { dt: l.seat, dd: seat },
-    { dt: l.ico, dd: COMPANY.ico },
-    { dt: l.register, dd: fill(l.registerValue, COMPANY) },
-    { dt: l.director, dd: COMPANY.director },
-    { dt: l.vat, dd: l.vatValue },
-    { dt: l.email, dd: <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a> },
+    ...impressumRows(locale).map(({ dt, dd, mailto }) => ({
+      dt,
+      dd: mailto ? <a href={`mailto:${dd}`}>{dd}</a> : dd,
+    })),
     {
-      dt: l.privacy,
-      dd: <a href={`mailto:${COMPANY.privacyEmail}`}>{COMPANY.privacyEmail}</a>,
-    },
-    {
-      dt: l.legalDocs,
+      dt: p.labels.legalDocs,
       dd: (
         <span className="lg-links">
           <a href={legalUrl("privacy", locale)}>{f.privacy}</a>

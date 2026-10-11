@@ -15,6 +15,7 @@
 /* Импорты относительные, не @/: модуль импортирует тест
    (test/legal-pages.test.ts), а vitest здесь без конфига и алиаса. */
 import type { Lang } from "../landing-i18n";
+import { COMPANY, seatOf } from "../company";
 import { fill } from "../showcase-data";
 import { impressum as en, socialNotice as socialEn } from "./en";
 import { impressum as ru, socialNotice as socialRu } from "./ru";
@@ -46,8 +47,10 @@ export type ImpressumDict = {
     register: string;
     registerValue: string;
     director: string;
-    vat: string;
-    vatValue: string;
+    /* Строки о DPH / DIČ нет намеренно — решение владельца 12.10 (Г29):
+       статус плательщика НДС не указываем, пока нет оборотов. § 435 OZ
+       требует от сайта фирму, сидло, IČO и запись в реестре; DIČ указывает
+       только плательщик DPH. Сторож — test/legal-pages.test.ts. */
     email: string;
     privacy: string;
     legalDocs: string;
@@ -68,6 +71,27 @@ export const IMPRESSUM: Record<Lang, ImpressumDict> = {
   es,
   ro,
 };
+
+/* Строки реквизитов Impressum в порядке страницы — их рисует LegalNoticePage,
+   и их же читает тест: проверяется ровно тот текст, что видит посетитель.
+   Порядок — как в § 435 OZ / ст. 5 ECD: кто, где, реестр, кто представляет,
+   связь. Строка правовых документов (ссылки подвала) — в компоненте.
+   mailto — значение рисуется ссылкой на почту. */
+export type ImpressumRow = { dt: string; dd: string; mailto?: true };
+
+export function impressumRows(lang: Lang): ImpressumRow[] {
+  const l = IMPRESSUM[lang].labels;
+  return [
+    { dt: l.company, dd: COMPANY.name },
+    { dt: l.legalForm, dd: l.legalFormValue },
+    { dt: l.seat, dd: `${seatOf(COMPANY)}, ${l.country}` },
+    { dt: l.ico, dd: COMPANY.ico },
+    { dt: l.register, dd: fill(l.registerValue, COMPANY) },
+    { dt: l.director, dd: COMPANY.director },
+    { dt: l.email, dd: COMPANY.email, mailto: true },
+    { dt: l.privacy, dd: COMPANY.privacyEmail, mailto: true },
+  ];
+}
 
 /* ----------------------------------------------------------------------------
    Уведомление о соцсетях (/social-media-privacy).
