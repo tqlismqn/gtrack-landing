@@ -75,8 +75,7 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Werbung",
       p: [
-        "Wir werben auf Facebook und Instagram. Wem unsere Anzeigen ausgespielt werden, entscheidet Meta anhand von Kriterien, die wir wählen, etwa Land, Sprache und Interessen. Für die Wahl dieser Kriterien, die Ausspielung unserer Anzeigen an Personen, die ihnen entsprechen, und die Berichte über die Kampagnenergebnisse, die Meta uns bereitstellt, können wir und Meta gemeinsam Verantwortliche sein. Daten unserer Kunden oder ihrer Fahrer laden wir nie zu Meta hoch und nutzen sie nicht zur Ausrichtung von Anzeigen.",
-        "Rechtsgrundlage für unseren Teil: unser berechtigtes Interesse daran, Transportunternehmen G-Track vorzustellen (Art. 6 Abs. 1 lit. f DSGVO).",
+        "Wir werben auf Facebook und Instagram. Wem unsere Anzeigen ausgespielt werden, entscheidet Meta anhand von Kriterien, die wir wählen, etwa Land, Sprache und Interessen. Für diese Auswahl können wir und Meta gemeinsam Verantwortliche sein. Daten unserer Kunden oder ihrer Fahrer laden wir nie zu Meta hoch und nutzen sie nicht zur Ausrichtung von Anzeigen.",
         `Unsere Werbung bezahlt in unserem Auftrag die ${MESARTIM.name} Das von ihr bereitgestellte Meta-Pixel lädt unsere Website erst, nachdem Sie im Cookie-Banner eingewilligt haben.`,
       ],
     },

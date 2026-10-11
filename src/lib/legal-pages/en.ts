@@ -76,8 +76,7 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Advertising",
       p: [
-        "We advertise on Facebook and Instagram. Meta decides who sees our ads based on criteria we choose, such as country, language and interests. For the choice of these criteria, the display of our ads to the people who match them and Meta’s reports to us on campaign results, we and Meta may be joint controllers. We never upload data about our customers or their drivers to Meta, and we do not use such data to target ads.",
-        "Legal basis for our part: our legitimate interest in presenting G-Track to transport companies (Article 6(1)(f) GDPR).",
+        "We advertise on Facebook and Instagram. Meta decides who sees our ads based on criteria we choose, such as country, language and interests. For this selection, we and Meta may be joint controllers. We never upload data about our customers or their drivers to Meta, and we do not use such data to target ads.",
         `Our advertising is paid for on our behalf by ${MESARTIM.name} Our website loads the Meta pixel provided by that company only after you give your consent in the cookie banner.`,
       ],
     },

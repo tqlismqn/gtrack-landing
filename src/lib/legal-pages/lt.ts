@@ -75,8 +75,7 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Reklama",
       p: [
-        "Reklamuojamės Facebook ir Instagram. Kam rodyti mūsų reklamą, Meta sprendžia pagal mūsų pasirinktus kriterijus, pavyzdžiui, šalį, kalbą ir pomėgius. Šių kriterijų pasirinkimo, mūsų reklamos rodymo juos atitinkantiems žmonėms ir Meta mums teikiamų kampanijos rezultatų ataskaitų atžvilgiu mes ir Meta galime būti bendri duomenų valdytojai. Niekada neįkeliame į Meta savo klientų ar jų vairuotojų duomenų ir nenaudojame jų reklamai nukreipti.",
-        "Mūsų dalies teisinis pagrindas: mūsų teisėtas interesas pristatyti G-Track transporto įmonėms (BDAR 6 straipsnio 1 dalies f punktas).",
+        "Reklamuojamės Facebook ir Instagram. Kam rodyti mūsų reklamą, Meta sprendžia pagal mūsų pasirinktus kriterijus, pavyzdžiui, šalį, kalbą ir pomėgius. Šios atrankos atžvilgiu mes ir Meta galime būti bendri duomenų valdytojai. Niekada neįkeliame į Meta savo klientų ar jų vairuotojų duomenų ir nenaudojame jų reklamai nukreipti.",
         `Mūsų reklamą mūsų pavedimu apmoka ${MESARTIM.name} Šios bendrovės suteiktą Meta pikselį mūsų svetainė įkelia tik po to, kai slapukų juostoje duodate sutikimą.`,
       ],
     },

@@ -74,8 +74,7 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Reklama",
       p: [
-        "Na Facebooku a Instagramu inzerujeme. Komu se naše reklama zobrazí, určuje Meta podle kritérií, která zvolíme, například země, jazyka a zájmů. Ve vztahu k volbě těchto kritérií, k zobrazení naší reklamy lidem, kteří jim odpovídají, a k přehledům o výsledcích kampaně, které nám Meta poskytuje, můžeme být s Meta společnými správci. Údaje o našich zákaznících ani o jejich řidičích do Meta nikdy nenahráváme a k cílení reklamy je nepoužíváme.",
-        "Právní základ pro naši část: náš oprávněný zájem představit G-Track dopravním firmám (čl. 6 odst. 1 písm. f) GDPR).",
+        "Na Facebooku a Instagramu inzerujeme. Komu se naše reklama zobrazí, určuje Meta podle kritérií, která zvolíme, například země, jazyka a zájmů. Za tento výběr můžeme být s Meta společnými správci. Údaje o našich zákaznících ani o jejich řidičích do Meta nikdy nenahráváme a k cílení reklamy je nepoužíváme.",
         `Reklamu za nás platí společnost ${MESARTIM.name} Pixel Meta, který tato společnost poskytuje, náš web načte až poté, co udělíte souhlas v cookie liště.`,
       ],
     },

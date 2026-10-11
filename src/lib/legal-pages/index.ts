@@ -181,10 +181,10 @@ export function splitLinks(text: string): LinkSegment[] {
 
 /* Дата вступления в силу — ОДНА на все 12 языков. Task 8 переставляет её
    на дату мерджа ветки; меняется только эта строка. */
-export const SOCIAL_NOTICE_EFFECTIVE = "2026-10-11";
+export const SOCIAL_NOTICE_EFFECTIVE = "2026-10-12";
 
-/* en — британский порядок «11 October 2026»: сайт для ЕС, американское
-   «October 11» здесь чужое. Остальные локали — свой код языка как есть. */
+/* en — британский порядок «12 October 2026»: сайт для ЕС, американское
+   «October 12» здесь чужое. Остальные локали — свой код языка как есть. */
 const DATE_LOCALE: Record<Lang, string> = {
   en: "en-GB",
   ru: "ru",
@@ -200,7 +200,7 @@ const DATE_LOCALE: Record<Lang, string> = {
   ro: "ro",
 };
 
-/* Строка «Účinné od 11. října 2026». Полночь UTC и timeZone UTC: дата не
+/* Строка «Účinné od 12. října 2026». Полночь UTC и timeZone UTC: дата не
    съезжает на соседний день ни в часовом поясе сборки, ни у читателя
    (страница статическая, строка считается на сервере при сборке). */
 export function socialNoticeEffective(lang: Lang): string {

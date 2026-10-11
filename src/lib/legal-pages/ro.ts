@@ -75,8 +75,7 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Publicitate",
       p: [
-        "Facem publicitate pe Facebook și Instagram. Meta decide cui îi sunt afișate reclamele noastre pe baza criteriilor pe care le alegem, precum țara, limba și interesele. Pentru alegerea acestor criterii, afișarea reclamelor noastre persoanelor care le îndeplinesc și rapoartele privind rezultatele campaniei pe care ni le furnizează Meta, noi și Meta putem fi operatori asociați. Nu încărcăm niciodată în Meta date despre clienții noștri sau despre șoferii acestora și nu le folosim pentru direcționarea reclamelor.",
-        "Temei juridic pentru partea noastră: interesul nostru legitim de a prezenta G-Track firmelor de transport (articolul 6 alineatul (1) litera (f) din RGPD).",
+        "Facem publicitate pe Facebook și Instagram. Meta decide cui îi sunt afișate reclamele noastre pe baza criteriilor pe care le alegem, precum țara, limba și interesele. Pentru această selecție, noi și Meta putem fi operatori asociați. Nu încărcăm niciodată în Meta date despre clienții noștri sau despre șoferii acestora și nu le folosim pentru direcționarea reclamelor.",
         `Publicitatea noastră este plătită din însărcinarea noastră de ${MESARTIM.name} Site-ul nostru încarcă pixelul Meta furnizat de această societate numai după ce vă exprimați consimțământul în bannerul de cookie-uri.`,
       ],
     },

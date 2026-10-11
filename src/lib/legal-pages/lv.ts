@@ -75,8 +75,7 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Reklāma",
       p: [
-        "Mēs reklamējamies Facebook un Instagram. Kam rādīt mūsu reklāmas, Meta nosaka pēc mūsu izvēlētiem kritērijiem, piemēram, valsts, valodas un interesēm. Attiecībā uz šo kritēriju izvēli, mūsu reklāmu rādīšanu cilvēkiem, kuri tiem atbilst, un pārskatus par kampaņas rezultātiem, ko Meta mums sniedz, mēs un Meta varam būt kopīgi pārziņi. Mēs nekad neaugšupielādējam Meta savu klientu vai viņu vadītāju datus un neizmantojam tos reklāmas mērķēšanai.",
-        "Juridiskais pamats attiecībā uz mūsu daļu: mūsu leģitīmās intereses iepazīstināt transporta uzņēmumus ar G-Track (VDAR 6. panta 1. punkta f) apakšpunkts).",
+        "Mēs reklamējamies Facebook un Instagram. Kam rādīt mūsu reklāmas, Meta nosaka pēc mūsu izvēlētiem kritērijiem, piemēram, valsts, valodas un interesēm. Attiecībā uz šo atlasi mēs un Meta varam būt kopīgi pārziņi. Mēs nekad neaugšupielādējam Meta savu klientu vai viņu vadītāju datus un neizmantojam tos reklāmas mērķēšanai.",
         `Mūsu reklāmu pēc mūsu uzdevuma apmaksā ${MESARTIM.name} Šī uzņēmuma nodrošināto Meta pikseli mūsu tīmekļvietne ielādē tikai pēc tam, kad sīkdatņu joslā ir saņemta jūsu piekrišana.`,
       ],
     },
