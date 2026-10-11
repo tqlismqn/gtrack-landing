@@ -41,6 +41,12 @@ export const lt: LandingDict = {
     kicker: "EU atitiktis · planavimas · parkas ir servisas",
     h1: "Kiekvienas vairuotojas pasirengęs reisui.",
     h1dim: "Visada.",
+    phA: "Atostogos nebe žodžiu —",
+    phAdim: "iš Telegram į lentą.",
+    phB: "Kas važiuoja, kas stovi —",
+    phBdim: "matyti šalia plano.",
+    phC: "Terminai nebe galvoje —",
+    phCdim: "kas skubu, matote iš anksto.",
     sub: " — EU atitikties ir planavimo sistema vežėjams, turintiems 20 ir daugiau transporto priemonių. Vizų, Kodo 95 ir techninės apžiūros terminai, reisai ir atostogos, remontas ir TA — naršyklėje, be papildomos įrangos ir diegimo konsultantų. Ką šiandien reikia spręsti, sistema parodo pati.",
     ctaTrial: "Išbandyti 30 dienų",
     ctaPricing: "Pamatyti kainas",
@@ -48,9 +54,12 @@ export const lt: LandingDict = {
     micro2: "Registracija per 2 minutes",
     micro3: "Duomenys saugomi ES",
     boardAria:
-      "G-Track dispečerinė lenta: jūs įkeliate dokumento skeną, sistema atpažįsta numerį bei galiojimo terminą, jūs patikrinate ir išsaugote įrašą",
+      "G-Track lenta trijose scenose. Vairuotojas per Telegram pateikia atostogų prašymą, dispečeris jį patvirtina lentoje, vairuotojas gauna atsakymą. Telematika · vilkikų su prijungtu sekikliu greitis, stovėjimas arba duomenų trūkumas matyti šalia plano. Viza, kurios galiojimas baigiasi: jūs įkeliate skeną, sistema atpažįsta numerį bei galiojimo terminą, jūs patikrinate ir išsaugote.",
     boardCaption:
       "Įkeliate skeną → G-Track atpažįsta numerį ir terminą → jūs patikrinate ir išsaugote",
+    trackerCaption: "Vilkikams, kurių sekiklis prijungtas prie G-Track",
+    toastNotified: "Vairuotojui pranešta per Telegram",
+    colVehicle: "Vilkikas",
   },
 
   /* Полоса под первым экраном (TrustStrip): чипы-ссылки на модули, решение владельца 03.10.

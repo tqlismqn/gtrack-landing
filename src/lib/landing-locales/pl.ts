@@ -40,6 +40,12 @@ export const pl: LandingDict = {
     kicker: "EU-compliance · planowanie · flota i serwis",
     h1: "Każdy kierowca gotowy do trasy.",
     h1dim: "Zawsze.",
+    phA: "Urlop już nie „na gębę” —",
+    phAdim: "z Telegramu na tablicę.",
+    phB: "Kto jedzie, kto stoi —",
+    phBdim: "widać tuż obok planu.",
+    phC: "Terminy z głowy —",
+    phCdim: "co się pali, widzisz zawczasu.",
     sub: " — system EU-compliance i planowania dla przewoźników z flotą od 20 pojazdów. Terminy wiz, Kodu 95 i przeglądów technicznych, przejazdy i urlopy, naprawy i serwis — w przeglądarce, bez sprzętu i bez wdrożeniowców. To, co dziś wymaga decyzji, system pokazuje sam.",
     ctaTrial: "Wypróbuj 30 dni",
     ctaPricing: "Zobacz cennik",
@@ -47,9 +53,12 @@ export const pl: LandingDict = {
     micro2: "Rejestracja w 2 minuty",
     micro3: "Dane w UE",
     boardAria:
-      "Tablica dyspozytorska G-Track: przesyłasz skan dokumentu, system rozpoznaje numer oraz datę ważności, a ty sprawdzasz i zapisujesz dane",
+      "Tablica G-Track w trzech scenach. Kierowca składa w Telegramie wniosek o urlop, dyspozytor zatwierdza go na tablicy, kierowca dostaje odpowiedź. Telematyka · przy pojazdach z podłączonym lokalizatorem obok planu widać prędkość, postój albo brak danych. Wiza, której kończy się ważność: przesyłasz skan, system rozpoznaje numer i datę ważności, a ty sprawdzasz i zapisujesz.",
     boardCaption:
       "Przesyłasz skan → G-Track rozpoznaje numer i datę ważności → sprawdzasz i zapisujesz",
+    trackerCaption: "Dla pojazdów, których lokalizator jest podłączony do G-Track",
+    toastNotified: "Kierowca powiadomiony w Telegramie",
+    colVehicle: "Pojazd",
   },
 
   /* Полоса под первым экраном (TrustStrip): чипы-ссылки на модули, решение владельца 03.10.

@@ -36,6 +36,12 @@ export const es: LandingDict = {
     kicker: "Cumplimiento UE · planificación · flota y taller",
     h1: "Cada conductor, listo para el viaje.",
     h1dim: "Siempre.",
+    phA: "Vacaciones, ya no de palabra —",
+    phAdim: "de Telegram al tablero.",
+    phB: "Quién circula, quién está parado —",
+    phBdim: "justo al lado del plan.",
+    phC: "Vencimientos, ya no de memoria —",
+    phCdim: "lo urgente se ve con tiempo.",
     sub: " — el sistema de cumplimiento normativo UE y planificación para transportistas desde 20 camiones. Vencimientos de visados, Code 95 e inspección técnica, viajes y vacaciones, reparaciones y mantenimiento — en el navegador, sin hardware ni consultores de implantación. El propio sistema le muestra lo que requiere una decisión hoy.",
     ctaTrial: "Pruébelo 30 días",
     ctaPricing: "Ver precios",
@@ -43,9 +49,12 @@ export const es: LandingDict = {
     micro2: "Registro en 2 minutos",
     micro3: "Datos en la UE",
     boardAria:
-      "Tablero de planificación de G-Track: usted sube el escaneo de un documento, el sistema reconoce el número y la fecha de caducidad, usted revisa y guarda el registro",
+      "Tablero de G-Track en tres escenas. Un conductor pide vacaciones por Telegram, el gestor de tráfico las aprueba en el tablero y el conductor recibe la respuesta. Telemática · en los camiones con localizador conectado, junto al plan se ven la velocidad, la parada o la falta de datos. Visado a punto de caducar: usted sube el escaneo, el sistema reconoce el número y la fecha de caducidad, usted revisa y guarda.",
     boardCaption:
       "Usted sube un escaneo → G-Track reconoce el número y la fecha de caducidad → usted revisa y guarda",
+    trackerCaption: "Para camiones cuyo localizador está conectado a G-Track",
+    toastNotified: "Conductor avisado por Telegram",
+    colVehicle: "Camión",
   },
 
   trust: {

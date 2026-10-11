@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { LANDING_DICT, LOCALES } from "../src/lib/landing-i18n";
 import type { Lang } from "../src/lib/landing-i18n";
+import { BANNED } from "./banned";
 
 /* ============================================================================
    Копирайт ×12 под рекламу (ворота 1, задача 3): «от 20 машин», названные
@@ -12,8 +13,6 @@ import type { Lang } from "../src/lib/landing-i18n";
    EU-compliance в строке под H1 (Г18), ни поставщика телематики, ни
    «реального времени», разделитель « · » в чипе доверия.
    ============================================================================ */
-
-const BANNED = /в реальном времени|онлайн|real[- ]time|\bonline\b|in Echtzeit|en temps réel|w czasie rzeczywistym|v reálném čase|in tempo reale|reāllaikā|realiuoju laiku|в реальному часі|en tiempo real|în timp real|LocTracker|сразу|одразу|відразу|негайно|instantly|immediately|sofort|immédiatement|en ligne|okamžitě|natychmiast|od razu|subito|immediatamente|uzreiz|iš karto|inmediatamente|imediat/i;
 
 /* Значения trust.c7, roadmap.tracks.telematics.d и faq.a12 на origin/main до
    задачи 3 — копия литералами: тест проверяет, что формулировка «система

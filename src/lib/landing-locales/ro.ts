@@ -39,6 +39,12 @@ export const ro: LandingDict = {
     kicker: "Conformitate UE · planificare · flotă și service",
     h1: "Fiecare șofer pregătit de cursă.",
     h1dim: "Mereu.",
+    phA: "Concediul nu se mai cere pe hol —",
+    phAdim: "din Telegram pe panou.",
+    phB: "Cine merge, cine stă —",
+    phBdim: "dintr-o privire, lângă plan.",
+    phC: "Termenele nu le mai ții în cap —",
+    phCdim: "ce arde, vezi din timp.",
     sub: " — sistem de conformitate UE și planificare pentru transportatori de la 20 de camioane în sus. Termenele pentru vize, Code 95 și inspecția tehnică, curse și concedii, reparații și mentenanță — în browser, fără hardware și fără consultanți de implementare. Sistemul îți arată singur ce trebuie decis azi.",
     ctaTrial: "Încearcă 30 de zile",
     ctaPricing: "Vezi prețurile",
@@ -46,9 +52,12 @@ export const ro: LandingDict = {
     micro2: "Înregistrare în 2 minute",
     micro3: "Date în UE",
     boardAria:
-      "Panoul de dispecerat G-Track: încarci scanul unui document, sistemul recunoaște numărul și data de expirare, tu verifici și salvezi evidența",
+      "Panoul G-Track în trei scene. Șoferul cere concediu pe Telegram, dispecerul îl aprobă pe panou, șoferul primește răspunsul. Telematică · la camioanele cu tracker conectat, lângă plan se văd viteza, staționarea sau lipsa datelor. Viză care expiră curând: încarci scanul, sistemul recunoaște numărul și data de expirare, tu verifici și salvezi.",
     boardCaption:
       "Încarci un scan → G-Track recunoaște numărul și data de expirare → verifici și salvezi",
+    trackerCaption: "Pentru camioanele al căror tracker e conectat la G-Track",
+    toastNotified: "Șoferul a fost anunțat pe Telegram",
+    colVehicle: "Camion",
   },
 
   trust: {

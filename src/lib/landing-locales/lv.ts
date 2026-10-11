@@ -36,6 +36,12 @@ export const lv: LandingDict = {
     kicker: "ES atbilstība · plānošana · autoparks un apkope",
     h1: "Katrs vadītājs gatavs reisam.",
     h1dim: "Vienmēr.",
+    phA: "Atvaļinājumi vairs ne mutiski —",
+    phAdim: "no Telegram uz dispečerpulti.",
+    phB: "Kurš brauc, kurš stāv —",
+    phBdim: "redzams blakus plānam.",
+    phC: "Termiņi nav jātur galvā —",
+    phCdim: "kas steidzams, redzi laikus.",
     sub: " — ES atbilstības un plānošanas sistēma pārvadātājiem ar 20 un vairāk mašīnām. Vīzu, Koda 95 un tehniskās apskates termiņi, reisi un atvaļinājumi, remonts un apkope — pārlūkā, bez aparatūras un ieviešanas konsultantiem. Kas šodien gaida tavu lēmumu, sistēma parāda pati.",
     ctaTrial: "Izmēģināt 30 dienas",
     ctaPricing: "Apskatīt cenas",
@@ -43,9 +49,12 @@ export const lv: LandingDict = {
     micro2: "Reģistrācija 2 minūtēs",
     micro3: "Dati glabājas ES",
     boardAria:
-      "G-Track dispečerpults: tu augšupielādē dokumenta skenējumu, sistēma atpazīst numuru un derīguma termiņu, tu pārbaudi un saglabā ierakstu",
+      "G-Track dispečerpults trīs ainās. Vadītājs Telegram iesniedz atvaļinājuma pieteikumu, dispečers to apstiprina dispečerpultī, vadītājs saņem atbildi. Telemātika · mašīnām ar pieslēgtu izsekotāju blakus plānam redzams ātrums, stāvēšana vai datu trūkums. Vīza, kurai beidzas termiņš: tu augšupielādē skenējumu, sistēma atpazīst numuru un derīguma termiņu, tu pārbaudi un saglabā.",
     boardCaption:
       "Tu augšupielādē skenējumu → G-Track atpazīst numuru un termiņu → tu pārbaudi un saglabā",
+    trackerCaption: "Mašīnām, kuru izsekotājs pieslēgts G-Track",
+    toastNotified: "Vadītājam paziņots Telegram",
+    colVehicle: "Mašīna",
   },
 
   /* Полоса под первым экраном (TrustStrip): чипы-ссылки на модули, решение владельца 03.10.

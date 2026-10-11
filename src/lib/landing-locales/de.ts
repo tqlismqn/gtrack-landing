@@ -38,6 +38,12 @@ export const de: LandingDict = {
     kicker: "EU-Compliance · Planung · Flotte & Wartung",
     h1: "Jeder Fahrer bereit für die Tour.",
     h1dim: "Immer.",
+    phA: "Urlaub nicht mehr auf Zuruf —",
+    phAdim: "per Telegram aufs Board.",
+    phB: "Wer fährt, wer steht —",
+    phBdim: "auf einen Blick neben dem Plan.",
+    phC: "Fristen raus aus dem Kopf —",
+    phCdim: "was brennt, sehen Sie rechtzeitig.",
     sub: " — das EU-Compliance- und Planungssystem für Transportunternehmen ab 20 Lkw. Fristen für Visa, Kennziffer 95 und technische Prüfung, Touren und Urlaub, Reparaturen und Wartung — im Browser, ohne Hardware und ohne Einführungsberater. Was heute entschieden werden muss, zeigt Ihnen das System von selbst.",
     ctaTrial: "30 Tage testen",
     ctaPricing: "Preise ansehen",
@@ -45,9 +51,12 @@ export const de: LandingDict = {
     micro2: "Registrierung in 2 Minuten",
     micro3: "Daten in der EU",
     boardAria:
-      "G-Track-Dispositionsboard: Sie laden einen Dokumentenscan hoch, das System erkennt Nummer und Ablaufdatum, Sie prüfen und speichern den Eintrag",
+      "G-Track-Board in drei Szenen. Ein Fahrer beantragt in Telegram Urlaub, der Disponent genehmigt ihn auf dem Board, der Fahrer bekommt die Antwort. Telematik · bei Lkw mit verbundenem Tracker stehen Geschwindigkeit, Stillstand oder fehlende Daten neben dem Plan. Visum kurz vor Ablauf: Sie laden den Scan hoch, das System erkennt Nummer und Ablaufdatum, Sie prüfen und speichern.",
     boardCaption:
       "Sie laden einen Scan hoch → G-Track erkennt Nummer und Ablaufdatum → Sie prüfen und speichern",
+    trackerCaption: "Für Lkw, deren Tracker mit G-Track verbunden ist",
+    toastNotified: "Fahrer per Telegram benachrichtigt",
+    colVehicle: "Lkw",
   },
 
   trust: {

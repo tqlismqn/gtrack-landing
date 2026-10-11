@@ -41,6 +41,12 @@ export const fr: LandingDict = {
     kicker: "Conformité UE · planification · flotte et entretien",
     h1: "Chaque conducteur prêt pour le trajet.",
     h1dim: "Toujours.",
+    phA: "Fini les congés de vive voix —",
+    phAdim: "de Telegram au planning.",
+    phB: "Qui roule, qui est à l’arrêt —",
+    phBdim: "affiché à côté du planning.",
+    phC: "Fini les échéances à retenir —",
+    phCdim: "l’urgent se voit à temps.",
     sub: " — un système de conformité UE et de planification pour transporteurs dès 20 camions. Échéances des visas, du Code 95 et du contrôle technique, trajets et congés, réparations et entretien — dans le navigateur, sans matériel ni intégrateur. Ce qui demande une décision aujourd’hui, le système vous le montre de lui-même.",
     ctaTrial: "Essayer 30 jours",
     ctaPricing: "Voir les tarifs",
@@ -48,9 +54,12 @@ export const fr: LandingDict = {
     micro2: "Inscription en 2 minutes",
     micro3: "Données dans l’UE",
     boardAria:
-      "Tableau de planification G-Track : vous téléversez le scan d’un document, le système reconnaît le numéro et la date d’expiration, vous vérifiez et enregistrez la fiche",
+      "Tableau G-Track en trois scènes. Un chauffeur demande un congé sur Telegram, le dispatcher l’approuve sur le tableau, le chauffeur reçoit la réponse. Télématique · pour les camions dont le traceur est connecté, la vitesse, l’arrêt ou l’absence de données s’affichent à côté du planning. Visa qui arrive à échéance : vous téléversez le scan, le système reconnaît le numéro et la date d’expiration, vous vérifiez et enregistrez.",
     boardCaption:
       "Vous téléversez un scan → G-Track reconnaît le numéro et la date d’expiration → vous vérifiez et enregistrez",
+    trackerCaption: "Pour les camions dont le traceur est connecté à G-Track",
+    toastNotified: "Chauffeur prévenu sur Telegram",
+    colVehicle: "Camion",
   },
 
   trust: {

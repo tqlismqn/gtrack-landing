@@ -40,6 +40,12 @@ export const cs: LandingDict = {
     kicker: "EU compliance · plánování · vozidla a servis",
     h1: "Každý řidič připraven na cestu.",
     h1dim: "Vždy.",
+    phA: "Dovolená už ne mezi dveřmi —",
+    phAdim: "z Telegramu na tabuli.",
+    phB: "Kdo jede, kdo stojí —",
+    phBdim: "na první pohled vedle plánu.",
+    phC: "Termíny nenoste v hlavě —",
+    phCdim: "co hoří, uvidíte včas.",
     sub: " — systém EU compliance a plánování pro dopravce od 20 vozidel. Platnost víz, Kódu 95 a technické kontroly, jízdy a dovolené, opravy a servis — v prohlížeči, bez hardwaru a bez implementačních konzultantů. Co je dnes potřeba rozhodnout, vám systém ukáže sám.",
     ctaTrial: "Vyzkoušet na 30 dní",
     ctaPricing: "Zobrazit ceník",
@@ -47,9 +53,12 @@ export const cs: LandingDict = {
     micro2: "Registrace za 2 minuty",
     micro3: "Data uložená v EU",
     boardAria:
-      "Dispečerská tabule G-Track: nahrajete sken dokumentu, systém rozpozná číslo a datum platnosti, vy záznam zkontrolujete a uložíte",
+      "Tabule G-Track ve třech scénách. Řidič v Telegramu podá žádost o dovolenou, dispečer ji schválí na tabuli, řidič dostane odpověď. Telematika · u vozidel s napojeným trackerem jsou vedle plánu vidět rychlost, parkování nebo chybějící data. Vízum, kterému končí platnost: nahrajete sken, systém rozpozná číslo a datum platnosti, vy zkontrolujete a uložíte.",
     boardCaption:
       "Nahrajete sken → G-Track rozpozná číslo a datum platnosti → vy zkontrolujete a uložíte",
+    trackerCaption: "Pro vozidla, jejichž tracker je napojený na G-Track",
+    toastNotified: "Řidič upozorněn v Telegramu",
+    colVehicle: "Vozidlo",
   },
 
   /* Полоса под первым экраном (TrustStrip): чипы-ссылки на модули, решение владельца 03.10.

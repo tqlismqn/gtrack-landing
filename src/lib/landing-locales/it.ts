@@ -39,6 +39,12 @@ export const it: LandingDict = {
     kicker: "EU-compliance · pianificazione · flotta e manutenzione",
     h1: "Ogni autista pronto per il viaggio.",
     h1dim: "Sempre.",
+    phA: "Ferie non più a voce —",
+    phAdim: "da Telegram alla lavagna.",
+    phB: "Chi viaggia, chi è fermo —",
+    phBdim: "a colpo d’occhio, accanto al piano.",
+    phC: "Scadenze non più a memoria —",
+    phCdim: "le urgenze le vedi per tempo.",
     sub: " — il sistema di EU-compliance e pianificazione per vettori da 20 veicoli in su. Scadenze di visti, Codice 95 e revisione tecnica, viaggi e ferie, riparazioni e manutenzione — nel browser, senza hardware né consulenti d’implementazione. Il sistema ti mostra da solo cosa va deciso oggi.",
     ctaTrial: "Prova 30 giorni",
     ctaPricing: "Guarda i prezzi",
@@ -46,9 +52,12 @@ export const it: LandingDict = {
     micro2: "Registrazione in 2 minuti",
     micro3: "Dati nell’UE",
     boardAria:
-      "Lavagna di disposizione G-Track: carichi la scansione di un documento, il sistema ne riconosce numero e scadenza, tu controlli e salvi la scheda",
+      "Lavagna G-Track in tre scene. L’autista chiede le ferie su Telegram, il dispatcher le approva sulla lavagna, l’autista riceve la risposta. Telematica · per i mezzi con localizzatore collegato, accanto al piano si vedono velocità, sosta o assenza di dati. Visto in scadenza: carichi la scansione, il sistema ne riconosce numero e scadenza, tu controlli e salvi.",
     boardCaption:
       "Carichi una scansione → G-Track riconosce numero e scadenza → controlli e salvi",
+    trackerCaption: "Per i mezzi il cui localizzatore è collegato a G-Track",
+    toastNotified: "Autista avvisato su Telegram",
+    colVehicle: "Mezzo",
   },
 
   trust: {

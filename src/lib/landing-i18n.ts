@@ -117,6 +117,15 @@ const ru = {
     kicker: "EU-compliance · планирование · парк и сервис",
     h1: "Каждый водитель готов к рейсу.",
     h1dim: "Всегда.",
+    /* H1 страницы — три фразы сцен hero (Г5): ведущая часть кончается тире,
+       приглушённая (.dim) идёт после него. h1/h1dim нужны OG-картинке
+       (og-image.tsx), а странице — только до перевода Hero.tsx на сцены. */
+    phA: "Отпуск не на словах —",
+    phAdim: "из Telegram на доску.",
+    phB: "Кто едет, кто стоит —",
+    phBdim: "видно рядом с планом.",
+    phC: "Сроки не в голове —",
+    phCdim: "что горит, видно заранее.",
     /* hero-sub: «G-Track» рендерится отдельно (бренд), морф убран при порте */
     sub: " — система EU-compliance и планирования для перевозчиков от 20 машин. Сроки виз, кода 95 и техосмотра, рейсы и отпуска, ремонт и ТО — в браузере, без железа и внедренцев. Что требует решения сегодня, система показывает сама.",
     ctaTrial: "Попробовать 30 дней",
@@ -125,9 +134,12 @@ const ru = {
     micro2: "Регистрация за 2 минуты",
     micro3: "Данные в EU",
     boardAria:
-      "Диспетчерская доска G-Track: вы загружаете скан документа, система распознаёт номер и срок, вы сверяете и сохраняете запись",
+      "Доска G-Track в трёх сценах. Водитель подаёт заявку на отпуск в Telegram, диспетчер одобряет её на доске, водитель получает ответ. Телематика · у машин с подключённым трекером рядом с планом видны скорость, стоянка или отсутствие данных. Виза с истекающим сроком: вы загружаете скан, система распознаёт номер и срок, вы сверяете и сохраняете.",
     boardCaption:
       "Загружаете скан → G-Track распознаёт номер и срок → вы сверяете и сохраняете",
+    trackerCaption: "Для машин, чей трекер подключён к G-Track",
+    toastNotified: "Водитель уведомлён в Telegram",
+    colVehicle: "Машина",
   },
 
   /* Полоса под первым экраном (TrustStrip): широта продукта рядом чипов-ссылок,
@@ -543,6 +555,12 @@ const en: LandingDict = {
     kicker: "EU compliance · planning · fleet & service",
     h1: "Every driver ready for the road.",
     h1dim: "Always.",
+    phA: "Leave requests, not hallway talk —",
+    phAdim: "from Telegram to the board.",
+    phB: "Who’s moving, who’s parked —",
+    phBdim: "right next to the plan.",
+    phC: "Deadlines out of your head —",
+    phCdim: "what’s urgent shows up early.",
     sub: " — an EU-compliance and planning system for carriers running 20 trucks and up. Visa, Code 95 and inspection deadlines, trips and leave, repairs and maintenance — in the browser, no hardware, no implementation consultants. The system itself shows you what needs a decision today.",
     ctaTrial: "Try 30 days",
     ctaPricing: "See pricing",
@@ -550,9 +568,12 @@ const en: LandingDict = {
     micro2: "Sign up in 2 minutes",
     micro3: "Data stored in the EU",
     boardAria:
-      "G-Track dispatch board: you upload a document scan, the system reads the number and expiry date, you check and save the record",
+      "G-Track board in three scenes. A driver requests leave in Telegram, the dispatcher approves it on the board, and the driver gets the answer. Telematics · for trucks with a connected tracker, the board shows speed, parking or missing data next to the plan. A visa about to expire: you upload the scan, the system reads the number and expiry date, you check and save.",
     boardCaption:
       "You upload a scan → G-Track reads the number and expiry date → you check and save",
+    trackerCaption: "For trucks whose tracker is connected to G-Track",
+    toastNotified: "Driver notified in Telegram",
+    colVehicle: "Truck",
   },
 
   trust: {
