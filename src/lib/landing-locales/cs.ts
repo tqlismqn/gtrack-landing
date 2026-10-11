@@ -429,7 +429,7 @@ export const cs: LandingDict = {
     d1: "Po 08", d2: "Út 09", d3: "St 10", d4: "Čt 11", d5: "Pá 12",
     kpiTrip: "Právě na cestě", kpiVac: "Na dovolené", kpiFree: "Volní",
     stActive: "Aktivní", stTrip: "Na cestě", ready: "na cestu",
-    vacUntil: "Dovolená do 15.06", sick: "Nemocenská",
+    sick: "Nemocenská",
     toastWarnT: "Souhrn e-mailem: vízum vyprší 12.07", toastWarnD: "P. Savchenko · zbývá 32 dní",
     mcH: "Vízum · P. Savchenko",
     mc1: "Nahrán nový sken víza",

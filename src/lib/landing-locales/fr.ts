@@ -421,7 +421,7 @@ export const fr: LandingDict = {
     d1: "Lun 08", d2: "Mar 09", d3: "Mer 10", d4: "Jeu 11", d5: "Ven 12",
     kpiTrip: "En tournée aujourd’hui", kpiVac: "En congés", kpiFree: "Libres",
     stActive: "Actif", stTrip: "En tournée", ready: "prêt",
-    vacUntil: "Congés jusqu’au 15.06", sick: "Arrêt maladie",
+    sick: "Arrêt maladie",
     toastWarnT: "Résumé par e-mail : le visa expire le 12.07", toastWarnD: "P. Savchenko · 32 jours restants",
     mcH: "Visa · P. Savchenko",
     mc1: "Nouveau scan du visa téléversé",

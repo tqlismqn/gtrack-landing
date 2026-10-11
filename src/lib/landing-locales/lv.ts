@@ -426,7 +426,7 @@ export const lv: LandingDict = {
     d1: "Pr 08", d2: "Ot 09", d3: "Tr 10", d4: "Ce 11", d5: "Pk 12",
     kpiTrip: "Šobrīd reisā", kpiVac: "Atvaļinājumā", kpiFree: "Brīvi",
     stActive: "Aktīvs", stTrip: "Reisā", ready: "gatavs reisam",
-    vacUntil: "Atvaļinājums līdz 15.06", sick: "Slimības lapa",
+    sick: "Slimības lapa",
     toastWarnT: "Kopsavilkums e-pastā: vīza beidzas 12.07", toastWarnD: "P. Savčenko · atlikušas 32 dienas",
     mcH: "Vīza · P. Savčenko",
     mc1: "Augšupielādēts jauns vīzas skenējums",

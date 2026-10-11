@@ -1,116 +1,166 @@
 "use client";
 
 /* ============================================================================
-   HERO — атмосфера + живой интерфейс G-Track (цикл «истекает → продлена →
-   в рейсе»). Хореография фаз — порт hero-board-половины scrolly.js.
-   ОДНА смысловая правка порта: hero-sub — статичный текст «G-Track — …»
-   без морфящегося .wm (морф остался только в Nav-лого).
+   HERO — атмосфера + три сцены «как говорят в конторе» (ворота 1, задача 6):
+   A — отпуск из Telegram на доску, B — кто едет, кто стоит рядом с планом,
+   C — сроки документов заранее (сцены — HeroScenes.tsx, шаги — hero-data.ts).
+   ОДНА смысловая правка порта прототипа осталась: hero-sub — статичный текст
+   «G-Track — …» без морфящегося .wm (морф остался только в Nav-лого).
+
+   H1 — три фразы в одной ячейке сетки: видна фраза текущей сцены, остальные
+   только прозрачны (opacity: 0) — высота H1 = самой длинной фразе без JS,
+   весь текст доступен поиску и скринридеру; aria-live нет (объявлял бы
+   смену каждые 6–12 с). Доска — три слоя в одной ячейке, подпись — три
+   наложенные строки: смена сцены не двигает страницу.
+
+   Цикл — одна цепочка setTimeout по HERO_STEPS: пишет section.dataset.hs и
+   board.dataset.phase напрямую, без перерисовки React; кадры рисует CSS.
+   SSR, reduced-motion и остановка = HERO_STATIC (a2: заявка пришла и ждёт
+   решения — пунктир, а не «одобрено само»). Первый проход стартует с a2,
+   без скачка от SSR-кадра, следующие — с a0. Вне экрана цикл стоит
+   (useInViewport), режим движения — только motion-ok / gt-motion-applied
+   (MotionRoot); своего matchMedia здесь нет.
    ============================================================================ */
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
+import { useInViewport } from "@/hooks/useInViewport";
+import { HERO_STATIC, HERO_STEPS } from "@/lib/hero-data";
+import { SceneA, SceneB, SceneC } from "./HeroScenes";
 import { useLanding } from "./LandingProvider";
-import { Ring } from "./Ring";
 import { appSignupUrl } from "./urls";
 
-/* Фазы: 0 rest → 1 alert → 2 cursor-in → 3 click → 4 minicard →
-         5 resolve (чип зеленеет) → 6 в рейс (бар+пилюля) → 7 hold
-   Кольцо «к рейсу» живой строки стоит на 100 % всю сцену и не анимируется:
-   в приложении истекающий документ считается годным, готовность падает
-   только у просроченного или отсутствующего (сверено 02.10.2026). Прежний
-   отсчёт 86 → 98 показывал провал, которого продукт не рисует. */
-const PHASES = [
-  { id: 0, dur: 1500 },
-  { id: 1, dur: 2300 },
-  { id: 2, dur: 1400 },
-  { id: 3, dur: 650 },
-  { id: 4, dur: 4100 },
-  { id: 5, dur: 2400 },
-  { id: 6, dur: 3000 },
-  { id: 7, dur: 2400 },
-] as const;
+const STATIC_IDX = HERO_STEPS.indexOf(HERO_STATIC);
+
+/* Режим движения как внешний источник — тот же рецепт, что VideoSection.tsx:
+   владеет им MotionRoot (класс на <html> + событие о смене). */
+const subscribeMotion = (onChange: () => void) => {
+  window.addEventListener("gt-motion-applied", onChange);
+  return () => window.removeEventListener("gt-motion-applied", onChange);
+};
+const readMotionOk = () => document.documentElement.classList.contains("motion-ok");
+const readMotionOkOnServer = () => false;
+
+const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
+
+/** Прямоугольник элемента в координатах слоя. Доска на ≥ l наклонена 3D-трансформом
+    и раздувает getBoundingClientRect на ~1,5 % — делим на масштаб самого слоя
+    (layout-ширина / видимая), чтобы цели курсора не уезжали к правому краю. */
+function boxIn(layer: HTMLElement, el: Element | null) {
+  if (!el) return null;
+  const lr = layer.getBoundingClientRect();
+  const r = el.getBoundingClientRect();
+  if (!lr.width || !lr.height || !r.width) return null;
+  const sx = layer.offsetWidth / lr.width;
+  const sy = layer.offsetHeight / lr.height;
+  return { x: (r.left - lr.left) * sx, y: (r.top - lr.top) * sy, w: r.width * sx, h: r.height * sy };
+}
+
+/** Цели курсора, окно заявки и миникарточка — по реальной раскладке слоя.
+    Скрытый слой (visibility: hidden) раскладку сохраняет, поэтому мерить можно любой. */
+function measureLayer(layer: HTMLElement) {
+  const W = layer.offsetWidth;
+  const H = layer.offsetHeight;
+  if (!W || !H) return;
+  const set = (k: string, v: number) => layer.style.setProperty(k, v.toFixed(1) + "px");
+  /* курсор приходит из правого нижнего угла слоя и не выходит за доску */
+  set("--cx0", W - 40);
+  set("--cy0", H - 30);
+  const scene = layer.dataset.hs;
+  if (scene === "a") {
+    const bar = boxIn(layer, layer.querySelector(".hs-leave .tripbar.req"));
+    if (!bar) return;
+    set("--cx", bar.x + bar.w * 0.45);
+    set("--cy", bar.y + bar.h * 0.7);
+    /* окно заявки — под полосой Новака; кнопку «Одобрить» меряем уже после того,
+       как окно встало на место (чтение прямоугольника пересчитает раскладку) */
+    set("--py", bar.y + bar.h + 6);
+    const ok = boxIn(layer, layer.querySelector(".hs-pop .pbtn.primary"));
+    if (!ok) return;
+    set("--cx2", ok.x + ok.w * 0.55);
+    set("--cy2", ok.y + ok.h * 0.7);
+  } else if (scene === "c") {
+    const chip = boxIn(layer, layer.querySelector(".swap.visa"));
+    if (!chip) return;
+    const cy = chip.y + chip.h * 0.85;
+    set("--cx", chip.x + chip.w * 0.7);
+    set("--cy", cy);
+    /* миникарточка (272 px) — под чипом, не выходя за борт; если до низа доски ей не
+       хватает высоты — над чипом. Замер 11.10: под чипом она выходила за низ доски
+       на 28 px (ru, 1440) … 57 px (de, 320/390) и ложилась на подпись — так было
+       и в прежнем цикле */
+    set("--mx", clamp(chip.x - 20, 10, W - 286));
+    const mh = layer.querySelector<HTMLElement>(".minicard")?.offsetHeight ?? 0;
+    set("--my", cy + 16 + mh <= H - 8 ? cy + 16 : Math.max(8, chip.y - mh - 8));
+  }
+}
+
+function measureAll(board: HTMLElement) {
+  board.querySelectorAll<HTMLElement>(".hs-layer").forEach(measureLayer);
+}
 
 export function Hero() {
   const { d, lang } = useLanding();
+  const heroRef = useRef<HTMLElement>(null);
   const boardRef = useRef<HTMLDivElement>(null);
+  /* индекс текущего шага: переживает паузу вне экрана, сбрасывается на HERO_STATIC при остановке */
+  const stepRef = useRef(STATIC_IDX);
+  const inView = useInViewport(heroRef, { rootMargin: "0px" });
+  const motionOk = useSyncExternalStore(subscribeMotion, readMotionOk, readMotionOkOnServer);
 
+  /* замер целей: сразу, после загрузки шрифтов (ширины имён и чипов) и на resize */
   useEffect(() => {
-    const root = document.documentElement;
     const board = boardRef.current;
     if (!board) return;
-    const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
-
-    /* позиции курсора/миникарточки — по реальному чипу VIS */
-    function measureCursor() {
-      if (!board) return;
-      const chip = board.querySelector(".swap.visa");
-      if (!chip) return;
-      const br = board.getBoundingClientRect();
-      const cr = chip.getBoundingClientRect();
-      if (!br.width || !cr.width) return;
-      const cx = cr.left - br.left + cr.width * 0.7;
-      const cy = cr.top - br.top + cr.height * 0.85;
-      board.style.setProperty("--cx", cx.toFixed(1) + "px");
-      board.style.setProperty("--cy", cy.toFixed(1) + "px");
-      board.style.setProperty("--cx0", (br.width - 70).toFixed(1) + "px");
-      board.style.setProperty("--cy0", (br.height + 24).toFixed(1) + "px");
-      /* миникарточка — под чипом, не выходя за борт */
-      const mx = clamp(cr.left - br.left - 20, 10, br.width - 286);
-      const my = cy + 16;
-      board.style.setProperty("--mx", mx.toFixed(1) + "px");
-      board.style.setProperty("--my", my.toFixed(1) + "px");
-    }
-
-    let phaseIdx = 0;
-    let phaseTimer: number | null = null;
-
-    function applyPhase(idx: number) {
-      phaseIdx = idx;
-      const ph = PHASES[idx].id;
-      board?.setAttribute("data-phase", String(ph));
-      if (ph === 0) measureCursor();
-    }
-    function loop() {
-      if (!board) return;
-      applyPhase(phaseIdx);
-      phaseTimer = window.setTimeout(() => {
-        phaseIdx = (phaseIdx + 1) % PHASES.length;
-        loop();
-      }, PHASES[phaseIdx].dur);
-    }
-    function stopLoop() {
-      if (phaseTimer) {
-        clearTimeout(phaseTimer);
-        phaseTimer = null;
-      }
-      if (board) board.setAttribute("data-phase", "7"); /* resolved end state */
-    }
-    function syncBoard() {
-      if (!board) return;
-      if (root.classList.contains("motion-ok")) {
-        if (!phaseTimer) {
-          phaseIdx = 0;
-          measureCursor();
-          loop();
-        }
-      } else {
-        stopLoop();
-      }
-    }
-
-    const onApplied = () => syncBoard();
-    window.addEventListener("resize", measureCursor);
-    window.addEventListener("gt-motion-applied", onApplied);
-    syncBoard();
-
+    let alive = true;
+    const remeasure = () => {
+      if (alive) measureAll(board);
+    };
+    remeasure();
+    if ("fonts" in document) document.fonts.ready.then(remeasure);
+    window.addEventListener("resize", remeasure);
     return () => {
-      if (phaseTimer) clearTimeout(phaseTimer);
-      window.removeEventListener("resize", measureCursor);
-      window.removeEventListener("gt-motion-applied", onApplied);
+      alive = false;
+      window.removeEventListener("resize", remeasure);
     };
   }, []);
 
+  useEffect(() => {
+    const hero = heroRef.current;
+    const board = boardRef.current;
+    if (!hero || !board) return;
+    const show = (i: number) => {
+      hero.setAttribute("data-hs", HERO_STEPS[i].scene);
+      board.setAttribute("data-phase", HERO_STEPS[i].id);
+    };
+    if (!motionOk) {
+      /* движения нет — статичный кадр a2, следующий старт снова с него */
+      stepRef.current = STATIC_IDX;
+      show(STATIC_IDX);
+      return;
+    }
+    if (!inView) return; /* пауза: кадр остаётся, шаг продолжится с того же места */
+
+    let timer = 0;
+    const run = () => {
+      const i = stepRef.current;
+      const step = HERO_STEPS[i];
+      show(i);
+      /* первый шаг сцены — перемерить её слой: раскладка могла сдвинуться за прошлый проход */
+      if (i === 0 || HERO_STEPS[i - 1].scene !== step.scene) {
+        const layer = board.querySelector<HTMLElement>(`.hs-layer[data-hs="${step.scene}"]`);
+        if (layer) measureLayer(layer);
+      }
+      timer = window.setTimeout(() => {
+        stepRef.current = (i + 1) % HERO_STEPS.length;
+        run();
+      }, step.dur);
+    };
+    run();
+    return () => window.clearTimeout(timer);
+  }, [motionOk, inView]);
+
   return (
-    <section className="hero" data-screen-label="Hero" id="hero">
+    <section className="hero" data-screen-label="Hero" id="hero" data-hs={HERO_STATIC.scene} ref={heroRef}>
       <div className="atmo" aria-hidden="true">
         <div className="blob b1"></div><div className="blob b2"></div><div className="blob b3"></div>
         <div className="grid-layer"></div>
@@ -122,10 +172,13 @@ export function Hero() {
             {/* пробелы ВНУТРИ сегмента склеены неразрывными: и пробел ПЕРЕД «·» тоже — строка рвётся только после «·».
                 Замер 02.10: на 390 последнее слово («сервис», «Wartung») уезжало одно на вторую
                 строку во всех 12 локалях, на 320 es начинал строку с разделителя */}
-            <span className="overline">{d.hero.kicker.split(" · ").map((s) => s.replaceAll(" ", "\u00A0")).join("\u00A0· ")}</span>
+            <span className="overline">{d.hero.kicker.split(" · ").map((s) => s.replaceAll(" ", " ")).join(" · ")}</span>
           </div>
-          <h1 id="hero-h1" className="reveal" data-delay="60">
-            {d.hero.h1} <span className="dim">{d.hero.h1dim}</span>
+          {/* три фразы — одна ячейка сетки (hero-scenes.css); пробелы между ними держат textContent читаемым */}
+          <h1 id="hero-h1" className="reveal hs-h1" data-delay="60">
+            <span className="hs-ph" data-hs="a">{d.hero.phA} <span className="dim">{d.hero.phAdim}</span></span>{" "}
+            <span className="hs-ph" data-hs="b">{d.hero.phB} <span className="dim">{d.hero.phBdim}</span></span>{" "}
+            <span className="hs-ph" data-hs="c">{d.hero.phC} <span className="dim">{d.hero.phCdim}</span></span>
           </h1>
           <p className="hero-sub reveal" data-delay="120">
             G-Track{d.hero.sub}
@@ -142,123 +195,24 @@ export function Hero() {
         </div>
 
         <div className="reveal" data-delay="200">
-          {/* живой интерфейс G-Track: цикл «истекает → продлена → в рейсе» */}
+          {/* сцена: три слоя .pwin в одной ячейке; наклон и позиция держатся на .hero-board (hero.css) */}
           <div
-            className="pwin hero-board"
+            className="hero-board hs-stage"
             ref={boardRef}
-            data-phase="7"
+            data-phase={HERO_STATIC.id}
             role="img"
             aria-label={d.hero.boardAria}
           >
-            <div className="pwin-bar">
-              <span className="pwin-title">
-                <svg className="ic"><use href="#i-board" /></svg>
-                <span>{d.mock.planning}</span>
-              </span>
-              <span className="spacer"></span>
-              <span className="pwin-week">{d.mock.week24}</span>
-            </div>
-            <div className="pwin-kpis">
-              <div className="kpi"><span className="kv blue">14</span><span className="kl">{d.mock.kpiTrip}</span></div>
-              <div className="kpi"><span className="kv amber">3</span><span className="kl">{d.mock.kpiVac}</span></div>
-              <div className="kpi"><span className="kv green">2</span><span className="kl">{d.mock.kpiFree}</span></div>
-            </div>
-            <div className="board">
-              <div className="board-head">
-                <span className="bh">{d.mock.colDriver}</span><span className="bh">{d.mock.d1}</span><span className="bh">{d.mock.d2}</span><span className="bh today">{d.mock.d3}</span><span className="bh">{d.mock.d4}</span><span className="bh">{d.mock.d5}</span>
-              </div>
-              <div className="board-row">
-                <div className="cellbg"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-                <div className="drv">
-                  <span className="avatar">{d.names.kratochvilAv}</span>
-                  <span className="dmeta">
-                    <span className="dname-row"><span className="dname">{d.names.kratochvil}</span><span className="flag cz"></span></span>
-                    <span className="dtags">
-                      <span className="ppill trip"><span className="d"></span><span>{d.mock.stTrip}</span><span className="spz">3SK 7702</span></span>
-                    </span>
-                  </span>
-                  <Ring pct={100} cap={d.mock.ready} />
-                </div>
-                <div className="lane">
-                  <div className="tripbar" style={{ left: "0%", width: "44%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3SK 7702</span></div>
-                  <div className="tripbar" style={{ left: "56%", width: "43%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3SK 7702</span></div>
-                </div>
-              </div>
-              <div className="board-row">
-                <div className="cellbg"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-                <div className="drv">
-                  <span className="avatar">{d.names.savchenkoAv}</span>
-                  <span className="dmeta">
-                    <span className="dname-row"><span className="dname">{d.names.savchenko}</span><span className="flag ua"></span></span>
-                    <span className="dtags">
-                      <span className="swap status">
-                        <span className="base ppill ok"><span className="d"></span><span>{d.mock.stActive}</span></span>
-                        <span className="alt ppill trip"><span className="d"></span><span>{d.mock.stTrip}</span><span className="spz">3QR 6671</span></span>
-                      </span>
-                      <span className="swap visa">
-                        <span className="base dchip warn visa-warn">{d.mock.chipVisaWarn}</span>
-                        <span className="alt dchip ok">{d.mock.chipVisaOk}</span>
-                      </span>
-                    </span>
-                  </span>
-                  <Ring pct={100} cap={d.mock.ready} />
-                </div>
-                <div className="lane">
-                  <div className="tripbar appear" style={{ left: "42%", width: "56%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">3QR 6671</span></div>
-                </div>
-              </div>
-              <div className="board-row">
-                <div className="cellbg"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-                <div className="drv">
-                  <span className="avatar">{d.names.novakAv}</span>
-                  <span className="dmeta">
-                    <span className="dname-row"><span className="dname">{d.names.novak}</span><span className="flag pl"></span></span>
-                    <span className="dtags">
-                      <span className="ppill warn"><span className="d"></span><span>{d.mock.kpiVac}</span></span>
-                    </span>
-                  </span>
-                  <Ring pct={100} cap={d.mock.ready} />
-                </div>
-                <div className="lane">
-                  <div className="tripbar" style={{ left: "0%", width: "28%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">5KL 3311</span></div>
-                  <div className="tripbar vac" style={{ left: "62%", width: "37%" }}><span className="bartext">{d.mock.vacUntil}</span></div>
-                </div>
-              </div>
-              <div className="board-row">
-                <div className="cellbg"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-                <div className="drv">
-                  <span className="avatar">{d.names.berzinsAv}</span>
-                  <span className="dmeta">
-                    <span className="dname-row"><span className="dname">{d.names.berzins}</span><span className="flag lv"></span></span>
-                    <span className="dtags">
-                      <span className="ppill warn"><span className="d"></span><span>{d.mock.sick}</span></span>
-                    </span>
-                  </span>
-                  <Ring pct={67} mid cap={d.mock.ready} />
-                </div>
-                <div className="lane">
-                  <div className="tripbar sick" style={{ left: "0%", width: "30%" }}><span className="bartext">{d.mock.sick}</span></div>
-                  <div className="tripbar" style={{ left: "44%", width: "55%" }}><svg className="tic"><use href="#i-truck" /></svg><span className="bartext">8AL 2104</span></div>
-                </div>
-              </div>
-            </div>
-
-            <div className="btoast warn" aria-hidden="true">
-              <svg className="tic"><use href="#i-alert" /></svg>
-              <div><b>{d.mock.toastWarnT}</b><span>{d.mock.toastWarnD}</span></div>
-            </div>
-            <span className="gcursor" aria-hidden="true">
-              <svg className="ptr" viewBox="0 0 24 24"><use href="#i-cursor" /></svg>
-              <span className="ripple"></span>
-            </span>
-            <div className="minicard" aria-hidden="true">
-              <div className="mc-h"><span>{d.mock.mcH}</span></div>
-              <div className="mc-row"><svg className="tic"><use href="#i-upload" /></svg><div><span>{d.mock.mc1}</span><span className="mono-sub">visa_savchenko_2028.pdf · 10:12</span></div></div>
-              <div className="mc-row rec"><svg className="tic"><use href="#i-zap" /></svg><div><span>{d.mock.mc2}</span><span className="mono-sub">{d.mock.mcSub2}</span></div></div>
-              <div className="mc-row ok"><svg className="tic"><use href="#i-check" /></svg><div><span>{d.mock.mc3}</span></div></div>
-            </div>
+            <SceneA d={d} />
+            <SceneB d={d} />
+            <SceneC d={d} />
           </div>
-          <p className="board-caption">{d.hero.boardCaption}</p>
+          {/* подпись: A — пустая строка (неразрывный пробел держит высоту), B — трекер, C — скан */}
+          <p className="board-caption hs-caps">
+            <span className="hs-cap" data-hs="a">{" "}</span>
+            <span className="hs-cap" data-hs="b">{d.hero.trackerCaption}</span>
+            <span className="hs-cap" data-hs="c">{d.hero.boardCaption}</span>
+          </p>
         </div>
       </div>
     </section>

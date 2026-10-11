@@ -431,7 +431,7 @@ export const lt: LandingDict = {
     d1: "Pr 08", d2: "An 09", d3: "Tr 10", d4: "Kt 11", d5: "Pn 12",
     kpiTrip: "Šiandien reise", kpiVac: "Atostogose", kpiFree: "Laisvi",
     stActive: "Aktyvus", stTrip: "Kelyje", ready: "parengtis",
-    vacUntil: "Atostogos iki 15.06", sick: "Nedarbingumas",
+    sick: "Nedarbingumas",
     toastWarnT: "Suvestinė el. paštu: viza baigia galioti 12.07", toastWarnD: "P. Savchenko · liko 32 dienos",
     mcH: "Viza · P. Savchenko",
     mc1: "Įkeltas naujas vizos skenas",

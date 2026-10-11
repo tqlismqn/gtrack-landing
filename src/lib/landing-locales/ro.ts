@@ -423,7 +423,7 @@ export const ro: LandingDict = {
     d1: "Lun 08", d2: "Mar 09", d3: "Mie 10", d4: "Joi 11", d5: "Vin 12",
     kpiTrip: "În cursă astăzi", kpiVac: "În concediu", kpiFree: "Liberi",
     stActive: "Activ", stTrip: "În cursă", ready: "pregătit",
-    vacUntil: "Concediu până la 15.06", sick: "Concediu medical",
+    sick: "Concediu medical",
     toastWarnT: "Rezumat pe e-mail: viza expiră pe 12.07", toastWarnD: "P. Savchenko · mai sunt 32 de zile",
     mcH: "Viză · P. Savchenko",
     mc1: "S-a încărcat un scan nou al vizei",

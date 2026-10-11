@@ -118,8 +118,8 @@ const ru = {
     h1: "Каждый водитель готов к рейсу.",
     h1dim: "Всегда.",
     /* H1 страницы — три фразы сцен hero (Г5): ведущая часть кончается тире,
-       приглушённая (.dim) идёт после него. h1/h1dim нужны OG-картинке
-       (og-image.tsx), а странице — только до перевода Hero.tsx на сцены. */
+       приглушённая (.dim) идёт после него. h1/h1dim странице больше не нужны —
+       их читает только OG-картинка (og-image.tsx). */
     phA: "Отпуск не на словах —",
     phAdim: "из Telegram на доску.",
     phB: "Кто едет, кто стоит —",
@@ -515,7 +515,7 @@ const ru = {
     d1: "Пн 08", d2: "Вт 09", d3: "Ср 10", d4: "Чт 11", d5: "Пт 12",
     kpiTrip: "В рейсе сегодня", kpiVac: "В отпуске", kpiFree: "Свободны",
     stActive: "Активен", stTrip: "В рейсе", ready: "к рейсу",
-    vacUntil: "Отпуск до 15.06", sick: "Больничный",
+    sick: "Больничный",
     toastWarnT: "Сводка на почте: виза истекает 12.07", toastWarnD: "П. Савченко · осталось 32 дня",
     mcH: "Виза · П. Савченко",
     mc1: "Загружен новый скан визы",
@@ -933,7 +933,7 @@ const en: LandingDict = {
     d1: "Mon 08", d2: "Tue 09", d3: "Wed 10", d4: "Thu 11", d5: "Fri 12",
     kpiTrip: "On trip today", kpiVac: "On vacation", kpiFree: "Free",
     stActive: "Active", stTrip: "On trip", ready: "ready",
-    vacUntil: "Vacation till 15.06", sick: "Sick leave",
+    sick: "Sick leave",
     toastWarnT: "Digest email: visa expires 12.07", toastWarnD: "P. Savchenko · 32 days left",
     mcH: "Visa · P. Savchenko",
     mc1: "New visa scan uploaded",

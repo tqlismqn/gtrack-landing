@@ -16,6 +16,7 @@
 @import "./roadmap.css" layer(gt-landing);
 @import "./scenes.css" layer(gt-landing);
 @import "./showcase.css" layer(gt-landing);
+@import "./hero-scenes.css" layer(gt-landing);
 @import "./faq.css" layer(gt-landing);
 @import "./legal.css" layer(gt-landing);
 @import "./fx.css" layer(gt-landing);

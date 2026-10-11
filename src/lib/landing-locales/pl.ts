@@ -428,7 +428,7 @@ export const pl: LandingDict = {
     d1: "Pon 08", d2: "Wt 09", d3: "Śr 10", d4: "Czw 11", d5: "Pt 12",
     kpiTrip: "Dziś w trasie", kpiVac: "Na urlopie", kpiFree: "Wolni",
     stActive: "Aktywny", stTrip: "W trasie", ready: "do trasy",
-    vacUntil: "Urlop do 15.06", sick: "Zwolnienie",
+    sick: "Zwolnienie",
     toastWarnT: "Podsumowanie e‑mailem: wiza wygasa 12.07", toastWarnD: "P. Savchenko · zostały 32 dni",
     mcH: "Wiza · P. Savchenko",
     mc1: "Przesłano nowy skan wizy",

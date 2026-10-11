@@ -419,7 +419,7 @@ export const it: LandingDict = {
     d1: "Lun 08", d2: "Mar 09", d3: "Mer 10", d4: "Gio 11", d5: "Ven 12",
     kpiTrip: "In viaggio oggi", kpiVac: "In ferie", kpiFree: "Liberi",
     stActive: "Attivo", stTrip: "In viaggio", ready: "pronto",
-    vacUntil: "Ferie fino al 15.06", sick: "Malattia",
+    sick: "Malattia",
     toastWarnT: "Riepilogo via email: il visto scade il 12.07", toastWarnD: "P. Savchenko · mancano 32 giorni",
     mcH: "Visto · P. Savchenko",
     mc1: "Caricata una nuova scansione del visto",
