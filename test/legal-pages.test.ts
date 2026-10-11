@@ -232,6 +232,88 @@ describe("Уведомление о соцсетях", () => {
     expect(ads).not.toMatch(PRIVACY_POLICY_NAME[l]);
   });
 
+  /* Статистика страницы (секция 3): идентифицировать посетителя нельзя ИЗ
+     СТАТИСТИКИ, а не «вообще» — администратор страницы видит по имени
+     подписчиков, лайкнувших и комментаторов, а секция запросов сама говорит,
+     что имя профиля комментатора мы обрабатываем (ревью ветки ворот 1,
+     legal-L2; Page Insights Controller Addendum: статистика агрегирована).
+     Фраза вписана литералом по локали. Оборот «не можем идентифицировать»
+     встречается во всём уведомлении ровно один раз — внутри неё, так что
+     неограниченное утверждение не вернётся ни на старом месте, ни на новом.
+     Регулярка обязана поймать собственную фразу — иначе сторож пустой. */
+  const INSIGHTS = 3;
+  const NO_ID_FROM_STATS: Record<Lang, { sentence: string; claim: RegExp }> = {
+    cs: {
+      sentence: "Ze statistik jednotlivé návštěvníky identifikovat nemůžeme.",
+      claim: /identifikovat nemůžeme|nemůžeme identifikovat/g,
+    },
+    en: {
+      sentence: "From these statistics we cannot identify individual visitors.",
+      claim: /cannot identify/g,
+    },
+    ru: {
+      sentence:
+        "На основании этой статистики мы не можем идентифицировать отдельных посетителей.",
+      claim: /не можем (?:идентифицировать|определить)/g,
+    },
+    de: {
+      sentence:
+        "Anhand dieser Statistiken können wir einzelne Besucher nicht identifizieren.",
+      claim: /nicht identifizieren/g,
+    },
+    fr: {
+      sentence:
+        "À partir de ces statistiques, nous ne pouvons pas identifier les visiteurs individuellement.",
+      claim: /ne pouvons pas identifier/g,
+    },
+    pl: {
+      sentence:
+        "Na podstawie tych statystyk nie możemy zidentyfikować poszczególnych odwiedzających.",
+      claim: /nie możemy zidentyfikować/g,
+    },
+    it: {
+      sentence:
+        "Sulla base di queste statistiche non possiamo identificare i singoli visitatori.",
+      claim: /non possiamo identificare/g,
+    },
+    lv: {
+      sentence:
+        "No šīs statistikas mēs nevaram identificēt atsevišķus apmeklētājus.",
+      claim: /nevaram identificēt/g,
+    },
+    lt: {
+      sentence:
+        "Iš šios statistikos negalime nustatyti atskirų lankytojų tapatybės.",
+      claim: /negalime nustatyti/g,
+    },
+    uk: {
+      sentence:
+        "На підставі цієї статистики ми не можемо ідентифікувати окремих відвідувачів.",
+      claim: /не можемо ідентифікувати/g,
+    },
+    es: {
+      sentence:
+        "A partir de estas estadísticas, no podemos identificar a visitantes concretos.",
+      claim: /no podemos identificar/g,
+    },
+    ro: {
+      sentence:
+        "Pe baza acestor statistici, nu putem identifica vizitatorii individuali.",
+      claim: /nu putem identifica/g,
+    },
+  };
+  it.each(LOCALES)(
+    "%s: «не можем идентифицировать» — только из статистики",
+    (l) => {
+      const { sentence, claim } = NO_ID_FROM_STATS[l];
+      expect(SOCIAL_NOTICE[l].sections[INSIGHTS].h).toContain("Facebook");
+      expect(sentence.match(claim)).toHaveLength(1);
+      expect(sectionText(l, INSIGHTS)).toContain(sentence);
+      const all = SOCIAL_NOTICE[l].sections.flatMap((s) => s.p).join(" ");
+      expect(all.match(claim)).toHaveLength(1);
+    },
+  );
+
   it("noindex, follow", () =>
     expect(socialPrivacyMetadata("cs").robots).toMatchObject({
       index: false,
