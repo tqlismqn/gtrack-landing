@@ -11,7 +11,7 @@ React 19, Tailwind 4, TypeScript strict, Node 22, деплой на Vercel. 12 �
 |---|---|
 | `npm install` | Установить зависимости |
 | `npm run dev` | Дев-сервер на :3000 |
-| `npm test` | vitest, 516 тестов в 10 файлах, ~0,3 с |
+| `npm test` | vitest, 576 тестов в 10 файлах, ~0,3 с |
 | `npx vitest run test/showcase.test.ts` | Один файл тестов |
 | `npx tsc --noEmit` | Проверка типов |
 | `npm run lint` | ESLint (eslint-config-next: core-web-vitals + typescript) |
@@ -86,10 +86,10 @@ CookieScript — публичные идентификаторы и живут �
 
 ## Тесты
 
-vitest без конфига и без глобалов (каждый файл начинается с `import { describe, expect, it } from "vitest"`), окружение node — DOM не нужен. Импорты в модулях, которые тест тянет, — относительные: алиас `@/` vitest не знает (в `import type` можно). Файлы (`npm test`, 516):
+vitest без конфига и без глобалов (каждый файл начинается с `import { describe, expect, it } from "vitest"`), окружение node — DOM не нужен. Импорты в модулях, которые тест тянет, — относительные: алиас `@/` vitest не знает (в `import type` можно). Файлы (`npm test`, 576):
 
 - `showcase.test.ts` (119) — арифметика макетов витрины: суммы плиток, проценты шапки, дни до срока как в приложении, геометрия полос; словари витрины 12 локалей (подстановки, инициалы, запрет «AI»).
-- `legal-pages.test.ts` (110) — Impressum и уведомление о соцсетях (`company.ts` и `legal-pages/`), 12 локалей.
+- `legal-pages.test.ts` (170) — Impressum и уведомление о соцсетях (`company.ts` и `legal-pages/`), 12 локалей.
 - `copy.test.ts` (86) — обещания против продукта в словарях: аудитория «от 20 машин», телематика (Г16), FAQ, ru/en ключей задачи 3 дословно; запрещённые слова (`banned.ts`, семьи основами) — по всем строкам словаря ×12, кроме дословного `showcase`.
 - `cta-variant.test.ts` (59) — `pickCta`, 12 локалей × 3 ступени.
 - `hero-copy.test.ts` (53) — три фразы hero в 12 локалях (в словарях обычный пробел перед тире; склейка — в `lead()`), запреты и их пробы «умеют краснеть», «EU-compliance» на месте (Г18).
