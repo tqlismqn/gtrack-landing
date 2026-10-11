@@ -33,6 +33,16 @@ function expectedExtraLines(src: string): string[] {
   ];
 }
 
+describe("JSON-LD", () => {
+  it("PLAN_OFFERS в JsonLd.tsx совпадает с PRICING.mo в Pricing.tsx", () => {
+    const jsonLdSrc = readFileSync(new URL("../src/components/landing/JsonLd.tsx", import.meta.url), "utf8");
+    const offers = [...jsonLdSrc.matchAll(/\{ name: "(Starter|Fleet|Business)", price: (\d+) \}/g)].map((m) => [m[1], m[2]]);
+    const mo = pricingSrc.match(/\bmo: \{ starter: (\d+), fleet: (\d+), business: (\d+) \}/);
+    if (offers.length !== 3 || !mo) throw new Error("форма PLAN_OFFERS/PRICING изменилась — поправить разбор в llms.test.ts");
+    expect(offers).toEqual([["Starter", mo[1]], ["Fleet", mo[2]], ["Business", mo[3]]]);
+  });
+});
+
 describe("llms.txt", () => {
   it("начинается с H1 «G-Track»", () => {
     expect(txt.startsWith("# G-Track\n")).toBe(true);
