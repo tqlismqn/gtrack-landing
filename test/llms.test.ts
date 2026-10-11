@@ -86,8 +86,12 @@ describe("llms.txt", () => {
 
   it("оговорка о фиксации цены привязана к официальному запуску, как на сайте", () => {
     expect(LANDING_DICT.en.pricing.foundingB).toContain("after the official launch");
-    expect(txt).toMatch(/12 months on Starter and 24 months on Fleet and Business after the official launch/);
-    expect(txt).toMatch(/new customers will pay more after launch/);
+    expect(txt).toMatch(/before the official launch/);
+    expect(txt).toMatch(/new customers pay more after the launch/);
+  });
+
+  it("не называет сроки фиксации цены (12/24 месяца) — до юр-батча по §5.5 Условий", () => {
+    expect(txt).not.toMatch(/\b(12|24) months\b/);
   });
 
   it("формат llmstxt.org: после первого H2 только пункты-ссылки https, до него нет заголовков", () => {
