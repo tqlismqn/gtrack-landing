@@ -1,0 +1,39 @@
+# G-Track
+
+> Fleet compliance software for EU road carriers from 20 trucks: deadlines of driver and vehicle documents, trip and leave planning, repairs and maintenance. Operated by G-Track Software s.r.o., Prague, Czech Republic.
+
+## Facts
+
+- Who it is for: carriers running 20 trucks and up, with drivers from the EU and from third countries.
+- Documents tracked: driver documents (passport, driving licence, tachograph card, visa, Code 95) and vehicle documents (technical inspection, tachograph calibration and download).
+- Telematics is optional: documents, the planning board, rotation, repairs and maintenance work without it. We connect your tracker if it is supported.
+- Interface languages (12): en, ru, de, fr, cs, pl, it, lv, lt, uk, es, ro.
+- Drivers: a Telegram bot where a driver requests leave or sick leave, sees today's truck and gets reminders about document expiry dates. Reminders reach drivers who have connected the bot.
+- Data and files are stored in the European Union, in a data centre in Ireland. A data processing agreement (DPA) is published (link in the site footer) and we sign it.
+- Trial: 30 days of demo, no card and no sales call. Prices are published on the site.
+- Prices per month: Starter €150 monthly, €140 billed quarterly, €125 billed yearly, up to 50 trucks. Fleet €450 monthly, €420 quarterly, €375 yearly, up to 200 trucks. Business €900 monthly, €840 quarterly, €750 yearly, up to 500 trucks. Larger fleets: custom contract.
+- What it does not do: it does not analyse tachographs (no DDD files, no driving and rest time calculation); it has no map and no routing; it does not run orders and freight; it does not run payroll or replace an accountant.
+
+## Pages
+
+- [English (en)](https://www.g-track.eu/): home page
+- [Russian (ru)](https://www.g-track.eu/ru): home page
+- [German (de)](https://www.g-track.eu/de): home page
+- [French (fr)](https://www.g-track.eu/fr): home page
+- [Czech (cs)](https://www.g-track.eu/cs): home page
+- [Polish (pl)](https://www.g-track.eu/pl): home page
+- [Italian (it)](https://www.g-track.eu/it): home page
+- [Latvian (lv)](https://www.g-track.eu/lv): home page
+- [Lithuanian (lt)](https://www.g-track.eu/lt): home page
+- [Ukrainian (uk)](https://www.g-track.eu/uk): home page
+- [Spanish (es)](https://www.g-track.eu/es): home page
+- [Romanian (ro)](https://www.g-track.eu/ro): home page
+- [Roadmap](https://www.g-track.eu/roadmap): what is shipped and what is planned
+- [Impressum](https://www.g-track.eu/impressum): operator details
+- [Privacy policy](https://app.g-track.eu/legal?tab=privacy&lng=en)
+- [Terms of service](https://app.g-track.eu/legal?tab=terms&lng=en)
+- [Data processing agreement](https://app.g-track.eu/legal?tab=dpa&lng=en)
+
+## Contact
+
+- Sales: sales@g-track.eu
