@@ -6,6 +6,7 @@ import {
   HERO_STEPS,
   HERO_TODAY,
   HERO_TRUCKS,
+  NOVAK_LEAVE,
   VISA_EXPIRY,
   factText,
   factWhen,
@@ -92,6 +93,22 @@ describe("hero-data: телематика", () => {
     expect(berzins.bars.length).toBeGreaterThan(0);
     expect(berzins.bars.some((b) => inBar(b, 52.56))).toBe(false);
     for (const b of berzins.bars) expect(b.left).toBeGreaterThanOrEqual(BERZINS_SICK.left + BERZINS_SICK.width);
+  });
+
+  /* Пилюля «Активен» у Новака и Савченко (сцены A и C) говорит о сегодня: «сейчас» (ср 15:04 = 52,56 %,
+     разбор выше) вне их рейсов и вне отпуска. Савченко: единственная полоса {56,43} — со ср 19:12,
+     56 > 52,56, «сейчас» до неё. Новак: рейс {0,28} кончается во вт 07:12 (28 %), отпуск {62,37} —
+     с чт 10:48 (62 %), оба не содержат 52,56. Прежняя appear-полоса Савченко {42,56} (42…98) его
+     содержала — «Активен» спорил бы с рейсом. */
+  it("«Активен» — сейчас (52,56 %) вне рейсов и отпуска", () => {
+    const inBar = (b: { left: number; width: number }, pct: number) => b.left <= pct && pct <= b.left + b.width;
+    for (const driver of ["novak", "savchenko"] as const) {
+      const truck = HERO_TRUCKS.find((t) => t.driver === driver)!;
+      expect(truck.bars.length, driver).toBeGreaterThan(0);
+      expect(truck.bars.some((b) => inBar(b, 52.56)), driver).toBe(false);
+    }
+    expect(inBar(NOVAK_LEAVE, 52.56)).toBe(false);
+    expect(NOVAK_LEAVE.left).toBeGreaterThan(52.56);
   });
 
   it("тексты фактов ru/uk/en/pl — литералы", () => {
