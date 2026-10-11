@@ -33,6 +33,8 @@ const NEED: Record<string, string[]> = {
     "https://qawvvbjmfimpyilaqsrj.supabase.co",
   ],
   "frame-src": ["https://www.googletagmanager.com", "https://td.doubleclick.net", "https://www.facebook.com"],
+  /* длинное событие пикселя fbevents.js шлёт POST-формой на www.facebook.com/tr/ (next.config.ts) */
+  "form-action": ["https://www.facebook.com"],
 };
 
 describe("CSP Report-Only", () => {
@@ -51,9 +53,13 @@ describe("CSP Report-Only", () => {
         /* источник из одной схемы («https:») пускает любой хост этой схемы */
         if (src !== "data:") expect(src, `${dir}: только схема`).not.toMatch(/^[a-z][a-z0-9+.-]*:$/);
         expect(src, `${dir}: *.supabase.co`).not.toMatch(/\*\.supabase\.co$/);
+        /* «gtm.js просит 'unsafe-eval' — осознанно не даём» (next.config.ts); в цикле — чтобы
+           не прошло и через default-src / script-src-elem */
+        expect(src, `${dir}: 'unsafe-eval'`).not.toBe("'unsafe-eval'");
       }
     }
-    expect([...csp.get("form-action")!]).toEqual(["'self'"]);
+    /* только свой хост и точный адрес формы пикселя, без *.facebook.com */
+    expect([...csp.get("form-action")!]).toEqual(["'self'", "https://www.facebook.com"]);
   });
 
   it("заголовок остаётся Report-Only", async () => {

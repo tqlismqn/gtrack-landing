@@ -4,13 +4,27 @@
    поэтому ни «реального времени», ни «онлайн», ни «сразу» (и их аналогов);
    поставщик телематики не называется (решение 25.09), «GPS» — тоже, это
    и есть намёк на поставщика и на карту, которой в продукте нет.
-   Первая половина — словарь задачи 3 (`copy.test.ts`), вторая — семейство
-   «сразу / instantly» из задачи 6 (фразы hero: «видно» переводится как
-   «на виду / auf einen Blick», никогда «sofort»).
+   Семьи — основами, а не фразами: «в режиме реального времени», «Echtzeitdaten»,
+   «realtime», «immédiat» фраза задачи 3 пропускала (ревью ветки ворот 1, 11.10).
+   Краснеть умеют — `hero-copy.test.ts`, «сторожа запретов умеют краснеть»;
+   там же отрицательные пробы законного: «rechtzeitig», «pour l’instant»,
+   «en direction», «Začněte hned teď» (cs final.h2 — призыв «начните сейчас»,
+   а не обещание о данных).
    ============================================================================ */
 
-export const BANNED =
-  /в реальном времени|онлайн|real[- ]time|\bonline\b|in Echtzeit|en temps réel|w czasie rzeczywistym|v reálném čase|in tempo reale|reāllaikā|realiuoju laiku|в реальному часі|en tiempo real|în timp real|LocTracker|сразу|мгновенно|одразу|відразу|негайно|instantly|immediately|sofort|immédiatement|en ligne|okamžitě|ihned|natychmiast|od razu|subito|immediatamente|al instante|uzreiz|iš karto|inmediatamente|imediat|GPS/i;
+const FAMILIES: RegExp[] = [
+  /* «в реальном времени» без предлога и в составе слова; `\bEchtzeit` — с границей, иначе «rechtzeitig» */
+  /реальн\S* (?:времен|время|час[іуа]?(?![а-яёіїєґ]))|real[- ]?time|\bEchtzeit|temps réel|czas\S* rzeczywist|reáln\S* čas|tempo reale|reāllaik|re[aā]l\S* laik|tiempo real\b|timp(?:ul)? real\b/,
+  /* «онлайн / вживую»; «en direct\b» — не «en direction» */
+  /онлайн|\bonline\b|\bon-line\b|en ligne|en línea|tiešsaist|\blive\b|na żywo|en direct\b|en directo\b|en vivo|in diretta|în direct\b/,
+  /* «сразу / мгновенно» (фразы hero: «видно» — «на виду / auf einen Blick», никогда «sofort»);
+     `instant` — не после «l’» (fr «pour l’instant» = «пока») */
+  /сразу|мгновенн|моментальн|немедленн|одразу|відразу|негайн|миттєв|instantly|(?<![lL]['’])\binstant\b|instant[aá]n|istantane|right away|immediat|imediat|inmediat|immédiat|sofort|umgehend|tout de suite|aussitôt|sur-le-champ|okamžit|ihned|\bhned\b(?!\s+teď)|natychmiast|od razu|subito|al instante|enseguida|uzreiz|iš karto|iškart/,
+  /* поставщик телематики и намёк на карту */
+  /LocTracker|GPS/,
+];
+
+export const BANNED = new RegExp(FAMILIES.map((r) => r.source).join("|"), "i");
 
 /* «Искусственный интеллект» сокращением каждого языка — та же формула, что
    в `showcase.test.ts` (там она живёт локально внутри describe). Границы слова —

@@ -21,9 +21,13 @@ import type { NextConfig } from "next";
    *.supabase.co. Всё остальное внешнее ниже — по-прежнему аналитика и согласие.
    Список взят из контейнера, снимка gtag и таблицы Google «CSP для тегов»
    (Google Ads ставит пиксели на www.google.<домен страны> — перечислены страны
-   рекламы: cz sk pl lt lv de it fr). frame-src www.facebook.com — запасной путь
-   fbevents.js (POST формы в скрытый iframe). gtm.js просит 'unsafe-eval' —
-   осознанно не даём. Report-Only пишет нарушения только в консоль посетителя,
+   рекламы: cz sk pl lt lv de it fr). www.facebook.com нужен и в frame-src, и в
+   form-action: когда GET-адрес события длиннее 2048 символов, fbevents.js шлёт его
+   POST-формой на https://www.facebook.com/tr/ в скрытый iframe (модуль
+   signalsFBEventsSendFormPOST; в Chrome beacon на этом пути не пробуется). Без
+   form-action в enforcing такие события молча пропадут (ревью ветки ворот 1, 11.10).
+   gtm.js просит 'unsafe-eval' — осознанно не даём (сторож — csp.test.ts).
+   Report-Only пишет нарушения только в консоль посетителя,
    отчётов на сервер нет: недостающее покажет прогон Playwright / Tag Assistant.
 
    ⚠️ Домены CookieScript кроме cdn.* помечены как ПРЕДПОЛОЖЕНИЕ: у вендора есть
@@ -41,7 +45,7 @@ export const CSP_REPORT_ONLY = [
   "frame-src https://www.googletagmanager.com https://td.doubleclick.net https://www.googleadservices.com https://www.facebook.com",
   "object-src 'none'",
   "base-uri 'self'",
-  "form-action 'self'",
+  "form-action 'self' https://www.facebook.com",
   "frame-ancestors 'none'",
   /* upgrade-insecure-requests сюда НЕ добавлять: в report-only политике браузер
      её игнорирует и пишет ошибку в консоль каждому посетителю (проверено

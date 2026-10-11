@@ -43,7 +43,7 @@ export const socialNotice: SocialNoticeDict = {
       h: "Cine răspunde de prelucrare",
       p: [
         `Operatorul este ${COMPANY.name}, ${seatOf(COMPANY)}, Republica Cehă, număr de identificare (IČO) ${COMPANY.ico} („noi”). Pagina de Facebook și profilul de Instagram le administrăm noi înșine, din propriul portofoliu business Meta. Contact pentru aspecte privind protecția datelor: [${COMPANY.privacyEmail}](privacyEmail). Nu am desemnat un responsabil cu protecția datelor.`,
-        `${MESARTIM.name}, IČO ${MESARTIM.ico}, ${seatOf(MESARTIM)}, Republica Cehă, plătește în numele nostru publicitatea noastră pe Meta și furnizează pixelul Meta (un set de date pentru măsurare) folosit de site-ul nostru.`,
+        `${MESARTIM.name}, IČO ${MESARTIM.ico}, ${seatOf(MESARTIM)}, Republica Cehă, plătește din însărcinarea noastră publicitatea noastră pe Meta și furnizează pixelul Meta (un set de date pentru măsurare) folosit de site-ul nostru.`,
       ],
     },
     {
@@ -78,7 +78,7 @@ export const socialNotice: SocialNoticeDict = {
       h: "Publicitate",
       p: [
         "Facem publicitate pe Facebook și Instagram. Meta decide cui îi sunt afișate reclamele noastre pe baza criteriilor pe care le alegem, precum țara, limba și interesele. Nu încărcăm niciodată în Meta date despre clienții noștri sau despre șoferii acestora și nu le folosim pentru direcționarea reclamelor.",
-        `Publicitatea noastră este plătită în numele nostru de ${MESARTIM.name} Site-ul nostru încarcă pixelul Meta furnizat de această societate numai după ce vă exprimați consimțământul în bannerul de cookie-uri.`,
+        `Publicitatea noastră este plătită din însărcinarea noastră de ${MESARTIM.name} Site-ul nostru încarcă pixelul Meta furnizat de această societate numai după ce vă exprimați consimțământul în bannerul de cookie-uri.`,
       ],
     },
     {

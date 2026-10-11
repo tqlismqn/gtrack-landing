@@ -27,6 +27,22 @@ describe("сторожа запретов умеют краснеть", () => {
     expect("na první pohled vedle plánu").not.toMatch(BANNED);
   });
 
+  /* Формы, которые фразовый список до ревью ветки ворот 1 (11.10) пропускал. */
+  it("BANNED ловит основы и синонимы, а законное — нет", () => {
+    for (const s of [
+      "позиции в режиме реального времени", "дані в режимі реального часу", "реальний час", "моментальные уведомления", "миттєві сповіщення",
+      "Echtzeitdaten", "Echtzeit-Ortung", "Live-Ortung", "realtime tracking", "live tracking", "right away", "immediate alerts", "instant alerts",
+      "suivi immédiat", "suivi temps réel", "tout de suite", "en direct", "na żywo", "czasu rzeczywistego", "vidíte hned", "reálného času",
+      "accesso immediato", "in diretta", "acceso inmediato", "de inmediato", "enseguida", "en vivo", "en línea", "în direct", "timpul real",
+      "reālajā laikā", "reāllaika dati", "tiešsaistē", "realiu laiku", "matote iškart",
+    ]) {
+      expect(s, s).toMatch(BANNED);
+    }
+    for (const s of ["was brennt, sehen Sie rechtzeitig.", "pour l’instant", "en direction de Prague", "Začněte hned teď", "реальные часы работы водителя", "реальна частка"]) {
+      expect(s, s).not.toMatch(BANNED);
+    }
+  });
+
   it("слово «AI» ловится по-своему в каждой локали", () => {
     expect("plán od UI").toMatch(aiPattern("cs"));
     expect("planowanie SI").toMatch(aiPattern("pl"));

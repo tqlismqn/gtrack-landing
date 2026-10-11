@@ -8,10 +8,14 @@ import { BANNED } from "./banned";
    Копирайт ×12 под рекламу (ворота 1, задача 3): «от 20 машин», названные
    документы в подзаголовке hero, телематика «ваш трекер, если он
    поддерживается» (Г16), вопрос «для кого и на каких языках» (q13).
-   Тексты ru и en сверяются с планом дословно; остальные десять локалей —
-   по свойствам, которые обязан сохранить любой перевод: число 20 вместо 50,
-   EU-compliance в строке под H1 (Г18), ни поставщика телематики, ни
-   «реального времени», разделитель « · » в чипе доверия.
+   ru и en сверяются с планом дословно по ключам задачи 3, кроме a12 и
+   meta.description: там план меняет фрагмент — проверяется фрагмент и правило
+   «20, не 50». Остальные десять локалей — по свойствам, которые обязан
+   сохранить любой перевод: число 20 вместо 50, «95» в hero.sub и a13 (код 95 —
+   единственное название документа, общее для всех языков), EU-compliance
+   в строке под H1 (Г18), ни поставщика телематики, ни «реального времени»,
+   разделитель « · » в чипе доверия. BANNED — по всем строкам словаря,
+   кроме дословного блока showcase.
    ============================================================================ */
 
 /* Значения trust.c7, roadmap.tracks.telematics.d и faq.a12 на origin/main до
@@ -74,16 +78,37 @@ describe("аудитория: от 20 машин", () => {
   it.each(LOCALES)("%s: EU-compliance в новой строке под H1 (Г18)", (l) => {
     expect(LANDING_DICT[l].hero.sub).toMatch(/EU|UE|ES/);
   });
+
+  it.each(LOCALES)("%s: код 95 назван в hero.sub и a13", (l) => {
+    const d = LANDING_DICT[l];
+    expect(d.hero.sub).toMatch(/\b95\b/);
+    expect(d.faq.a13).toMatch(/\b95\b/);
+  });
   // meta.title, hero.kicker, footer.tagline не трогаем: в шаге 6 `git diff` по этим ключам обязан быть пуст.
 });
 
 describe("телематика (Г16)", () => {
   it.each(LOCALES)("%s: телематика без поставщика и «реального времени»", (l) => {
     const d = LANDING_DICT[l];
-    for (const s of [d.trust.c7, d.roadmap.tracks.telematics.d, d.faq.a12, d.faq.a13, d.hero.sub]) {
+    for (const s of [d.trust.c7, d.roadmap.tracks.telematics.d, d.faq.a12, d.faq.q13, d.faq.a13, d.hero.sub, d.meta.description]) {
       expect(s).not.toMatch(BANNED);
     }
     expect(d.trust.c7).toContain(" · ");
+  });
+
+  /* Откат копирайта ловится в любом ключе, а не только в ключах задачи 3. Блок showcase —
+     дословные строки приложения (его tel* сторожит hero-copy.test.ts). На 11.10 — 0 попаданий. */
+  it.each(LOCALES)("%s: ни одна строка словаря (кроме showcase) не попадает в BANNED", (l) => {
+    const hits: string[] = [];
+    const walk = (v: unknown, path: string): void => {
+      if (typeof v === "string") {
+        if (BANNED.test(v)) hits.push(`${path}: ${v}`);
+      } else if (v && typeof v === "object") {
+        for (const [k, x] of Object.entries(v)) if (path || k !== "showcase") walk(x, path ? `${path}.${k}` : k);
+      }
+    };
+    walk(LANDING_DICT[l], "");
+    expect(hits).toEqual([]);
   });
 
   it.each(LOCALES)("%s: Г16 выполнен — прежняя «система мониторинга» заменена", (l) => {
@@ -108,7 +133,13 @@ it("ru и en — точные строки из плана", () => {
   expect(LANDING_DICT.ru.faq.a12).toContain("Подключаем ваш трекер, если он поддерживается, — и пробег");
   expect(LANDING_DICT.ru.trust.c7).toBe("Телематика · ваш трекер, если он поддерживается");
   expect(LANDING_DICT.en.trust.c7).toBe("Telematics · your tracker, if supported");
-  expect(LANDING_DICT.ru.hero.sub).toContain("от 20 машин. Сроки виз, кода 95 и техосмотра");
+  expect(LANDING_DICT.en.faq.a12).toContain("We connect your tracker if it is supported — and mileage");
+  expect(LANDING_DICT.ru.hero.sub).toBe(" — система EU-compliance и планирования для перевозчиков от 20 машин. Сроки виз, кода 95 и техосмотра, рейсы и отпуска, ремонт и ТО — в браузере, без железа и внедренцев. Что требует решения сегодня, система показывает сама.");
+  expect(LANDING_DICT.en.hero.sub).toBe(" — an EU-compliance and planning system for carriers running 20 trucks and up. Visa, Code 95 and inspection deadlines, trips and leave, repairs and maintenance — in the browser, no hardware, no implementation consultants. The system itself shows you what needs a decision today.");
+  expect(LANDING_DICT.ru.faq.q13).toBe("Для каких перевозчиков G-Track и на каких языках?");
+  expect(LANDING_DICT.en.faq.q13).toBe("Which carriers is G-Track for, and in which languages?");
+  expect(LANDING_DICT.ru.faq.a13).toBe("Для перевозчиков от 20 машин с водителями из EU и третьих стран. G-Track следит за сроками документов водителей — паспорт, права, тахокарта, виза, код 95 — и машин: техосмотр, калибровка и выгрузка тахографа. Интерфейс — на 12 языках: английский, русский, немецкий, французский, чешский, польский, итальянский, латышский, литовский, украинский, испанский и румынский.");
+  expect(LANDING_DICT.en.faq.a13).toBe("For carriers running 20 trucks and up, with drivers from the EU and from third countries. G-Track tracks the deadlines of driver documents — passport, driving licence, tachograph card, visa, Code 95 — and of vehicle documents: technical inspection, tachograph calibration and download. The interface comes in 12 languages: English, Russian, German, French, Czech, Polish, Italian, Latvian, Lithuanian, Ukrainian, Spanish and Romanian.");
 });
 
 /* q13 стоит в третьей группе FAQ после q12 и перед q10 — строку в Faq.tsx

@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
 import {
   BERZINS_SICK,
   HERO_NOW,
@@ -15,7 +16,26 @@ import {
   sceneSpans,
   staleDays,
 } from "../src/lib/hero-data";
-import { LANDING_DICT } from "../src/lib/landing-i18n";
+import { LANDING_DICT, LOCALES } from "../src/lib/landing-i18n";
+
+const FX_CSS = readFileSync(new URL("../src/styles/landing/fx.css", import.meta.url), "utf8");
+const SCENES_CSS = readFileSync(new URL("../src/styles/landing/hero-scenes.css", import.meta.url), "utf8");
+
+function cssMinimums(fx: string, scenes: string) {
+  const num = (re: RegExp, src: string, what: string): number => {
+    const hit = src.match(re);
+    if (!hit) throw new Error(`hero.test: не нашёл ${what} в CSS — селектор переименован?`);
+    return Number(hit[1]);
+  };
+  const cursor = num(/\.gcursor \{[^}]*?transition: transform (\d+)ms/, fx, ".gcursor transform");
+  const ripple = num(/\.gcursor \.ripple \{ animation: gc-ripple (\d+)ms/, fx, "gc-ripple");
+  const press = num(/\.gcursor svg\.ptr \{ animation: gc-click (\d+)ms/, fx, "gc-click");
+  const row = num(/\.mc-row \{[^}]*?transition: opacity (\d+)ms/, fx, ".mc-row opacity");
+  const delays = [...fx.matchAll(/\[data-phase="c4"\] \.mc-row:nth-child\(\d\) \{ transition-delay: (\d+)ms/g)].map((h) => Number(h[1]));
+  if (delays.length === 0) throw new Error("hero.test: нет задержек .mc-row на c4 в fx.css");
+  const reveal = num(/\[data-phase="a2"\][^{]*\.hs-leave \.tripbar\.req \{[^}]*?transition: clip-path (\d+)ms/, scenes, "clip-path a2");
+  return { cursor, click: Math.max(ripple, press), minicard: Math.max(...delays) + row, reveal };
+}
 
 describe("hero-data: цикл и сцены", () => {
   it("цикл и порядок сцен", () => {
@@ -29,15 +49,25 @@ describe("hero-data: цикл и сцены", () => {
     expect(HERO_STATIC.id).toBe("a2");
   });
 
+  /* Минимумы читаются из CSS, а не литералами: удлинили анимацию в CSS — шаг цикла, который
+     её обрезает, краснит тест. Регулярки якорятся по селектору; не нашлось — тест падает. */
   it("минимумы из CSS", () => {
     const dur = (id: string) => HERO_STEPS.find((s) => s.id === id)!.dur;
-    for (const id of ["a3", "a5", "c2"]) expect(dur(id)).toBeGreaterThanOrEqual(900);
-    for (const id of ["a4", "a6", "c3"]) expect(dur(id)).toBeGreaterThanOrEqual(550);
-    expect(dur("c4")).toBeGreaterThanOrEqual(2260);
-    expect(dur("a2")).toBeGreaterThanOrEqual(800);
+    const m = cssMinimums(FX_CSS, SCENES_CSS);
+    /* разбор сверен с CSS на 11.10 (fx.css: курсор, рябь, .mc-row; hero-scenes.css: clip-path) —
+       правишь длительность в CSS, правишь и эту строку */
+    expect(m).toEqual({ cursor: 900, click: 550, minicard: 2260, reveal: 800 });
+    for (const id of ["a3", "a5", "c2"]) expect(dur(id), id).toBeGreaterThanOrEqual(m.cursor);
+    for (const id of ["a4", "a6", "c3"]) expect(dur(id), id).toBeGreaterThanOrEqual(m.click);
+    expect(dur("c4")).toBeGreaterThanOrEqual(m.minicard);
+    expect(dur("a2")).toBeGreaterThanOrEqual(m.reveal);
     for (const sc of ["a", "b", "c"] as const) {
       expect(sceneSpans()[sc].end - sceneSpans()[sc].start).toBeGreaterThanOrEqual(6000);
     }
+    /* негативный контроль: курсор 900 → 1200 мс в CSS — шаг a3 (1000) его уже обрезает */
+    const slow = cssMinimums(FX_CSS.replace(/(\.gcursor \{[^}]*?transition: transform )900ms/, (_, p: string) => `${p}1200ms`), SCENES_CSS);
+    expect(slow.cursor).toBe(1200);
+    expect(dur("a3")).toBeLessThan(slow.cursor);
   });
 });
 
@@ -129,5 +159,16 @@ describe("hero-data: сроки", () => {
     expect(heroDaysLeft(VISA_EXPIRY)).toBe(32);
     expect(LANDING_DICT.ru.mock.toastWarnT).toBe("Сводка на почте: виза истекает 12.07");
     expect(LANDING_DICT.ru.mock.chipVisaWarn).toBe("VIS · 32 дн");
+  });
+
+  /* На странице 32 и 12.07 — литералы словарей ×12 (формы числа согласованы с 32, подстановкой их
+     не заменить); VISA_EXPIRY их не подставляет, а сверяет здесь. Сменили срок — краснеют все 12. */
+  it.each(LOCALES)("%s: дни и дата визы в словаре совпадают с VISA_EXPIRY", (l) => {
+    const m = LANDING_DICT[l].mock;
+    const [, mm, dd] = VISA_EXPIRY.split("-");
+    const days = new RegExp(`(?<!\\d)${heroDaysLeft(VISA_EXPIRY)}(?!\\d)`);
+    expect(m.chipVisaWarn).toMatch(days);
+    expect(m.toastWarnD).toMatch(days);
+    expect(m.toastWarnT).toContain(`${dd}.${mm}`);
   });
 });

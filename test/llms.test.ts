@@ -94,6 +94,14 @@ describe("llms.txt", () => {
     expect(txt).not.toMatch(/\b(12|24) months\b/);
   });
 
+  /* Пункта о стартовых ценах в Условиях нет, §5.5 говорит обратное («цены меняем с уведомлением
+     за 30 дней»): строка цен не отсылает к Условиям. Снять, когда юр-батч (ворота 5) впишет пункт. */
+  it("строка цен не отсылает к Условиям — до юр-батча по §5.5", () => {
+    const priceLine = txt.split("\n").find((l) => l.startsWith("- Prices ("));
+    expect(priceLine).toBeDefined();
+    expect(priceLine).not.toMatch(/Terms of service/i);
+  });
+
   it("формат llmstxt.org: после первого H2 только пункты-ссылки https, до него нет заголовков", () => {
     const i = txt.search(/^## /m);
     expect(i).toBeGreaterThan(0);

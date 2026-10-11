@@ -39,10 +39,14 @@
    Смена без провала фона: входящий слой проявляется сразу, уходящий гаснет с задержкой
    450 мс. Слои идут в разметке A → B → C, поэтому при A→B и B→C входящий ложится
    сверху, а при C→A проявляется ПОД ещё непрозрачным C — в обоих случаях полупрозрачных
-   окон друг над другом не бывает. */
+   окон друг над другом не бывает.
+   isolation: isolate — каждый слой всегда свой контекст наложения. Без него слой с
+   opacity 1 и без перехода контекстом не является, и z-index его детей (.drv 1, .hs-phone 3)
+   уходит в контекст доски: на C→A после 450 мс имена и телефон A рисовались ПОВЕРХ ещё
+   непрозрачного C (ревью ветки ворот 1, 11.10; замер g1fix-r1-stack). */
 .hs-stage { display: grid; grid-template-columns: minmax(0, 1fr); }
 .hs-layer {
-  grid-area: 1 / 1; position: relative; min-width: 0;
+  grid-area: 1 / 1; position: relative; min-width: 0; isolation: isolate;
   opacity: 0; visibility: hidden;
   transition: opacity 450ms var(--ease-soft) 450ms, visibility 0s linear 900ms;
 }
