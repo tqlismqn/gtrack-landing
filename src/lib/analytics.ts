@@ -26,21 +26,16 @@ export const COOKIESCRIPT_ID = "937e5d0f1a21b6e59c233c20c3f109ee";
 export const COOKIESCRIPT_SRC = `https://cdn.cookie-script.com/s/${COOKIESCRIPT_ID}.js`;
 
 /* ----------------------------------------------------------------------------
-   Consent Mode v2, режим advanced.
+   Consent Mode v2, режим basic (живой контейнер GTM v6).
 
-   Всё, кроме security_storage, стартует в denied: до явного согласия Google-тег
-   отправляет только cookieless-пинги без идентификаторов. `wait_for_update: 500`
-   даёт CMP полсекунды выставить фактическое состояние, иначе первый page_view
-   уйдёт с дефолтами даже у вернувшегося посетителя, который согласие уже давал.
+   Всё, кроме security_storage, стартует в denied. Теги в GTM ждут своё согласие:
+   GA4 — analytics_storage, Conversion Linker и Meta — ad_storage; срабатывают
+   только по событиям CookieScriptCategory-performance / -targeting. До выбора
+   посетителя Google и Meta не получают ничего, cookieless-пингов нет. Этот
+   скрипт — запрет по умолчанию, под которым работают гейты контейнера.
+   `wait_for_update: 500` и `ads_data_redaction: true` безвредны и оставлены.
 
-   `ads_data_redaction: true` — на время denied вырезает из рекламных запросов
-   идентификаторы клика; снимается автоматически при granted для ad_storage.
-
-   ВНИМАНИЕ: у Google-тега в GTM НЕ ставить «Require additional consent →
-   analytics_storage». Тег читает analytics_storage сам; ручной гейт отключит
-   advanced-режим вместе с cookieless-пингами, и это не будет видно ни в одном
-   отчёте. Additional consent — только для Ads-тегов и сторонних пикселей
-   (Meta не понимает Consent Mode, у неё свой fbq('consent', …)).
+   Источник: docs/compliance/consent-evidence/2026-10-10/README.md в vault.
 ---------------------------------------------------------------------------- */
 export const CONSENT_DEFAULT_SCRIPT = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'denied',personalization_storage:'denied',security_storage:'granted',wait_for_update:500});gtag('set','ads_data_redaction',true);`;
 

@@ -13,23 +13,27 @@ import type { NextConfig } from "next";
    'unsafe-inline' в script-src покрывает инлайны, которые уже на странице:
    bootstrap-чанки Next (их 20+), применение темы, JSON-LD и наш consent default.
 
-   Проверено на проде 30.07: страница не обращается ни к одному внешнему origin,
-   кроме собственных — шрифты self-hosted через next/font. Поэтому всё внешнее
-   ниже — ровно то, что добавляет аналитика.
+   Проверено на проде 30.07: страница не обращалась ни к одному внешнему origin,
+   кроме собственных — шрифты self-hosted через next/font. 11.10 добавлено: Meta
+   Pixel и Google Ads (теги грузит GTM v6/v7: connect.facebook.net, beacon на
+   facebook.com, googleadservices / doubleclick / googlesyndication) и приём заявок
+   формы /demo — fetch на функцию Supabase, ровно один хост проекта, без
+   *.supabase.co. Всё остальное внешнее ниже — по-прежнему аналитика и согласие.
+   Список взят из контейнера и снимка gtag; недостающее покажет Report-Only.
 
    ⚠️ Домены CookieScript кроме cdn.* помечены как ПРЕДПОЛОЖЕНИЕ: у вендора есть
    отдельный хост записи согласий, фактическое имя нужно снять во вкладке Network
    ДО перевода в enforcing, иначе журнал согласий молча перестанет писаться.
    Wildcard *.cookie-script.com на время Report-Only это закрывает.
 ============================================================================ */
-const CSP_REPORT_ONLY = [
+export const CSP_REPORT_ONLY = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.cookie-script.com https://*.cookie-script.com",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://cdn.cookie-script.com https://*.cookie-script.com",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: https://www.googletagmanager.com https://*.googletagmanager.com https://*.google-analytics.com",
+  "img-src 'self' data: https://www.googletagmanager.com https://*.googletagmanager.com https://*.google-analytics.com https://www.facebook.com https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://*.doubleclick.net https://pagead2.googlesyndication.com",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://cdn.cookie-script.com https://*.cookie-script.com",
-  "frame-src https://www.googletagmanager.com",
+  "connect-src 'self' https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://cdn.cookie-script.com https://*.cookie-script.com https://connect.facebook.net https://www.facebook.com https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://*.doubleclick.net https://pagead2.googlesyndication.com https://adservice.google.com https://qawvvbjmfimpyilaqsrj.supabase.co",
+  "frame-src https://www.googletagmanager.com https://td.doubleclick.net https://www.googleadservices.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
