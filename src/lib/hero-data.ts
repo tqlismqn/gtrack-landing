@@ -98,9 +98,15 @@ export const HERO_TRUCKS: readonly HeroTruck[] = [
   { plate: "3SK 7702", driver: "kratochvil", kind: "moving", speedKmh: 82, positionAt: "2026-06-10T14:52", bars: [{ left: 0, width: 54 }, { left: 56, width: 43 }] },
   { plate: "3QR 6671", driver: "savchenko", kind: "stopped", positionAt: "2026-06-10T13:40", bars: [{ left: 56, width: 43 }] },
   { plate: "5KL 3311", driver: "novak", kind: "stale", positionAt: "2026-06-07T09:15", bars: [{ left: 0, width: 28 }] },
-  /* трекер не подключён — строки факта нет */
-  { plate: "8AL 2104", driver: "berzins", kind: "none", positionAt: null, bars: [{ left: 44, width: 55 }] },
+  /* трекер не подключён — строки факта нет. Рейс — чт–пт, после больничного (ниже) */
+  { plate: "8AL 2104", driver: "berzins", kind: "none", positionAt: null, bars: [{ left: 62, width: 37 }] },
 ];
+
+/* Больничный Берзиньша: пн 00:00 – ср 19:12 (56 %). Сегодня у него пилюля «Больничный»,
+   значит «сейчас» (ср 15:04 = 52,6 %) лежит внутри больничного и вне рейса. Прежние
+   {0,30} (до вт 12:00) и рейс {44,55} (со ср 04:48) рисовали больного водителя в рейсе
+   «прямо сейчас» (раунд 2, 11.10); тест держит инвариант. */
+export const BERZINS_SICK = { left: 0, width: 56 } as const;
 
 function parseLocal(s: string): number {
   const m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/.exec(s);

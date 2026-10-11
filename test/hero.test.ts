@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  BERZINS_SICK,
   HERO_NOW,
   HERO_STATIC,
   HERO_STEPS,
@@ -78,6 +79,19 @@ describe("hero-data: телематика", () => {
     expect(HERO_NOW).toBe("2026-06-10T15:04");
     expect(inTrip(52.39)).toBe(true);
     expect(inTrip(52.56)).toBe(true);
+  });
+
+  /* Пилюля «Больничный» у Берзиньша говорит о сегодня: «сейчас» (ср 15:04 = 52,56 %, разбор выше)
+     лежит внутри его больничного и вне его рейса, а рейс начинается не раньше конца больничного —
+     иначе доска сцен A и C рисует больного водителя в рейсе. Прежние {0,30} и {44,55} давали
+     обратное: больничный кончался во вт 12:00 (30 %), рейс шёл со ср 04:48 (44 %). */
+  it("Берзиньш: «сейчас» — внутри больничного и вне рейса", () => {
+    const berzins = HERO_TRUCKS.find((t) => t.driver === "berzins")!;
+    const inBar = (b: { left: number; width: number }, pct: number) => b.left <= pct && pct <= b.left + b.width;
+    expect(inBar(BERZINS_SICK, 52.56)).toBe(true);
+    expect(berzins.bars.length).toBeGreaterThan(0);
+    expect(berzins.bars.some((b) => inBar(b, 52.56))).toBe(false);
+    for (const b of berzins.bars) expect(b.left).toBeGreaterThanOrEqual(BERZINS_SICK.left + BERZINS_SICK.width);
   });
 
   it("тексты фактов ru/uk/en/pl — литералы", () => {

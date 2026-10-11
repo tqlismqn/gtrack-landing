@@ -46,10 +46,15 @@ describe("hero: три фразы", () => {
     expect(h.colVehicle).toBe("Машина");
   });
 
-  /* Апостроф типографский (’), как во всём словаре en; в плане он набран прямым. */
-  it("en — точные строки из плана", () => {
+  /* Апостроф типографский (’), как во всём словаре en; в плане он набран прямым.
+     Фраза A — не из плана: «Leave requests, not hallway talk —» после склейки « —» неразрывным
+     пробелом занимала на 1280/1440 пять строк против четырёх у B и C (H1 +70,7 px, пустая
+     строка под H1 в сценах B и C канонического en). «in writing» — родное «не на словах»,
+     «Leave requests» — слово приложения (раздел заявок бота, en.ts `sectionTitle`); варианты
+     с «Vacation requests» не влезают в четыре строки (замер r2 11.10, r2-en-phA.json). */
+  it("en — точные строки из плана (фраза A — раунд 2)", () => {
     const h = LANDING_DICT.en.hero;
-    expect(`${h.phA} ${h.phAdim}`).toBe("Leave requests, not hallway talk — from Telegram to the board.");
+    expect(`${h.phA} ${h.phAdim}`).toBe("Leave requests in writing — from Telegram to the board.");
     expect(`${h.phB} ${h.phBdim}`).toBe("Who’s moving, who’s parked — right next to the plan.");
     expect(`${h.phC} ${h.phCdim}`).toBe("Deadlines out of your head — what’s urgent shows up early.");
     expect(h.trackerCaption).toBe("For trucks whose tracker is connected to G-Track");

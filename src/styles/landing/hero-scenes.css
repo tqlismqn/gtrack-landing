@@ -171,14 +171,23 @@
 .hs-fact.moving { color: var(--p-ok-tx); }
 .hs-fact.stopped, .hs-fact.stale { color: var(--p-t2); }
 .hs-ric { display: none; width: 11px; height: 11px; margin-right: 4px; vertical-align: -1.5px; }
-.hs-when { display: none; font-family: var(--font-mono); font-size: 10px; color: var(--p-t3); }
-/* Ниже m колонка машины 112 px, и место уступают в каноне полос (hero.css, `.tic`):
-   сначала декор, потом многоточие. Хвост «· 14:52» съел бы сам факт, иконка Radio —
-   15 px: замер 11.10 с иконкой — «нет данных 3 сут» резалась на 4–11 px на 320 и 390
-   в ru, fr, pl, lt, uk; без неё строка цела во всех 12 локалях. */
+/* Время факта видно на ЛЮБОЙ ширине — приложение печатает его всегда (VehicleResourceLabel.tsx
+   «· {factWhen}»), а без него «82 км/ч» читается как живая лента; телефон — главный трафик
+   рекламы. Ниже m колонка машины 112 px, и одной строкой «факт · время» там не влезает:
+   замер r2 11.10 (r2-fact-time.mjs) — «нет данных 3 сут · 07.06 09:15» режется на 320 / 390
+   во всех 12 локалях (до 80 px, fr), «На стоянке · 13:40» — в пяти. Поэтому ниже m время
+   встаёт своей строкой под фактом, без «·» (`.hs-sep`), у всех трёх машин одинаково.
+   Строка машины — 58 px: номер, факт и время занимают 5,6…53,4 px, собственная высота
+   слоя B = слоям A и C во всех 72 клетках (12 локалей × 6 ширин) — страница не сдвигается.
+   Иконка Radio ниже m по-прежнему снята — место уступают в каноне полос (hero.css, `.tic`):
+   замер 11.10 с иконкой — «нет данных 3 сут» резалась на 4–11 px на 320 и 390 в ru, fr, pl,
+   lt, uk. До правки время было скрыто во всех 72 строках фактов на 320 / 390. */
+.hs-when { display: block; font-family: var(--font-mono); font-size: 10px; color: var(--p-t3); }
+.hs-sep { display: none; }
 @media (width >= theme(--breakpoint-m)) {
   .hs-ric { display: inline-block; }
   .hs-when { display: inline; }
+  .hs-sep { display: inline; }
 }
 .hero-board[data-phase="b1"] .hs-vrow[data-r="1"] .hs-fact,
 .hero-board[data-phase="b2"] .hs-vrow[data-r="2"] .hs-fact,

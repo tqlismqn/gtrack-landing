@@ -17,7 +17,7 @@
 
 import type { ReactNode } from "react";
 import type { LandingDict } from "@/lib/landing-i18n";
-import { HERO_TODAY, HERO_TRUCKS, NOVAK_LEAVE, factText, factWhen, type HeroTruck } from "@/lib/hero-data";
+import { BERZINS_SICK, HERO_TODAY, HERO_TRUCKS, NOVAK_LEAVE, factText, factWhen, type HeroTruck } from "@/lib/hero-data";
 import type { Bar } from "@/lib/showcase-data";
 import { Ring } from "./Ring";
 import { BoardBar } from "./ShowcaseScreens";
@@ -33,8 +33,6 @@ const truckOf = (driver: DriverId) => HERO_TRUCKS.find((t) => t.driver === drive
 const tripBar = (label: string): Bar => ({ kind: "trip", from: 0, to: 0, truck: label });
 const REQ: Bar = { kind: "req", from: 0, to: 0 };
 const VAC: Bar = { kind: "vac", from: 0, to: 0 };
-/* больничный Берзиньша пн–вт — как была полоса в прежнем Hero.tsx */
-const BERZINS_SICK: Box = { left: 0, width: 30 };
 
 function Cells() {
   return <div className="cellbg"><i></i><i></i><i></i><i></i><i></i><i></i></div>;
@@ -183,7 +181,10 @@ export function SceneA({ d }: { d: D }) {
 /* ---- B — кто едет, кто стоит: доска «по машинам» -------------------------------- */
 /* Строка факта — как VehicleResourceLabel.tsx приложения: иконка Radio, текст в тоне
    (едет — зелёный, стоит / нет данных — серый) и моно-хвост «· когда». У машины без
-   подключённого трекера строки факта нет. Числа не тикают: это снимок, а не поток. */
+   подключённого трекера строки факта нет. Числа не тикают: это снимок, а не поток.
+   Время видно на любой ширине: без него «82 км/ч» читается как живая лента. Ниже m оно
+   встаёт своей строкой, и разделитель «·» — отдельным пролётом, чтобы его снять
+   (hero-scenes.css). */
 function VehicleRow({ d, t, r }: { d: D; t: HeroTruck; r: number }) {
   const fact = factText(t, d.showcase);
   return (
@@ -197,7 +198,7 @@ function VehicleRow({ d, t, r }: { d: D; t: HeroTruck; r: number }) {
             <span className={`hs-fact ${t.kind}`}>
               <svg className="hs-ric" aria-hidden="true"><use href="#i-radio" /></svg>
               {fact}
-              {t.positionAt !== null && <span className="hs-when"> · {factWhen(t.positionAt, HERO_TODAY)}</span>}
+              {t.positionAt !== null && <span className="hs-when"><span className="hs-sep"> · </span>{factWhen(t.positionAt, HERO_TODAY)}</span>}
             </span>
           )}
         </span>

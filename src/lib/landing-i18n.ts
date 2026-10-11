@@ -555,7 +555,7 @@ const en: LandingDict = {
     kicker: "EU compliance · planning · fleet & service",
     h1: "Every driver ready for the road.",
     h1dim: "Always.",
-    phA: "Leave requests, not hallway talk —",
+    phA: "Leave requests in writing —",
     phAdim: "from Telegram to the board.",
     phB: "Who’s moving, who’s parked —",
     phBdim: "right next to the plan.",

@@ -35,8 +35,11 @@
 @keyframes gc-click { 0%,100% { transform: scale(1); } 40% { transform: scale(0.82); } }
 @keyframes gc-ripple { 0% { opacity: 0.8; transform: scale(0.3); } 100% { opacity: 0; transform: scale(1.6); } }
 
+/* Ширина — не больше слоя без полей по 10 px: на 320 слой 274 px, и карточка 272 px от left 10
+   выходила за правый край на 8 px во всех 12 локалях (замер r2 11.10, шаг c4). Левый край
+   ставит замер (--mx в Hero.tsx) по настоящей ширине карточки. */
 .minicard {
-  position: absolute; z-index: 4; width: 272px;
+  position: absolute; z-index: 4; width: min(272px, calc(100% - 20px));
   left: var(--mx, 40px); top: var(--my, 150px);
   background: var(--p-raised); border: 1px solid var(--p-border); border-radius: 12px;
   padding: 11px 13px; box-shadow: 0 18px 44px -14px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(0 0 0 / 0.04);
