@@ -17,7 +17,7 @@ export const cs: LandingDict = {
   meta: {
     title: "G-Track — správa řidičů a plánování jízd pro dopravce",
     description:
-      "Dokumenty řidičů, jízdy a dovolené, opravy a servis — v jedné aplikaci v prohlížeči pro dopravce od 50 vozidel. 30 dní zdarma, ceny přímo na stránce.",
+      "Dokumenty řidičů, jízdy a dovolené, opravy a servis — v jedné aplikaci v prohlížeči pro dopravce od 20 vozidel. 30 dní zdarma, ceny přímo na stránce.",
   },
 
   nav: {
@@ -40,7 +40,7 @@ export const cs: LandingDict = {
     kicker: "EU compliance · plánování · vozidla a servis",
     h1: "Každý řidič připraven na cestu.",
     h1dim: "Vždy.",
-    sub: " — systém EU compliance a plánování pro dopravce od 50 vozidel. Dokumenty řidičů, jízdy a dovolené, opravy a servis — v prohlížeči, bez hardwaru a bez implementačních konzultantů. Co je dnes potřeba rozhodnout, vám systém ukáže sám.",
+    sub: " — systém EU compliance a plánování pro dopravce od 20 vozidel. Platnost víz, Kódu 95 a technické kontroly, jízdy a dovolené, opravy a servis — v prohlížeči, bez hardwaru a bez implementačních konzultantů. Co je dnes potřeba rozhodnout, vám systém ukáže sám.",
     ctaTrial: "Vyzkoušet na 30 dní",
     ctaPricing: "Zobrazit ceník",
     micro1: "Bez platební karty",
@@ -64,7 +64,7 @@ export const cs: LandingDict = {
     c4: "Rotace · na 3 měsíce dopředu",
     c5: "Vozidla · tahače a návěsy",
     c6: "Opravy a servis",
-    c7: "Telematika · váš systém sledování vozidel",
+    c7: "Telematika · váš tracker, pokud je podporovaný",
     c8: "Řidič v Telegramu · žádosti a připomínky",
     c9: "12 jazyků rozhraní",
   },
@@ -254,7 +254,7 @@ export const cs: LandingDict = {
       drivers: { t: "Řidiči a dokumenty", d: "Profily, 16 typů dokumentů, pravidla 8 zemí" },
       planning: { t: "Plánování a autopilot", d: "Tabule, Centrum rozhodnutí, rotace, autopilot podle tacho karty" },
       fleet: { t: "Vozidla a servis", d: "Vozový park, opravy a servis, palubní data" },
-      telematics: { t: "Integrace s telematikou", d: "Napojíme váš systém sledování vozidel — data o vozidlech přicházejí sama, pro plánování i hlídání servisních intervalů. Jde to i ručně." },
+      telematics: { t: "Integrace s telematikou", d: "Napojíme váš tracker, pokud je podporovaný — data o vozidlech přicházejí sama, pro plánování i hlídání servisních intervalů. Jde to i ručně." },
       telegram: { t: "Řidič v Telegramu", d: "Žádosti o dovolenou a nemocenskou, dnešní směna, upozornění na končící dokumenty" },
       reports: { t: "Reporty a oznámení", d: "Týdenní report, centrum oznámení, lhůty pro tacho soubory" },
       companies: { t: "Propojené firmy", d: "Více firem jednoho majitele: každá má vlastní předplatné a vozidla i řidiče ostatních vidí jen pro čtení" },
@@ -363,7 +363,10 @@ export const cs: LandingDict = {
     a9: "Pro občany mimo EU je povinný seznam delší: kromě pasu, řidičského průkazu a karty tachografu k němu patří i vízum, licence dopravce a Kód 95. Připravenost na cestu se počítá podle tohoto rozšířeného seznamu, ne podle obecné šablony: dokud řidiči chybí jeho dokumenty, jako připravený se neukáže.",
 
     q12: "Telematiku už máme. Potřebuje ji G-Track?",
-    a12: "Není nutná: dokumenty, tabule, rotace, opravy a servis fungují i bez ní a kilometry se zadávají ručně. Napojíme váš systém sledování vozidel — a kilometry přicházejí přímo z vozu, G-Track vidí, čí karta je v tachografu, a všimne si vozu, který jede bez plánu.",
+    a12: "Není nutná: dokumenty, tabule, rotace, opravy a servis fungují i bez ní a kilometry se zadávají ručně. Napojíme váš tracker, pokud je podporovaný — a kilometry přicházejí přímo z vozu, G-Track vidí, čí karta je v tachografu, a všimne si vozu, který jede bez plánu.",
+
+    q13: "Pro jaké dopravce je G-Track a v jakých jazycích?",
+    a13: "Pro dopravce od 20 vozidel s řidiči z EU i ze třetích zemí. G-Track hlídá platnost dokumentů řidičů — pas, řidičský průkaz, karta tachografu, vízum, Kód 95 — i vozidel: technická kontrola, kalibrace tachografu a stažení dat z něj. Rozhraní je ve 12 jazycích: angličtina, ruština, němčina, francouzština, čeština, polština, italština, lotyština, litevština, ukrajinština, španělština a rumunština.",
 
     q10: "Kolik to stojí pro 40 vozidel a 45 návěsů? Platí se za každého uživatele?",
     a10: "Tarif Starter — 150 € měsíčně, při roční platbě 125 €. Zahrnuje 50 vozidel, 100 řidičů a 75 návěsů, takže váš vozový park se vejde s rezervou. Místa dispečerů a personalistů se nepočítají: účet založte každému, kdo ho potřebuje.",

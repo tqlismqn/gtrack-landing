@@ -17,7 +17,7 @@ export const pl: LandingDict = {
   meta: {
     title: "G-Track — zarządzanie kierowcami i planowanie tras",
     description:
-      "Dokumenty kierowców, przejazdy i urlopy, naprawy i serwis — w jednej aplikacji w przeglądarce dla przewoźników od 50 pojazdów. 30 dni za darmo, ceny na stronie.",
+      "Dokumenty kierowców, przejazdy i urlopy, naprawy i serwis — w jednej aplikacji w przeglądarce dla przewoźników od 20 pojazdów. 30 dni za darmo, ceny na stronie.",
   },
 
   nav: {
@@ -40,7 +40,7 @@ export const pl: LandingDict = {
     kicker: "EU-compliance · planowanie · flota i serwis",
     h1: "Każdy kierowca gotowy do trasy.",
     h1dim: "Zawsze.",
-    sub: " — system EU-compliance i planowania dla przewoźników z flotą od 50 pojazdów. Dokumenty kierowców, przejazdy i urlopy, naprawy i serwis — w przeglądarce, bez sprzętu i bez wdrożeniowców. To, co dziś wymaga decyzji, system pokazuje sam.",
+    sub: " — system EU-compliance i planowania dla przewoźników z flotą od 20 pojazdów. Terminy wiz, Kodu 95 i przeglądów technicznych, przejazdy i urlopy, naprawy i serwis — w przeglądarce, bez sprzętu i bez wdrożeniowców. To, co dziś wymaga decyzji, system pokazuje sam.",
     ctaTrial: "Wypróbuj 30 dni",
     ctaPricing: "Zobacz cennik",
     micro1: "Bez karty",
@@ -64,7 +64,7 @@ export const pl: LandingDict = {
     c4: "Rotacja · na 3 miesiące naprzód",
     c5: "Pojazdy · ciągniki i naczepy",
     c6: "Naprawy i serwis",
-    c7: "Telematyka · twój system monitorowania floty",
+    c7: "Telematyka · twój lokalizator, jeśli jest obsługiwany",
     c8: "Kierowca w Telegramie · wnioski i przypomnienia",
     c9: "12 języków interfejsu",
   },
@@ -254,7 +254,7 @@ export const pl: LandingDict = {
       drivers: { t: "Kierowcy i dokumenty", d: "Profile, 16 typów dokumentów, przepisy 8 krajów" },
       planning: { t: "Planowanie i autopilot", d: "Tablica, Centrum decyzji, rotacja, autopilot z karty tacho" },
       fleet: { t: "Pojazdy i serwis", d: "Flota, naprawy i serwis, dane pokładowe" },
-      telematics: { t: "Integracja z telematyką", d: "Podłączamy twój system monitorowania floty — dane o pojazdach spływają same, do planowania i pilnowania interwałów serwisowych. Można też ręcznie." },
+      telematics: { t: "Integracja z telematyką", d: "Podłączamy twój lokalizator, jeśli jest obsługiwany — dane o pojazdach spływają same, do planowania i pilnowania interwałów serwisowych. Można też ręcznie." },
       telegram: { t: "Kierowca w Telegramie", d: "Wnioski o urlop i zwolnienie lekarskie, dzisiejsza zmiana, przypomnienia o wygasających dokumentach" },
       reports: { t: "Raporty i powiadomienia", d: "Raport tygodniowy, centrum powiadomień, terminy plików tacho" },
       companies: { t: "Powiązane firmy", d: "Kilka firm jednego właściciela: każda z własną subskrypcją, wzajemny dostęp do pojazdów i kierowców tylko do odczytu" },
@@ -363,7 +363,10 @@ export const pl: LandingDict = {
     a9: "Dla osób spoza UE obowiązkowa lista jest dłuższa: do paszportu, prawa jazdy i karty kierowcy dochodzą wiza, licencja transportowa i Kod 95. Gotowość do trasy liczy się według tej rozszerzonej listy, a nie ogólnego szablonu: dopóki kierowcy brakuje jego dokumentów, nie pokaże się jako gotowy.",
 
     q12: "Mamy już telematykę. Czy G-Track jej potrzebuje?",
-    a12: "Nie jest konieczna: dokumenty, tablica, rotacja, naprawy i serwis działają bez niej, a przebieg wpisuje się ręcznie. Podłączamy twój system monitorowania floty — i przebieg przychodzi prosto z pojazdu, G-Track widzi, czyja karta jest w tachografie, i zauważa pojazd, który jedzie bez planu.",
+    a12: "Nie jest konieczna: dokumenty, tablica, rotacja, naprawy i serwis działają bez niej, a przebieg wpisuje się ręcznie. Podłączamy twój lokalizator, jeśli jest obsługiwany — i przebieg przychodzi prosto z pojazdu, G-Track widzi, czyja karta jest w tachografie, i zauważa pojazd, który jedzie bez planu.",
+
+    q13: "Dla jakich przewoźników jest G-Track i w jakich językach działa?",
+    a13: "Dla przewoźników z flotą od 20 pojazdów, z kierowcami z UE i z krajów trzecich. G-Track pilnuje terminów ważności dokumentów kierowców — paszport, prawo jazdy, karta kierowcy, wiza, Kod 95 — i pojazdów: przegląd techniczny, kalibracja tachografu i pobieranie z niego danych. Interfejs jest dostępny w 12 językach: angielskim, rosyjskim, niemieckim, francuskim, czeskim, polskim, włoskim, łotewskim, litewskim, ukraińskim, hiszpańskim i rumuńskim.",
 
     q10: "Ile to kosztuje dla 40 pojazdów i 45 naczep? Płaci się za każdego użytkownika?",
     a10: "Plan Starter — 150 € miesięcznie, przy płatności rocznej 125 €. Obejmuje 50 pojazdów, 100 kierowców i 75 naczep, więc twoja flota mieści się z zapasem. Miejsca dyspozytorów i kadr nie są liczone: zakładaj konta wszystkim, którzy ich potrzebują.",

@@ -13,7 +13,7 @@ export const lv: LandingDict = {
   meta: {
     title: "G-Track — ES atbilstība un reisu plānošana pārvadātājiem",
     description:
-      "Vadītāju dokumenti, reisi un atvaļinājumi, remonts un apkope — vienā pārlūka lietotnē pārvadātājiem ar 50+ mašīnām. 30 dienas bez maksas, cenas — lapā.",
+      "Vadītāju dokumenti, reisi un atvaļinājumi, remonts un apkope — vienā pārlūka lietotnē pārvadātājiem ar 20+ mašīnām. 30 dienas bez maksas, cenas — lapā.",
   },
 
   nav: {
@@ -36,7 +36,7 @@ export const lv: LandingDict = {
     kicker: "ES atbilstība · plānošana · autoparks un apkope",
     h1: "Katrs vadītājs gatavs reisam.",
     h1dim: "Vienmēr.",
-    sub: " — ES atbilstības un plānošanas sistēma pārvadātājiem ar 50 un vairāk mašīnām. Vadītāju dokumenti, reisi un atvaļinājumi, remonts un apkope — pārlūkā, bez aparatūras un ieviešanas konsultantiem. Kas šodien gaida tavu lēmumu, sistēma parāda pati.",
+    sub: " — ES atbilstības un plānošanas sistēma pārvadātājiem ar 20 un vairāk mašīnām. Vīzu, Koda 95 un tehniskās apskates termiņi, reisi un atvaļinājumi, remonts un apkope — pārlūkā, bez aparatūras un ieviešanas konsultantiem. Kas šodien gaida tavu lēmumu, sistēma parāda pati.",
     ctaTrial: "Izmēģināt 30 dienas",
     ctaPricing: "Apskatīt cenas",
     micro1: "Bez kartes",
@@ -62,7 +62,7 @@ export const lv: LandingDict = {
     c4: "Rotācija · 3 mēnešus uz priekšu",
     c5: "Autoparks · vilcēji un piekabes",
     c6: "Remonts un apkope",
-    c7: "Telemātika · tava transporta uzraudzības sistēma",
+    c7: "Telemātika · tavs izsekotājs, ja tas tiek atbalstīts",
     c8: "Telegram vadītājiem · pieteikumi un atgādinājumi",
     c9: "12 saskarnes valodas",
   },
@@ -250,7 +250,7 @@ export const lv: LandingDict = {
       drivers: { t: "Vadītāji un dokumenti", d: "Kartītes, 16 dokumentu tipi, 8 valstu noteikumi" },
       planning: { t: "Plānošana un autopilots", d: "Dēlis, Lēmumu centrs, rotācija, taho kartes autopilots" },
       fleet: { t: "Autoparks un apkope", d: "Transportlīdzekļi, remonts un apkope, borta dati" },
-      telematics: { t: "Telemātikas integrācija", d: "Pieslēdzam tavu transporta uzraudzības sistēmu — dati par mašīnām pienāk paši, plānošanai un apkopes intervālu aprēķinam. Var arī manuāli." },
+      telematics: { t: "Telemātikas integrācija", d: "Ja tavs izsekotājs tiek atbalstīts, pieslēdzam to — dati par mašīnām pienāk paši, plānošanai un apkopes intervālu aprēķinam. Var arī manuāli." },
       telegram: { t: "Telegram vadītājiem", d: "Pieteikumi atvaļinājumam un slimības lapai, šodienas maiņa, atgādinājumi par dokumentu termiņiem" },
       reports: { t: "Atskaites un paziņojumi", d: "Nedēļas atskaite, paziņojumu centrs, taho failu termiņi" },
       companies: { t: "Saistītie uzņēmumi", d: "Vairāki viena īpašnieka uzņēmumi: katram savs abonements, viens otra mašīnas un vadītājus redz tikai lasīšanas režīmā" },
@@ -361,7 +361,10 @@ export const lv: LandingDict = {
     a9: "Vadītājiem bez ES pilsonības obligātais saraksts ir garāks: pasei, vadītāja apliecībai un tahogrāfa kartei pievienojas vīza, transporta licence un Kods 95. Gatavība reisam tiek rēķināta tieši pēc šī paplašinātā saraksta — vadītājs nebūs gatavs, kamēr nav sakārtoti tieši viņa dokumenti, nevis kopēja veidne.",
 
     q12: "Telemātika mums jau ir. Vai G-Track tā ir vajadzīga?",
-    a12: "Nav obligāta: dokumenti, plānošanas dēlis, rotācija, remonts un apkope darbojas arī bez tās, nobraukumu ievada manuāli. Pieslēdzam tavu transporta uzraudzības sistēmu — un nobraukums nāk no borta, G-Track redz, kura vadītāja karte ir tahogrāfā, un pamana mašīnu, kas brauc bez plāna.",
+    a12: "Nav obligāta: dokumenti, plānošanas dēlis, rotācija, remonts un apkope darbojas arī bez tās, nobraukumu ievada manuāli. Ja tavs izsekotājs tiek atbalstīts, pieslēdzam to — un nobraukums nāk no borta, G-Track redz, kura vadītāja karte ir tahogrāfā, un pamana mašīnu, kas brauc bez plāna.",
+
+    q13: "Kādiem pārvadātājiem ir paredzēts G-Track un kādās valodās tas pieejams?",
+    a13: "Pārvadātājiem ar 20 un vairāk mašīnām, kuru vadītāji ir gan no ES, gan no trešajām valstīm. G-Track seko līdzi vadītāju dokumentu termiņiem — pase, vadītāja apliecība, tahogrāfa karte, vīza, Kods 95 — un mašīnu termiņiem: tehniskā apskate, tahogrāfa kalibrēšana un datu lejupielāde. Saskarne ir pieejama 12 valodās: angļu, krievu, vācu, franču, čehu, poļu, itāļu, latviešu, lietuviešu, ukraiņu, spāņu un rumāņu.",
 
     q10: "Cik tas maksā autoparkam ar 40 mašīnām un 45 piekabēm? Vai jāmaksā par katru lietotāju?",
     a10: "Starter plāns — 150 € mēnesī, maksājot par gadu 125 €. Tajā ietilpst 50 mašīnas, 100 vadītāji un 75 piekabes, tāpēc tavs autoparks iekļaujas ar rezervi. Dispečeru un HR vietas netiek skaitītas: ievadi visus, kam vajag.",
