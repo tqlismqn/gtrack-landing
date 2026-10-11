@@ -159,7 +159,9 @@
 .hs-plate { font-family: var(--font-mono); }
 /* Строка факта (VehicleResourceLabel.tsx): Radio + текст в тоне + моно «· когда».
    Блок, а не флекс: многоточие (`text-overflow`) работает только у блочного контейнера
-   со строчным содержимым — длинная локаль на 112 px колонки ниже m режется видимо. */
+   со строчным содержимым — длинная локаль на 112 px колонки ниже m режется видимо.
+   Ниже m текст факта — свой блок `.hs-ftext` (см. ниже), а не анонимный: `text-overflow`
+   не наследуется, и движок по спеке (WebKit / iOS) мог бы резать без «…». */
 .hs-fact {
   display: block; width: fit-content; max-width: 100%;
   margin-left: -4px; padding: 1px 4px; border-radius: 5px;
@@ -184,7 +186,11 @@
    lt, uk. До правки время было скрыто во всех 72 строках фактов на 320 / 390. */
 .hs-when { display: block; font-family: var(--font-mono); font-size: 10px; color: var(--p-t3); }
 .hs-sep { display: none; }
+/* Свой блок для текста факта ниже m: многоточие не зависит от анонимного блока Chromium
+   (white-space: nowrap наследуется от .hs-fact). От m — строчный, раскладка как была. */
+.hs-ftext { display: block; overflow: hidden; text-overflow: ellipsis; }
 @media (width >= theme(--breakpoint-m)) {
+  .hs-ftext { display: inline; }
   .hs-ric { display: inline-block; }
   .hs-when { display: inline; }
   .hs-sep { display: inline; }

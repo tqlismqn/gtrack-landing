@@ -197,7 +197,7 @@ function VehicleRow({ d, t, r }: { d: D; t: HeroTruck; r: number }) {
           {fact !== null && (
             <span className={`hs-fact ${t.kind}`}>
               <svg className="hs-ric" aria-hidden="true"><use href="#i-radio" /></svg>
-              {fact}
+              <span className="hs-ftext">{fact}</span>
               {t.positionAt !== null && <span className="hs-when"><span className="hs-sep"> · </span>{factWhen(t.positionAt, HERO_TODAY)}</span>}
             </span>
           )}
