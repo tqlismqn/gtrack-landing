@@ -71,7 +71,7 @@ export const socialNotice: SocialNoticeDict = {
       h: "Komentarze, wiadomości i zapytania",
       p: [
         "Jeżeli komentujesz nasze posty, wysyłasz nam wiadomość lub przez Facebooka albo Instagram prosisz o prezentację, przetwarzamy nazwę Twojego profilu, treść wiadomości i czas jej wysłania, aby móc Ci odpowiedzieć. Podstawą prawną jest art. 6 ust. 1 lit. b RODO, gdy chodzi o działania podejmowane na Twoje żądanie przed zawarciem umowy, a w pozostałych przypadkach nasz prawnie uzasadniony interes w udzieleniu Ci odpowiedzi (art. 6 ust. 1 lit. f RODO).",
-        "Zapytanie możemy przenieść do naszej służbowej skrzynki e-mail; zapytania przechowujemy nie dłużej niż 24 miesiące od ostatniego kontaktu. Publiczne komentarze pozostają widoczne, dopóki Ty lub my ich nie usuniemy. Bez Twojej zgody nie wysyłamy Ci informacji handlowych przez Facebooka ani Instagram.",
+        `Zapytanie możemy przenieść do naszej służbowej skrzynki e-mail; zapytania przechowujemy nie dłużej niż 24 miesiące od ostatniego kontaktu. Spółka ${MESARTIM.name} udostępnia nam skrzynkę Microsoft 365, w której przechowujemy przeniesione zapytania. Publiczne komentarze pozostają widoczne, dopóki Ty lub my ich nie usuniemy. Bez Twojej zgody nie wysyłamy Ci informacji handlowych przez Facebooka ani Instagram.`,
       ],
     },
     {

@@ -86,7 +86,7 @@ export interface HeroTruck {
   speedKmh?: number;
   /** «YYYY-MM-DDTHH:mm», локальное время макета; null — трекер не подключён. */
   positionAt: string | null;
-  /** Проценты полосы, как в Hero.tsx. */
+  /** Проценты полосы на доске hero; у Савченко — статичная {56,43} вместо нынешней appear {42,56} (план, Задача 6). */
   bars: readonly { left: number; width: number }[];
 }
 
@@ -126,7 +126,11 @@ export function factText(t: HeroTruck, s: LandingDict["showcase"]): string | nul
     case "stopped":
       return s.telStopped;
     case "stale":
-      return fill(s.telStale, { n: staleDays(t.positionAt ?? HERO_NOW, HERO_NOW) });
+      /* «нет данных N сут» считается от последней позиции: без неё stale не
+         бывает (инвариант — в тесте). Подставить «сейчас» значило бы молча
+         показать «1 сут» вместо ошибки в данных. */
+      if (t.positionAt === null) throw new Error(`hero-data: stale без positionAt у ${t.plate}`);
+      return fill(s.telStale, { n: staleDays(t.positionAt, HERO_NOW) });
     default:
       return null;
   }

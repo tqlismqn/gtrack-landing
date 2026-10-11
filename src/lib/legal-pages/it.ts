@@ -71,7 +71,7 @@ export const socialNotice: SocialNoticeDict = {
       h: "Commenti, messaggi e richieste",
       p: [
         "Se commenti i nostri post, ci invii un messaggio o richiedi una demo tramite Facebook o Instagram, trattiamo il nome del tuo profilo, il contenuto del messaggio e l’ora di invio per poterti rispondere. La base giuridica è l’articolo 6, paragrafo 1, lettera b), del GDPR quando si tratta di misure precontrattuali adottate su tua richiesta, altrimenti il nostro legittimo interesse a risponderti (articolo 6, paragrafo 1, lettera f), del GDPR).",
-        "Possiamo trasferire una richiesta nella nostra casella e-mail aziendale; conserviamo le richieste per un massimo di 24 mesi dall’ultimo contatto. I commenti pubblici restano visibili finché tu o noi non li cancelliamo. Non ti inviamo comunicazioni commerciali tramite Facebook o Instagram senza il tuo consenso.",
+        `Possiamo trasferire una richiesta nella nostra casella e-mail aziendale; conserviamo le richieste per un massimo di 24 mesi dall’ultimo contatto. Le richieste trasferite sono conservate in una casella di posta Microsoft 365 che la società ${MESARTIM.name} mette a nostra disposizione. I commenti pubblici restano visibili finché tu o noi non li cancelliamo. Non ti inviamo comunicazioni commerciali tramite Facebook o Instagram senza il tuo consenso.`,
       ],
     },
     {

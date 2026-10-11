@@ -72,7 +72,7 @@ export const socialNotice: SocialNoticeDict = {
       h: "Comments, messages and enquiries",
       p: [
         "If you comment on our posts, send us a message or ask for a demo via Facebook or Instagram, we process your profile name, the content of your message and the time it was sent, so that we can reply. The legal basis is Article 6(1)(b) GDPR where you ask us to take steps before entering into a contract, and otherwise our legitimate interest in answering you (Article 6(1)(f) GDPR).",
-        "We may move an enquiry to our business e-mail; we keep enquiries for up to 24 months from the last contact. Public comments remain visible until you or we delete them. We do not send you marketing messages via Facebook or Instagram without your consent.",
+        `We may move an enquiry to our business e-mail; we keep enquiries for up to 24 months from the last contact. Enquiries we move there are stored in a Microsoft 365 mailbox that ${MESARTIM.name} provides for us. Public comments remain visible until you or we delete them. We do not send you marketing messages via Facebook or Instagram without your consent.`,
       ],
     },
     {

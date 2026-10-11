@@ -71,7 +71,7 @@ export const socialNotice: SocialNoticeDict = {
       h: "Komentāri, ziņas un pieprasījumi",
       p: [
         "Ja komentējat mūsu ierakstus, nosūtāt mums ziņu vai ar Facebook vai Instagram starpniecību pieprasāt demonstrāciju, mēs apstrādājam jūsu profila vārdu, ziņas saturu un tās nosūtīšanas laiku, lai varētu jums atbildēt. Juridiskais pamats ir VDAR 6. panta 1. punkta b) apakšpunkts, ja runa ir par pasākumiem pēc jūsu pieprasījuma pirms līguma noslēgšanas, citos gadījumos — mūsu leģitīmās intereses jums atbildēt (VDAR 6. panta 1. punkta f) apakšpunkts).",
-        "Pieprasījumu mēs varam pārcelt uz savu darba e-pasta kastīti; pieprasījumus glabājam ne ilgāk kā 24 mēnešus no pēdējā kontakta. Publiski komentāri paliek redzami, līdz jūs vai mēs tos izdzēšam. Komerciālus paziņojumus ar Facebook vai Instagram starpniecību bez jūsu piekrišanas mēs nesūtām.",
+        `Pieprasījumu mēs varam pārcelt uz savu darba e-pasta kastīti; pieprasījumus glabājam ne ilgāk kā 24 mēnešus no pēdējā kontakta. Uzņēmums ${MESARTIM.name} mums nodrošina Microsoft 365 e-pasta kastīti, kurā tiek glabāti pārceltie pieprasījumi. Publiski komentāri paliek redzami, līdz jūs vai mēs tos izdzēšam. Komerciālus paziņojumus ar Facebook vai Instagram starpniecību bez jūsu piekrišanas mēs nesūtām.`,
       ],
     },
     {

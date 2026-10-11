@@ -71,7 +71,7 @@ export const socialNotice: SocialNoticeDict = {
       h: "Komentarai, žinutės ir užklausos",
       p: [
         "Jei komentuojate mūsų įrašus, siunčiate mums žinutę ar per Facebook arba Instagram prašote pristatymo, tvarkome jūsų paskyros vardą, žinutės turinį ir jos išsiuntimo laiką, kad galėtume jums atsakyti. Teisinis pagrindas – BDAR 6 straipsnio 1 dalies b punktas, kai kalbama apie jūsų prašymu prieš sudarant sutartį atliekamus veiksmus, kitais atvejais – mūsų teisėtas interesas jums atsakyti (BDAR 6 straipsnio 1 dalies f punktas).",
-        "Užklausą galime perkelti į savo darbo el. pašto dėžutę; užklausas saugome ne ilgiau kaip 24 mėnesius nuo paskutinio kontakto. Vieši komentarai lieka matomi, kol juos ištrinate jūs arba mes. Be jūsų sutikimo per Facebook ar Instagram tiesioginės rinkodaros pranešimų jums nesiunčiame.",
+        `Užklausą galime perkelti į savo darbo el. pašto dėžutę; užklausas saugome ne ilgiau kaip 24 mėnesius nuo paskutinio kontakto. Bendrovė ${MESARTIM.name} mums suteikia Microsoft 365 el. pašto dėžutę, kurioje saugomos perkeltos užklausos. Vieši komentarai lieka matomi, kol juos ištrinate jūs arba mes. Be jūsų sutikimo per Facebook ar Instagram tiesioginės rinkodaros pranešimų jums nesiunčiame.`,
       ],
     },
     {

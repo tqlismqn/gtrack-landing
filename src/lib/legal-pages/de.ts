@@ -71,7 +71,7 @@ export const socialNotice: SocialNoticeDict = {
       h: "Kommentare, Nachrichten und Anfragen",
       p: [
         "Wenn Sie unsere Beiträge kommentieren, uns eine Nachricht senden oder über Facebook oder Instagram eine Demo anfragen, verarbeiten wir Ihren Profilnamen, den Inhalt Ihrer Nachricht und den Zeitpunkt des Versands, um Ihnen antworten zu können. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit es um vorvertragliche Maßnahmen auf Ihre Anfrage geht, im Übrigen unser berechtigtes Interesse an der Beantwortung (Art. 6 Abs. 1 lit. f DSGVO).",
-        "Eine Anfrage können wir in unser geschäftliches E-Mail-Postfach übernehmen; Anfragen speichern wir höchstens 24 Monate ab dem letzten Kontakt. Öffentliche Kommentare bleiben sichtbar, bis Sie oder wir sie löschen. Werbenachrichten über Facebook oder Instagram senden wir Ihnen nicht ohne Ihre Einwilligung.",
+        `Eine Anfrage können wir in unser geschäftliches E-Mail-Postfach übernehmen; Anfragen speichern wir höchstens 24 Monate ab dem letzten Kontakt. Übernommene Anfragen werden in einem Postfach in Microsoft 365 gespeichert, das uns die ${MESARTIM.name} bereitstellt. Öffentliche Kommentare bleiben sichtbar, bis Sie oder wir sie löschen. Werbenachrichten über Facebook oder Instagram senden wir Ihnen nicht ohne Ihre Einwilligung.`,
       ],
     },
     {

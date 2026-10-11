@@ -45,6 +45,26 @@ describe("hero-data: телематика", () => {
     expect(factWhen("2026-06-07T09:15", HERO_TODAY)).toBe("07.06 09:15");
     expect(staleDays("2026-06-07T09:15", HERO_NOW)).toBe(3);
     expect(staleDays("2026-06-10T09:00", "2026-06-11T10:00")).toBe(1);
+    /* 11 часов: floor даёт 0, пол max(1,…) — «1 сут», а не «0 сут» */
+    expect(staleDays("2026-06-10T09:00", "2026-06-10T20:00")).toBe(1);
+  });
+
+  /* Вид факта согласован с данными: позиции нет ровно у «трекер не подключён»,
+     а «нет данных» — ровно у той, чья позиция старше 24 часов от «сейчас».
+     Время разбирается как UTC — то же в любом TZ Node. */
+  it("инварианты машин: позиция ↔ none, возраст > 24 ч ↔ stale", () => {
+    const at = (s: string) => Date.parse(`${s}:00Z`);
+    for (const t of HERO_TRUCKS) {
+      expect(t.positionAt === null, t.plate).toBe(t.kind === "none");
+      if (t.positionAt !== null) {
+        const ageMs = at(HERO_NOW) - at(t.positionAt);
+        expect(ageMs > 24 * 60 * 60 * 1000, t.plate).toBe(t.kind === "stale");
+      }
+    }
+    const stale = HERO_TRUCKS.find((t) => t.kind === "stale")!;
+    expect(() =>
+      factText({ ...stale, positionAt: null }, LANDING_DICT.ru.showcase),
+    ).toThrow(/stale без positionAt/);
   });
 
   it("тексты фактов ru/uk/en/pl — литералы", () => {

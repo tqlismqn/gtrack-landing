@@ -71,7 +71,7 @@ export const socialNotice: SocialNoticeDict = {
       h: "Commentaires, messages et demandes",
       p: [
         "Si vous commentez nos publications, nous envoyez un message ou demandez une démonstration via Facebook ou Instagram, nous traitons le nom de votre profil, le contenu de votre message et l’heure d’envoi afin de pouvoir vous répondre. La base juridique est l’article 6, paragraphe 1, point b), du RGPD lorsqu’il s’agit de mesures précontractuelles prises à votre demande et, dans les autres cas, notre intérêt légitime à vous répondre (article 6, paragraphe 1, point f), du RGPD).",
-        "Nous pouvons transférer une demande vers notre messagerie professionnelle ; nous conservons les demandes au maximum 24 mois à compter du dernier contact. Les commentaires publics restent visibles jusqu’à ce que vous ou nous les supprimions. Nous ne vous envoyons pas de messages commerciaux via Facebook ou Instagram sans votre consentement.",
+        `Nous pouvons transférer une demande vers notre messagerie professionnelle ; nous conservons les demandes au maximum 24 mois à compter du dernier contact. Les demandes ainsi transférées sont conservées dans une boîte aux lettres Microsoft 365 que la société ${MESARTIM.name} met à notre disposition. Les commentaires publics restent visibles jusqu’à ce que vous ou nous les supprimions. Nous ne vous envoyons pas de messages commerciaux via Facebook ou Instagram sans votre consentement.`,
       ],
     },
     {

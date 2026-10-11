@@ -13,8 +13,12 @@ import {
   LOCALES,
   impressumPath,
   socialPrivacyPath,
+  type Lang,
 } from "../src/lib/landing-i18n";
-import { socialPrivacyMetadata } from "../src/lib/landing-metadata";
+import {
+  impressumMetadata,
+  socialPrivacyMetadata,
+} from "../src/lib/landing-metadata";
 import { fill } from "../src/lib/showcase-data";
 import sitemap from "../src/app/sitemap";
 
@@ -55,6 +59,20 @@ describe("Impressum", () => {
   it("sitemap: impressum ×12", async () => {
     const urls = (await sitemap()).map((e) => e.url);
     expect(urls.filter((u) => u.endsWith("/impressum"))).toHaveLength(12);
+  });
+
+  /* Реквизиты обязаны находиться поиском: robots из baseMetadata не
+     перебивается, а canonical и hreflang в <head> байт-в-байт совпадают
+     с записью sitemap — при расхождении сигналов Google выбирает сам. */
+  it("cs: индексируется, canonical и hreflang = sitemap", async () => {
+    const m = impressumMetadata("cs");
+    expect(m).not.toHaveProperty("robots");
+    expect(m.alternates?.canonical).toBe("https://www.g-track.eu/cs/impressum");
+    const entry = (await sitemap()).find(
+      (e) => e.url === "https://www.g-track.eu/cs/impressum",
+    );
+    expect(entry?.alternates?.languages).toBeDefined();
+    expect(m.alternates?.languages).toEqual(entry?.alternates?.languages);
   });
 });
 
@@ -137,6 +155,82 @@ describe("Уведомление о соцсетях", () => {
     expect(linkKeys("cs")).toEqual([...SOCIAL_LINK_KEYS].sort()));
   it.each(LOCALES)("%s: ссылки те же, что в чешской версии", (l) =>
     expect(linkKeys(l)).toEqual(linkKeys("cs")));
+
+  /* Секции адресуются по месту: порядок у всех локалей чешский, якоря —
+     заголовки. 5 — комментарии, сообщения и запросы; 6 — реклама. */
+  const ENQUIRIES = 5;
+  const ADS = 6;
+  const sectionText = (l: Lang, i: number) =>
+    SOCIAL_NOTICE[l].sections[i].p.join(" ");
+
+  it("cs: якоря секций", () => {
+    expect(SOCIAL_NOTICE.cs.sections[ENQUIRIES].h).toBe(
+      "Komentáře, zprávy a poptávky",
+    );
+    expect(SOCIAL_NOTICE.cs.sections[ADS].h).toBe("Reklama");
+  });
+  it.each(LOCALES)("%s: секции на местах чешских", (l) => {
+    const s = SOCIAL_NOTICE[l].sections;
+    expect(s).toHaveLength(SOCIAL_NOTICE.cs.sections.length);
+    expect(s[ENQUIRIES].h).toMatch(/^(Com|Kom|Ком)/);
+    expect(s[ADS].h).toMatch(
+      /^(Advertising|Реклама|Werbung|Publicité|Reklama|Pubblicità|Reklāma|Publicidad|Publicitate)$/,
+    );
+  });
+
+  /* Срок хранения запросов стоит в секции запросов, там же — получатель:
+     ящик Microsoft 365, который предоставляет Mesartim (Г25, спека §4.4:
+     Microsoft назвать можно, Lovable / Cloudflare / Vercel — никогда). */
+  it.each(LOCALES)(
+    "%s: запросы — 24 месяца, ящик Microsoft 365 у Mesartim",
+    (l) => {
+      const t = sectionText(l, ENQUIRIES);
+      expect(t).toMatch(/\b24\b/);
+      expect(t).toContain("Microsoft 365");
+      expect(t).toContain(MESARTIM.name);
+    },
+  );
+
+  /* Реклама не отсылает к нашей Политике: до юр-пакета (ворота 5) Политика
+     рекламное измерение не описывает, и фраза «как мы измеряем рекламу,
+     объясняет Политика» была бы ложной. Ловим подпись ссылки этой локали и
+     название документа в любом падеже; регулярка обязана поймать собственную
+     подпись — иначе сторож пустой. */
+  const PRIVACY_POLICY_NAME: Record<Lang, RegExp> = {
+    en: /privacy policy/i,
+    ru: /политик\S* конфиденциальности/i,
+    de: /datenschutz/i,
+    fr: /politique de confidentialité/i,
+    cs: /zásad\S* ochrany osobních údajů/i,
+    pl: /polityk\S* prywatności/i,
+    it: /privacy/i,
+    lv: /privātuma politik/i,
+    lt: /privatumo politik/i,
+    uk: /політик\S* конфіденційності/i,
+    es: /política de privacidad/i,
+    ro: /confidențialitate/i,
+  };
+  const privacyLabels = (l: Lang) =>
+    SOCIAL_NOTICE[l].sections.flatMap((s) =>
+      s.p.flatMap((para) =>
+        splitLinks(para).flatMap((seg) =>
+          typeof seg !== "string" && seg.key === "privacyPolicy"
+            ? [seg.text]
+            : [],
+        ),
+      ),
+    );
+  it.each(LOCALES)("%s: реклама не отсылает к Политике", (l) => {
+    const labels = privacyLabels(l);
+    expect(labels.length).toBeGreaterThan(0);
+    const ads = sectionText(l, ADS);
+    expect(ads).not.toContain("(privacyPolicy)");
+    for (const label of labels) {
+      expect(label).toMatch(PRIVACY_POLICY_NAME[l]);
+      expect(ads.toLowerCase()).not.toContain(label.toLowerCase());
+    }
+    expect(ads).not.toMatch(PRIVACY_POLICY_NAME[l]);
+  });
 
   it("noindex, follow", () =>
     expect(socialPrivacyMetadata("cs").robots).toMatchObject({

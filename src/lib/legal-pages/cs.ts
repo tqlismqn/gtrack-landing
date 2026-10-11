@@ -70,7 +70,7 @@ export const socialNotice: SocialNoticeDict = {
       h: "Komentáře, zprávy a poptávky",
       p: [
         "Pokud k našim příspěvkům napíšete komentář, pošlete nám zprávu nebo přes Facebook či Instagram požádáte o ukázku, zpracováváme jméno vašeho profilu, obsah zprávy a čas jejího odeslání, abychom vám mohli odpovědět. Právním základem je čl. 6 odst. 1 písm. b) GDPR, jde-li o kroky před uzavřením smlouvy přijímané na vaši žádost, jinak náš oprávněný zájem na tom, abychom vám odpověděli (čl. 6 odst. 1 písm. f) GDPR).",
-        "Poptávku můžeme přesunout do naší obchodní e-mailové schránky; poptávky uchováváme nejvýše 24 měsíců od posledního kontaktu. Veřejné komentáře zůstávají viditelné, dokud je vy nebo my nesmažeme. Obchodní sdělení vám přes Facebook ani Instagram bez vašeho souhlasu neposíláme.",
+        `Poptávku můžeme přesunout do naší obchodní e-mailové schránky; poptávky uchováváme nejvýše 24 měsíců od posledního kontaktu. Přesunuté poptávky jsou uloženy ve schránce Microsoft 365, kterou nám společnost ${MESARTIM.name} poskytuje. Veřejné komentáře zůstávají viditelné, dokud je vy nebo my nesmažeme. Obchodní sdělení vám přes Facebook ani Instagram bez vašeho souhlasu neposíláme.`,
       ],
     },
     {

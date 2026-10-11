@@ -71,7 +71,7 @@ export const socialNotice: SocialNoticeDict = {
       h: "Comentarii, mesaje și solicitări",
       p: [
         "Dacă comentați postările noastre, ne trimiteți un mesaj sau solicitați o demonstrație prin Facebook ori Instagram, prelucrăm numele profilului dumneavoastră, conținutul mesajului și ora trimiterii, pentru a vă putea răspunde. Temeiul juridic este articolul 6 alineatul (1) litera (b) din RGPD atunci când este vorba de demersuri efectuate la cererea dumneavoastră înainte de încheierea unui contract, iar în celelalte cazuri interesul nostru legitim de a vă răspunde (articolul 6 alineatul (1) litera (f) din RGPD).",
-        "Putem transfera o solicitare în căsuța noastră de e-mail de serviciu; păstrăm solicitările cel mult 24 de luni de la ultimul contact. Comentariile publice rămân vizibile până când dumneavoastră sau noi le ștergem. Nu vă trimitem comunicări comerciale prin Facebook sau Instagram fără consimțământul dumneavoastră.",
+        `Putem transfera o solicitare în căsuța noastră de e-mail de serviciu; păstrăm solicitările cel mult 24 de luni de la ultimul contact. Societatea ${MESARTIM.name} ne pune la dispoziție o căsuță de e-mail Microsoft 365, în care sunt păstrate solicitările transferate. Comentariile publice rămân vizibile până când dumneavoastră sau noi le ștergem. Nu vă trimitem comunicări comerciale prin Facebook sau Instagram fără consimțământul dumneavoastră.`,
       ],
     },
     {
