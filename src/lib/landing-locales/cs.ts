@@ -396,6 +396,7 @@ export const cs: LandingDict = {
     terms: "Podmínky použití",
     dpa: "Zpracování údajů",
     impressum: "Údaje o provozovateli",
+    social: "Ochrana údajů na sociálních sítích",
     securityHeading: "Zabezpečení dat",
     trust1: "Data uložená v EU",
     trust2: "Soulad s GDPR",

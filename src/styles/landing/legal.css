@@ -1,5 +1,7 @@
 /* ============================================================================
-   IMPRESSUM (/impressum) — реквизиты оператора сайта.
+   ЮР-СТРАНИЦЫ: Impressum (/impressum) и уведомление о соцсетях
+   (/social-media-privacy). Шапка страницы (.lg-page, .lg-h1) общая.
+   IMPRESSUM — реквизиты оператора сайта.
    Один заголовок, вводная строка и список «подпись — значение»: на узком
    экране строки в столбик, со ступени m — две колонки, как строки Ганта
    дорожной карты (тот же ритм: линия-разделитель, 28 px между колонками).
@@ -36,3 +38,33 @@
 .lg-row dd a { color: var(--info); transition: color 140ms; }
 .lg-row dd a:hover { color: var(--text-1); }
 .lg-links { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+
+/* ----------------------------------------------------------------------------
+   УВЕДОМЛЕНИЕ О СОЦСЕТЯХ — сплошной текст из восьми нумерованных разделов.
+   Ширина колонки 72ch: юр-текст читают, а не сканируют, и строка длиннее
+   ~75 знаков на 15 px теряет глаз на переносе. Разделы разделены той же
+   линией, что строки Impressum. overflow-wrap: anywhere — та же страховка
+   на 320, что у .lg-row dd: «privacy@g-track.eu» и «dataprotection.ie» не
+   переносятся по пробелу.
+---------------------------------------------------------------------------- */
+.lg-effective { margin-top: 14px; font-size: 13px; color: var(--text-3); }
+.lg-doc { margin-top: 36px; max-width: 72ch; }
+.lg-sect { padding: 22px 0; border-top: 1px solid var(--border-1); }
+.lg-sect:last-child { border-bottom: 1px solid var(--border-1); }
+.lg-h2 {
+  font-size: clamp(17px, 1.6vw, 19px); font-weight: 600; line-height: 1.35;
+  letter-spacing: -0.01em; color: var(--text-1);
+  text-wrap: balance; overflow-wrap: anywhere;
+}
+.lg-sect p {
+  margin-top: 10px; font-size: 15px; line-height: 1.6; color: var(--text-2);
+  text-wrap: pretty; overflow-wrap: anywhere;
+}
+/* Ссылка в сплошном тексте подчёркнута: одного цвета мало, чтобы её
+   отличить (WCAG 1.4.1), в списке Impressum её выделяет сама строка. */
+.lg-sect a {
+  color: var(--info); text-decoration: underline;
+  text-underline-offset: 2px; transition: color 140ms;
+}
+.lg-sect a:hover { color: var(--text-1); }
+.lg-prevails { margin-top: 22px; max-width: 72ch; font-size: 13px; line-height: 1.5; color: var(--text-3); }

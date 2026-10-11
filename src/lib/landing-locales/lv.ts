@@ -394,6 +394,7 @@ export const lv: LandingDict = {
     terms: "Lietošanas noteikumi",
     dpa: "Datu apstrāde",
     impressum: "Rekvizīti",
+    social: "Privātums sociālajos tīklos",
     securityHeading: "Datu drošība",
     trust1: "Dati tiek glabāti ES",
     trust2: "Atbilstība GDPR",

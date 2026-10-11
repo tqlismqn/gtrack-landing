@@ -399,6 +399,7 @@ export const lt: LandingDict = {
     terms: "Naudojimo sąlygos",
     dpa: "Duomenų tvarkymas",
     impressum: "Rekvizitai",
+    social: "Privatumas socialiniuose tinkluose",
     securityHeading: "Duomenų sauga",
     trust1: "Duomenys saugomi ES",
     trust2: "Atitiktis BDAR",

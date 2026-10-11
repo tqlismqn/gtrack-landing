@@ -391,6 +391,7 @@ export const ro: LandingDict = {
     terms: "Termeni de utilizare",
     dpa: "Prelucrarea datelor",
     impressum: "Date de identificare",
+    social: "Confidențialitate pe rețelele sociale",
     securityHeading: "Securitatea datelor",
     trust1: "Date stocate în UE",
     trust2: "Conform GDPR",

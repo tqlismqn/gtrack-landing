@@ -11,9 +11,10 @@ import {
   LOCALES,
   localePath,
   roadmapPath,
+  socialPrivacyPath,
   type Lang,
 } from "./landing-i18n";
-import { IMPRESSUM } from "./legal-pages";
+import { IMPRESSUM, SOCIAL_NOTICE } from "./legal-pages";
 
 export const SITE_ORIGIN = "https://www.g-track.eu";
 
@@ -161,6 +162,38 @@ export function impressumMetadata(locale: Lang): Metadata {
       alternateLocale: LOCALES.filter((l) => l !== locale).map(
         (l) => OG_LOCALE[l],
       ),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: p.metaDescription,
+    },
+  };
+}
+
+/* Метаданные уведомления о соцсетях. noindex, follow: страницу открывают по
+   ссылке со страницы Facebook, из био Instagram и из подвала, в поиске ей
+   делать нечего; follow — чтобы ссылки на Privacy и документы Meta не
+   обрывались для робота. В sitemap её нет, поэтому и связки hreflang нет —
+   у неиндексируемой страницы она ничего не значит; canonical на себя
+   оставлен, чтобы хвосты ?utm_… не плодили копий. OG — для превью ссылки,
+   которой делятся в тех же Facebook и Instagram. */
+export function socialPrivacyMetadata(locale: Lang): Metadata {
+  const p = SOCIAL_NOTICE[locale];
+  const url = `${SITE_ORIGIN}${socialPrivacyPath(locale)}`;
+  const title = `${p.title} — G-Track`;
+  return {
+    title,
+    description: p.metaDescription,
+    robots: { index: false, follow: true },
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description: p.metaDescription,
+      url,
+      siteName: "G-Track",
+      type: "website",
+      locale: OG_LOCALE[locale],
     },
     twitter: {
       card: "summary_large_image",

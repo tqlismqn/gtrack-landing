@@ -33,6 +33,7 @@ import {
   LOCALES,
   localePath,
   roadmapPath,
+  socialPrivacyPath,
   type Lang,
   type LandingDict,
 } from "@/lib/landing-i18n";
@@ -76,7 +77,7 @@ function applyCmpLang(lang: Lang) {
    в другой локали (переключатель языка и авто-редирект по языку браузера
    обязаны оставлять посетителя там, где он был) и то, чем стать якорям
    главной за её пределами. */
-export type LandingPageKind = "home" | "roadmap" | "impressum";
+export type LandingPageKind = "home" | "roadmap" | "impressum" | "social";
 
 /* Путь каждой страницы в любой локали. Таблица, а не тернарник: прежний
    тернарник «roadmap или главная» отправил бы посетителя /cs/impressum при
@@ -86,6 +87,7 @@ const PAGE_PATH: Record<LandingPageKind, (lang: Lang) => string> = {
   home: localePath,
   roadmap: roadmapPath,
   impressum: impressumPath,
+  social: socialPrivacyPath,
 };
 
 interface LandingCtxValue {

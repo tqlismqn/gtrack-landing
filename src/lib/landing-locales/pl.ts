@@ -396,6 +396,7 @@ export const pl: LandingDict = {
     terms: "Warunki korzystania",
     dpa: "Przetwarzanie danych",
     impressum: "Nota prawna",
+    social: "Prywatność w mediach społecznościowych",
     securityHeading: "Bezpieczeństwo danych",
     trust1: "Dane przechowywane w UE",
     trust2: "Zgodność z RODO",

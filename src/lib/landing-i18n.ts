@@ -78,6 +78,13 @@ export function impressumPath(lang: Lang): string {
   return lang === "en" ? "/impressum" : `/${lang}/impressum`;
 }
 
+/* Путь уведомления о соцсетях той же локали. Слаг английский во всех
+   локалях — по той же причине, что у /impressum. Страница noindex и не в
+   sitemap: её ищут по ссылке со страницы Facebook и из био Instagram. */
+export function socialPrivacyPath(lang: Lang): string {
+  return lang === "en" ? "/social-media-privacy" : `/${lang}/social-media-privacy`;
+}
+
 /* Путь страницы заявки той же локали (ворота 2 строят страницу по нему). */
 export function demoPath(lang: Lang): string {
   return lang === "en" ? "/demo" : `/${lang}/demo`;
@@ -471,6 +478,7 @@ const ru = {
     terms: "Условия использования",
     dpa: "Обработка данных",
     impressum: "Реквизиты",
+    social: "Конфиденциальность в соцсетях",
     securityHeading: "Безопасность данных",
     trust1: "Данные хранятся в ЕС",
     trust2: "Соответствие GDPR",
@@ -880,6 +888,7 @@ const en: LandingDict = {
     terms: "Terms",
     dpa: "Data processing",
     impressum: "Legal notice",
+    social: "Social media privacy",
     securityHeading: "Data security",
     trust1: "Data stored in the EU",
     trust2: "GDPR compliant",
