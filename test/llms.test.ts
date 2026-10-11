@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { BANNED } from "./banned";
-import { LOCALES, impressumPath, localePath, roadmapPath } from "../src/lib/landing-i18n";
+import { LANDING_DICT, LOCALES, impressumPath, localePath, roadmapPath } from "../src/lib/landing-i18n";
 import { legalUrl } from "../src/components/landing/urls";
 
 const ORIGIN = "https://www.g-track.eu";
@@ -15,9 +15,22 @@ function expectedTierLines(src: string): string[] {
   const trucks = src.match(/const TRUCKS[^=]*= \{ starter: (\d+), fleet: (\d+), business: (\d+) \}/);
   if (rows.length !== 3 || !trucks) throw new Error("форма PRICING/TRUCKS в Pricing.tsx изменилась — поправить разбор в llms.test.ts");
   const by = Object.fromEntries(rows.map((m) => [m[1], [m[2], m[3], m[4]]]));
+  const fmt = (n: number) => n.toLocaleString("en-US");
   return ["Starter", "Fleet", "Business"].map(
-    (name, i) => `${name} €${by.mo[i]} monthly, €${by.q[i]} billed quarterly, €${by.y[i]} billed yearly, up to ${trucks[i + 1]} trucks`,
+    (name, i) =>
+      `${name} €${by.mo[i]}/month billed monthly, €${by.q[i]}/month billed quarterly (€${fmt(Number(by.q[i]) * 3)} per quarter), €${by.y[i]}/month billed yearly (€${fmt(Number(by.y[i]) * 12)} per year), up to ${trucks[i + 1]} trucks`,
   );
+}
+
+// пакет и порог Business Plus — из Pricing.tsx; форма кода изменится — тест упадёт явно
+function expectedExtraLines(src: string): string[] {
+  const pack = src.match(/const PACK = \{ price: (\d+), trucks: (\d+), drivers: (\d+), trailers: (\d+), max: (\d+) \}/);
+  const plus = src.match(/const PLUS_CAPS = \{ trucks: (\d+)/);
+  if (!pack || !plus) throw new Error("форма PACK/PLUS_CAPS в Pricing.tsx изменилась — поправить разбор в llms.test.ts");
+  return [
+    `a pack adds +${pack[2]} trucks, +${pack[3]} drivers and +${pack[4]} trailers for €${pack[1]} per month, up to ${pack[5]} packs`,
+    `Beyond ${plus[1]} trucks`,
+  ];
 }
 
 describe("llms.txt", () => {
@@ -31,10 +44,9 @@ describe("llms.txt", () => {
     for (const l of LOCALES) expect(foundUrls.has(`${ORIGIN}${localePath(l)}`), l).toBe(true);
   });
 
-  it("содержит факты: 20 машин, цены, Impressum, roadmap, контакт", () => {
+  it("содержит факты: 20 машин, Impressum, roadmap, контакт", () => {
     expect(impressumPath("en")).toBe("/impressum");
     expect(txt).toContain("20 trucks");
-    expect(txt).toContain("€150");
     expect(txt).toContain(`${ORIGIN}${impressumPath("en")}`);
     expect(txt).toContain(`${ORIGIN}${roadmapPath("en")}`);
     expect(txt).toContain("sales@g-track.eu");
@@ -48,15 +60,24 @@ describe("llms.txt", () => {
   });
 
   it("негативный контроль: изменённая цена в исходнике даёт другую ожидаемую строку", () => {
-    const changed = expectedTierLines(pricingSrc.replace("starter: 150", "starter: 160"));
-    expect(txt).not.toContain(changed[0]);
+    // мутируем текущее значение, а не литерал: правка цен «везде разом» не должна краснить набор
+    const m = pricingSrc.replace(/(mo: \{ starter: )(\d+)/, (_, p: string, n: string) => p + (Number(n) + 10));
+    expect(m).not.toBe(pricingSrc);
+    expect(txt).not.toContain(expectedTierLines(m)[0]);
+    const m2 = pricingSrc.replace(/(const PACK = \{ price: )(\d+)/, (_, p: string, n: string) => p + (Number(n) + 10));
+    expect(m2).not.toBe(pricingSrc);
+    expect(txt).not.toContain(expectedExtraLines(m2)[0]);
   });
 
-  it("оговорка о ценах, пакет расширения и порог Business Plus", () => {
-    expect(txt).toMatch(/customers who sign up now keep their price/);
-    expect(txt).toContain("€225");
-    expect(txt).toContain("up to 5 packs");
-    expect(txt).toContain("Beyond 1000 trucks");
+  it("пакет расширения и порог Business Plus совпадают с Pricing.tsx", () => {
+    for (const l of expectedExtraLines(pricingSrc)) expect(txt, l).toContain(l);
+    expect(txt).toContain(LANDING_DICT.en.pricing.packMax);
+  });
+
+  it("оговорка о фиксации цены привязана к официальному запуску, как на сайте", () => {
+    expect(LANDING_DICT.en.pricing.foundingB).toContain("after the official launch");
+    expect(txt).toMatch(/12 months on Starter and 24 months on Fleet and Business after the official launch/);
+    expect(txt).toMatch(/new customers will pay more after launch/);
   });
 
   it("формат llmstxt.org: после первого H2 только пункты-ссылки https, до него нет заголовков", () => {

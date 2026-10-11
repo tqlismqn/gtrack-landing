@@ -17,7 +17,7 @@ type PeriodKey = "mo" | "q" | "y";
 type TierKey = "starter" | "fleet" | "business";
 
 /* ЦИФРЫ СИНХРОНИЗИРОВАНЫ СО STRIPE LIVEMODE — НЕ МЕНЯТЬ.
-   Те же цифры живут в public/llms.txt (строка «Prices per month»; test/llms.test.ts сверяет её с этим файлом)
+   Те же цифры живут в public/llms.txt (строка «Prices (»; test/llms.test.ts сверяет её с этим файлом: PRICING, TRUCKS, PACK, PLUS_CAPS; сроки фиксации — по словарю en)
    и в faq.a10 всех 12 локалей — менять цены везде разом. */
 const PRICING: Record<PeriodKey, Record<TierKey, number>> = {
   mo: { starter: 150, fleet: 450, business: 900 },
