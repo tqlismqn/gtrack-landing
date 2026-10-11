@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { COMPANY, MESARTIM, SOCIAL } from "../src/lib/company";
+import { COMPANY, MESARTIM, SOCIAL, seatOf } from "../src/lib/company";
 import {
   IMPRESSUM,
   impressumRows,
@@ -59,7 +59,7 @@ describe("Impressum", () => {
 
   /* решение владельца 12.10: статус НДС не указываем, пока нет оборотов (Г29).
      § 435 OZ требует от сайта фирму, сидло, IČO и запись в реестре (oddíl,
-     vložka); DIČ указывает только плательщик DPH. Проверяется текст страницы
+     vložka), DIČ — нет (подробнее — шапка company.ts). Проверяется текст страницы
      по её же данным — строки impressumRows (их рисует LegalNoticePage),
      заголовок, вводка, описание, подписи правовых ссылок — и сам словарь.
      Сокращения ловятся во всех локалях (в переводах стояло чешское «neplátce
@@ -147,6 +147,30 @@ describe("Impressum", () => {
       expect(s).not.toMatch(VAT_ABBR);
       expect(s).not.toMatch(re);
     }
+  });
+
+  /* Снятие строки НДС не потеряло реквизитов: в значениях строк стоят
+     ровно константы company.ts, а почтовые ссылки — два адреса в порядке
+     страницы. Подмена значения (например, другой IČO) краснит тест. */
+  it.each(LOCALES)("%s: строки Impressum несут все реквизиты", (l) => {
+    const rows = impressumRows(l);
+    const dd = rows.map((r) => r.dd).join("\n");
+    for (const v of [
+      COMPANY.name,
+      seatOf(COMPANY),
+      COMPANY.ico,
+      COMPANY.court,
+      COMPANY.insert,
+      COMPANY.director,
+      COMPANY.email,
+      COMPANY.privacyEmail,
+    ]) {
+      expect(dd).toContain(v);
+    }
+    expect(rows.filter((r) => r.mailto).map((r) => r.dd)).toEqual([
+      COMPANY.email,
+      COMPANY.privacyEmail,
+    ]);
   });
 
   it.each(LOCALES)("%s: сторож НДС ловит удалённую строку", (l) => {
@@ -353,7 +377,7 @@ describe("Уведомление о соцсетях", () => {
   > = {
     cs: {
       sentence:
-        "Ze statistik vidíme jen souhrnná čísla a jednotlivé návštěvníky z nich identifikovat nemůžeme.",
+        "V těchto statistikách vidíme jen souhrnná čísla a jednotlivé návštěvníky z nich identifikovat nemůžeme.",
       claim: /identifikovat nemůžeme|nemůžeme identifikovat/g,
       seeOnly: /vidíme jen/g,
     },
@@ -439,112 +463,164 @@ describe("Уведомление о соцсетях", () => {
     },
   );
 
-  /* Роль Meta (ответ владельца 12.10, Г28; EDPB Guidelines 8/2020 о
-     таргетинге пользователей соцсетей: рекламодатель, задающий критерии
-     таргетинга, — совместный контролёр с платформой для этого таргетинга).
-     Секция 2 «Meta как самостоятельный контролёр»: «не влияем» — только на
-     обработку, которую Meta ведёт в собственных целях; оборот «не влияем»
-     встречается во всём уведомлении ровно раз — внутри суженной фразы, так
-     что безоговорочное «на эту обработку мы не влияем» не вернётся. Секция 6
-     «Реклама»: при показе по нашим критериям мы и Meta можем быть
-     совместными контролёрами этого отбора; термин — тот же, что в секции 3
-     о статистике страницы (term ловит обе формы). Соглашения по ст. 26,
-     контактов и прав сверх уже названных фраза не вводит. Фразы вписаны
-     литералами по локали; регулярки обязаны поймать собственную фразу. */
+  /* Роль Meta (ответ владельца 12.10, Г28; уточнено ревью 12.10 по EDPB
+     Guidelines 8/2020 v2.0, пример 1, «A. Roles» и §5.4.1: рекламодатель,
+     задающий критерии таргетинга, — совместный контролёр с платформой для
+     выбора критериев, показа объявления аудитории и отчётов о результатах
+     кампании; этапы до выбора критериев и после отчётов — собственные цели
+     Meta).
+     Секция 2 «Meta как самостоятельный контролёр»: самостоятельный
+     контролёр и «не влияем» — одной фразой и только для обработки в
+     собственных целях Meta; оборот «не влияем» встречается во всём
+     уведомлении ровно раз — внутри неё, так что безоговорочное «на эту
+     обработку мы не влияем» не вернётся. Секция 6 «Реклама»: фраза о
+     совместном контроле отсылает к критериям предыдущей («этих критериев»)
+     и называет весь объём — выбор, показ, отчёты — без «когда / если»
+     (союз намекал на показы не по нашим критериям). Термин — тот же, что
+     в секции 3 о статистике страницы (term ловит обе формы). Следом —
+     своим абзацем правовое основание нашей части (EDPB 8/2020, пример 1,
+     «B. Legal basis»; ст. 13(1)(c) GDPR) с подписью из секции 3; абзац
+     стоит ДО абзаца о пикселе, чтобы не читаться основанием пикселя (тот
+     грузится по согласию). Основание — черновик ревью, выбирает владелец.
+     Соглашения по ст. 26, контактов и прав сверх уже названных фразы не
+     вводят. Фразы вписаны литералами по локали; регулярки обязаны поймать
+     собственную фразу. */
   const META_SECT = 2;
   const META_ROLE: Record<
     Lang,
-    { own: string; noInfluence: RegExp; joint: string; term: RegExp }
+    {
+      own: string;
+      noInfluence: RegExp;
+      joint: string;
+      term: RegExp;
+      basis: string;
+    }
   > = {
     cs: {
-      own: "Na zpracování, které Meta provádí pro své vlastní účely, nemáme vliv.",
+      own:
+        "Pro zpracování, které provádí pro své vlastní účely, je Meta samostatným správcem podle svých [Zásad ochrany osobních údajů](metaPrivacy); na toto zpracování nemáme vliv.",
       noInfluence: /nemáme vliv|vliv nemáme/g,
       joint:
-        "Pokud Meta zobrazuje naši reklamu podle kritérií, která zvolíme, můžeme být pro tento výběr společnými správci spolu s Meta.",
+        "Ve vztahu k volbě těchto kritérií, k zobrazení naší reklamy lidem, kteří jim odpovídají, a k přehledům o výsledcích kampaně, které nám Meta poskytuje, můžeme být s Meta společnými správci.",
       term: /společnými správci/,
+      basis:
+        "Právní základ pro naši část: náš oprávněný zájem představit G-Track dopravním firmám (čl. 6 odst. 1 písm. f) GDPR).",
     },
     en: {
-      own: "We have no influence on the processing that Meta carries out for its own purposes.",
+      own:
+        "For the processing it carries out for its own purposes, Meta is an independent controller under its own [Privacy Policy](metaPrivacy); we have no influence on that processing.",
       noInfluence: /no influence/g,
       joint:
-        "When Meta shows our ads according to criteria we choose, we and Meta may be joint controllers for that selection.",
+        "For the choice of these criteria, the display of our ads to the people who match them and Meta’s reports to us on campaign results, we and Meta may be joint controllers.",
       term: /joint controllers/,
+      basis:
+        "Legal basis for our part: our legitimate interest in presenting G-Track to transport companies (Article 6(1)(f) GDPR).",
     },
     ru: {
-      own: "На обработку, которую Meta осуществляет в собственных целях, мы не влияем.",
+      own:
+        "В отношении обработки, которую Meta осуществляет в собственных целях, она является самостоятельным контролёром в соответствии со своей [Политикой конфиденциальности](metaPrivacy); на эту обработку мы не влияем.",
       noInfluence: /не влияем/g,
       joint:
-        "Когда Meta показывает нашу рекламу по выбранным нами критериям, в отношении такого отбора мы и Meta можем быть совместными контролёрами.",
+        "В отношении выбора этих критериев, показа нашей рекламы людям, которые им соответствуют, и отчётов о результатах кампании, которые Meta нам предоставляет, мы и Meta можем быть совместными контролёрами.",
       term: /совместн\S* контролёр/,
+      basis:
+        "Правовое основание с нашей стороны: наш законный интерес — представить G-Track транспортным компаниям (ст. 6(1)(f) GDPR).",
     },
     de: {
-      own: "Auf die Verarbeitung, die Meta für eigene Zwecke vornimmt, haben wir keinen Einfluss.",
+      own:
+        "Für die Verarbeitung, die Meta für eigene Zwecke vornimmt, ist Meta eigenständig Verantwortlicher nach seiner eigenen [Datenschutzrichtlinie](metaPrivacy); auf diese Verarbeitung haben wir keinen Einfluss.",
       noInfluence: /keinen Einfluss/g,
       joint:
-        "Wenn Meta unsere Anzeigen nach Kriterien ausspielt, die wir wählen, können wir und Meta für diese Auswahl gemeinsam Verantwortliche sein.",
+        "Für die Wahl dieser Kriterien, die Ausspielung unserer Anzeigen an Personen, die ihnen entsprechen, und die Berichte über die Kampagnenergebnisse, die Meta uns bereitstellt, können wir und Meta gemeinsam Verantwortliche sein.",
       term: /gemeinsam Verantwortliche/,
+      basis:
+        "Rechtsgrundlage für unseren Teil: unser berechtigtes Interesse daran, Transportunternehmen G-Track vorzustellen (Art. 6 Abs. 1 lit. f DSGVO).",
     },
     fr: {
-      own: "Nous n’avons aucune influence sur le traitement que Meta effectue pour ses propres finalités.",
+      own:
+        "Pour le traitement qu’elle effectue pour ses propres finalités, Meta est responsable du traitement indépendant, conformément à sa propre [Politique de confidentialité](metaPrivacy) ; nous n’avons aucune influence sur ce traitement.",
       noInfluence: /aucune influence/g,
       joint:
-        "Lorsque Meta diffuse nos annonces selon des critères que nous choisissons, Meta et nous pouvons être responsables conjoints du traitement pour cette sélection.",
+        "Pour le choix de ces critères, la diffusion de nos annonces auprès des personnes qui y correspondent et les rapports sur les résultats de la campagne que Meta nous fournit, Meta et nous pouvons être responsables conjoints du traitement.",
       term: /responsables conjoints du traitement/,
+      basis:
+        "Base juridique pour notre part : notre intérêt légitime à présenter G-Track aux entreprises de transport (article 6, paragraphe 1, point f), du RGPD).",
     },
     pl: {
-      own: "Nie mamy wpływu na przetwarzanie, którego Meta dokonuje we własnych celach.",
+      own:
+        "W zakresie przetwarzania, którego dokonuje we własnych celach, Meta jest odrębnym administratorem na podstawie własnej [Polityki prywatności](metaPrivacy); nie mamy wpływu na to przetwarzanie.",
       noInfluence: /nie mamy wpływu/gi,
       joint:
-        "Gdy Meta wyświetla nasze reklamy według wybranych przez nas kryteriów, w zakresie tego wyboru możemy być wraz z Meta współadministratorami.",
+        "W zakresie wyboru tych kryteriów, wyświetlania naszych reklam osobom, które im odpowiadają, oraz raportów o wynikach kampanii, które przekazuje nam Meta, możemy być wraz z Meta współadministratorami.",
       term: /współadministratorami/,
+      basis:
+        "Podstawa prawna po naszej stronie: nasz prawnie uzasadniony interes polegający na prezentowaniu G-Track firmom transportowym (art. 6 ust. 1 lit. f RODO).",
     },
     it: {
-      own: "Non abbiamo alcuna influenza sul trattamento che Meta effettua per finalità proprie.",
+      own:
+        "Per il trattamento che effettua per finalità proprie, Meta è titolare autonomo del trattamento secondo la propria [Informativa sulla privacy](metaPrivacy); non abbiamo alcuna influenza su tale trattamento.",
       noInfluence: /alcuna influenza/g,
       joint:
-        "Quando Meta mostra i nostri annunci in base a criteri scelti da noi, noi e Meta possiamo essere contitolari del trattamento per tale selezione.",
+        "Per la scelta di questi criteri, la visualizzazione dei nostri annunci alle persone che vi corrispondono e i report sui risultati della campagna che Meta ci fornisce, noi e Meta possiamo essere contitolari del trattamento.",
       term: /contitolari del trattamento/,
+      basis:
+        "Base giuridica per quanto ci riguarda: il nostro legittimo interesse a presentare G-Track alle aziende di trasporto (articolo 6, paragrafo 1, lettera f), del GDPR).",
     },
     lv: {
-      own: "Apstrādi, ko Meta veic savos nolūkos, mēs nevaram ietekmēt.",
+      own:
+        "Attiecībā uz apstrādi, ko Meta veic savos nolūkos, Meta ir patstāvīgs pārzinis saskaņā ar savu [Privātuma politiku](metaPrivacy); šo apstrādi mēs nevaram ietekmēt.",
       noInfluence: /nevaram ietekmēt/g,
       joint:
-        "Ja Meta rāda mūsu reklāmas pēc mūsu izvēlētiem kritērijiem, attiecībā uz šo atlasi mēs un Meta varam būt kopīgi pārziņi.",
+        "Attiecībā uz šo kritēriju izvēli, mūsu reklāmu rādīšanu cilvēkiem, kuri tiem atbilst, un pārskatus par kampaņas rezultātiem, ko Meta mums sniedz, mēs un Meta varam būt kopīgi pārziņi.",
       term: /kopīgi pārziņi/,
+      basis:
+        "Juridiskais pamats attiecībā uz mūsu daļu: mūsu leģitīmās intereses iepazīstināt transporta uzņēmumus ar G-Track (VDAR 6. panta 1. punkta f) apakšpunkts).",
     },
     lt: {
-      own: "Duomenų tvarkymui, kurį Meta atlieka savo tikslais, įtakos neturime.",
+      own:
+        "Kiek tai susiję su duomenų tvarkymu, kurį Meta atlieka savo tikslais, Meta yra savarankiškas duomenų valdytojas pagal savo [Privatumo politiką](metaPrivacy); šiam duomenų tvarkymui įtakos neturime.",
       noInfluence: /įtakos neturime/g,
       joint:
-        "Kai Meta rodo mūsų reklamą pagal mūsų pasirinktus kriterijus, šios atrankos atžvilgiu mes ir Meta galime būti bendri duomenų valdytojai.",
+        "Šių kriterijų pasirinkimo, mūsų reklamos rodymo juos atitinkantiems žmonėms ir Meta mums teikiamų kampanijos rezultatų ataskaitų atžvilgiu mes ir Meta galime būti bendri duomenų valdytojai.",
       term: /bendri duomenų valdytojai/,
+      basis:
+        "Mūsų dalies teisinis pagrindas: mūsų teisėtas interesas pristatyti G-Track transporto įmonėms (BDAR 6 straipsnio 1 dalies f punktas).",
     },
     uk: {
-      own: "Ми не маємо впливу на обробку, яку Meta здійснює у власних цілях.",
+      own:
+        "Щодо обробки, яку Meta здійснює у власних цілях, вона є самостійним контролером відповідно до власної [Політики конфіденційності](metaPrivacy); ми не маємо впливу на цю обробку.",
       noInfluence: /не маємо впливу/g,
       joint:
-        "Коли Meta показує нашу рекламу за обраними нами критеріями, щодо такого відбору ми та Meta можемо бути спільними контролерами.",
+        "Щодо вибору цих критеріїв, показу нашої реклами людям, які їм відповідають, і звітів про результати кампанії, які Meta нам надає, ми та Meta можемо бути спільними контролерами.",
       term: /спільними контролерами/,
+      basis:
+        "Правова підстава з нашого боку: наш законний інтерес — представити G-Track транспортним компаніям (ст. 6(1)(f) GDPR).",
     },
     es: {
-      own: "No tenemos ninguna influencia sobre el tratamiento que Meta realiza para sus propios fines.",
+      own:
+        "Respecto del tratamiento que realiza para sus propios fines, Meta es responsable independiente del tratamiento conforme a su propia [Política de privacidad](metaPrivacy); no tenemos ninguna influencia sobre dicho tratamiento.",
       noInfluence: /ninguna influencia/g,
       joint:
-        "Cuando Meta muestra nuestros anuncios según criterios que elegimos nosotros, Meta y nosotros podemos ser corresponsables del tratamiento respecto de esa selección.",
+        "Respecto de la elección de estos criterios, la presentación de nuestros anuncios a las personas que los cumplen y los informes sobre los resultados de la campaña que Meta nos facilita, Meta y nosotros podemos ser corresponsables del tratamiento.",
       term: /corresponsables del tratamiento/,
+      basis:
+        "Base jurídica en lo que nos corresponde: nuestro interés legítimo en dar a conocer G-Track a las empresas de transporte (artículo 6, apartado 1, letra f), del RGPD).",
     },
     ro: {
-      own: "Nu avem nicio influență asupra prelucrării pe care Meta o efectuează în scopuri proprii.",
+      own:
+        "Pentru prelucrarea pe care o efectuează în scopuri proprii, Meta este operator independent, conform propriei [Politici de confidențialitate](metaPrivacy); nu avem nicio influență asupra acestei prelucrări.",
       noInfluence: /nicio influență/g,
       joint:
-        "Atunci când Meta afișează reclamele noastre pe baza criteriilor pe care le alegem, noi și Meta putem fi operatori asociați pentru această selecție.",
+        "Pentru alegerea acestor criterii, afișarea reclamelor noastre persoanelor care le îndeplinesc și rapoartele privind rezultatele campaniei pe care ni le furnizează Meta, noi și Meta putem fi operatori asociați.",
       term: /operatori asociați/,
+      basis:
+        "Temei juridic pentru partea noastră: interesul nostru legitim de a prezenta G-Track firmelor de transport (articolul 6 alineatul (1) litera (f) din RGPD).",
     },
   };
   it.each(LOCALES)(
-    "%s: Meta — «не влияем» только на её цели, отбор рекламы — совместно",
+    "%s: Meta — самостоятельна только в своих целях, реклама — совместно, с основанием",
     (l) => {
-      const { own, noInfluence, joint, term } = META_ROLE[l];
+      const { own, noInfluence, joint, term, basis } = META_ROLE[l];
       expect(SOCIAL_NOTICE[l].sections[META_SECT].h).toContain("Meta");
       expect(sectionText(l, META_SECT)).toContain(own);
       expect(own.match(noInfluence)).toHaveLength(1);
@@ -552,6 +628,15 @@ describe("Уведомление о соцсетях", () => {
       expect(sectionText(l, ADS)).toContain(joint);
       expect(joint).toMatch(term);
       expect(sectionText(l, INSIGHTS)).toMatch(term);
+      /* основание — отдельный абзац между фразой о совместном контроле и
+         абзацем о пикселе; подпись — та же, что у основания статистики */
+      const ads = SOCIAL_NOTICE[l].sections[ADS].p;
+      const at = ads.indexOf(basis);
+      expect(at).toBeGreaterThan(ads.findIndex((p) => p.includes(joint)));
+      expect(at).toBeLessThan(ads.findIndex((p) => p.includes(MESARTIM.name)));
+      const label = SOCIAL_NOTICE[l].sections[INSIGHTS].p.at(-1)!.split(":")[0].trim();
+      expect(label.length).toBeGreaterThan(5);
+      expect(basis.toLowerCase()).toContain(label.toLowerCase());
     },
   );
 

@@ -40,14 +40,14 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Kas atsako už duomenų tvarkymą",
       p: [
-        `Duomenų valdytojas yra ${COMPANY.name}, ${seatOf(COMPANY)}, Čekijos Respublika, identifikavimo numeris (IČO) ${COMPANY.ico} („mes“). Facebook puslapį ir Instagram paskyrą tvarkome patys iš savo Meta verslo portfelio. Kontaktai duomenų apsaugos klausimais: [${COMPANY.privacyEmail}](privacyEmail). Duomenų apsaugos pareigūno nesame paskyrę.`,
+        `Duomenų valdytojas yra ${COMPANY.name}, ${seatOf(COMPANY)}, Čekijos Respublika, įmonės kodas (IČO) ${COMPANY.ico} („mes“). Facebook puslapį ir Instagram paskyrą tvarkome patys iš savo Meta verslo portfelio. Kontaktai duomenų apsaugos klausimais: [${COMPANY.privacyEmail}](privacyEmail). Duomenų apsaugos pareigūno nesame paskyrę.`,
         `${MESARTIM.name}, IČO ${MESARTIM.ico}, ${seatOf(MESARTIM)}, Čekijos Respublika, mūsų pavedimu apmoka mūsų reklamą Meta platformose ir suteikia Meta pikselį (matavimo duomenų rinkinį), kurį naudoja mūsų svetainė.`,
       ],
     },
     {
       h: "Meta kaip savarankiškas duomenų valdytojas",
       p: [
-        `Facebook ir Instagram valdo ${META_IE.name}, ${META_IE.address}, Airija („Meta“). Meta tvarko jūsų duomenis kaip savarankiškas duomenų valdytojas pagal savo [Privatumo politiką](metaPrivacy). Duomenų tvarkymui, kurį Meta atlieka savo tikslais, įtakos neturime.`,
+        `Facebook ir Instagram valdo ${META_IE.name}, ${META_IE.address}, Airija („Meta“). Kiek tai susiję su duomenų tvarkymu, kurį Meta atlieka savo tikslais, Meta yra savarankiškas duomenų valdytojas pagal savo [Privatumo politiką](metaPrivacy); šiam duomenų tvarkymui įtakos neturime.`,
         "Slapukus Facebook ir Instagram įrašo Meta, kuri, kai to reikia, pati prašo jūsų sutikimo; žr. Meta [Slapukų politiką](metaCookies).",
       ],
     },
@@ -75,7 +75,8 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Reklama",
       p: [
-        "Reklamuojamės Facebook ir Instagram. Kam rodyti mūsų reklamą, Meta sprendžia pagal mūsų pasirinktus kriterijus, pavyzdžiui, šalį, kalbą ir pomėgius. Kai Meta rodo mūsų reklamą pagal mūsų pasirinktus kriterijus, šios atrankos atžvilgiu mes ir Meta galime būti bendri duomenų valdytojai. Niekada neįkeliame į Meta savo klientų ar jų vairuotojų duomenų ir nenaudojame jų reklamai nukreipti.",
+        "Reklamuojamės Facebook ir Instagram. Kam rodyti mūsų reklamą, Meta sprendžia pagal mūsų pasirinktus kriterijus, pavyzdžiui, šalį, kalbą ir pomėgius. Šių kriterijų pasirinkimo, mūsų reklamos rodymo juos atitinkantiems žmonėms ir Meta mums teikiamų kampanijos rezultatų ataskaitų atžvilgiu mes ir Meta galime būti bendri duomenų valdytojai. Niekada neįkeliame į Meta savo klientų ar jų vairuotojų duomenų ir nenaudojame jų reklamai nukreipti.",
+        "Mūsų dalies teisinis pagrindas: mūsų teisėtas interesas pristatyti G-Track transporto įmonėms (BDAR 6 straipsnio 1 dalies f punktas).",
         `Mūsų reklamą mūsų pavedimu apmoka ${MESARTIM.name} Šios bendrovės suteiktą Meta pikselį mūsų svetainė įkelia tik po to, kai slapukų juostoje duodate sutikimą.`,
       ],
     },

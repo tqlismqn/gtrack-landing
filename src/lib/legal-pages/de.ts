@@ -47,7 +47,7 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Meta als eigenständig Verantwortlicher",
       p: [
-        `Facebook und Instagram werden von der ${META_IE.name}, ${META_IE.address}, Irland („Meta“), betrieben. Meta verarbeitet Ihre Daten als eigenständig Verantwortlicher nach seiner eigenen [Datenschutzrichtlinie](metaPrivacy). Auf die Verarbeitung, die Meta für eigene Zwecke vornimmt, haben wir keinen Einfluss.`,
+        `Facebook und Instagram werden von der ${META_IE.name}, ${META_IE.address}, Irland („Meta“), betrieben. Für die Verarbeitung, die Meta für eigene Zwecke vornimmt, ist Meta eigenständig Verantwortlicher nach seiner eigenen [Datenschutzrichtlinie](metaPrivacy); auf diese Verarbeitung haben wir keinen Einfluss.`,
         "Cookies auf Facebook und Instagram setzt Meta; soweit dafür eine Einwilligung erforderlich ist, holt Meta sie selbst ein. Näheres steht in der [Cookie-Richtlinie](metaCookies) von Meta.",
       ],
     },
@@ -75,7 +75,8 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Werbung",
       p: [
-        "Wir werben auf Facebook und Instagram. Wem unsere Anzeigen ausgespielt werden, entscheidet Meta anhand von Kriterien, die wir wählen, etwa Land, Sprache und Interessen. Wenn Meta unsere Anzeigen nach Kriterien ausspielt, die wir wählen, können wir und Meta für diese Auswahl gemeinsam Verantwortliche sein. Daten unserer Kunden oder ihrer Fahrer laden wir nie zu Meta hoch und nutzen sie nicht zur Ausrichtung von Anzeigen.",
+        "Wir werben auf Facebook und Instagram. Wem unsere Anzeigen ausgespielt werden, entscheidet Meta anhand von Kriterien, die wir wählen, etwa Land, Sprache und Interessen. Für die Wahl dieser Kriterien, die Ausspielung unserer Anzeigen an Personen, die ihnen entsprechen, und die Berichte über die Kampagnenergebnisse, die Meta uns bereitstellt, können wir und Meta gemeinsam Verantwortliche sein. Daten unserer Kunden oder ihrer Fahrer laden wir nie zu Meta hoch und nutzen sie nicht zur Ausrichtung von Anzeigen.",
+        "Rechtsgrundlage für unseren Teil: unser berechtigtes Interesse daran, Transportunternehmen G-Track vorzustellen (Art. 6 Abs. 1 lit. f DSGVO).",
         `Unsere Werbung bezahlt in unserem Auftrag die ${MESARTIM.name} Das von ihr bereitgestellte Meta-Pixel lädt unsere Website erst, nachdem Sie im Cookie-Banner eingewilligt haben.`,
       ],
     },

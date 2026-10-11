@@ -47,7 +47,7 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Meta come titolare autonomo del trattamento",
       p: [
-        `Facebook e Instagram sono gestiti da ${META_IE.name}, ${META_IE.address}, Irlanda («Meta»). Meta tratta i tuoi dati in qualità di titolare autonomo del trattamento secondo la propria [Informativa sulla privacy](metaPrivacy). Non abbiamo alcuna influenza sul trattamento che Meta effettua per finalità proprie.`,
+        `Facebook e Instagram sono gestiti da ${META_IE.name}, ${META_IE.address}, Irlanda («Meta»). Per il trattamento che effettua per finalità proprie, Meta è titolare autonomo del trattamento secondo la propria [Informativa sulla privacy](metaPrivacy); non abbiamo alcuna influenza su tale trattamento.`,
         "I cookie su Facebook e Instagram sono impostati da Meta, che chiede direttamente il tuo consenso ove necessario; si veda la [Normativa sui cookie](metaCookies) di Meta.",
       ],
     },
@@ -75,7 +75,8 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Pubblicità",
       p: [
-        "Facciamo pubblicità su Facebook e Instagram. Meta decide a chi mostrare i nostri annunci in base a criteri scelti da noi, come paese, lingua e interessi. Quando Meta mostra i nostri annunci in base a criteri scelti da noi, noi e Meta possiamo essere contitolari del trattamento per tale selezione. Non carichiamo mai su Meta dati dei nostri clienti o dei loro autisti e non li utilizziamo per indirizzare gli annunci.",
+        "Facciamo pubblicità su Facebook e Instagram. Meta decide a chi mostrare i nostri annunci in base a criteri scelti da noi, come paese, lingua e interessi. Per la scelta di questi criteri, la visualizzazione dei nostri annunci alle persone che vi corrispondono e i report sui risultati della campagna che Meta ci fornisce, noi e Meta possiamo essere contitolari del trattamento. Non carichiamo mai su Meta dati dei nostri clienti o dei loro autisti e non li utilizziamo per indirizzare gli annunci.",
+        "Base giuridica per quanto ci riguarda: il nostro legittimo interesse a presentare G-Track alle aziende di trasporto (articolo 6, paragrafo 1, lettera f), del GDPR).",
         `La nostra pubblicità è pagata su nostro incarico da ${MESARTIM.name} Il nostro sito web carica il pixel di Meta fornito da tale società solo dopo che hai dato il consenso nel banner dei cookie.`,
       ],
     },

@@ -46,14 +46,14 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Meta jako samostatný správce",
       p: [
-        `Facebook a Instagram provozuje společnost ${META_IE.name}, ${META_IE.address}, Irsko („Meta“). Meta zpracovává vaše údaje jako samostatný správce podle svých [Zásad ochrany osobních údajů](metaPrivacy). Na zpracování, které Meta provádí pro své vlastní účely, nemáme vliv.`,
+        `Facebook a Instagram provozuje společnost ${META_IE.name}, ${META_IE.address}, Irsko („Meta“). Pro zpracování, které provádí pro své vlastní účely, je Meta samostatným správcem podle svých [Zásad ochrany osobních údajů](metaPrivacy); na toto zpracování nemáme vliv.`,
         "Soubory cookie na Facebooku a Instagramu ukládá Meta, která si o váš souhlas tam, kde je vyžadován, žádá sama; viz [Zásady používání souborů cookie](metaCookies) společnosti Meta.",
       ],
     },
     {
       h: "Statistiky stránky na Facebooku: společná odpovědnost s Meta",
       p: [
-        "Když navštívíte naši stránku na Facebooku nebo s ní pracujete, Meta zaznamenává události, například zobrazení stránky nebo příspěvku, sledování stránky, označení „To se mi líbí“, komentář, sdílení nebo kliknutí na tlačítko, spolu s okolnostmi, jako je datum a čas, země nebo město odhadnuté z IP adresy, jazyk, typ zařízení a u přihlášených uživatelů věková skupina, pohlaví a ID uživatele. Z těchto událostí Meta sestavuje souhrnné statistiky stránky (Page Insights). Ze statistik vidíme jen souhrnná čísla a jednotlivé návštěvníky z nich identifikovat nemůžeme.",
+        "Když navštívíte naši stránku na Facebooku nebo s ní pracujete, Meta zaznamenává události, například zobrazení stránky nebo příspěvku, sledování stránky, označení „To se mi líbí“, komentář, sdílení nebo kliknutí na tlačítko, spolu s okolnostmi, jako je datum a čas, země nebo město odhadnuté z IP adresy, jazyk, typ zařízení a u přihlášených uživatelů věková skupina, pohlaví a ID uživatele. Z těchto událostí Meta sestavuje souhrnné statistiky stránky (Page Insights). V těchto statistikách vidíme jen souhrnná čísla a jednotlivé návštěvníky z nich identifikovat nemůžeme.",
         "Za toto zpracování jsme s Meta společnými správci podle čl. 26 GDPR. Podle ujednání nese Meta primární odpovědnost za informování subjektů údajů, za vyřizování žádostí o uplatnění vašich práv podle čl. 15–21 GDPR, za zabezpečení zpracování (čl. 32 GDPR) a za ohlašování a oznamování porušení zabezpečení osobních údajů (čl. 33–34 GDPR). Podstatný obsah ujednání je uveden v dokumentech [Page Insights Controller Addendum](addendum) a [Information about Page Insights](insightsInfo). Vedoucím dozorovým úřadem pro toto zpracování je irská Komise pro ochranu osobních údajů (Data Protection Commission).",
         "Právní základ: náš oprávněný zájem porozumět tomu, jak naše příspěvky oslovují dopravní firmy a řidiče, a zlepšovat je (čl. 6 odst. 1 písm. f) GDPR).",
       ],
@@ -74,7 +74,8 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Reklama",
       p: [
-        "Na Facebooku a Instagramu inzerujeme. Komu se naše reklama zobrazí, určuje Meta podle kritérií, která zvolíme, například země, jazyka a zájmů. Pokud Meta zobrazuje naši reklamu podle kritérií, která zvolíme, můžeme být pro tento výběr společnými správci spolu s Meta. Údaje o našich zákaznících ani o jejich řidičích do Meta nikdy nenahráváme a k cílení reklamy je nepoužíváme.",
+        "Na Facebooku a Instagramu inzerujeme. Komu se naše reklama zobrazí, určuje Meta podle kritérií, která zvolíme, například země, jazyka a zájmů. Ve vztahu k volbě těchto kritérií, k zobrazení naší reklamy lidem, kteří jim odpovídají, a k přehledům o výsledcích kampaně, které nám Meta poskytuje, můžeme být s Meta společnými správci. Údaje o našich zákaznících ani o jejich řidičích do Meta nikdy nenahráváme a k cílení reklamy je nepoužíváme.",
+        "Právní základ pro naši část: náš oprávněný zájem představit G-Track dopravním firmám (čl. 6 odst. 1 písm. f) GDPR).",
         `Reklamu za nás platí společnost ${MESARTIM.name} Pixel Meta, který tato společnost poskytuje, náš web načte až poté, co udělíte souhlas v cookie liště.`,
       ],
     },

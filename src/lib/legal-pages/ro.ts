@@ -40,14 +40,14 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Cine răspunde de prelucrare",
       p: [
-        `Operatorul este ${COMPANY.name}, ${seatOf(COMPANY)}, Republica Cehă, număr de identificare (IČO) ${COMPANY.ico} („noi”). Pagina de Facebook și profilul de Instagram le administrăm noi înșine, din propriul portofoliu business Meta. Contact pentru aspecte privind protecția datelor: [${COMPANY.privacyEmail}](privacyEmail). Nu am desemnat un responsabil cu protecția datelor.`,
+        `Operatorul este ${COMPANY.name}, ${seatOf(COMPANY)}, Republica Cehă, cod de identificare (IČO) ${COMPANY.ico} („noi”). Pagina de Facebook și profilul de Instagram le administrăm noi înșine, din propriul portofoliu business Meta. Contact pentru aspecte privind protecția datelor: [${COMPANY.privacyEmail}](privacyEmail). Nu am desemnat un responsabil cu protecția datelor.`,
         `${MESARTIM.name}, IČO ${MESARTIM.ico}, ${seatOf(MESARTIM)}, Republica Cehă, plătește din însărcinarea noastră publicitatea noastră pe Meta și furnizează pixelul Meta (un set de date pentru măsurare) folosit de site-ul nostru.`,
       ],
     },
     {
       h: "Meta ca operator independent",
       p: [
-        `Facebook și Instagram sunt operate de ${META_IE.name}, ${META_IE.address}, Irlanda („Meta”). Meta prelucrează datele dumneavoastră în calitate de operator independent, conform propriei [Politici de confidențialitate](metaPrivacy). Nu avem nicio influență asupra prelucrării pe care Meta o efectuează în scopuri proprii.`,
+        `Facebook și Instagram sunt operate de ${META_IE.name}, ${META_IE.address}, Irlanda („Meta”). Pentru prelucrarea pe care o efectuează în scopuri proprii, Meta este operator independent, conform propriei [Politici de confidențialitate](metaPrivacy); nu avem nicio influență asupra acestei prelucrări.`,
         "Modulele cookie de pe Facebook și Instagram sunt plasate de Meta, care vă solicită ea însăși consimțământul atunci când acesta este necesar; consultați [Politica privind modulele cookie](metaCookies) a Meta.",
       ],
     },
@@ -75,7 +75,8 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Publicitate",
       p: [
-        "Facem publicitate pe Facebook și Instagram. Meta decide cui îi sunt afișate reclamele noastre pe baza criteriilor pe care le alegem, precum țara, limba și interesele. Atunci când Meta afișează reclamele noastre pe baza criteriilor pe care le alegem, noi și Meta putem fi operatori asociați pentru această selecție. Nu încărcăm niciodată în Meta date despre clienții noștri sau despre șoferii acestora și nu le folosim pentru direcționarea reclamelor.",
+        "Facem publicitate pe Facebook și Instagram. Meta decide cui îi sunt afișate reclamele noastre pe baza criteriilor pe care le alegem, precum țara, limba și interesele. Pentru alegerea acestor criterii, afișarea reclamelor noastre persoanelor care le îndeplinesc și rapoartele privind rezultatele campaniei pe care ni le furnizează Meta, noi și Meta putem fi operatori asociați. Nu încărcăm niciodată în Meta date despre clienții noștri sau despre șoferii acestora și nu le folosim pentru direcționarea reclamelor.",
+        "Temei juridic pentru partea noastră: interesul nostru legitim de a prezenta G-Track firmelor de transport (articolul 6 alineatul (1) litera (f) din RGPD).",
         `Publicitatea noastră este plătită din însărcinarea noastră de ${MESARTIM.name} Site-ul nostru încarcă pixelul Meta furnizat de această societate numai după ce vă exprimați consimțământul în bannerul de cookie-uri.`,
       ],
     },

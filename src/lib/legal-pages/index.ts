@@ -49,8 +49,9 @@ export type ImpressumDict = {
     director: string;
     /* Строки о DPH / DIČ нет намеренно — решение владельца 12.10 (Г29):
        статус плательщика НДС не указываем, пока нет оборотов. § 435 OZ
-       требует от сайта фирму, сидло, IČO и запись в реестре; DIČ указывает
-       только плательщик DPH. Сторож — test/legal-pages.test.ts. */
+       требует от сайта фирму, сидло, IČO и запись в реестре, DIČ — нет
+       (на налоговых документах его указывает плательщик DPH, § 29 ZDPH;
+       подробнее — шапка company.ts). Сторож — test/legal-pages.test.ts. */
     email: string;
     privacy: string;
     legalDocs: string;

@@ -47,7 +47,7 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Meta jako odrębny administrator",
       p: [
-        `Serwisy Facebook i Instagram prowadzi spółka ${META_IE.name}, ${META_IE.address}, Irlandia („Meta”). Meta przetwarza Twoje dane jako odrębny administrator na podstawie własnej [Polityki prywatności](metaPrivacy). Nie mamy wpływu na przetwarzanie, którego Meta dokonuje we własnych celach.`,
+        `Serwisy Facebook i Instagram prowadzi spółka ${META_IE.name}, ${META_IE.address}, Irlandia („Meta”). W zakresie przetwarzania, którego dokonuje we własnych celach, Meta jest odrębnym administratorem na podstawie własnej [Polityki prywatności](metaPrivacy); nie mamy wpływu na to przetwarzanie.`,
         "Pliki cookie na Facebooku i Instagramie zapisuje Meta, która sama prosi o Twoją zgodę tam, gdzie jest ona wymagana; zob. [Zasady dotyczące plików cookie](metaCookies) Meta.",
       ],
     },
@@ -75,7 +75,8 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Reklama",
       p: [
-        "Reklamujemy się na Facebooku i Instagramie. O tym, komu wyświetlić nasze reklamy, decyduje Meta na podstawie wybranych przez nas kryteriów, takich jak kraj, język i zainteresowania. Gdy Meta wyświetla nasze reklamy według wybranych przez nas kryteriów, w zakresie tego wyboru możemy być wraz z Meta współadministratorami. Nigdy nie przesyłamy do Meta danych naszych klientów ani ich kierowców i nie wykorzystujemy ich do kierowania reklam.",
+        "Reklamujemy się na Facebooku i Instagramie. O tym, komu wyświetlić nasze reklamy, decyduje Meta na podstawie wybranych przez nas kryteriów, takich jak kraj, język i zainteresowania. W zakresie wyboru tych kryteriów, wyświetlania naszych reklam osobom, które im odpowiadają, oraz raportów o wynikach kampanii, które przekazuje nam Meta, możemy być wraz z Meta współadministratorami. Nigdy nie przesyłamy do Meta danych naszych klientów ani ich kierowców i nie wykorzystujemy ich do kierowania reklam.",
+        "Podstawa prawna po naszej stronie: nasz prawnie uzasadniony interes polegający na prezentowaniu G-Track firmom transportowym (art. 6 ust. 1 lit. f RODO).",
         `Naszą reklamę na nasze zlecenie opłaca spółka ${MESARTIM.name} Piksel Meta udostępniany przez tę spółkę nasza strona internetowa wczytuje dopiero po wyrażeniu przez Ciebie zgody w banerze cookie.`,
       ],
     },

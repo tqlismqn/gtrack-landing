@@ -47,7 +47,7 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Meta como responsable independiente",
       p: [
-        `Facebook e Instagram son operados por ${META_IE.name}, ${META_IE.address}, Irlanda («Meta»). Meta trata sus datos como responsable independiente del tratamiento conforme a su propia [Política de privacidad](metaPrivacy). No tenemos ninguna influencia sobre el tratamiento que Meta realiza para sus propios fines.`,
+        `Facebook e Instagram son operados por ${META_IE.name}, ${META_IE.address}, Irlanda («Meta»). Respecto del tratamiento que realiza para sus propios fines, Meta es responsable independiente del tratamiento conforme a su propia [Política de privacidad](metaPrivacy); no tenemos ninguna influencia sobre dicho tratamiento.`,
         "Las cookies de Facebook e Instagram las instala Meta, que solicita por sí misma su consentimiento cuando es necesario; consulte la [Política de cookies](metaCookies) de Meta.",
       ],
     },
@@ -75,7 +75,8 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Publicidad",
       p: [
-        "Hacemos publicidad en Facebook e Instagram. Meta decide a quién se muestran nuestros anuncios según criterios que elegimos nosotros, como el país, el idioma y los intereses. Cuando Meta muestra nuestros anuncios según criterios que elegimos nosotros, Meta y nosotros podemos ser corresponsables del tratamiento respecto de esa selección. Nunca subimos a Meta datos de nuestros clientes ni de sus conductores, ni los utilizamos para segmentar anuncios.",
+        "Hacemos publicidad en Facebook e Instagram. Meta decide a quién se muestran nuestros anuncios según criterios que elegimos nosotros, como el país, el idioma y los intereses. Respecto de la elección de estos criterios, la presentación de nuestros anuncios a las personas que los cumplen y los informes sobre los resultados de la campaña que Meta nos facilita, Meta y nosotros podemos ser corresponsables del tratamiento. Nunca subimos a Meta datos de nuestros clientes ni de sus conductores, ni los utilizamos para segmentar anuncios.",
+        "Base jurídica en lo que nos corresponde: nuestro interés legítimo en dar a conocer G-Track a las empresas de transporte (artículo 6, apartado 1, letra f), del RGPD).",
         `${MESARTIM.name} paga nuestra publicidad por cuenta nuestra. Nuestro sitio web carga el píxel de Meta que proporciona esta empresa solo después de que usted dé su consentimiento en el banner de cookies.`,
       ],
     },

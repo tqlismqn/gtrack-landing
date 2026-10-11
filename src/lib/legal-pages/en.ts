@@ -48,7 +48,7 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Meta as an independent controller",
       p: [
-        `Facebook and Instagram are operated by ${META_IE.name}, ${META_IE.address}, Ireland (“Meta”). Meta processes your data as an independent controller under its own [Privacy Policy](metaPrivacy). We have no influence on the processing that Meta carries out for its own purposes.`,
+        `Facebook and Instagram are operated by ${META_IE.name}, ${META_IE.address}, Ireland (“Meta”). For the processing it carries out for its own purposes, Meta is an independent controller under its own [Privacy Policy](metaPrivacy); we have no influence on that processing.`,
         "Cookies on Facebook and Instagram are set by Meta, which asks for your consent itself where consent is required; see Meta’s [Cookies Policy](metaCookies).",
       ],
     },
@@ -76,7 +76,8 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Advertising",
       p: [
-        "We advertise on Facebook and Instagram. Meta decides who sees our ads based on criteria we choose, such as country, language and interests. When Meta shows our ads according to criteria we choose, we and Meta may be joint controllers for that selection. We never upload data about our customers or their drivers to Meta, and we do not use such data to target ads.",
+        "We advertise on Facebook and Instagram. Meta decides who sees our ads based on criteria we choose, such as country, language and interests. For the choice of these criteria, the display of our ads to the people who match them and Meta’s reports to us on campaign results, we and Meta may be joint controllers. We never upload data about our customers or their drivers to Meta, and we do not use such data to target ads.",
+        "Legal basis for our part: our legitimate interest in presenting G-Track to transport companies (Article 6(1)(f) GDPR).",
         `Our advertising is paid for on our behalf by ${MESARTIM.name} Our website loads the Meta pixel provided by that company only after you give your consent in the cookie banner.`,
       ],
     },

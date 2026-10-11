@@ -40,14 +40,14 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Kas atbild par apstrādi",
       p: [
-        `Pārzinis ir ${COMPANY.name}, ${seatOf(COMPANY)}, Čehijas Republika, identifikācijas numurs (IČO) ${COMPANY.ico} („mēs”). Facebook lapu un Instagram profilu mēs pārvaldām paši no sava Meta biznesa portfeļa. Kontaktinformācija datu aizsardzības jautājumos: [${COMPANY.privacyEmail}](privacyEmail). Datu aizsardzības speciālistu mēs neesam iecēluši.`,
+        `Pārzinis ir ${COMPANY.name}, ${seatOf(COMPANY)}, Čehijas Republika, reģistrācijas numurs (IČO) ${COMPANY.ico} („mēs”). Facebook lapu un Instagram profilu mēs pārvaldām paši no sava Meta biznesa portfeļa. Kontaktinformācija datu aizsardzības jautājumos: [${COMPANY.privacyEmail}](privacyEmail). Datu aizsardzības speciālistu mēs neesam iecēluši.`,
         `${MESARTIM.name}, IČO ${MESARTIM.ico}, ${seatOf(MESARTIM)}, Čehijas Republika, pēc mūsu uzdevuma apmaksā mūsu reklāmu Meta platformās un nodrošina Meta pikseli (mērījumu datu kopu), ko izmanto mūsu tīmekļvietne.`,
       ],
     },
     {
       h: "Meta kā patstāvīgs pārzinis",
       p: [
-        `Facebook un Instagram darbību nodrošina ${META_IE.name}, ${META_IE.address}, Īrija („Meta”). Meta apstrādā jūsu datus kā patstāvīgs pārzinis saskaņā ar savu [Privātuma politiku](metaPrivacy). Apstrādi, ko Meta veic savos nolūkos, mēs nevaram ietekmēt.`,
+        `Facebook un Instagram darbību nodrošina ${META_IE.name}, ${META_IE.address}, Īrija („Meta”). Attiecībā uz apstrādi, ko Meta veic savos nolūkos, Meta ir patstāvīgs pārzinis saskaņā ar savu [Privātuma politiku](metaPrivacy); šo apstrādi mēs nevaram ietekmēt.`,
         "Sīkdatnes Facebook un Instagram vietnēs iestata Meta, kas pati lūdz jūsu piekrišanu, ja tā ir nepieciešama; skatiet Meta [Sīkdatņu politiku](metaCookies).",
       ],
     },
@@ -75,7 +75,8 @@ export const socialNotice: SocialNoticeDict = {
     {
       h: "Reklāma",
       p: [
-        "Mēs reklamējamies Facebook un Instagram. Kam rādīt mūsu reklāmas, Meta nosaka pēc mūsu izvēlētiem kritērijiem, piemēram, valsts, valodas un interesēm. Ja Meta rāda mūsu reklāmas pēc mūsu izvēlētiem kritērijiem, attiecībā uz šo atlasi mēs un Meta varam būt kopīgi pārziņi. Mēs nekad neaugšupielādējam Meta savu klientu vai viņu vadītāju datus un neizmantojam tos reklāmas mērķēšanai.",
+        "Mēs reklamējamies Facebook un Instagram. Kam rādīt mūsu reklāmas, Meta nosaka pēc mūsu izvēlētiem kritērijiem, piemēram, valsts, valodas un interesēm. Attiecībā uz šo kritēriju izvēli, mūsu reklāmu rādīšanu cilvēkiem, kuri tiem atbilst, un pārskatus par kampaņas rezultātiem, ko Meta mums sniedz, mēs un Meta varam būt kopīgi pārziņi. Mēs nekad neaugšupielādējam Meta savu klientu vai viņu vadītāju datus un neizmantojam tos reklāmas mērķēšanai.",
+        "Juridiskais pamats attiecībā uz mūsu daļu: mūsu leģitīmās intereses iepazīstināt transporta uzņēmumus ar G-Track (VDAR 6. panta 1. punkta f) apakšpunkts).",
         `Mūsu reklāmu pēc mūsu uzdevuma apmaksā ${MESARTIM.name} Šī uzņēmuma nodrošināto Meta pikseli mūsu tīmekļvietne ielādē tikai pēc tam, kad sīkdatņu joslā ir saņemta jūsu piekrišana.`,
       ],
     },
