@@ -101,6 +101,7 @@ export const ro: LandingDict = {
     c4h: "Camionul are propriile termene",
     c4p: "ITP-ul expiră cât timp șoferul e în concediu — mai e timp să faci programarea.",
     foot: "Tot ce vezi pe aceste ecrane funcționează fără telematică.",
+    telMoving: "{speed} km/h", telStopped: "Parcat", telStale: "fără date {n} z", /* дословно planning.telematics.* приложения */
     /* водители макетов (выдуманные) */
     marek: "Hájek Marek",
     marekFirst: "Marek",

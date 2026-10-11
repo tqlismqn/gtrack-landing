@@ -98,6 +98,7 @@ export const es: LandingDict = {
     c4h: "El camión tiene sus propios vencimientos",
     c4p: "La ITV caducará mientras el conductor esté de vacaciones — aún hay tiempo de pedir cita.",
     foot: "Todo lo que ve en estas pantallas funciona sin telemática.",
+    telMoving: "{speed} km/h", telStopped: "Aparcado", telStale: "sin datos {n} d", /* дословно planning.telematics.* приложения */
     /* водители макетов (выдуманные) */
     marek: "Hájek Marek",
     marekFirst: "Marek",

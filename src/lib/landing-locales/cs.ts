@@ -108,6 +108,7 @@ export const cs: LandingDict = {
     c4h: "Vůz má vlastní termíny",
     c4p: "STK vyprší, zatímco je řidič na dovolené — vůz ještě stihnete objednat na kontrolu.",
     foot: "Vše na těchto obrazovkách funguje bez telematiky.",
+    telMoving: "{speed} km/h", telStopped: "Zaparkováno", telStale: "bez dat {n} d", /* дословно planning.telematics.* приложения */
     /* водители макетов (выдуманные) */
     marek: "Hájek Marek",
     marekFirst: "Marek",

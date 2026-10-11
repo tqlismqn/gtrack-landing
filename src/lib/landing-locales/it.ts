@@ -101,6 +101,7 @@ export const it: LandingDict = {
     c4h: "Il mezzo ha le sue scadenze",
     c4p: "La revisione scadrà mentre l’autista è in ferie — c’è ancora tempo per prenotarla.",
     foot: "Tutto ciò che vedi in queste schermate funziona senza telematica.",
+    telMoving: "{speed} km/h", telStopped: "Parcheggiato", telStale: "nessun dato {n} g", /* дословно planning.telematics.* приложения */
     /* водители макетов (выдуманные) */
     marek: "Hájek Marek",
     marekFirst: "Marek",

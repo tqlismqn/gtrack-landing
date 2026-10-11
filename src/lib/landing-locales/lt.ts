@@ -110,6 +110,7 @@ export const lt: LandingDict = {
     c4h: "Vilkikas turi savo terminus",
     c4p: "Techninė apžiūra baigs galioti vairuotojui atostogaujant — dar yra laiko užrašyti vilkiką į apžiūrą.",
     foot: "Viskas šiuose ekranuose veikia be telematikos.",
+    telMoving: "{speed} km/h", telStopped: "Stovi", telStale: "nėra duomenų {n} d.", /* дословно planning.telematics.* приложения */
     /* водители макетов (выдуманные) */
     marek: "Hájek Marek",
     marekFirst: "Marek",

@@ -100,6 +100,7 @@ export const de: LandingDict = {
     c4h: "Der Lkw hat seine eigenen Fristen",
     c4p: "Der TÜV läuft ab, während der Fahrer im Urlaub ist — für einen Termin bleibt noch Zeit.",
     foot: "Alles auf diesen Bildschirmen funktioniert ohne Telematik.",
+    telMoving: "{speed} km/h", telStopped: "Geparkt", telStale: "keine Daten {n} T", /* дословно planning.telematics.* приложения */
     /* водители макетов (выдуманные) */
     marek: "Hájek Marek",
     marekFirst: "Marek",

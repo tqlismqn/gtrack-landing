@@ -186,6 +186,7 @@ const ru = {
     c4h: "У машины — свои сроки",
     c4p: "Техосмотр кончится, пока водитель в отпуске, — время записать машину ещё есть.",
     foot: "Всё на этих экранах работает без телематики.",
+    telMoving: "{speed} км/ч", telStopped: "На стоянке", telStale: "нет данных {n} сут", /* дословно planning.telematics.* приложения */
     /* водители макетов (выдуманные). На экранах приложения — «Фамилия Имя», как печатает 2.5.0 по
        умолчанию; `marekTg` — плитка Telegram: мини-приложение пишет «Имя Фамилия», порядок имени
        компании на него не действует. */
@@ -604,6 +605,7 @@ const en: LandingDict = {
     c4h: "The truck has its own deadlines",
     c4p: "The inspection expires while the driver is on vacation — there is still time to book the truck in.",
     foot: "Everything on these screens works without telematics.",
+    telMoving: "{speed} km/h", telStopped: "Parked", telStale: "no data {n} d", /* дословно planning.telematics.* приложения */
     /* водители макетов (выдуманные) */
     marek: "Hájek Marek",
     marekFirst: "Marek",
