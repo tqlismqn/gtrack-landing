@@ -382,10 +382,11 @@ export const it: LandingDict = {
 
   footer: {
     tagline: "EU-compliance, pianificazione, flotta e manutenzione per vettori",
-    legalHeading: "Note legali",
+    legalHeading: "Informazioni legali",
     privacy: "Privacy",
     terms: "Termini di servizio",
     dpa: "Trattamento dei dati",
+    impressum: "Note legali",
     securityHeading: "Sicurezza dei dati",
     trust1: "Dati archiviati nell'UE",
     trust2: "Conforme al GDPR",

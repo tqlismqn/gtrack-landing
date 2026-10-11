@@ -6,12 +6,14 @@
 
 import type { Metadata } from "next";
 import {
+  impressumPath,
   LANDING_DICT,
   LOCALES,
   localePath,
   roadmapPath,
   type Lang,
 } from "./landing-i18n";
+import { IMPRESSUM } from "./legal-pages";
 
 export const SITE_ORIGIN = "https://www.g-track.eu";
 
@@ -127,6 +129,43 @@ export function roadmapMetadata(locale: Lang): Metadata {
       card: "summary_large_image",
       title: d.roadmap.meta.title,
       description: d.roadmap.meta.description,
+    },
+  };
+}
+
+/* Метаданные Impressum. Страница индексируется (robots из baseMetadata не
+   перебиваем): реквизиты оператора обязаны находиться, в том числе по ссылке
+   со страниц Facebook и Instagram. Своя связка hreflang ×12, x-default —
+   английская /impressum, байт-в-байт как в sitemap.ts. */
+export function impressumMetadata(locale: Lang): Metadata {
+  const p = IMPRESSUM[locale];
+  const url = `${SITE_ORIGIN}${impressumPath(locale)}`;
+  const title = `${p.title} — G-Track`;
+  return {
+    title,
+    description: p.metaDescription,
+    alternates: {
+      canonical: url,
+      languages: hreflangAlternates(
+        impressumPath,
+        `${SITE_ORIGIN}${impressumPath("en")}`,
+      ),
+    },
+    openGraph: {
+      title,
+      description: p.metaDescription,
+      url,
+      siteName: "G-Track",
+      type: "website",
+      locale: OG_LOCALE[locale],
+      alternateLocale: LOCALES.filter((l) => l !== locale).map(
+        (l) => OG_LOCALE[l],
+      ),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: p.metaDescription,
     },
   };
 }

@@ -1,0 +1,38 @@
+/* ============================================================================
+   IMPRESSUM (/impressum) — реквизиты оператора сайта.
+   Один заголовок, вводная строка и список «подпись — значение»: на узком
+   экране строки в столбик, со ступени m — две колонки, как строки Ганта
+   дорожной карты (тот же ритм: линия-разделитель, 28 px между колонками).
+   Префикс lg- сверен с утилитами Tailwind: утилит lg-* нет (lg — только
+   вариант с двоеточием), слой utilities эти классы не перекрасит.
+   ============================================================================ */
+
+/* Шапка position: fixed и над содержимым ничего не резервирует — запас сверху
+   тот же, что у первой секции дорожной карты (.rm). */
+.lg-page { padding-top: clamp(124px, 13vw, 176px); }
+
+/* Размер — как у .rm-h1. overflow-wrap: anywhere — по той же причине, что
+   у семьи заголовков в base.css: длинное слово не раздувает min-content
+   секции на 320. */
+.lg-h1 {
+  font-size: clamp(30px, 4.4vw, 46px);
+  font-weight: 600; letter-spacing: -0.025em; line-height: 1.12;
+  text-wrap: balance; margin-top: 14px; max-width: 22ch;
+  overflow-wrap: anywhere;
+}
+
+.lg-dl { margin-top: 40px; max-width: 880px; border-top: 1px solid var(--border-1); }
+.lg-row {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px;
+  padding: 14px 0; border-bottom: 1px solid var(--border-1);
+}
+@media (width >= theme(--breakpoint-m)) {
+  .lg-row { grid-template-columns: minmax(200px, 32%) minmax(0, 1fr); gap: 28px; align-items: baseline; }
+}
+.lg-row dt { font-size: 13px; color: var(--text-3); }
+/* Значения — адрес, почта, название суда — переносятся где угодно: на 320
+   строка без пробелов (адрес почты) не должна выталкивать раскладку. */
+.lg-row dd { font-size: 15px; line-height: 1.5; color: var(--text-1); overflow-wrap: anywhere; }
+.lg-row dd a { color: var(--info); transition: color 140ms; }
+.lg-row dd a:hover { color: var(--text-1); }
+.lg-links { display: flex; flex-wrap: wrap; gap: 6px 20px; }

@@ -393,6 +393,7 @@ export const uk: LandingDict = {
     privacy: "Конфіденційність",
     terms: "Умови використання",
     dpa: "Обробка даних",
+    impressum: "Реквізити",
     securityHeading: "Безпека даних",
     trust1: "Дані зберігаються в ЄС",
     trust2: "Відповідність GDPR",

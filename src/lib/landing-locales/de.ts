@@ -385,6 +385,7 @@ export const de: LandingDict = {
     privacy: "Datenschutz",
     terms: "AGB",
     dpa: "Datenverarbeitung",
+    impressum: "Impressum",
     securityHeading: "Datensicherheit",
     trust1: "Daten werden in der EU gespeichert",
     trust2: "DSGVO-konform",

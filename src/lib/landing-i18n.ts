@@ -71,6 +71,13 @@ export function roadmapPath(lang: Lang): string {
   return lang === "en" ? "/roadmap" : `/${lang}/roadmap`;
 }
 
+/* Путь Impressum той же локали. Слаг английский во всех локалях, как у
+   /roadmap: у юр-страницы нет поисковой ценности, а локальный слаг потянул бы
+   карту слагов в pathFor, sitemap и hreflang. Заголовок — из словаря. */
+export function impressumPath(lang: Lang): string {
+  return lang === "en" ? "/impressum" : `/${lang}/impressum`;
+}
+
 /* Путь страницы заявки той же локали (ворота 2 строят страницу по нему). */
 export function demoPath(lang: Lang): string {
   return lang === "en" ? "/demo" : `/${lang}/demo`;
@@ -463,6 +470,7 @@ const ru = {
     privacy: "Конфиденциальность",
     terms: "Условия использования",
     dpa: "Обработка данных",
+    impressum: "Реквизиты",
     securityHeading: "Безопасность данных",
     trust1: "Данные хранятся в ЕС",
     trust2: "Соответствие GDPR",
@@ -871,6 +879,7 @@ const en: LandingDict = {
     privacy: "Privacy",
     terms: "Terms",
     dpa: "Data processing",
+    impressum: "Legal notice",
     securityHeading: "Data security",
     trust1: "Data stored in the EU",
     trust2: "GDPR compliant",

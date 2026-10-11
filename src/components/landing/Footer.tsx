@@ -6,9 +6,11 @@
    нижняя строка © + языки.
    Правовые ссылки ведут на app-legal (app.g-track.eu/legal?tab=…) — единый
    источник (Privacy / Terms / DPA), решение Thomas 06-15: не дублируем legal.
+   Исключение — Impressum: это страница самого лендинга (/impressum), реквизиты
+   оператора сайта, а не документ приложения; ссылка стоит после DPA.
    ============================================================================ */
 
-import { roadmapPath } from "@/lib/landing-i18n";
+import { impressumPath, roadmapPath } from "@/lib/landing-i18n";
 import { useLanding } from "./LandingProvider";
 import { SALES_MAILTO, SALES_EMAIL, legalUrl } from "./urls";
 
@@ -53,6 +55,7 @@ export function Footer() {
               <a href={legalUrl("privacy", lang)}>{d.footer.privacy}</a>
               <a href={legalUrl("terms", lang)}>{d.footer.terms}</a>
               <a href={legalUrl("dpa", lang)}>{d.footer.dpa}</a>
+              <a href={impressumPath(lang)}>{d.footer.impressum}</a>
             </div>
             <div className="footer-col">
               <h3 className="footer-h">{d.footer.securityHeading}</h3>

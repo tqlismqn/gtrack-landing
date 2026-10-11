@@ -6,7 +6,8 @@
    из серверной страницы; переключение языка = навигация на другой путь
    (cookie `gt-landing-lang` запоминает выбор).
    Авто-редирект по языку браузера — один раз, только на английских страницах
-   (/ и /roadmap), только если выбор ещё не сохранён; query и хеш сохраняются.
+   (/, /roadmap, /impressum), только если выбор ещё не сохранён; query и хеш
+   сохраняются.
    Тема: html[data-theme], дефолт dark; инлайн-скрипт в layout.tsx применяет
    сохранённую тему до hydration.
    ============================================================================ */
@@ -27,6 +28,7 @@ import {
   withMarketingParams,
 } from "@/lib/analytics";
 import {
+  impressumPath,
   LANDING_DICT,
   LOCALES,
   localePath,
@@ -74,7 +76,17 @@ function applyCmpLang(lang: Lang) {
    в другой локали (переключатель языка и авто-редирект по языку браузера
    обязаны оставлять посетителя там, где он был) и то, чем стать якорям
    главной за её пределами. */
-export type LandingPageKind = "home" | "roadmap";
+export type LandingPageKind = "home" | "roadmap" | "impressum";
+
+/* Путь каждой страницы в любой локали. Таблица, а не тернарник: прежний
+   тернарник «roadmap или главная» отправил бы посетителя /cs/impressum при
+   смене языка на /de, а не на /de/impressum. Record по LandingPageKind не даёт
+   собрать проект, пока у нового вида страницы нет строки здесь. */
+const PAGE_PATH: Record<LandingPageKind, (lang: Lang) => string> = {
+  home: localePath,
+  roadmap: roadmapPath,
+  impressum: impressumPath,
+};
 
 interface LandingCtxValue {
   lang: Lang;
@@ -102,10 +114,7 @@ export function LandingProvider({
   const router = useRouter();
 
   /* путь ЭТОЙ же страницы в другой локали */
-  const pathFor = useCallback(
-    (lang: Lang) => (page === "roadmap" ? roadmapPath(lang) : localePath(lang)),
-    [page],
-  );
+  const pathFor = useCallback((lang: Lang) => PAGE_PATH[page](lang), [page]);
 
   /* ------------------------------------------------------------------------
      Маркетинговые метки: снимаем из URL визита и дописываем к ссылкам на

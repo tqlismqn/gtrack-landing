@@ -384,10 +384,11 @@ export const fr: LandingDict = {
 
   footer: {
     tagline: "Conformité UE, planification, flotte et entretien pour transporteurs",
-    legalHeading: "Mentions légales",
+    legalHeading: "Informations légales",
     privacy: "Confidentialité",
     terms: "Conditions d'utilisation",
     dpa: "Traitement des données",
+    impressum: "Mentions légales",
     securityHeading: "Sécurité des données",
     trust1: "Données hébergées dans l'UE",
     trust2: "Conforme au RGPD",
