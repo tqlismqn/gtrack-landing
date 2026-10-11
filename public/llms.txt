@@ -2,7 +2,7 @@
 
 > Fleet compliance software for EU road carriers from 20 trucks: deadlines of driver and vehicle documents, trip and leave planning, repairs and maintenance. Operated by G-Track Software s.r.o., Prague, Czech Republic.
 
-## Facts
+Key facts:
 
 - Who it is for: carriers running 20 trucks and up, with drivers from the EU and from third countries.
 - Documents tracked: driver documents (passport, driving licence, tachograph card, visa, Code 95) and vehicle documents (technical inspection, tachograph calibration and download).
@@ -11,8 +11,10 @@
 - Drivers: a Telegram bot where a driver requests leave or sick leave, sees today's truck and gets reminders about document expiry dates. Reminders reach drivers who have connected the bot.
 - Data and files are stored in the European Union, in a data centre in Ireland. A data processing agreement (DPA) is published (link in the site footer) and we sign it.
 - Trial: 30 days of demo, no card and no sales call. Prices are published on the site.
-- Prices per month: Starter €150 monthly, €140 billed quarterly, €125 billed yearly, up to 50 trucks. Fleet €450 monthly, €420 quarterly, €375 yearly, up to 200 trucks. Business €900 monthly, €840 quarterly, €750 yearly, up to 500 trucks. Larger fleets: custom contract.
+- Prices per month (current as of October 2026; customers who sign up now keep their price for 12 months on Starter and 24 months on Fleet and Business): Starter €150 monthly, €140 billed quarterly, €125 billed yearly, up to 50 trucks. Fleet €450 monthly, €420 billed quarterly, €375 billed yearly, up to 200 trucks. Business €900 monthly, €840 billed quarterly, €750 billed yearly, up to 500 trucks. More capacity: a pack adds +100 trucks, +200 drivers and +150 trailers for €225 per month, up to 5 packs. Beyond 1000 trucks: Business Plus, custom contract.
 - What it does not do: it does not analyse tachographs (no DDD files, no driving and rest time calculation); it has no map and no routing; it does not run orders and freight; it does not run payroll or replace an accountant.
+
+Contact: sales@g-track.eu (sales and contracts).
 
 ## Pages
 
@@ -33,7 +35,3 @@
 - [Privacy policy](https://app.g-track.eu/legal?tab=privacy&lng=en)
 - [Terms of service](https://app.g-track.eu/legal?tab=terms&lng=en)
 - [Data processing agreement](https://app.g-track.eu/legal?tab=dpa&lng=en)
-
-## Contact
-
-- Sales: sales@g-track.eu
