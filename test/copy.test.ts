@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { LANDING_DICT, LOCALES } from "../src/lib/landing-i18n";
 import type { Lang } from "../src/lib/landing-i18n";
@@ -12,7 +13,7 @@ import type { Lang } from "../src/lib/landing-i18n";
    «реального времени», разделитель « · » в чипе доверия.
    ============================================================================ */
 
-const BANNED = /в реальном времени|онлайн|real[- ]time|\bonline\b|in Echtzeit|en temps réel|w czasie rzeczywistym|v reálném čase|in tempo reale|reāllaikā|realiuoju laiku|в реальному часі|en tiempo real|în timp real|LocTracker/i;
+const BANNED = /в реальном времени|онлайн|real[- ]time|\bonline\b|in Echtzeit|en temps réel|w czasie rzeczywistym|v reálném čase|in tempo reale|reāllaikā|realiuoju laiku|в реальному часі|en tiempo real|în timp real|LocTracker|сразу|одразу|відразу|негайно|instantly|immediately|sofort|immédiatement|en ligne|okamžitě|natychmiast|od razu|subito|immediatamente|uzreiz|iš karto|inmediatamente|imediat/i;
 
 /* Значения trust.c7, roadmap.tracks.telematics.d и faq.a12 на origin/main до
    задачи 3 — копия литералами: тест проверяет, что формулировка «система
@@ -109,4 +110,15 @@ it("ru и en — точные строки из плана", () => {
   expect(LANDING_DICT.ru.trust.c7).toBe("Телематика · ваш трекер, если он поддерживается");
   expect(LANDING_DICT.en.trust.c7).toBe("Telematics · your tracker, if supported");
   expect(LANDING_DICT.ru.hero.sub).toContain("от 20 машин. Сроки виз, кода 95 и техосмотра");
+});
+
+/* q13 стоит в третьей группе FAQ после q12 и перед q10 — строку в Faq.tsx
+   можно удалить, не уронив ни один словарный тест, поэтому сверяем исходник. */
+it("Faq.tsx: q13 подключён в группу g3 между q12 и q10", () => {
+  const src = readFileSync(new URL("../src/components/landing/Faq.tsx", import.meta.url), "utf8");
+  const q12 = src.indexOf("f.q12");
+  const q13 = src.indexOf("{ q: f.q13, a: [f.a13] }");
+  const q10 = src.indexOf("{ q: f.q10");
+  expect(q13).toBeGreaterThan(q12);
+  expect(q10).toBeGreaterThan(q13);
 });

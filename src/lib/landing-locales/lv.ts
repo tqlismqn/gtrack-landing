@@ -364,7 +364,7 @@ export const lv: LandingDict = {
     a12: "Nav obligāta: dokumenti, plānošanas dēlis, rotācija, remonts un apkope darbojas arī bez tās, nobraukumu ievada manuāli. Ja tavs izsekotājs tiek atbalstīts, pieslēdzam to — un nobraukums nāk no borta, G-Track redz, kura vadītāja karte ir tahogrāfā, un pamana mašīnu, kas brauc bez plāna.",
 
     q13: "Kādiem pārvadātājiem ir paredzēts G-Track un kādās valodās tas pieejams?",
-    a13: "Pārvadātājiem ar 20 un vairāk mašīnām, kuru vadītāji ir gan no ES, gan no trešajām valstīm. G-Track seko līdzi vadītāju dokumentu termiņiem — pase, vadītāja apliecība, tahogrāfa karte, vīza, Kods 95 — un mašīnu termiņiem: tehniskā apskate, tahogrāfa kalibrēšana un datu lejupielāde. Saskarne ir pieejama 12 valodās: angļu, krievu, vācu, franču, čehu, poļu, itāļu, latviešu, lietuviešu, ukraiņu, spāņu un rumāņu.",
+    a13: "Pārvadātājiem ar 20 un vairāk mašīnām, kas nodarbina vadītājus gan no ES, gan no trešajām valstīm. G-Track seko līdzi vadītāju dokumentu termiņiem — pase, vadītāja apliecība, tahogrāfa karte, vīza, Kods 95 — un mašīnu termiņiem: tehniskā apskate, tahogrāfa kalibrēšana un datu lejupielāde. Saskarne ir pieejama 12 valodās: angļu, krievu, vācu, franču, čehu, poļu, itāļu, latviešu, lietuviešu, ukraiņu, spāņu un rumāņu.",
 
     q10: "Cik tas maksā autoparkam ar 40 mašīnām un 45 piekabēm? Vai jāmaksā par katru lietotāju?",
     a10: "Starter plāns — 150 € mēnesī, maksājot par gadu 125 €. Tajā ietilpst 50 mašīnas, 100 vadītāji un 75 piekabes, tāpēc tavs autoparks iekļaujas ar rezervi. Dispečeru un HR vietas netiek skaitītas: ievadi visus, kam vajag.",

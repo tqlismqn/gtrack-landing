@@ -12,7 +12,12 @@ function parse(csp: string): Map<string, Set<string>> {
 }
 
 const NEED: Record<string, string[]> = {
-  "script-src": ["https://connect.facebook.net", "https://www.googletagmanager.com"],
+  "script-src": [
+    "https://connect.facebook.net",
+    "https://www.googletagmanager.com",
+    "https://www.googleadservices.com",
+    "https://www.google.com",
+  ],
   "img-src": [
     "https://www.facebook.com",
     "https://www.google.com",
@@ -27,7 +32,7 @@ const NEED: Record<string, string[]> = {
     "https://googleads.g.doubleclick.net",
     "https://qawvvbjmfimpyilaqsrj.supabase.co",
   ],
-  "frame-src": ["https://www.googletagmanager.com", "https://td.doubleclick.net"],
+  "frame-src": ["https://www.googletagmanager.com", "https://td.doubleclick.net", "https://www.facebook.com"],
 };
 
 describe("CSP Report-Only", () => {
@@ -41,16 +46,21 @@ describe("CSP Report-Only", () => {
 
   it("без широких дыр", () => {
     for (const [dir, set] of csp) {
-      expect(set.has("*"), `${dir} без *`).toBe(false);
-      expect(set.has("https://*.supabase.co"), `${dir} без *.supabase.co`).toBe(false);
+      for (const src of set) {
+        expect(src, `${dir}: голая *`).not.toBe("*");
+        /* источник из одной схемы («https:») пускает любой хост этой схемы */
+        if (src !== "data:") expect(src, `${dir}: только схема`).not.toMatch(/^[a-z][a-z0-9+.-]*:$/);
+        expect(src, `${dir}: *.supabase.co`).not.toMatch(/\*\.supabase\.co$/);
+      }
     }
     expect([...csp.get("form-action")!]).toEqual(["'self'"]);
   });
 
   it("заголовок остаётся Report-Only", async () => {
     const rules = await nextConfig.headers!();
-    const keys = rules[0].headers.map((h) => h.key);
-    expect(keys).toContain("Content-Security-Policy-Report-Only");
-    expect(keys).not.toContain("Content-Security-Policy");
+    /* имена заголовков HTTP не зависят от регистра — сравниваем в нижнем */
+    const keys = rules.flatMap((r) => r.headers.map((h) => h.key.toLowerCase()));
+    expect(keys).toContain("content-security-policy-report-only");
+    expect(keys).not.toContain("content-security-policy");
   });
 });

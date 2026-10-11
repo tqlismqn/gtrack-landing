@@ -29,10 +29,13 @@ export const COOKIESCRIPT_SRC = `https://cdn.cookie-script.com/s/${COOKIESCRIPT_
    Consent Mode v2, режим basic (живой контейнер GTM v6).
 
    Всё, кроме security_storage, стартует в denied. Теги в GTM ждут своё согласие:
-   GA4 — analytics_storage, Conversion Linker и Meta — ad_storage; срабатывают
-   только по событиям CookieScriptCategory-performance / -targeting. До выбора
-   посетителя Google и Meta не получают ничего, cookieless-пингов нет. Этот
-   скрипт — запрет по умолчанию, под которым работают гейты контейнера.
+   GA4 — analytics_storage, Conversion Linker и Meta — ad_storage. Триггеры:
+   GA4 Configuration — только CookieScriptCategory-performance, Conversion
+   Linker — -targeting, Meta Pixel Base — gtm.init и -targeting, событийные теги
+   GA4/Meta — свои события. До выбора их держит проверка согласия в каждом теге,
+   а не триггер — её не снимать. До выбора ни один тег не шлёт запросов и
+   cookieless-пингов нет; сам контейнер gtm.js грузится с googletagmanager.com.
+   Этот скрипт — запрет по умолчанию, под которым работают гейты контейнера.
    `wait_for_update: 500` и `ads_data_redaction: true` безвредны и оставлены.
 
    Источник: docs/compliance/consent-evidence/2026-10-10/README.md в vault.

@@ -369,7 +369,7 @@ export const lt: LandingDict = {
     a12: "Nebūtina: dokumentai, lenta, rotacija, remontas ir TA veikia ir be jos, o rida įvedama rankiniu būdu. Jei jūsų sekiklis palaikomas, jį prijungiame — ir rida ateina tiesiai iš borto, G-Track mato, kieno kortelė tachografe, ir pastebi automobilį, kuris važiuoja be plano.",
 
     q13: "Kokiems vežėjams skirtas G-Track ir kokiomis kalbomis jis veikia?",
-    a13: "Vežėjams, turintiems 20 ir daugiau transporto priemonių, kurių vairuotojai yra iš ES ir trečiųjų šalių. G-Track stebi vairuotojų dokumentų terminus — pasas, vairuotojo pažymėjimas, tachografo kortelė, viza, Kodas 95 — ir transporto priemonių terminus: techninė apžiūra, tachografo kalibravimas ir duomenų nuskaitymas. Sąsaja pateikiama 12 kalbų: anglų, rusų, vokiečių, prancūzų, čekų, lenkų, italų, latvių, lietuvių, ukrainiečių, ispanų ir rumunų.",
+    a13: "Vežėjams, turintiems 20 ir daugiau transporto priemonių ir dirbantiems su vairuotojais iš ES ir trečiųjų šalių. G-Track stebi vairuotojų dokumentų terminus — pasas, vairuotojo pažymėjimas, tachografo kortelė, viza, Kodas 95 — ir transporto priemonių terminus: techninė apžiūra, tachografo kalibravimas ir duomenų nuskaitymas. Sąsaja pateikiama 12 kalbų: anglų, rusų, vokiečių, prancūzų, čekų, lenkų, italų, latvių, lietuvių, ukrainiečių, ispanų ir rumunų.",
 
     q10: "Kiek tai kainuoja parkui iš 40 transporto priemonių ir 45 priekabų? Ar mokėti už kiekvieną naudotoją?",
     a10: "Starter planas — 150 € per mėnesį, mokant už metus 125 €. Į jį įeina 50 transporto priemonių, 100 vairuotojų ir 75 priekabos, tad jūsų parkas įsitalpina su atsarga. Dispečerių ir HR vietos neskaičiuojamos: įveskite visus, kam reikia.",

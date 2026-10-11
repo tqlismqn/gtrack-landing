@@ -19,7 +19,12 @@ import type { NextConfig } from "next";
    facebook.com, googleadservices / doubleclick / googlesyndication) и приём заявок
    формы /demo — fetch на функцию Supabase, ровно один хост проекта, без
    *.supabase.co. Всё остальное внешнее ниже — по-прежнему аналитика и согласие.
-   Список взят из контейнера и снимка gtag; недостающее покажет Report-Only.
+   Список взят из контейнера, снимка gtag и таблицы Google «CSP для тегов»
+   (Google Ads ставит пиксели на www.google.<домен страны> — перечислены страны
+   рекламы: cz sk pl lt lv de it fr). frame-src www.facebook.com — запасной путь
+   fbevents.js (POST формы в скрытый iframe). gtm.js просит 'unsafe-eval' —
+   осознанно не даём. Report-Only пишет нарушения только в консоль посетителя,
+   отчётов на сервер нет: недостающее покажет прогон Playwright / Tag Assistant.
 
    ⚠️ Домены CookieScript кроме cdn.* помечены как ПРЕДПОЛОЖЕНИЕ: у вендора есть
    отдельный хост записи согласий, фактическое имя нужно снять во вкладке Network
@@ -28,12 +33,12 @@ import type { NextConfig } from "next";
 ============================================================================ */
 export const CSP_REPORT_ONLY = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://cdn.cookie-script.com https://*.cookie-script.com",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.googleadservices.com https://www.google.com https://connect.facebook.net https://cdn.cookie-script.com https://*.cookie-script.com",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: https://www.googletagmanager.com https://*.googletagmanager.com https://*.google-analytics.com https://www.facebook.com https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://*.doubleclick.net https://pagead2.googlesyndication.com",
+  "img-src 'self' data: https://www.googletagmanager.com https://*.googletagmanager.com https://*.google-analytics.com https://www.facebook.com https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://*.doubleclick.net https://pagead2.googlesyndication.com https://www.google.cz https://www.google.sk https://www.google.pl https://www.google.lt https://www.google.lv https://www.google.de https://www.google.it https://www.google.fr",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://cdn.cookie-script.com https://*.cookie-script.com https://connect.facebook.net https://www.facebook.com https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://*.doubleclick.net https://pagead2.googlesyndication.com https://adservice.google.com https://qawvvbjmfimpyilaqsrj.supabase.co",
-  "frame-src https://www.googletagmanager.com https://td.doubleclick.net https://www.googleadservices.com",
+  "connect-src 'self' https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://cdn.cookie-script.com https://*.cookie-script.com https://connect.facebook.net https://www.facebook.com https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://*.doubleclick.net https://pagead2.googlesyndication.com https://adservice.google.com https://www.google.cz https://www.google.sk https://www.google.pl https://www.google.lt https://www.google.lv https://www.google.de https://www.google.it https://www.google.fr https://qawvvbjmfimpyilaqsrj.supabase.co",
+  "frame-src https://www.googletagmanager.com https://td.doubleclick.net https://www.googleadservices.com https://www.facebook.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

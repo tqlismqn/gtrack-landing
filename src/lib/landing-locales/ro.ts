@@ -16,7 +16,7 @@ export const ro: LandingDict = {
   meta: {
     title: "G-Track — conformitate UE și planificare de curse",
     description:
-      "Documentele șoferilor, curse și concedii, reparații și mentenanță — într-o aplicație web pentru flote de 20+ camioane. 30 de zile gratuit, prețuri pe pagină.",
+      "Documentele șoferilor, curse și concedii, reparații și mentenanță — într-o aplicație web pentru flote de la 20 de camioane în sus. 30 de zile gratuit, prețuri pe pagină.",
   },
 
   nav: {
