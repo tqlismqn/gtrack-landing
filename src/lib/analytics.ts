@@ -105,16 +105,13 @@ export function isDemoPath(
   pathname: string,
   locales: readonly string[],
 ): boolean {
-  const parts = pathname.split("/");
-  /* ["", "demo"] | ["", "demo", ""] | ["", "cs", "demo"] | ["", "cs", "demo", ""] */
-  if (parts[0] !== "") return false;
-  const rest = parts.slice(1);
-  if (rest[rest.length - 1] === "" && rest.length > 1) rest.pop();
-  if (rest.length === 1) return rest[0] === "demo";
-  if (rest.length === 2) {
-    return rest[1] === "demo" && rest[0] !== "en" && locales.includes(rest[0]);
-  }
-  return false;
+  /* /demo, /cs/demo и любой хвост после них (/cs/demo/, /cs/demo/x) — как у
+     isAttributionTarget; en живёт без префикса, поэтому /en/demo — не цель */
+  const bases = [
+    "/demo",
+    ...locales.filter((l) => l !== "en").map((l) => `/${l}/demo`),
+  ];
+  return bases.some((b) => pathname === b || pathname.startsWith(`${b}/`));
 }
 
 /**

@@ -4,7 +4,8 @@ import { isLang, LANDING_DICT, LOCALES, type Lang } from "@/lib/landing-i18n";
 import { OG_CONTENT_TYPE, OG_SIZE, renderOgImage } from "@/lib/og-image";
 
 export function generateStaticParams(): Array<{ locale: Lang }> {
-  return LOCALES.map((locale) => ({ locale }));
+  /* en живёт на корне; /en ловит редирект в next.config.ts */
+  return LOCALES.filter((l) => l !== "en").map((locale) => ({ locale }));
 }
 
 export const size = OG_SIZE;

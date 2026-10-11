@@ -14,7 +14,7 @@ describe("MARKETING_PARAMS", () => {
   });
 });
 describe("isDemoPath / demoPath", () => {
-  it.each(["/demo","/demo/","/cs/demo","/de/demo/","/ru/demo"])("%s — да", (p) =>
+  it.each(["/demo","/demo/","/cs/demo","/de/demo/","/ru/demo","/cs/demo/x"])("%s — да", (p) =>
     expect(isDemoPath(p, LOCALES)).toBe(true));
   it.each(["/xx/demo","/demo-x","/cs","/roadmap","/cs/roadmap","/en/demo","/"])("%s — нет", (p) =>
     expect(isDemoPath(p, LOCALES)).toBe(false));
