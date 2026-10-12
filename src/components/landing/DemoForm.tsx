@@ -167,21 +167,25 @@ export function DemoForm({ locale, t, privacyHref }: { locale: Lang; t: DemoDict
       </div>
       <div className="demo-field">
         <label htmlFor="demo-country">{t.fields.country}</label>
-        <select id="demo-country" name="country" required value={country}
-          onChange={(e) => setCountry(e.target.value)} aria-invalid={invalid("country") || undefined} aria-describedby={describedBy("country")}>
-          <option value="" disabled>{t.fields.countryPlaceholder}</option>
-          {countries.map((c) => (
-            <option key={c.code} value={c.code}>{c.label}</option>
-          ))}
-        </select>
+        <span className="demo-select">
+          <select id="demo-country" name="country" required value={country}
+            onChange={(e) => setCountry(e.target.value)} aria-invalid={invalid("country") || undefined} aria-describedby={describedBy("country")}>
+            <option value="" disabled>{t.fields.countryPlaceholder}</option>
+            {countries.map((c) => (
+              <option key={c.code} value={c.code}>{c.label}</option>
+            ))}
+          </select>
+        </span>
       </div>
       <div className="demo-field">
         <label htmlFor="demo-lang">{t.fields.lang}</label>
-        <select id="demo-lang" name="lang" value={replyLang} onChange={(e) => setReplyLang(e.target.value as Lang)}>
-          {LOCALES.map((l) => (
-            <option key={l} value={l}>{LANG_NAMES[l]}</option>
-          ))}
-        </select>
+        <span className="demo-select">
+          <select id="demo-lang" name="lang" value={replyLang} onChange={(e) => setReplyLang(e.target.value as Lang)}>
+            {LOCALES.map((l) => (
+              <option key={l} value={l}>{LANG_NAMES[l]}</option>
+            ))}
+          </select>
+        </span>
       </div>
       <fieldset className={`demo-field demo-fleet${invalid("fleet_bucket") ? " is-invalid" : ""}`}>
         <legend>{t.fields.fleet}</legend>
@@ -212,8 +216,9 @@ export function DemoForm({ locale, t, privacyHref }: { locale: Lang; t: DemoDict
         {status === "sending" ? t.sending : t.submit}
       </button>
       <p className="demo-gdpr">
-        {t.gdpr.text}{" "}
+        {t.gdpr.before}
         <a href={privacyHref} target="_blank" rel="noopener noreferrer">{t.gdpr.link}</a>
+        {t.gdpr.after}
       </p>
     </form>
   );

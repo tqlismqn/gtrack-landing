@@ -30,8 +30,14 @@ export const demo: DemoDict = {
   },
   success: { title: "Anfrage erhalten", text: "Wir antworten Ihnen innerhalb eines Arbeitstags per E-Mail." },
   gdpr: {
-    text: "Verantwortlicher: G-Track Software s.r.o. Zweck: Beantwortung Ihrer Anfrage. Wir speichern die Daten 24 Monate.",
+    before: "Mit dem Absenden bestätigen Sie, dass Sie die ",
     link: "Datenschutzerklärung",
+    after: " gelesen haben.",
   },
-  next: "So geht es weiter: Wir antworten innerhalb eines Arbeitstags und zeigen G-Track an Ihren Daten.",
+  steps: {
+    label: "So geht es weiter",
+    request: "Anfrage",
+    reply: "Antwort innerhalb eines Arbeitstags",
+    demo: "Demo an Ihren Daten",
+  },
 };

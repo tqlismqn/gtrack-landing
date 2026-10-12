@@ -146,6 +146,24 @@ describe("словарь страницы заявки ×12", () => {
     for (const l of LOCALES) for (const [p, s] of leaves(DEMO_DICT[l])) expect(call.test(s), `${l}.${p}`).toBe(false);
   });
 
+  // Г40 (владелец 12.10): под кнопкой одна фраза со ссылкой на политику — без оператора, цели и срока
+  it("gdpr_line_is_link_only", () => {
+    for (const l of LOCALES) {
+      const g = DEMO_DICT[l].gdpr;
+      const s = g.before + g.link + g.after;
+      expect(g.link.length, l).toBeGreaterThan(5);
+      expect(s, l).not.toMatch(/G-Track Software|s\.r\.o\.|24/);
+      expect(s.length, l).toBeLessThan(140);
+    }
+  });
+
+  it("road_has_three_stops_x12", () => {
+    for (const l of LOCALES) {
+      const s = DEMO_DICT[l].steps;
+      for (const v of [s.label, s.request, s.reply, s.demo]) expect(v.trim().length, l).toBeGreaterThan(2);
+    }
+  });
+
   // Г38 (владелец 12.10): о созвоне на русском страница не пишет ни на одном языке — только «отвечаем письменно».
   it("dict_never_mentions_russian_call", () => {
     const ru = /russ|ruštin|rusk|ruso|rusa|rusă|rusų|rosyjsk|krievu|російськ|русск/i;
@@ -153,8 +171,8 @@ describe("словарь страницы заявки ×12", () => {
   });
 
   it("обещание «за рабочий день» (Г37) в en и ru", () => {
-    expect(DEMO_DICT.en.next).toContain("one working day");
-    expect(DEMO_DICT.ru.next).toContain("за рабочий день");
+    expect(DEMO_DICT.en.steps.reply).toContain("one working day");
+    expect(DEMO_DICT.ru.steps.reply).toContain("за рабочий день");
   });
 
   it("e-mail для связи в тексте ошибки сети — sales@", () => {

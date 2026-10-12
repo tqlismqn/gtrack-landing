@@ -30,8 +30,14 @@ export const demo: DemoDict = {
   },
   success: { title: "Pieprasījums saņemts", text: "Atbildēsim uz e-pastu vienas darba dienas laikā." },
   gdpr: {
-    text: "Datu pārzinis: G-Track Software s.r.o. Mērķis: atbilde uz tavu pieprasījumu. Glabājam 24 mēnešus.",
-    link: "Privātuma politika",
+    before: "Nosūtot pieprasījumu, tu apstiprini, ka esi iepazinies ar ",
+    link: "privātuma politiku",
+    after: ".",
   },
-  next: "Kas notiks tālāk: atbildēsim vienas darba dienas laikā un parādīsim G-Track ar taviem datiem.",
+  steps: {
+    label: "Kas notiks tālāk",
+    request: "Pieprasījums",
+    reply: "Atbilde vienas darba dienas laikā",
+    demo: "Demo ar taviem datiem",
+  },
 };

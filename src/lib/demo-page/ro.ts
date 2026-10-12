@@ -30,8 +30,14 @@ export const demo: DemoDict = {
   },
   success: { title: "Cerere primită", text: "Îți răspundem pe e-mail în cel mult o zi lucrătoare." },
   gdpr: {
-    text: "Operator de date: G-Track Software s.r.o. Scop: răspunsul la cererea ta. Păstrăm datele 24 de luni.",
-    link: "Politica de confidențialitate",
+    before: "Trimițând cererea, confirmi că ai citit ",
+    link: "politica de confidențialitate",
+    after: ".",
   },
-  next: "Ce urmează: răspundem în cel mult o zi lucrătoare și îți arătăm G-Track pe datele tale.",
+  steps: {
+    label: "Ce urmează",
+    request: "Cerere",
+    reply: "Răspuns în cel mult o zi lucrătoare",
+    demo: "Demo pe datele tale",
+  },
 };

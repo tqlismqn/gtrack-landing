@@ -31,8 +31,14 @@ export const demo: DemoDict = {
   },
   success: { title: "Request received", text: "We will reply by e-mail within one working day." },
   gdpr: {
-    text: "Data controller: G-Track Software s.r.o. Purpose: replying to your request. We keep it for 24 months.",
+    before: "By sending the request, you confirm that you have read our ",
     link: "Privacy Policy",
+    after: ".",
   },
-  next: "What happens next: we reply within one working day and show G-Track on your data.",
+  steps: {
+    label: "What happens next",
+    request: "Request",
+    reply: "Reply within one working day",
+    demo: "Demo on your data",
+  },
 };

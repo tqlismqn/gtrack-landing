@@ -30,8 +30,14 @@ export const demo: DemoDict = {
   },
   success: { title: "Žádost přijata", text: "Odpovíme vám e-mailem do jednoho pracovního dne." },
   gdpr: {
-    text: "Správce údajů: G-Track Software s.r.o. Účel: odpověď na vaši žádost. Uchováváme 24 měsíců.",
-    link: "Zásady ochrany osobních údajů",
+    before: "Odesláním žádosti potvrzujete, že jste se seznámili se ",
+    link: "zásadami ochrany osobních údajů",
+    after: ".",
   },
-  next: "Co bude dál: odpovíme do jednoho pracovního dne a ukážeme vám G-Track na vašich datech.",
+  steps: {
+    label: "Co bude dál",
+    request: "Žádost",
+    reply: "Odpověď do jednoho pracovního dne",
+    demo: "Ukázka na vašich datech",
+  },
 };

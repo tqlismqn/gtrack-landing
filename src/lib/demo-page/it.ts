@@ -30,8 +30,14 @@ export const demo: DemoDict = {
   },
   success: { title: "Richiesta ricevuta", text: "Ti rispondiamo via email entro un giorno lavorativo." },
   gdpr: {
-    text: "Titolare del trattamento: G-Track Software s.r.o. Finalità: rispondere alla tua richiesta. Conserviamo i dati per 24 mesi.",
-    link: "Informativa sulla privacy",
+    before: "Inviando la richiesta confermi di aver letto l'",
+    link: "informativa sulla privacy",
+    after: ".",
   },
-  next: "Cosa succede dopo: rispondiamo entro un giorno lavorativo e ti mostriamo G-Track sui tuoi dati.",
+  steps: {
+    label: "Cosa succede dopo",
+    request: "Richiesta",
+    reply: "Risposta entro un giorno lavorativo",
+    demo: "Demo sui tuoi dati",
+  },
 };

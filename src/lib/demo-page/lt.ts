@@ -30,8 +30,14 @@ export const demo: DemoDict = {
   },
   success: { title: "Užklausa gauta", text: "Atsakysime el. paštu per vieną darbo dieną." },
   gdpr: {
-    text: "Duomenų valdytojas: G-Track Software s.r.o. Tikslas: atsakyti į jūsų užklausą. Saugome 24 mėnesius.",
-    link: "Privatumo politika",
+    before: "Siųsdami užklausą patvirtinate, kad susipažinote su ",
+    link: "privatumo politika",
+    after: ".",
   },
-  next: "Kas toliau: atsakysime per vieną darbo dieną ir parodysime G-Track su jūsų duomenimis.",
+  steps: {
+    label: "Kas toliau",
+    request: "Užklausa",
+    reply: "Atsakymas per vieną darbo dieną",
+    demo: "Demo su jūsų duomenimis",
+  },
 };

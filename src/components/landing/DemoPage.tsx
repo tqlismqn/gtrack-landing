@@ -7,7 +7,7 @@
    noindex и ни одной ссылки на неё до ворот 5.5.
    ============================================================================ */
 
-import { DEMO_DICT } from "@/lib/demo-page";
+import { DEMO_DICT, type DemoDict } from "@/lib/demo-page";
 import type { Lang } from "@/lib/landing-i18n";
 import { DemoForm } from "./DemoForm";
 import { LandingIcons } from "./LandingIcons";
@@ -24,6 +24,33 @@ function withBrand(text: string) {
   );
 }
 
+/* Дорога «что дальше» (владелец 12.10, Г40): три остановки, по ним едет силуэт грузовика из
+   лого-морфа шапки (#i-trucksil). Разметка серверная, текст остановок — обычный список (виден без
+   JS и без движения); дорога и грузовик — декор, aria-hidden. Движение — только CSS под
+   html.motion-ok (MotionRoot), transform/opacity; без него грузовик стоит на первой остановке. */
+function DemoRoad({ s }: { s: DemoDict["steps"] }) {
+  return (
+    <div className="demo-road">
+      <p className="demo-road-label">{s.label}</p>
+      <div className="demo-road-track" aria-hidden="true">
+        <span className="demo-road-line" />
+        <span className="demo-road-fill" />
+        <span className="demo-road-dot is-0" />
+        <span className="demo-road-dot is-1" />
+        <span className="demo-road-dot is-2" />
+        <span className="demo-road-car">
+          <svg className="demo-road-truck" viewBox="0 0 40 20"><use href="#i-trucksil" /></svg>
+        </span>
+      </div>
+      <ol className="demo-road-steps">
+        <li>{s.request}</li>
+        <li>{withBrand(s.reply)}</li>
+        <li>{withBrand(s.demo)}</li>
+      </ol>
+    </div>
+  );
+}
+
 export function DemoPage({ locale }: { locale: Lang }) {
   const t = DEMO_DICT[locale];
   return (
@@ -37,7 +64,7 @@ export function DemoPage({ locale }: { locale: Lang }) {
               <span className="overline">{t.overline}</span>
               <h1 className="lg-h1">{withBrand(t.h1)}</h1>
               <p className="sect-sub">{t.lead}</p>
-              <p className="demo-next">{withBrand(t.next)}</p>
+              <DemoRoad s={t.steps} />
             </div>
             <DemoForm locale={locale} t={t} privacyHref={legalUrl("privacy", locale)} />
           </div>
