@@ -11,11 +11,11 @@ React 19, Tailwind 4, TypeScript strict, Node 22, деплой на Vercel. 12 �
 |---|---|
 | `npm install` | Установить зависимости |
 | `npm run dev` | Дев-сервер на :3000 |
-| `npm test` | vitest, 198 тестов в 3 файлах, ~0,3 с |
+| `npm test` | vitest, 600 тестов в 10 файлах, ~0,3 с |
 | `npx vitest run test/showcase.test.ts` | Один файл тестов |
 | `npx tsc --noEmit` | Проверка типов |
 | `npm run lint` | ESLint (eslint-config-next: core-web-vitals + typescript) |
-| `npm run build` | Прод-сборка: `Compiled successfully`, 12 локалей SSG, 34 страницы (главная и `/roadmap` × 12) |
+| `npm run build` | Прод-сборка: `Compiled successfully`, 56 статических страниц по счётчику Next: 48 из них — главная, `/roadmap`, `/impressum`, `/social-media-privacy` × 12 локалей, остальное служебное (`_not-found`, иконки, `robots`, `sitemap`, OG) |
 
 `npm run build` пишет в тот же `.next`, что и дев-сервер: если на :3000 кто-то висит — сначала гаси его.
 
@@ -27,13 +27,14 @@ src/app/(intl)/[locale]/ /ru /de /cs … — 11 локалей, generateStaticPa
 src/app/layout-shared.tsx  единственный <html>: шрифты, consent, GTM, тема без вспышки
 src/app/globals.css      @theme: шкала брейкпоинтов и CSS-флаги для JS
 src/components/landing/  секции страницы, по файлу на секцию
-src/lib/                 showcase-data, cta-variant, analytics, metadata, og-image, словари ru+en
+src/lib/                 hero-data, showcase-data, cta-variant, analytics, company, landing-metadata, og-image, roadmap-content, словари ru+en
 src/lib/landing-locales/ 10 остальных словарей, по файлу на локаль
+src/lib/legal-pages/     Impressum и уведомление о соцсетях, по файлу на локаль
 src/styles/landing/      CSS по смысловым областям, порядок сборки — в index.css
 src/hooks/               useInViewport
-test/                    vitest: три чистых шва
-public/                  видео с постером
-docs/adr/                несущие решения с числами замеров, 12 записей
+test/                    vitest, 10 файлов (список — в «Тестах»)
+public/                  видео с постером, `llms.txt`, значок для писем
+docs/adr/                несущие решения с числами замеров, 13 записей
 .autopilot/              состояние сборки навыком /autopilot
 ```
 
@@ -42,13 +43,18 @@ docs/adr/                несущие решения с числами зам�
 - `src/components/landing/LandingPage.tsx` — сборка и порядок секций; `MotionRoot` монтируется последним.
 - `src/components/landing/MotionRoot.tsx` — единственный цикл скролла и владелец класса `motion-ok`.
 - `src/components/landing/Showcase.tsx` + `ShowcaseScreens.tsx` — витрина «Одна заявка» (`#product`): пять макетов экранов, нарисованных кодом; выше неё полоса `BeforeAfter.tsx`. Раскладка трёх кадров — `styles/landing/showcase.css`, решение и числа — ADR 0012.
+- `src/components/landing/Hero.tsx` + `HeroScenes.tsx` — первый экран из трёх сцен (A отпуск из Telegram, B телематика рядом с планом, C срок визы; фразы H1 — Г31 от 12.10): `Hero.tsx` — H1 из трёх фраз и цикл, `HeroScenes.tsx` — `SceneA/B/C`. CSS — `styles/landing/hero-scenes.css` (раскладка сцен, шаги A и B), шаги C — в `hero.css` и `fx.css`. Решение и числа замера — ADR 0013.
+- `src/lib/hero-data.ts` — «мир» hero (ср 10.06.2026 15:04), `HERO_STEPS` (22 шага, цикл 28 050 мс), `HERO_STATIC` (`a2`), машины сцены B, срок визы (`VISA_EXPIRY`: на странице 32 и 12.07 — литералы словарей ×12, тест `hero.test.ts` сверяет их с ним во всех локалях); чистый модуль, TZ-независим.
 - `src/lib/showcase-data.ts` — ВСЕ числа и даты макетов витрины (парк, окно доски, заявка, ротация, карточка машины) и геометрия полос; компоненты и словари цифр не знают.
 - `src/components/landing/Europe.tsx` — карта Европы; контур суши в `europe-land-path.ts`, проекция и формула — комментарием там же.
-- `src/lib/landing-i18n.ts` — `Lang`, `LOCALES`, `LANDING_DICT`, словари ru и en (923 строк). Блок `showcase` — особый: строки макетов взяты дословно из словарей приложения и мини-приложения и заново не переводятся.
-- `src/lib/showcase-data.ts`, `src/lib/cta-variant.ts`, `src/lib/roadmap-content.ts` — чистая логика; ровно она и покрыта тестами.
+- `src/lib/landing-i18n.ts` — `Lang`, `LOCALES`, `LANDING_DICT`, словари ru и en (981 строка). Блок `showcase` — особый: строки макетов взяты дословно из словарей приложения и мини-приложения и заново не переводятся.
+- `src/lib/showcase-data.ts`, `hero-data.ts`, `cta-variant.ts`, `roadmap-content.ts`, `analytics.ts`, `legal-pages/` — чистая логика; ровно она и покрыта тестами.
 - `src/lib/roadmap-content.ts` — состав Ганта `/roadmap` (9 направлений, даты выпусков приложения, вехи); модель строится на сервере в `RoadmapPage`, «Сейчас» = день сборки. Те же `TRACKS` через `trackGroups()` дают секцию «Работает сейчас» на главной (`Modules.tsx`) и `featureList` в `JsonLd.tsx`: появление `since` у направления меняет главную и разметку.
-- `src/lib/analytics.ts` — GTM ID, Consent Mode v2, first-touch метки; порядок загрузки хрупкий и описан в шапке файла.
-- `next.config.ts` — CSP в Report-Only, security headers, редиректы `/privacy` и `/terms` на app-legal.
+- `src/lib/analytics.ts` — GTM ID, Consent Mode v2, first-touch метки (`MARKETING_PARAMS`: utm_*, gclid, gbraid, wbraid, fbclid, msclkid …). Метки живут в памяти страницы (`LandingProvider`, `useRef`), в хранилище не пишутся; к ссылке дописываются кликом (capture на `document`) только для целей из белого списка: `/register`, `/login`, `/roadmap` приложения и страница `/demo` своего хоста (`shouldAttribute`). Порядок загрузки хрупкий и описан в шапке файла.
+- `src/lib/company.ts` — реквизиты G-Track Software s.r.o. и стороны уведомления о соцсетях (Mesartim, профили, Meta Ireland); константы, не переводятся. `src/lib/legal-pages/` — тексты Impressum и уведомления о соцсетях на 12 языках, реквизиты в них не живут.
+- `src/lib/landing-metadata.ts` — `title` / `description` / canonical / hreflang по локали, `SITE_ORIGIN` = `https://www.g-track.eu`.
+- `public/llms.txt` — факты о продукте для ИИ-поиска; цены и пороги сверяет `test/llms.test.ts` с `Pricing.tsx`, правка тарифа без файла краснит тест.
+- `next.config.ts` — CSP в Report-Only (с 11.10 в списке Meta Pixel и Google Ads — `connect.facebook.net`, `facebook.com`, `googleadservices`, `doubleclick`, `googlesyndication`, `www.google.<страна>` — и один хост функции приёма заявок `qawvvbjmfimpyilaqsrj.supabase.co`, без `*.supabase.co`; `form-action` — `'self'` и `www.facebook.com`: длинные события пиксель шлёт POST-формой; `'unsafe-eval'` не даём; в enforcing — отдельным PR), security headers, редиректы `/privacy` и `/terms` на app-legal, `/en` → `/` и `/en/:path+` → `/:path+` (307, метки Next переносит сам; два правила, потому что одно `/en/:path*` на голом `/en` даёт петлю).
 
 ## Архитектура
 
@@ -80,11 +86,20 @@ CookieScript — публичные идентификаторы и живут �
 
 ## Тесты
 
-vitest без конфига, окружение node — DOM не нужен. Покрыты три чистых шва: `pickCta`
-(12 локалей × 3 ступени), `showcase-data` (арифметика макетов витрины: суммы плиток, проценты
-шапки, дни до срока документа — как их считает приложение, геометрия полос на трёх кадрах; плюс словари витрины
-12 локалей — подстановки, инициалы, запрет слова «AI») и `buildRoadmapModel`
-(Гант `/roadmap`: проценты оси по датам выпусков, UTC-день, инварианты полос). Ожидания вписаны литералами,
+vitest без конфига и без глобалов (каждый файл начинается с `import { describe, expect, it } from "vitest"`), окружение node — DOM не нужен. Импорты в модулях, которые тест тянет, — относительные: алиас `@/` vitest не знает (в `import type` можно). Файлы (`npm test`, 600):
+
+- `showcase.test.ts` (119) — арифметика макетов витрины: суммы плиток, проценты шапки, дни до срока как в приложении, геометрия полос; словари витрины 12 локалей (подстановки, инициалы, запрет «AI»).
+- `legal-pages.test.ts` (194) — Impressum и уведомление о соцсетях (`company.ts` и `legal-pages/`), 12 локалей.
+- `copy.test.ts` (86) — обещания против продукта в словарях: аудитория «от 20 машин», телематика (Г16), FAQ, ru/en ключей задачи 3 дословно; запрещённые слова (`banned.ts`, семьи основами) — по всем строкам словаря ×12, кроме дословного `showcase`.
+- `cta-variant.test.ts` (59) — `pickCta`, 12 локалей × 3 ступени.
+- `hero-copy.test.ts` (53) — три фразы hero в 12 локалях (в словарях обычный пробел перед тире; склейка — в `lead()`), запреты и их пробы «умеют краснеть», «EU-compliance» на месте (Г18).
+- `analytics.test.ts` (28) — метки атрибуции, `shouldAttribute`, `/demo`, редиректы `/en` из `next.config`; сторож по исходнику `LandingProvider` (авто-редирект несёт query и хеш, клик — через `shouldAttribute`) и хранилища во всём `src/` (метки не пишутся никуда). Правишь `LandingProvider` — перезапусти и `attr.cjs` в vault на `next start`.
+- `roadmap.test.ts` (20) — Гант `/roadmap`: проценты оси по датам, UTC-день, инварианты полос.
+- `llms.test.ts` (13) — `public/llms.txt` против `Pricing.tsx` и JSON-LD.
+- `hero.test.ts` (21) — мир, шаги и телематика hero (инварианты данных: «сейчас» вне рейса больного, `HERO_STATIC`); минимумы шагов читаются из `fx.css` и `hero-scenes.css`; дни и дата визы ×12 против `VISA_EXPIRY`.
+- `csp.test.ts` (7) — состав CSP Report-Only, без `'unsafe-eval'`.
+
+Ожидания вписаны литералами,
 разобранными вручную по словарям: тест не считает результат тем же способом, что код, иначе он
 не мог бы с кодом не согласиться. Адаптив, обрезы и каскад тестом не проверяются — только замером
 в живом браузере.
@@ -97,14 +112,15 @@ vitest без конфига, окружение node — DOM не нужен. �
 - **Каскадный порядок здесь несущий.** `story.css` импортируется раньше `fx.css`, а `@media` и `@container` специфичности не добавляют — четыре правки за волну молча проиграли каскад. Правило, перебивающее базовое, принимается только с негативным контролем: мутируешь значение — замеренное число обязано сдвинуться.
 - **Инварианты переполнения держатся сотрудничеством нескольких правил, и снятие «ради косметики» возвращает обрез молча** — ни сборка, ни линтер его не видят. Их два: карточка тарифа (`minmax(0,1fr)` + два `flex-wrap`) и подпись дня `.bh` (перенос; одно базовое правило на все три доски, копию не заводить).
 - **Текст в полосе рейса обязан лежать в `.bartext`:** голый текстовый узел во флексе — анонимный флекс-элемент, `text-overflow` к нему не применяется, и 134 случая рубились без многоточия. Сторож даёт пустой вывод: `grep -rn 'className="tripbar' src/ | grep -v 'bartext'`.
-- **Цели по позиции.** У `.hero-grid` ровно два ребёнка (`hero.css:76,81`), `mobile.css:186` целится в дни доски через `nth-child(n+5)`. Третий ребёнок или вставленный день ломают раскладку молча; нужен сосед — клади рядом, как `.atmo`.
+- **Текст факта телематики — только в `.hs-ftext`** (hero, сцена B): ниже `m` это собственный блок под номером машины (`display: block`, время `.hs-when` — своей строкой под ним), и многоточие не зависит от анонимного блока — тот же класс дефекта, что у `.bartext`, но для WebKit / iOS Safari, который мог бы резать без «…». Голый текст в `.hs-fact` не клади. Контроль: мутация `.hs-ftext { display: inline }` на 320 обязана дать красный замер (ADR 0013).
+- **Цели по позиции.** У `.hero-grid` ровно два ребёнка: `hero.css:76` и `:81` адресуют их через `:nth-child(1)` / `:nth-child(2)` (флекс-дорожки и `container: hero-board-col` у второго). Третий ребёнок ломает раскладку молча; нужен сосед — клади рядом, как `.atmo`. Прежнего `mobile.css:186` с `nth-child(n+5)` по дням доски больше нет: в `mobile.css` (118 строк) `nth-child` не осталось (grep по `src/styles` находит его только в `hero.css`, `fx.css`, `story.css`).
 - **`container-type: inline-size` — это ещё и `contain: layout`:** элемент становится containing block для `position: absolute` внутри. Заводя контейнер, первым делом ищи абсолютных потомков.
 - **`getComputedStyle` — форсированный пересчёт стилей:** в цикле скролла не звать, кэшировать по ключу `innerWidth + "x" + innerHeight` и перечитывать при resize.
 - **Данные во всех макетах выдуманные** — ни одного имени, номера или маршрута клиента STL Express. Города маршрута двигать нельзя (продукт продаёт точность), кадр карты — можно.
 - **Территория — только `gtrack-landing`.** Соседний `gtrack-tms` — репозиторий Lovable, туда не писать; родительская папка — Obsidian-vault, кода там нет. Git-команды — всегда с явным `-C` на каталог лендинга.
 - **Имя класса сверяй с утилитами Tailwind.** Слой `gt-landing` стоит НИЖЕ `utilities`: класс `.inline` молча получил `display: inline` и перебил `display: none` (витрина, 04.10) — ни сборка, ни линтер этого не видят. `ring` и `overline` заглушены в `globals.css` тем же способом, каким ловится и следующий.
 - **Строки макетов витрины не правь руками и не переводи.** Они дословные (словари `gtrack-tms` и `driver-dash-telegram`); числа в них — подстановки `{n}` / `{date}` из `showcase-data.ts`. Правка «для красоты» ломает тест и правду разом.
-- **Известные остатки, не дефекты волны** (числа — ADR 0012): подпись пунктирной полосы заявки режется многоточием на 320 во всех локалях и на 390 / 768 в шести; пилюля статуса с датой у `es` и `ro` ставит многоточие на кадре `m`.
+- **Известные остатки, не дефекты волны** (числа — ADR 0012 и 0013): подпись пунктирной полосы заявки режется многоточием на 320 во всех локалях и на 390 / 768 в шести; пилюля статуса с датой у `es` и `ro` ставит многоточие на кадре `m`. Hero (ADR 0013): подписи полос доски режутся на 320 во всех 12 локалях (на 390 — только «⏳ Atvaļinājums» lv и «⏳ Vacaciones» es), пилюля «Baja por enfermedad» (es) — на 320 и 390, WebKit локально не мерили. **Фразы H1 (Г31, 12.10):** слово длиннее строки H1 вылезает за колонку (переноса внутри слова нет) — новую фразу мерь `hero-measure.mjs`, а не только числом строк; впритык на 320 — pl B «obdzwaniania.» 94 %, lv A «atvaļinājumu —» 96 %.
 
 ## Как здесь работает Autopilot
 

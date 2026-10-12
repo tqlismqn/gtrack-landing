@@ -1,0 +1,207 @@
+/* ============================================================================
+   G-Track Landing — первый экран из трёх сцен (ворота 1, задача 6).
+   Разметка — Hero.tsx + HeroScenes.tsx, шаги и длительности — src/lib/hero-data.ts.
+   Сцену выбирает `data-hs` секции (a | b | c), шаг — `data-phase` доски (a0…a9,
+   b0…b4, c0…c6): id названы по сцене, номер без буквы сталкивался бы между ними.
+   Шаги сцены C (прежний цикл «истекает → продлена») — в hero.css и fx.css, рядом
+   с базой тоста, курсора и миникарточки; здесь — раскладка сцен и шаги A и B.
+   Файл импортируется ПОСЛЕ showcase.css и ДО fx.css (index.css): фрагменты
+   мини-приложения и окна заявки витрины здесь ужимаются, а фазы курсора в fx.css
+   стоят последними. Анимируются opacity / transform / clip-path; исключение —
+   подсветка строки факта на b1–b3 (box-shadow и фон одного мелкого элемента,
+   только перерисовка): в ::after её не унести — `.hs-fact` режет overflow: hidden.
+   Классы — с префиксом `hs-`: слой gt-landing ниже utilities Tailwind, и голое
+   имя вроде `.stage` или `.phone` проверять пришлось бы каждое.
+   ============================================================================ */
+
+/* ---- H1: три фразы в одной ячейке ---------------------------------------------
+   Высота H1 = самой длинной фразе в любой локали и на любой ширине без замеров JS;
+   неактивные — только opacity: 0 (не display / visibility): текст целиком остаётся
+   в доступности и в выдаче. */
+.hs-h1 { display: grid; }
+.hs-ph { grid-area: 1 / 1; min-width: 0; opacity: 0; transition: opacity 450ms var(--ease-soft); }
+.hero[data-hs="a"] .hs-ph[data-hs="a"],
+.hero[data-hs="b"] .hs-ph[data-hs="b"],
+.hero[data-hs="c"] .hs-ph[data-hs="c"] { opacity: 1; }
+
+/* ---- подпись под доской: три строки в одной ячейке ---------------------------- */
+.hs-caps { display: grid; }
+.hs-cap { grid-area: 1 / 1; min-width: 0; opacity: 0; transition: opacity 450ms var(--ease-soft); }
+.hero[data-hs="a"] .hs-cap[data-hs="a"],
+.hero[data-hs="b"] .hs-cap[data-hs="b"],
+.hero[data-hs="c"] .hs-cap[data-hs="c"] { opacity: 1; }
+
+/* ---- сцена: три слоя доски в одной ячейке --------------------------------------
+   Высота колонки = самому высокому слою, смена сцены не сдвигает текст (.hero-grid
+   центрирует колонки по вертикали). minmax(0, 1fr): дорожка не растёт по min-content
+   шапки доски. Скрытый слой — opacity: 0 + visibility: hidden, но раскладка жива:
+   цели курсора меряются в любом слое.
+   Смена без провала фона: входящий слой проявляется сразу, уходящий гаснет с задержкой
+   450 мс. Слои идут в разметке A → B → C, поэтому при A→B и B→C входящий ложится
+   сверху, а при C→A проявляется ПОД ещё непрозрачным C — в обоих случаях полупрозрачных
+   окон друг над другом не бывает.
+   isolation: isolate — каждый слой всегда свой контекст наложения. Без него слой с
+   opacity 1 и без перехода контекстом не является, и z-index его детей (.drv 1, .hs-phone 3)
+   уходит в контекст доски: на C→A после 450 мс имена и телефон A рисовались ПОВЕРХ ещё
+   непрозрачного C (ревью ветки ворот 1, 11.10; замер g1fix-r1-stack). */
+.hs-stage { display: grid; grid-template-columns: minmax(0, 1fr); }
+.hs-layer {
+  grid-area: 1 / 1; position: relative; min-width: 0; isolation: isolate;
+  opacity: 0; visibility: hidden;
+  transition: opacity 450ms var(--ease-soft) 450ms, visibility 0s linear 900ms;
+}
+.hero[data-hs="a"] .hs-layer[data-hs="a"],
+.hero[data-hs="b"] .hs-layer[data-hs="b"],
+.hero[data-hs="c"] .hs-layer[data-hs="c"] {
+  opacity: 1; visibility: visible;
+  transition: opacity 450ms var(--ease-soft), visibility 0s;
+}
+
+/* ============================================================================
+   СЦЕНА A — отпуск из Telegram на доску
+   a0 кнопка · a1 плитки · a2 пунктир у Новака · a3 курсор к полосе · a4 щелчок, окно
+   заявки · a5 курсор к «Одобрить» · a6 щелчок · a7 сплошная «Отпуск» + тост ·
+   a8 ответ на телефоне · a9 пауза. Статичный кадр (без JS, reduced-motion) — a2.
+   ============================================================================ */
+
+/* Полоса отпуска Новака: пара BoardBar «⏳ Отпуск» (пунктир) и «Отпуск» (сплошная) в одной
+   геометрии NOVAK_LEAVE. База — кадр a0–a1: заявки ещё нет (пунктир сжат клипом).
+   Одобренное состояние держится и за пределами сцены (`.hero:not([data-hs="a"])`): слой A
+   гаснет под B уже одобренным и проявляется под непрозрачным C, поэтому сброс к a0
+   мгновенный (переходов у базы нет) и его не видно. */
+.hs-leave .tripbar.req { clip-path: inset(0 100% 0 0 round 7px); }
+.hs-leave .tripbar.vac:not(.req) { opacity: 0; }
+.hero-board:is([data-phase="a2"], [data-phase="a3"], [data-phase="a4"], [data-phase="a5"], [data-phase="a6"]) .hs-leave .tripbar.req {
+  clip-path: inset(0 0 0 0 round 7px);
+  transition: clip-path 800ms var(--ease-soft);
+}
+.hero-board:is([data-phase="a7"], [data-phase="a8"], [data-phase="a9"]) .hs-leave .tripbar.req,
+.hero:not([data-hs="a"]) .hs-leave .tripbar.req {
+  clip-path: inset(0 0 0 0 round 7px); opacity: 0;
+  transition: opacity 450ms var(--ease-soft);
+}
+.hero-board:is([data-phase="a7"], [data-phase="a8"], [data-phase="a9"]) .hs-leave .tripbar.vac:not(.req),
+.hero:not([data-hs="a"]) .hs-leave .tripbar.vac:not(.req) {
+  opacity: 1;
+  transition: opacity 450ms var(--ease-soft);
+}
+
+/* Окно заявки (LeaveRequestPopover приложения, сжатое до «кто · состояние · решение»):
+   под полосой Новака, прижато к правому краю слоя; верх ставит замер (--py). Ширина —
+   по содержимому, но не шире слоя: на 320 кнопки переносятся (.pop-actions — flex-wrap). */
+.hs-pop {
+  position: absolute; right: 10px; top: var(--py, 52%); z-index: 4;
+  width: max-content; max-width: calc(100% - 20px);
+  gap: 7px; padding: 10px 12px;
+  opacity: 0; transform: translateY(4px); pointer-events: none;
+  transition: opacity 300ms var(--ease-soft), transform 300ms var(--ease-soft);
+}
+.hs-pop .pop-who { margin-top: -4px; }
+.hs-pop .pop-state { font-size: 12px; }
+.hs-pop .pop-actions { margin-top: 0; }
+.hero-board:is([data-phase="a4"], [data-phase="a5"], [data-phase="a6"]) .hs-pop { opacity: 1; transform: none; }
+
+/* Телефон водителя — фрагмент мини-приложения в левом нижнем углу доски: только кнопка,
+   плитки и карточка ответа (без приветствия, имени, телефона, смены, тягача и дат —
+   октябрьский мир витрины в первый экран не попадает). Три вида в одной ячейке, каждый —
+   своей карточкой, прижатой к низу: общая рамка вокруг одной кнопки на a0 стояла бы
+   пустой коробкой высотой с лист плиток. Ширина clamp(150px, 42 %, 200px): на 320
+   (слой 284) — 150, от двух колонок — 200; полоса Новака стоит на 62 % дорожки и
+   телефоном не закрывается. На a3–a7 телефон уезжает вниз: доска нужна курсору и окну
+   заявки целиком. */
+.hs-phone {
+  position: absolute; left: 10px; bottom: 10px; z-index: 3;
+  width: clamp(150px, 42%, 200px);
+  display: grid; color: var(--p-t1); font-size: 12px; line-height: 1.3;
+  opacity: 0; transform: translateY(12px); pointer-events: none;
+  transition: opacity 400ms var(--ease-soft), transform 400ms var(--ease-soft);
+}
+.hero-board:is([data-phase="a0"], [data-phase="a1"], [data-phase="a2"], [data-phase="a8"], [data-phase="a9"]) .hs-phone {
+  opacity: 1; transform: none;
+}
+.hs-pv {
+  grid-area: 1 / 1; min-width: 0; align-self: end;
+  padding: 8px; background: var(--p-sunken);
+  border: 1px solid var(--p-border); border-radius: 16px; box-shadow: var(--pop-shadow);
+  opacity: 0; transition: opacity 350ms var(--ease-soft);
+}
+.hero-board[data-phase="a0"] .hs-pv-cta,
+.hero-board:is([data-phase="a1"], [data-phase="a2"]) .hs-pv-tiles,
+.hero-board:is([data-phase="a8"], [data-phase="a9"]) .hs-pv-card { opacity: 1; }
+/* кнопка «+ Подать заявку» — как внизу экрана мини-приложения; рамка вида вокруг неё */
+.hs-phone .tg-cta { margin: 0; min-height: 34px; padding: 4px 8px; border-radius: 10px; font-size: 12px; }
+/* лист «Что нужно?» в ширине 150–200 px — столбиком: три плитки в ряд рубили бы
+   «Krankschreibung» и «Zwolnienie lekarskie (L4)» по слогам; «Отпуск» подсвечен */
+.hs-phone .tg-tiles { grid-template-columns: minmax(0, 1fr); gap: 4px; margin-top: 0; }
+.hs-phone .tg-tile {
+  flex-direction: row; align-items: center; gap: 7px;
+  padding: 4px 6px; border-radius: 9px; background: var(--p-bg);
+  font-size: 11px; text-align: left;
+}
+.hs-phone .tg-ico { width: 20px; height: 20px; border-radius: 6px; }
+.hs-phone .tg-ico svg { width: 12px; height: 12px; }
+/* карточка «Мои заявки»: тип, ✓ подтверждено — без дат. Пилюля статуса переносится под
+   иконку целиком (req-body и req-l1 растворены в строку .req с переносом): на 150 px
+   «✓ Підтверджено» не помещалось справа от названия и вылезало за карточку */
+.hs-phone .tgcard { padding: 8px; border-radius: 16px; background: var(--p-sunken); box-shadow: var(--pop-shadow); font-size: 12px; }
+.hs-phone .tgcard-h { padding: 0 2px; font-size: 13px; letter-spacing: -0.01em; }
+.hs-phone .tgcard .req { flex-wrap: wrap; align-items: center; margin-top: 6px; padding: 7px; gap: 6px 7px; border-radius: 10px; }
+.hs-phone .req-body, .hs-phone .req-l1 { display: contents; }
+.hs-phone .req-ic { width: 22px; height: 22px; }
+.hs-phone .req-ic svg { width: 12px; height: 12px; }
+.hs-phone .req-t { flex: 1 1 auto; min-width: 0; font-size: 12px; }
+.hs-phone .req-st { height: 18px; padding: 0 6px; font-size: 10px; }
+
+/* тост «Водитель уведомлён в Telegram» — после одобрения */
+.hero-board[data-phase="a7"] .btoast.ok { opacity: 1; transform: translateY(0); }
+
+/* ============================================================================
+   СЦЕНА B — кто едет, кто стоит: доска «по машинам»
+   b0 доска целиком · b1–b3 рамкой по очереди строки фактов · b4 пауза.
+   ============================================================================ */
+.hs-truckav svg { width: 15px; height: 15px; }
+.hs-plate { font-family: var(--font-mono); }
+/* Строка факта (VehicleResourceLabel.tsx): Radio + текст в тоне + моно «· когда».
+   Блок, а не флекс: многоточие (`text-overflow`) работает только у блочного контейнера
+   со строчным содержимым — длинная локаль на 112 px колонки ниже m режется видимо.
+   Ниже m текст факта — свой блок `.hs-ftext` (см. ниже), а не анонимный: `text-overflow`
+   не наследуется, и движок по спеке (WebKit / iOS) мог бы резать без «…». */
+.hs-fact {
+  display: block; width: fit-content; max-width: 100%;
+  margin-left: -4px; padding: 1px 4px; border-radius: 5px;
+  font-size: 10.5px; font-weight: 500; line-height: 1.35;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  box-shadow: 0 0 0 1.5px transparent;
+  transition: box-shadow 300ms var(--ease-soft), background-color 300ms var(--ease-soft);
+}
+.hs-fact.moving { color: var(--p-ok-tx); }
+.hs-fact.stopped, .hs-fact.stale { color: var(--p-t2); }
+.hs-ric { display: none; width: 11px; height: 11px; margin-right: 4px; vertical-align: -1.5px; }
+/* Время факта видно на ЛЮБОЙ ширине — приложение печатает его всегда (VehicleResourceLabel.tsx
+   «· {factWhen}»), а без него «82 км/ч» читается как живая лента; телефон — главный трафик
+   рекламы. Ниже m колонка машины 112 px, и одной строкой «факт · время» там не влезает:
+   замер r2 11.10 (r2-fact-time.mjs) — «нет данных 3 сут · 07.06 09:15» режется на 320 / 390
+   во всех 12 локалях (до 80 px, fr), «На стоянке · 13:40» — в пяти. Поэтому ниже m время
+   встаёт своей строкой под фактом, без «·» (`.hs-sep`), у всех трёх машин одинаково.
+   Строка машины — 58 px: номер, факт и время занимают 5,6…53,4 px, собственная высота
+   слоя B = слоям A и C во всех 72 клетках (12 локалей × 6 ширин) — страница не сдвигается.
+   Иконка Radio ниже m по-прежнему снята — место уступают в каноне полос (hero.css, `.tic`):
+   замер 11.10 с иконкой — «нет данных 3 сут» резалась на 4–11 px на 320 и 390 в ru, fr, pl,
+   lt, uk. До правки время было скрыто во всех 72 строках фактов на 320 / 390. */
+.hs-when { display: block; font-family: var(--font-mono); font-size: 10px; color: var(--p-t3); }
+.hs-sep { display: none; }
+/* Свой блок для текста факта ниже m: многоточие не зависит от анонимного блока Chromium
+   (white-space: nowrap наследуется от .hs-fact). От m — строчный, раскладка как была. */
+.hs-ftext { display: block; overflow: hidden; text-overflow: ellipsis; }
+@media (width >= theme(--breakpoint-m)) {
+  .hs-ftext { display: inline; }
+  .hs-ric { display: inline-block; }
+  .hs-when { display: inline; }
+  .hs-sep { display: inline; }
+}
+.hero-board[data-phase="b1"] .hs-vrow[data-r="1"] .hs-fact,
+.hero-board[data-phase="b2"] .hs-vrow[data-r="2"] .hs-fact,
+.hero-board[data-phase="b3"] .hs-vrow[data-r="3"] .hs-fact {
+  background: var(--p-trip-bg);
+  box-shadow: 0 0 0 1.5px var(--p-trip);
+}

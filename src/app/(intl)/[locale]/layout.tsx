@@ -16,8 +16,8 @@ export default async function LocaleRootLayout({
   params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
-  /* неизвестный сегмент сюда не доходит (dynamicParams = false), но lang
-     обязан быть валидным кодом даже на пререндере страницы-редиректа /en */
+  /* неизвестный сегмент сюда не доходит (dynamicParams = false); /en ловит
+     редирект в next.config.ts. Запасной "en" — только чтобы lang всегда был кодом */
   return (
     <LandingHtml lang={isLang(locale) ? locale : "en"}>{children}</LandingHtml>
   );

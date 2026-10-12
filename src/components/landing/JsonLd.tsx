@@ -6,7 +6,7 @@
 
    ЗАПРЕТ: никаких aggregateRating, reviewCount и отзывов — их у нас нет,
    а разметка несуществующих оценок это и ручная санкция, и обман.
-   Цены берутся из тех же констант, что и витрина, — расходиться им нельзя.
+   Цены — отдельный литерал PLAN_OFFERS ниже; test/llms.test.ts сверяет его с PRICING.mo в Pricing.tsx — расходиться им нельзя.
    ============================================================================ */
 
 import { LANDING_DICT, localePath, type Lang } from "@/lib/landing-i18n";
@@ -16,7 +16,7 @@ import { SALES_EMAIL } from "./urls";
 
 const FEATURE_IDS = trackGroups().shipped;
 
-/* синхронизировано с Pricing.tsx и `subscription_plans` */
+/* синхронизировано с Pricing.tsx и `subscription_plans`; те же цифры — в public/llms.txt и faq.a10 */
 const PLAN_OFFERS = [
   { name: "Starter", price: 150 },
   { name: "Fleet", price: 450 },

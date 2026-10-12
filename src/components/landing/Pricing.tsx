@@ -16,7 +16,9 @@ import { appSignupUrl, SALES_MAILTO } from "./urls";
 type PeriodKey = "mo" | "q" | "y";
 type TierKey = "starter" | "fleet" | "business";
 
-/* ЦИФРЫ СИНХРОНИЗИРОВАНЫ СО STRIPE LIVEMODE — НЕ МЕНЯТЬ. */
+/* ЦИФРЫ СИНХРОНИЗИРОВАНЫ СО STRIPE LIVEMODE — НЕ МЕНЯТЬ.
+   Те же цифры живут в public/llms.txt (строка «Prices (»; test/llms.test.ts сверяет её с этим файлом: PRICING, TRUCKS, PACK, PLUS_CAPS; сроки фиксации — по словарю en)
+   и в faq.a10 всех 12 локалей, а ещё в JsonLd.tsx (PLAN_OFFERS — Offer.price, только месячные цены; test/llms.test.ts сверяет) — менять цены везде разом. */
 const PRICING: Record<PeriodKey, Record<TierKey, number>> = {
   mo: { starter: 150, fleet: 450, business: 900 },
   q: { starter: 140, fleet: 420, business: 840 },

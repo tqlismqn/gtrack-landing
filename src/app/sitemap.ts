@@ -1,6 +1,13 @@
 import type { MetadataRoute } from "next";
-import { LOCALES, localePath, roadmapPath } from "@/lib/landing-i18n";
-import { SITE_ORIGIN } from "@/lib/landing-metadata";
+/* Импорты относительные, не @/: sitemap вызывает тест (test/legal-pages.test.ts),
+   а vitest здесь без конфига и алиаса @/ не знает. */
+import {
+  impressumPath,
+  LOCALES,
+  localePath,
+  roadmapPath,
+} from "../lib/landing-i18n";
+import { SITE_ORIGIN } from "../lib/landing-metadata";
 
 /* hreflang-связка одной страницы во всех локалях. Связки главной и карты
    раздельные: смешивать их нельзя — hreflang заявляет «то же содержание
@@ -45,7 +52,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     alternates: { languages: roadmapLanguages },
   }));
 
+  /* Impressum — 12 URL со своей связкой hreflang. Приоритет низкий и правка
+     раз в год: страницу ищут по названию фирмы, а не по продукту. */
+  const impressumLanguages = languagesFor(
+    impressumPath,
+    `${SITE_ORIGIN}${impressumPath("en")}`,
+  );
+  const impressumPages: MetadataRoute.Sitemap = LOCALES.map((l) => ({
+    url: `${SITE_ORIGIN}${impressumPath(l)}`,
+    changeFrequency: "yearly",
+    priority: 0.3,
+    alternates: { languages: impressumLanguages },
+  }));
+
   /* /privacy и /terms больше не страницы лендинга — редиректят на app-legal
      (app.g-track.eu/legal), поэтому из sitemap лендинга исключены. */
-  return [...landingPages, ...roadmapPages];
+  return [...landingPages, ...roadmapPages, ...impressumPages];
 }

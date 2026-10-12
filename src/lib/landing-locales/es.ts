@@ -13,7 +13,7 @@ export const es: LandingDict = {
   meta: {
     title: "G-Track — cumplimiento UE y planificación para transportistas",
     description:
-      "Documentos de conductores, viajes y vacaciones, reparaciones y mantenimiento — una app web para flotas desde 50 camiones. 30 días gratis, precios a la vista.",
+      "Documentos de conductores, viajes y vacaciones, reparaciones y mantenimiento — una app web para flotas desde 20 camiones. 30 días gratis, precios a la vista.",
   },
 
   nav: {
@@ -36,16 +36,25 @@ export const es: LandingDict = {
     kicker: "Cumplimiento UE · planificación · flota y taller",
     h1: "Cada conductor, listo para el viaje.",
     h1dim: "Siempre.",
-    sub: " — el sistema de cumplimiento normativo UE y planificación para transportistas desde 50 camiones. Documentos de conductores, viajes y vacaciones, reparaciones y mantenimiento — en el navegador, sin hardware ni consultores de implantación. El propio sistema le muestra lo que requiere una decisión hoy.",
+    phA: "Vacaciones aprobadas —",
+    phAdim: "el conductor se entera sin llamar.",
+    phB: "Qué camión está parado —",
+    phBdim: "se ve sin llamar a nadie.",
+    phC: "A un conductor le caduca el visado —",
+    phCdim: "se ve con tiempo.",
+    sub: " — el sistema de cumplimiento normativo UE y planificación para transportistas desde 20 camiones. Vencimientos de visados, Code 95 e inspección técnica, viajes y vacaciones, reparaciones y mantenimiento — en el navegador, sin hardware ni consultores de implantación. El propio sistema le muestra lo que requiere una decisión hoy.",
     ctaTrial: "Pruébelo 30 días",
     ctaPricing: "Ver precios",
     micro1: "Sin tarjeta",
     micro2: "Registro en 2 minutos",
     micro3: "Datos en la UE",
     boardAria:
-      "Tablero de planificación de G-Track: usted sube el escaneo de un documento, el sistema reconoce el número y la fecha de caducidad, usted revisa y guarda el registro",
+      "Tablero de G-Track en tres escenas. Un conductor pide vacaciones por Telegram, el gestor de tráfico las aprueba en el tablero y el conductor recibe la respuesta. Telemática · en los camiones con localizador conectado, junto al plan se ven la velocidad, la parada o la falta de datos. Visado a punto de caducar: usted sube el escaneo, el sistema reconoce el número y la fecha de caducidad, usted revisa y guarda.",
     boardCaption:
       "Usted sube un escaneo → G-Track reconoce el número y la fecha de caducidad → usted revisa y guarda",
+    trackerCaption: "Para camiones cuyo localizador está conectado a G-Track",
+    toastNotified: "Conductor avisado por Telegram",
+    colVehicle: "Camión",
   },
 
   trust: {
@@ -56,7 +65,7 @@ export const es: LandingDict = {
     c4: "Rotación · a 3 meses vista",
     c5: "Vehículos · tractoras y remolques",
     c6: "Reparaciones y mantenimiento",
-    c7: "Telemática · su sistema de seguimiento de flota",
+    c7: "Telemática · su localizador, si es compatible",
     c8: "El conductor en Telegram · solicitudes y avisos",
     c9: "12 idiomas de interfaz",
   },
@@ -98,6 +107,7 @@ export const es: LandingDict = {
     c4h: "El camión tiene sus propios vencimientos",
     c4p: "La ITV caducará mientras el conductor esté de vacaciones — aún hay tiempo de pedir cita.",
     foot: "Todo lo que ve en estas pantallas funciona sin telemática.",
+    telMoving: "{speed} km/h", telStopped: "Aparcado", telStale: "sin datos {n} d", /* дословно planning.telematics.* приложения */
     /* водители макетов (выдуманные) */
     marek: "Hájek Marek",
     marekFirst: "Marek",
@@ -244,7 +254,7 @@ export const es: LandingDict = {
       drivers: { t: "Conductores y documentos", d: "Fichas, 16 tipos de documentos, normas de 8 países" },
       planning: { t: "Planificación y piloto automático", d: "Tablero, Centro de decisiones, rotación, piloto automático por tarjeta" },
       fleet: { t: "Vehículos y mantenimiento", d: "Flota, reparaciones y mantenimiento, datos de a bordo" },
-      telematics: { t: "Integración telemática", d: "Conectamos su sistema de seguimiento de flota: los datos de los vehículos llegan solos, para planificar y calcular los intervalos de mantenimiento. También funciona en modo manual." },
+      telematics: { t: "Integración telemática", d: "Conectamos su localizador, si es compatible: los datos de los vehículos llegan solos, para planificar y calcular los intervalos de mantenimiento. También funciona en modo manual." },
       telegram: { t: "El conductor en Telegram", d: "Solicitudes de vacaciones y de baja por enfermedad, turno de hoy, avisos de vencimiento de documentos" },
       reports: { t: "Informes y notificaciones", d: "Informe semanal, centro de notificaciones, plazos de descarga DDD" },
       companies: { t: "Empresas vinculadas", d: "Varias empresas de un mismo propietario: cada una con su suscripción y acceso de solo lectura a los vehículos y conductores de las demás" },
@@ -351,7 +361,10 @@ export const es: LandingDict = {
     a9: "Para los no ciudadanos de la UE la lista obligatoria es más larga: al pasaporte, el permiso de conducir y la tarjeta de tacógrafo se suman el visado, la licencia de transporte y el Code 95. La preparación para viaje se calcula precisamente sobre esa lista ampliada — un conductor no aparece como listo hasta que están cerrados sus documentos, no los de una plantilla general.",
 
     q12: "Ya tenemos telemática. ¿La necesita G-Track?",
-    a12: "No es imprescindible: los documentos, el tablero, la rotación, las reparaciones y el mantenimiento funcionan sin ella, y el kilometraje se introduce a mano. Si conectamos su sistema de seguimiento de flota, el kilometraje llega directamente del camión, G-Track ve qué tarjeta del conductor está en el tacógrafo y detecta el camión que circula sin viaje planificado.",
+    a12: "No es imprescindible: los documentos, el tablero, la rotación, las reparaciones y el mantenimiento funcionan sin ella, y el kilometraje se introduce a mano. Si su localizador es compatible y lo conectamos, el kilometraje llega directamente del camión, G-Track ve qué tarjeta del conductor está en el tacógrafo y detecta el camión que circula sin viaje planificado.",
+
+    q13: "¿Para qué transportistas está pensado G-Track y en qué idiomas está disponible?",
+    a13: "Para transportistas desde 20 camiones, con conductores de la UE y de terceros países. G-Track vigila los vencimientos de los documentos de los conductores — pasaporte, permiso de conducir, tarjeta de tacógrafo, visado, Code 95 — y de los vehículos: inspección técnica, calibración del tacógrafo y descarga de sus datos. La interfaz está disponible en 12 idiomas: inglés, ruso, alemán, francés, checo, polaco, italiano, letón, lituano, ucraniano, español y rumano.",
 
     q10: "¿Cuánto cuesta para 40 camiones y 45 remolques? ¿Se paga por cada usuario?",
     a10: "El plan Starter cuesta 150 € al mes, y 125 € con pago anual. Incluye 50 vehículos, 100 conductores y 75 remolques, así que su flota entra con margen. Los puestos de gestores de tráfico y de RR. HH. no se cuentan: dé de alta a todos los que lo necesiten.",
@@ -380,6 +393,8 @@ export const es: LandingDict = {
     privacy: "Privacidad",
     terms: "Términos de uso",
     dpa: "Tratamiento de datos",
+    impressum: "Aviso legal",
+    social: "Privacidad en redes sociales",
     securityHeading: "Seguridad de datos",
     trust1: "Datos alojados en la UE",
     trust2: "Cumple el RGPD",
@@ -401,7 +416,7 @@ export const es: LandingDict = {
     d1: "Lun 08", d2: "Mar 09", d3: "Mié 10", d4: "Jue 11", d5: "Vie 12",
     kpiTrip: "En viaje hoy", kpiVac: "De vacaciones", kpiFree: "Libres",
     stActive: "Activo", stTrip: "En viaje", ready: "listo",
-    vacUntil: "Vacaciones hasta el 15.06", sick: "Baja por enfermedad",
+    sick: "Baja por enfermedad",
     toastWarnT: "Resumen por correo: el visado caduca el 12.07", toastWarnD: "P. Savchenko · quedan 32 días",
     mcH: "Visado · P. Savchenko",
     mc1: "Se subió un escaneo nuevo del visado",

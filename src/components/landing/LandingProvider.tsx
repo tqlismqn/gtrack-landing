@@ -5,8 +5,9 @@
    Язык = сегмент URL: / (en) и /ru /de /cs … — приходит пропом `locale`
    из серверной страницы; переключение языка = навигация на другой путь
    (cookie `gt-landing-lang` запоминает выбор).
-   Авто-редирект по языку браузера — один раз, только на корне (/),
-   только если выбор ещё не сохранён.
+   Авто-редирект по языку браузера — один раз, только на английских страницах
+   (/, /roadmap, /impressum), только если выбор ещё не сохранён; query и хеш
+   сохраняются.
    Тема: html[data-theme], дефолт dark; инлайн-скрипт в layout.tsx применяет
    сохранённую тему до hydration.
    ============================================================================ */
@@ -21,16 +22,18 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 import {
-  APP_HOST,
-  isAttributionTarget,
+  keepQuery,
   MARKETING_PARAMS,
+  shouldAttribute,
   withMarketingParams,
 } from "@/lib/analytics";
 import {
+  impressumPath,
   LANDING_DICT,
   LOCALES,
   localePath,
   roadmapPath,
+  socialPrivacyPath,
   type Lang,
   type LandingDict,
 } from "@/lib/landing-i18n";
@@ -74,7 +77,18 @@ function applyCmpLang(lang: Lang) {
    в другой локали (переключатель языка и авто-редирект по языку браузера
    обязаны оставлять посетителя там, где он был) и то, чем стать якорям
    главной за её пределами. */
-export type LandingPageKind = "home" | "roadmap";
+export type LandingPageKind = "home" | "roadmap" | "impressum" | "social";
+
+/* Путь каждой страницы в любой локали. Таблица, а не тернарник: прежний
+   тернарник «roadmap или главная» отправил бы посетителя /cs/impressum при
+   смене языка на /de, а не на /de/impressum. Record по LandingPageKind не даёт
+   собрать проект, пока у нового вида страницы нет строки здесь. */
+const PAGE_PATH: Record<LandingPageKind, (lang: Lang) => string> = {
+  home: localePath,
+  roadmap: roadmapPath,
+  impressum: impressumPath,
+  social: socialPrivacyPath,
+};
 
 interface LandingCtxValue {
   lang: Lang;
@@ -102,14 +116,12 @@ export function LandingProvider({
   const router = useRouter();
 
   /* путь ЭТОЙ же страницы в другой локали */
-  const pathFor = useCallback(
-    (lang: Lang) => (page === "roadmap" ? roadmapPath(lang) : localePath(lang)),
-    [page],
-  );
+  const pathFor = useCallback((lang: Lang) => PAGE_PATH[page](lang), [page]);
 
   /* ------------------------------------------------------------------------
      Маркетинговые метки: снимаем из URL визита и дописываем к ссылкам на
-     app.g-track.eu, иначе источник регистрации теряется на границе origin'ов.
+     app.g-track.eu (иначе источник регистрации теряется на границе origin'ов)
+     и к ссылкам на страницу заявки /demo своего хоста.
 
      ХРАНИМ ТОЛЬКО В ПАМЯТИ, не в localStorage. По ePrivacy §5(3) любая запись
      на устройство, кроме strictly necessary, требует согласия, а gclid для
@@ -143,7 +155,9 @@ export function LandingProvider({
     /* Делегируем на document и матчим по хосту + белому списку путей, а не по
        data-атрибуту: ссылок на приложение десять в шести файлах, и атрибут
        в новой рано или поздно забудут. Capture-фаза — чтобы href был готов
-       до навигации, включая Cmd+click и «открыть в новой вкладке». */
+       до навигации, включая Cmd+click и «открыть в новой вкладке». Поэтому
+       ссылки на /demo — только обычный <a>, не next/link: Link навигирует по
+       своему пропу и мимо правки href. */
     function onDocumentClick(event: MouseEvent) {
       const params = attribution.current;
       if (Object.keys(params).length === 0) return;
@@ -158,8 +172,7 @@ export function LandingProvider({
       } catch {
         return;
       }
-      if (parsed.host !== APP_HOST) return;
-      if (!isAttributionTarget(parsed.pathname)) return;
+      if (!shouldAttribute(parsed, window.location.host, LOCALES)) return;
 
       anchor.href = withMarketingParams(anchor.href, params);
     }
@@ -186,13 +199,18 @@ export function LandingProvider({
     const nav = (navigator.language || "").toLowerCase();
     const hit = LOCALES.find((l) => nav.startsWith(l));
     writeLangCookie(hit ?? "en");
-    if (hit && hit !== "en") router.replace(pathFor(hit));
+    if (hit && hit !== "en") router.replace(
+        keepQuery(pathFor(hit), window.location.search, window.location.hash),
+      );
   }, [locale, router, pathFor]);
 
   const setLang = useCallback(
     (next: Lang) => {
       writeLangCookie(next);
-      router.push(pathFor(next), { scroll: false });
+      /* хеш не несём: он про секцию прежней страницы; метки (search) — несём */
+      router.push(keepQuery(pathFor(next), window.location.search, ""), {
+        scroll: false,
+      });
     },
     [router, pathFor],
   );

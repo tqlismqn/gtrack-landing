@@ -143,13 +143,16 @@ function barStyle(bar: Bar): CSSProperties {
 
 const BAR_CLASS: Record<Bar["kind"], string> = { trip: "", vac: " vac", sick: " sick", req: " vac req" };
 
-function BoardBar({ bar, s, own }: { bar: Bar; s: S; own: boolean }) {
+/** Полоса доски. Витрина берёт геометрию трёх кадров из `barStyle` (переменные читает
+    `.board.sc`); доска первого экрана (`HeroScenes.tsx`) — без `.sc`, ей нужен инлайн
+    `left/width` в процентах дорожки: его и даёт `box`. */
+export function BoardBar({ bar, s, own, box }: { bar: Bar; s: S; own: boolean; box?: { left: string; width: string } }) {
   const text =
     bar.kind === "trip" ? (
       <>{own ? <T t="gt114">{bar.truck}</T> : bar.truck}{bar.trailer ? ` │ ${bar.trailer}` : ""}</>
     ) : bar.kind === "vac" ? s.stVac : bar.kind === "sick" ? s.stSick : s.barPending;
   return (
-    <div className={`tripbar${BAR_CLASS[bar.kind]}`} style={barStyle(bar)}>
+    <div className={`tripbar${BAR_CLASS[bar.kind]}`} style={box ? { left: box.left, width: box.width } : barStyle(bar)}>
       {bar.kind === "trip" && <Icon id="i-truck" className="tic" />}
       <span className="bartext">{text}</span>
     </div>

@@ -15,7 +15,7 @@ export const de: LandingDict = {
   meta: {
     title: "G-Track — EU-Compliance und Tourenplanung für Spediteure",
     description:
-      "Fahrerdokumente, Touren und Urlaub, Reparaturen & Wartung — in einer Browser-App für Transportunternehmen ab 50 Lkw. 30 Tage gratis, Preise auf der Seite.",
+      "Fahrerdokumente, Touren und Urlaub, Reparaturen & Wartung — in einer Browser-App für Transportunternehmen ab 20 Lkw. 30 Tage gratis, Preise auf der Seite.",
   },
 
   nav: {
@@ -38,16 +38,25 @@ export const de: LandingDict = {
     kicker: "EU-Compliance · Planung · Flotte & Wartung",
     h1: "Jeder Fahrer bereit für die Tour.",
     h1dim: "Immer.",
-    sub: " — das EU-Compliance- und Planungssystem für Transportunternehmen ab 50 Lkw. Fahrerdokumente, Touren und Urlaub, Reparaturen und Wartung — im Browser, ohne Hardware und ohne Einführungsberater. Was heute entschieden werden muss, zeigt Ihnen das System von selbst.",
+    phA: "Urlaub genehmigt —",
+    phAdim: "der Fahrer erfährt es ohne Anruf.",
+    phB: "Welcher Lkw steht —",
+    phBdim: "das sehen Sie ohne Anrufe.",
+    phC: "Das Visum eines Fahrers läuft ab —",
+    phCdim: "Sie sehen es frühzeitig.",
+    sub: " — das EU-Compliance- und Planungssystem für Transportunternehmen ab 20 Lkw. Fristen für Visa, Kennziffer 95 und technische Prüfung, Touren und Urlaub, Reparaturen und Wartung — im Browser, ohne Hardware und ohne Einführungsberater. Was heute entschieden werden muss, zeigt Ihnen das System von selbst.",
     ctaTrial: "30 Tage testen",
     ctaPricing: "Preise ansehen",
     micro1: "Keine Kreditkarte",
     micro2: "Registrierung in 2 Minuten",
     micro3: "Daten in der EU",
     boardAria:
-      "G-Track-Dispositionsboard: Sie laden einen Dokumentenscan hoch, das System erkennt Nummer und Ablaufdatum, Sie prüfen und speichern den Eintrag",
+      "G-Track-Board in drei Szenen. Ein Fahrer beantragt in Telegram Urlaub, der Disponent genehmigt ihn auf dem Board, der Fahrer bekommt die Antwort. Telematik · bei Lkw mit verbundenem Tracker stehen Geschwindigkeit, Stillstand oder fehlende Daten neben dem Plan. Visum kurz vor Ablauf: Sie laden den Scan hoch, das System erkennt Nummer und Ablaufdatum, Sie prüfen und speichern.",
     boardCaption:
       "Sie laden einen Scan hoch → G-Track erkennt Nummer und Ablaufdatum → Sie prüfen und speichern",
+    trackerCaption: "Für Lkw, deren Tracker mit G-Track verbunden ist",
+    toastNotified: "Fahrer per Telegram benachrichtigt",
+    colVehicle: "Lkw",
   },
 
   trust: {
@@ -58,7 +67,7 @@ export const de: LandingDict = {
     c4: "Rotation · 3 Monate im Voraus",
     c5: "Fahrzeuge · Zugmaschinen und Anhänger",
     c6: "Reparaturen & Wartung",
-    c7: "Telematik · Anbindung Ihres Systems",
+    c7: "Telematik · Ihr Tracker, sofern unterstützt",
     c8: "Fahrer in Telegram · Anträge und Erinnerungen",
     c9: "12 Oberflächensprachen",
   },
@@ -100,6 +109,7 @@ export const de: LandingDict = {
     c4h: "Der Lkw hat seine eigenen Fristen",
     c4p: "Der TÜV läuft ab, während der Fahrer im Urlaub ist — für einen Termin bleibt noch Zeit.",
     foot: "Alles auf diesen Bildschirmen funktioniert ohne Telematik.",
+    telMoving: "{speed} km/h", telStopped: "Geparkt", telStale: "keine Daten {n} T", /* дословно planning.telematics.* приложения */
     /* водители макетов (выдуманные) */
     marek: "Hájek Marek",
     marekFirst: "Marek",
@@ -246,7 +256,7 @@ export const de: LandingDict = {
       drivers: { t: "Fahrer & Dokumente", d: "Profile, 16 Dokumenttypen, Regeln aus 8 Ländern" },
       planning: { t: "Planung & Autopilot", d: "Board, Entscheidungszentrum, Rotation, Autopilot per Fahrerkarte" },
       fleet: { t: "Fahrzeuge & Wartung", d: "Flotte, Reparaturen & Wartung, Daten vom Bordgerät" },
-      telematics: { t: "Telematik-Integration", d: "Wir binden Ihr Telematiksystem an — Fahrzeugdaten kommen von selbst, für Planung und Wartungsintervalle. Manuell geht es auch." },
+      telematics: { t: "Telematik-Integration", d: "Wir binden Ihren Tracker an, sofern er unterstützt wird — Fahrzeugdaten kommen von selbst, für Planung und Wartungsintervalle. Manuell geht es auch." },
       telegram: { t: "Fahrer in Telegram", d: "Urlaubsanträge und Krankmeldungen, heutige Schicht, Erinnerungen an Dokumentfristen" },
       reports: { t: "Berichte & Benachrichtigungen", d: "Wochenbericht, Benachrichtigungszentrum, Tacho-Downloadfristen" },
       companies: { t: "Verbundene Unternehmen", d: "Mehrere Firmen eines Inhabers: jede mit eigenem Abonnement, gegenseitiger Lesezugriff auf Fahrzeuge und Fahrer" },
@@ -353,7 +363,10 @@ export const de: LandingDict = {
     a9: "Für Nicht-EU-Bürger ist die Pflichtliste länger: Zu Reisepass, Führerschein und Fahrerkarte kommen Visum, Transportlizenz und Kennziffer 95 hinzu. Die Einsatzbereitschaft wird genau gegen diese erweiterte Liste gerechnet — ein Fahrer gilt nicht als bereit, solange seine eigenen Dokumente offen sind, und nicht nach einer allgemeinen Vorlage.",
 
     q12: "Telematik haben wir schon. Braucht G-Track sie?",
-    a12: "Nicht zwingend: Dokumente, Board, Fahrerrotation sowie Reparaturen und Wartung funktionieren auch ohne sie; den Kilometerstand tragen Sie dann von Hand ein. Sobald wir Ihr Telematiksystem anbinden, kommt der Kilometerstand direkt vom Fahrzeug, G-Track sieht, wessen Fahrerkarte im Tachografen steckt, und bemerkt Lkw, die ohne Plan unterwegs sind.",
+    a12: "Nicht zwingend: Dokumente, Board, Fahrerrotation sowie Reparaturen und Wartung funktionieren auch ohne sie; den Kilometerstand tragen Sie dann von Hand ein. Wird Ihr Tracker unterstützt und angebunden, kommt der Kilometerstand direkt vom Fahrzeug, G-Track sieht, wessen Fahrerkarte im Tachografen steckt, und bemerkt Lkw, die ohne Plan unterwegs sind.",
+
+    q13: "Für welche Transportunternehmen ist G-Track gedacht, und in welchen Sprachen?",
+    a13: "Für Transportunternehmen ab 20 Lkw mit Fahrern aus der EU und aus Drittstaaten. G-Track überwacht die Fristen der Fahrerdokumente — Reisepass, Führerschein, Fahrerkarte, Visum, Kennziffer 95 — und der Fahrzeuge: technische Prüfung, Kalibrierung und Datendownload des Tachografen. Die Oberfläche gibt es in 12 Sprachen: Englisch, Russisch, Deutsch, Französisch, Tschechisch, Polnisch, Italienisch, Lettisch, Litauisch, Ukrainisch, Spanisch und Rumänisch.",
 
     q10: "Was kostet das für 40 Fahrzeuge und 45 Anhänger? Zahle ich pro Benutzer?",
     a10: "Der Plan Starter kostet 150 € im Monat, bei Jahreszahlung 125 €. Darin enthalten sind 50 Fahrzeuge, 100 Fahrer und 75 Anhänger — Ihre Flotte passt mit Reserve hinein. Plätze für Disponenten und HR werden nicht gezählt: Legen Sie alle an, die einen brauchen.",
@@ -382,6 +395,8 @@ export const de: LandingDict = {
     privacy: "Datenschutz",
     terms: "AGB",
     dpa: "Datenverarbeitung",
+    impressum: "Impressum",
+    social: "Datenschutz Social Media",
     securityHeading: "Datensicherheit",
     trust1: "Daten werden in der EU gespeichert",
     trust2: "DSGVO-konform",
@@ -403,7 +418,7 @@ export const de: LandingDict = {
     d1: "Mo 08", d2: "Di 09", d3: "Mi 10", d4: "Do 11", d5: "Fr 12",
     kpiTrip: "Heute auf Tour", kpiVac: "Im Urlaub", kpiFree: "Frei",
     stActive: "Aktiv", stTrip: "Auf Tour", ready: "bereit",
-    vacUntil: "Urlaub bis 15.06", sick: "Krank",
+    sick: "Krank",
     toastWarnT: "E-Mail-Übersicht: Visum läuft am 12.07. ab", toastWarnD: "P. Savchenko · noch 32 Tage",
     mcH: "Visum · P. Savchenko",
     mc1: "Neuer Visumscan hochgeladen",

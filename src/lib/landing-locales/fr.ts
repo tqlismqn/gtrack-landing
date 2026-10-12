@@ -18,7 +18,7 @@ export const fr: LandingDict = {
   meta: {
     title: "G-Track — conformité UE et planification pour transporteurs",
     description:
-      "Documents conducteurs, trajets et congés, réparations et entretien — une seule appli web pour transporteurs dès 50 camions. 30 jours gratuits, prix affichés.",
+      "Documents conducteurs, trajets et congés, réparations et entretien — une seule appli web pour transporteurs dès 20 camions. 30 jours gratuits, prix affichés.",
   },
 
   nav: {
@@ -41,16 +41,25 @@ export const fr: LandingDict = {
     kicker: "Conformité UE · planification · flotte et entretien",
     h1: "Chaque conducteur prêt pour le trajet.",
     h1dim: "Toujours.",
-    sub: " — un système de conformité UE et de planification pour transporteurs dès 50 camions. Documents conducteurs, trajets et congés, réparations et entretien — dans le navigateur, sans matériel ni intégrateur. Ce qui demande une décision aujourd’hui, le système vous le montre de lui-même.",
+    phA: "Congés validés —",
+    phAdim: "le chauffeur l’apprend sans coup de fil.",
+    phB: "Quel camion est à l’arrêt —",
+    phBdim: "vous le voyez sans téléphoner.",
+    phC: "Le visa du chauffeur expire —",
+    phCdim: "vous le voyez à l’avance.",
+    sub: " — un système de conformité UE et de planification pour transporteurs dès 20 camions. Échéances des visas, du Code 95 et du contrôle technique, trajets et congés, réparations et entretien — dans le navigateur, sans matériel ni intégrateur. Ce qui demande une décision aujourd’hui, le système vous le montre de lui-même.",
     ctaTrial: "Essayer 30 jours",
     ctaPricing: "Voir les tarifs",
     micro1: "Sans carte bancaire",
     micro2: "Inscription en 2 minutes",
     micro3: "Données dans l’UE",
     boardAria:
-      "Tableau de planification G-Track : vous téléversez le scan d’un document, le système reconnaît le numéro et la date d’expiration, vous vérifiez et enregistrez la fiche",
+      "Tableau G-Track en trois scènes. Un chauffeur demande un congé sur Telegram, le dispatcher l’approuve sur le tableau, le chauffeur reçoit la réponse. Télématique · pour les camions dont le traceur est connecté, la vitesse, l’arrêt ou l’absence de données s’affichent à côté du planning. Visa qui arrive à échéance : vous téléversez le scan, le système reconnaît le numéro et la date d’expiration, vous vérifiez et enregistrez.",
     boardCaption:
       "Vous téléversez un scan → G-Track reconnaît le numéro et la date d’expiration → vous vérifiez et enregistrez",
+    trackerCaption: "Pour les camions dont le traceur est connecté à G-Track",
+    toastNotified: "Chauffeur prévenu sur Telegram",
+    colVehicle: "Camion",
   },
 
   trust: {
@@ -61,7 +70,7 @@ export const fr: LandingDict = {
     c4: "Rotation · 3 mois à l’avance",
     c5: "Véhicules · tracteurs et remorques",
     c6: "Réparations et entretien",
-    c7: "Télématique · votre système de suivi de flotte",
+    c7: "Télématique · votre traceur, s’il est compatible",
     c8: "Le conducteur sur Telegram · demandes et rappels",
     c9: "12 langues d’interface",
   },
@@ -103,6 +112,7 @@ export const fr: LandingDict = {
     c4h: "Le camion a ses propres échéances",
     c4p: "Le contrôle technique expire pendant les congés du conducteur — il est encore temps de prendre rendez-vous.",
     foot: "Tout ce qui figure sur ces écrans fonctionne sans télématique.",
+    telMoving: "{speed} km/h", telStopped: "Stationné", telStale: "pas de données {n} j", /* дословно planning.telematics.* приложения */
     /* водители макетов (выдуманные) */
     marek: "Hájek Marek",
     marekFirst: "Marek",
@@ -249,7 +259,7 @@ export const fr: LandingDict = {
       drivers: { t: "Conducteurs et documents", d: "Fiches, 16 types de documents, règles de 8 pays" },
       planning: { t: "Planification et pilote automatique", d: "Tableau, Centre de décisions, rotation, pilote automatique par carte" },
       fleet: { t: "Véhicules et entretien", d: "Flotte, réparations et entretien, données embarquées" },
-      telematics: { t: "Intégration télématique", d: "Nous connectons votre système de suivi de flotte : les données des véhicules arrivent seules, pour la planification et le calcul des échéances d’entretien. Le mode manuel fonctionne aussi." },
+      telematics: { t: "Intégration télématique", d: "Nous connectons votre traceur s’il est compatible : les données des véhicules arrivent seules, pour la planification et le calcul des échéances d’entretien. Le mode manuel fonctionne aussi." },
       telegram: { t: "Le conducteur sur Telegram", d: "Demandes de congé et d’arrêt maladie, planning du jour, rappels d’échéance des documents" },
       reports: { t: "Rapports et notifications", d: "Rapport hebdomadaire, centre de notifications, échéances DDD" },
       companies: { t: "Sociétés liées", d: "Plusieurs sociétés d’un même propriétaire : chacune avec son propre abonnement et un accès en lecture seule aux véhicules et conducteurs des autres" },
@@ -356,7 +366,10 @@ export const fr: LandingDict = {
     a9: "Pour les ressortissants hors UE, la liste obligatoire est plus longue : au passeport, au permis de conduire et à la carte conducteur s’ajoutent un visa, une licence de transport et le Code 95. La préparation au trajet se calcule précisément sur cette liste étendue — un conducteur n’apparaît pas comme prêt tant que ses propres documents ne sont pas en règle, et non selon un modèle générique.",
 
     q12: "Nous sommes déjà équipés en télématique. G-Track en a-t-il besoin ?",
-    a12: "Elle n’est pas obligatoire : documents, tableau, rotation, réparations et entretien fonctionnent sans elle, et le kilométrage se saisit à la main. Si nous connectons votre système de suivi de flotte, le kilométrage remonte directement du camion, G-Track voit quelle carte conducteur est insérée dans le tachygraphe et repère un camion qui roule sans trajet planifié.",
+    a12: "Elle n’est pas obligatoire : documents, tableau, rotation, réparations et entretien fonctionnent sans elle, et le kilométrage se saisit à la main. Si votre traceur est compatible et que nous le connectons, le kilométrage remonte directement du camion, G-Track voit quelle carte conducteur est insérée dans le tachygraphe et repère un camion qui roule sans trajet planifié.",
+
+    q13: "À quels transporteurs s’adresse G-Track, et en quelles langues ?",
+    a13: "Aux transporteurs dès 20 camions, avec des conducteurs de l’UE comme de pays tiers. G-Track surveille les échéances des documents conducteurs — passeport, permis de conduire, carte conducteur, visa, Code 95 — et celles des véhicules : contrôle technique, étalonnage du tachygraphe et téléchargement de ses données. L’interface est disponible en 12 langues : anglais, russe, allemand, français, tchèque, polonais, italien, letton, lituanien, ukrainien, espagnol et roumain.",
 
     q10: "Combien cela coûte pour 40 véhicules et 45 remorques ? Faut-il payer par utilisateur ?",
     a10: "Le plan Starter est à 150 € par mois, 125 € en facturation annuelle. Il comprend 50 véhicules, 100 conducteurs et 75 remorques — votre flotte y entre avec de la marge. Les postes de dispatcher et de RH ne sont pas comptés : créez-les pour tous ceux qui en ont besoin.",
@@ -381,10 +394,12 @@ export const fr: LandingDict = {
 
   footer: {
     tagline: "Conformité UE, planification, flotte et entretien pour transporteurs",
-    legalHeading: "Mentions légales",
+    legalHeading: "Informations légales",
     privacy: "Confidentialité",
     terms: "Conditions d'utilisation",
     dpa: "Traitement des données",
+    impressum: "Mentions légales",
+    social: "Confidentialité sur les réseaux sociaux",
     securityHeading: "Sécurité des données",
     trust1: "Données hébergées dans l'UE",
     trust2: "Conforme au RGPD",
@@ -406,7 +421,7 @@ export const fr: LandingDict = {
     d1: "Lun 08", d2: "Mar 09", d3: "Mer 10", d4: "Jeu 11", d5: "Ven 12",
     kpiTrip: "En tournée aujourd’hui", kpiVac: "En congés", kpiFree: "Libres",
     stActive: "Actif", stTrip: "En tournée", ready: "prêt",
-    vacUntil: "Congés jusqu’au 15.06", sick: "Arrêt maladie",
+    sick: "Arrêt maladie",
     toastWarnT: "Résumé par e-mail : le visa expire le 12.07", toastWarnD: "P. Savchenko · 32 jours restants",
     mcH: "Visa · P. Savchenko",
     mc1: "Nouveau scan du visa téléversé",

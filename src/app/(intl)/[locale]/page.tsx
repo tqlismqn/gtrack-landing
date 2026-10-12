@@ -3,7 +3,7 @@
    генерируются статически. */
 
 import type { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { LandingPage } from "@/components/landing/LandingPage";
 import { isLang, LOCALES, type Lang } from "@/lib/landing-i18n";
 import { landingMetadata } from "@/lib/landing-metadata";
@@ -13,8 +13,8 @@ interface LocaleParams {
 }
 
 export function generateStaticParams(): Array<{ locale: Lang }> {
-  /* en включён: страница /en пререндерится как redirect на корень */
-  return LOCALES.map((locale) => ({ locale }));
+  /* en живёт на корне; /en редиректит в next.config.ts */
+  return LOCALES.filter((l) => l !== "en").map((locale) => ({ locale }));
 }
 
 export const dynamicParams = false;
@@ -23,13 +23,12 @@ export async function generateMetadata({
   params,
 }: LocaleParams): Promise<Metadata> {
   const { locale } = await params;
-  if (!isLang(locale) || locale === "en") return {};
+  if (!isLang(locale)) return {};
   return landingMetadata(locale);
 }
 
 export default async function LocaleHome({ params }: LocaleParams) {
   const { locale } = await params;
-  if (locale === "en") redirect("/");
   if (!isLang(locale)) notFound();
   return <LandingPage locale={locale} />;
 }

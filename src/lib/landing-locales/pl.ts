@@ -17,7 +17,7 @@ export const pl: LandingDict = {
   meta: {
     title: "G-Track — zarządzanie kierowcami i planowanie tras",
     description:
-      "Dokumenty kierowców, przejazdy i urlopy, naprawy i serwis — w jednej aplikacji w przeglądarce dla przewoźników od 50 pojazdów. 30 dni za darmo, ceny na stronie.",
+      "Dokumenty kierowców, przejazdy i urlopy, naprawy i serwis — w jednej aplikacji w przeglądarce dla przewoźników od 20 pojazdów. 30 dni za darmo, ceny na stronie.",
   },
 
   nav: {
@@ -40,16 +40,25 @@ export const pl: LandingDict = {
     kicker: "EU-compliance · planowanie · flota i serwis",
     h1: "Każdy kierowca gotowy do trasy.",
     h1dim: "Zawsze.",
-    sub: " — system EU-compliance i planowania dla przewoźników z flotą od 50 pojazdów. Dokumenty kierowców, przejazdy i urlopy, naprawy i serwis — w przeglądarce, bez sprzętu i bez wdrożeniowców. To, co dziś wymaga decyzji, system pokazuje sam.",
+    phA: "Zatwierdzasz urlop —",
+    phAdim: "kierowca dowie się bez dzwonienia.",
+    phB: "Który pojazd stoi —",
+    phBdim: "widać bez obdzwaniania.",
+    phC: "Wiza kierowcy wygasa —",
+    phCdim: "widać to zawczasu.",
+    sub: " — system EU-compliance i planowania dla przewoźników z flotą od 20 pojazdów. Terminy wiz, Kodu 95 i przeglądów technicznych, przejazdy i urlopy, naprawy i serwis — w przeglądarce, bez sprzętu i bez wdrożeniowców. To, co dziś wymaga decyzji, system pokazuje sam.",
     ctaTrial: "Wypróbuj 30 dni",
     ctaPricing: "Zobacz cennik",
     micro1: "Bez karty",
     micro2: "Rejestracja w 2 minuty",
     micro3: "Dane w UE",
     boardAria:
-      "Tablica dyspozytorska G-Track: przesyłasz skan dokumentu, system rozpoznaje numer oraz datę ważności, a ty sprawdzasz i zapisujesz dane",
+      "Tablica G-Track w trzech scenach. Kierowca składa w Telegramie wniosek o urlop, dyspozytor zatwierdza go na tablicy, kierowca dostaje odpowiedź. Telematyka · przy pojazdach z podłączonym lokalizatorem obok planu widać prędkość, postój albo brak danych. Wiza, której kończy się ważność: przesyłasz skan, system rozpoznaje numer i datę ważności, a ty sprawdzasz i zapisujesz.",
     boardCaption:
       "Przesyłasz skan → G-Track rozpoznaje numer i datę ważności → sprawdzasz i zapisujesz",
+    trackerCaption: "Dla pojazdów, których lokalizator jest podłączony do G-Track",
+    toastNotified: "Kierowca powiadomiony w Telegramie",
+    colVehicle: "Pojazd",
   },
 
   /* Полоса под первым экраном (TrustStrip): чипы-ссылки на модули, решение владельца 03.10.
@@ -64,7 +73,7 @@ export const pl: LandingDict = {
     c4: "Rotacja · na 3 miesiące naprzód",
     c5: "Pojazdy · ciągniki i naczepy",
     c6: "Naprawy i serwis",
-    c7: "Telematyka · twój system monitorowania floty",
+    c7: "Telematyka · twój lokalizator, jeśli jest obsługiwany",
     c8: "Kierowca w Telegramie · wnioski i przypomnienia",
     c9: "12 języków interfejsu",
   },
@@ -108,6 +117,7 @@ export const pl: LandingDict = {
     c4h: "Pojazd ma własne terminy",
     c4p: "Przegląd techniczny wygaśnie w czasie urlopu kierowcy — jest jeszcze czas, by zapisać pojazd na kolejny.",
     foot: "Wszystko na tych ekranach działa bez telematyki.",
+    telMoving: "{speed} km/h", telStopped: "Zaparkowany", telStale: "brak danych {n} dni", /* дословно planning.telematics.* приложения */
     /* водители макетов (выдуманные) */
     marek: "Hájek Marek",
     marekFirst: "Marek",
@@ -254,7 +264,7 @@ export const pl: LandingDict = {
       drivers: { t: "Kierowcy i dokumenty", d: "Profile, 16 typów dokumentów, przepisy 8 krajów" },
       planning: { t: "Planowanie i autopilot", d: "Tablica, Centrum decyzji, rotacja, autopilot z karty tacho" },
       fleet: { t: "Pojazdy i serwis", d: "Flota, naprawy i serwis, dane pokładowe" },
-      telematics: { t: "Integracja z telematyką", d: "Podłączamy twój system monitorowania floty — dane o pojazdach spływają same, do planowania i pilnowania interwałów serwisowych. Można też ręcznie." },
+      telematics: { t: "Integracja z telematyką", d: "Podłączamy twój lokalizator, jeśli jest obsługiwany — dane o pojazdach spływają same, do planowania i pilnowania interwałów serwisowych. Można też ręcznie." },
       telegram: { t: "Kierowca w Telegramie", d: "Wnioski o urlop i zwolnienie lekarskie, dzisiejsza zmiana, przypomnienia o wygasających dokumentach" },
       reports: { t: "Raporty i powiadomienia", d: "Raport tygodniowy, centrum powiadomień, terminy plików tacho" },
       companies: { t: "Powiązane firmy", d: "Kilka firm jednego właściciela: każda z własną subskrypcją, wzajemny dostęp do pojazdów i kierowców tylko do odczytu" },
@@ -363,7 +373,10 @@ export const pl: LandingDict = {
     a9: "Dla osób spoza UE obowiązkowa lista jest dłuższa: do paszportu, prawa jazdy i karty kierowcy dochodzą wiza, licencja transportowa i Kod 95. Gotowość do trasy liczy się według tej rozszerzonej listy, a nie ogólnego szablonu: dopóki kierowcy brakuje jego dokumentów, nie pokaże się jako gotowy.",
 
     q12: "Mamy już telematykę. Czy G-Track jej potrzebuje?",
-    a12: "Nie jest konieczna: dokumenty, tablica, rotacja, naprawy i serwis działają bez niej, a przebieg wpisuje się ręcznie. Podłączamy twój system monitorowania floty — i przebieg przychodzi prosto z pojazdu, G-Track widzi, czyja karta jest w tachografie, i zauważa pojazd, który jedzie bez planu.",
+    a12: "Nie jest konieczna: dokumenty, tablica, rotacja, naprawy i serwis działają bez niej, a przebieg wpisuje się ręcznie. Podłączamy twój lokalizator, jeśli jest obsługiwany — i przebieg przychodzi prosto z pojazdu, G-Track widzi, czyja karta jest w tachografie, i zauważa pojazd, który jedzie bez planu.",
+
+    q13: "Dla jakich przewoźników jest G-Track i w jakich językach działa?",
+    a13: "Dla przewoźników z flotą od 20 pojazdów, z kierowcami z UE i z krajów trzecich. G-Track pilnuje terminów ważności dokumentów kierowców — paszport, prawo jazdy, karta kierowcy, wiza, Kod 95 — i pojazdów: przegląd techniczny, kalibracja tachografu i pobieranie z niego danych. Interfejs jest dostępny w 12 językach: angielskim, rosyjskim, niemieckim, francuskim, czeskim, polskim, włoskim, łotewskim, litewskim, ukraińskim, hiszpańskim i rumuńskim.",
 
     q10: "Ile to kosztuje dla 40 pojazdów i 45 naczep? Płaci się za każdego użytkownika?",
     a10: "Plan Starter — 150 € miesięcznie, przy płatności rocznej 125 €. Obejmuje 50 pojazdów, 100 kierowców i 75 naczep, więc twoja flota mieści się z zapasem. Miejsca dyspozytorów i kadr nie są liczone: zakładaj konta wszystkim, którzy ich potrzebują.",
@@ -392,6 +405,8 @@ export const pl: LandingDict = {
     privacy: "Prywatność",
     terms: "Warunki korzystania",
     dpa: "Przetwarzanie danych",
+    impressum: "Nota prawna",
+    social: "Prywatność w mediach społecznościowych",
     securityHeading: "Bezpieczeństwo danych",
     trust1: "Dane przechowywane w UE",
     trust2: "Zgodność z RODO",
@@ -413,7 +428,7 @@ export const pl: LandingDict = {
     d1: "Pon 08", d2: "Wt 09", d3: "Śr 10", d4: "Czw 11", d5: "Pt 12",
     kpiTrip: "Dziś w trasie", kpiVac: "Na urlopie", kpiFree: "Wolni",
     stActive: "Aktywny", stTrip: "W trasie", ready: "do trasy",
-    vacUntil: "Urlop do 15.06", sick: "Zwolnienie",
+    sick: "Zwolnienie",
     toastWarnT: "Podsumowanie e‑mailem: wiza wygasa 12.07", toastWarnD: "P. Savchenko · zostały 32 dni",
     mcH: "Wiza · P. Savchenko",
     mc1: "Przesłano nowy skan wizy",

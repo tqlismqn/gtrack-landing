@@ -103,7 +103,8 @@ html.motion-ok .atmo .blob.b3 { animation: atmo-c 38s ease-in-out infinite alter
 
 /* ============================================================================
    Product window — точная диспетчерская доска
-   Phases via [data-phase="0..4"] on .hero-board. transform/opacity/clip only.
+   Три сцены (слои .pwin.hs-layer внутри .hero-board) — hero-scenes.css; шаги
+   [data-phase="a0…c6"] на .hero-board. transform/opacity/clip only.
    ============================================================================ */
 .pwin {
   background: var(--p-bg); color: var(--p-t1);
@@ -149,10 +150,18 @@ html.motion-ok .atmo .blob.b3 { animation: atmo-c 38s ease-in-out infinite alter
   background: var(--p-raised); min-width: 0;
 }
 .kpi .kv { font-family: var(--font-mono); font-size: 17px; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
+/* AA (замер 11.10, светлая тема): янтарь --p-warn #F59E0B давал 2,09:1, зелёный --p-ok
+   #2BA56B — 3,05:1 при нужных 4,5 (цифра 14–17 px — не крупный текст). Тон -tx проходит
+   в обеих темах; синий --p-trip проходит и так. Витрина берёт тот же янтарь отсюда. */
 .kpi .kv.blue { color: var(--p-trip); }
-.kpi .kv.amber { color: var(--p-warn); }
-.kpi .kv.green { color: var(--p-ok); }
-.kpi .kl { font-size: 10px; color: var(--p-t3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kpi .kv.amber { color: var(--p-warn-tx); }
+.kpi .kv.green { color: var(--p-ok-tx); }
+/* Подпись переносится, а не режется: у подписи 64 px на 320 и 87 на 390, и «В рейсе
+   сегодня» (71), «У рейсі сьогодні» (69), «En tournée aujourd’hui» (94) теряли хвост
+   под многоточием (замер 11.10). Цена — вторая строка подписи: доска у ru/uk 320 и fr
+   320/390 выше на 12,5–12,6 px, во всех трёх сценах одинаково. Многоточие осталось
+   последним рубежом — для слова длиннее плитки; плитки ряда — флекс-элементы и растут вместе. */
+.kpi .kl { font-size: 10px; color: var(--p-t3); overflow: hidden; text-overflow: ellipsis; }
 
 /* ---- board grid -------------------------------------------------------------- */
 .board { padding: 6px 10px 12px; }
@@ -252,11 +261,10 @@ html.motion-ok .atmo .blob.b3 { animation: atmo-c 38s ease-in-out infinite alter
 .ppill .spz { font-family: var(--font-mono); font-weight: 600; opacity: 0.85; }
 /* 🔴 ИНВАРИАНТ D06: чип в колонке водителя виден целиком. Номер машины в пилюле —
    ДУБЛЬ полосы рейса той же строки, и убираем мы дубль, а не букву: в доске первого
-   экрана `.spz` стоит ровно в двух строках (`Hero.tsx:217` и `:236`), и обе они несут
-   тот же номер в своей `.lane` (`:223`, `:224`, `:247`); строки без номера в пилюле
-   правило не касается. Пара строки 2 согласована и по фазам: `.swap.status .alt`
-   и `.tripbar.appear` проявляются вместе на фазе 6, поэтому дубля «номер уже в пилюле,
-   но ещё не в полосе» не бывает ни в одном кадре. (В доске сцены истории было то же; история
+   экрана `.spz` стоит в пилюле Кратохвила (сцены A и C, `HeroScenes.tsx`), и тот же
+   номер несут обе полосы его `.lane`; строки без номера в пилюле правило не касается.
+   (До трёх сцен, 11.10, номер нёс и Савченко на фазе «в рейс» — фаза снята: рейс
+   назначает диспетчер, сам он не появляется. В доске сцены истории было то же; история
    снята 04.10.2026.)
    Замер «минус 10» до правки: `.dtags` первого экрана рубит 23…36 px на 1014/1090/1190/1430
    (худшая строка — вторая, `de`) и 2…14 px на 310/365/420 (`fr`); доска сцены — 24 px
@@ -398,9 +406,6 @@ html.motion-ok .atmo .blob.b3 { animation: atmo-c 38s ease-in-out infinite alter
   font-family: var(--font-sans); font-weight: 500; font-size: 10px;
 }
 
-/* the appearing trip bar (phase 3) */
-.tripbar.appear { clip-path: inset(0 100% 0 0 round 7px); transition: clip-path 800ms var(--ease-soft); }
-
 /* ---- toasts: плавают над верхним правым углом окна, не накрывая строки ------- */
 .btoast {
   position: absolute; right: 12px; top: -18px; z-index: 3;
@@ -417,29 +422,23 @@ html.motion-ok .atmo .blob.b3 { animation: atmo-c 38s ease-in-out infinite alter
 .btoast b { display: block; font-size: 12px; font-weight: 600; color: var(--p-t1); text-wrap: balance; }
 .btoast span { display: block; font-size: 11px; color: var(--p-t2); margin-top: 2px; text-wrap: pretty; }
 
-/* ---- phase choreography --------------------------------------------------------
-   0 rest · 1 alert · 2 cursor-in · 3 click · 4 minicard · 5 resolve · 6 trip · 7 hold */
-.hero-board[data-phase="1"] .btoast.warn { opacity: 1; transform: translateY(0); }
-.hero-board[data-phase="1"] .dchip.visa-warn,
-.hero-board[data-phase="2"] .dchip.visa-warn { animation: chip-pulse 1.1s var(--ease-soft) infinite; }
+/* ---- хореография сцены C: срок визы ---------------------------------------------
+   c0 покой · c1 сводка на почте · c2 курсор · c3 щелчок · c4 миникарточка ·
+   c5 срок в системе (чип зеленеет) · c6 пауза. Фазы «в рейс» нет (снята 11.10):
+   полоса рейса, появлявшаяся сама после продления, читалась как рейс, назначенный
+   системой. Шаги сцен A и B — hero-scenes.css, курсор и миникарточка — fx.css. */
+.hero-board[data-phase="c1"] .btoast.warn { opacity: 1; transform: translateY(0); }
+.hero-board[data-phase="c1"] .dchip.visa-warn,
+.hero-board[data-phase="c2"] .dchip.visa-warn { animation: chip-pulse 1.1s var(--ease-soft) infinite; }
 @keyframes chip-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12); } }
-.hero-board[data-phase="5"] .swap.visa .base,
-.hero-board[data-phase="6"] .swap.visa .base,
-.hero-board[data-phase="7"] .swap.visa .base { opacity: 0; transform: translateY(-4px); }
-.hero-board[data-phase="5"] .swap.visa .alt,
-.hero-board[data-phase="6"] .swap.visa .alt,
-.hero-board[data-phase="7"] .swap.visa .alt { opacity: 1; transform: translateY(0); }
-.hero-board[data-phase="6"] .swap.status .base,
-.hero-board[data-phase="7"] .swap.status .base { opacity: 0; transform: translateY(-4px); }
-.hero-board[data-phase="6"] .swap.status .alt,
-.hero-board[data-phase="7"] .swap.status .alt { opacity: 1; transform: translateY(0); }
-.hero-board[data-phase="6"] .tripbar.appear,
-.hero-board[data-phase="7"] .tripbar.appear { clip-path: inset(0 0 0 0 round 7px); }
+/* продлённая виза держится и всю сцену A: слой C гаснет над ней с задержкой 450 мс, и откат
+   чипа к янтарному на a0 был бы виден; со сцены B слой C скрыт целиком, откат не виден */
+.hero-board:is([data-phase="c5"], [data-phase="c6"]) .swap.visa .base,
+.hero[data-hs="a"] .swap.visa .base { opacity: 0; transform: translateY(-4px); }
+.hero-board:is([data-phase="c5"], [data-phase="c6"]) .swap.visa .alt,
+.hero[data-hs="a"] .swap.visa .alt { opacity: 1; transform: translateY(0); }
 
-/* static (no-motion) end state: everything resolved, bar laid, chip green */
-html:not(.motion-ok) .hero-board .swap .base { opacity: 0; }
-html:not(.motion-ok) .hero-board .swap .alt { opacity: 1; transform: none; }
-html:not(.motion-ok) .hero-board .tripbar.appear { clip-path: none; }
+/* статика (без motion-ok): кадр a2 из разметки, тостов нет */
 html:not(.motion-ok) .hero-board .btoast { display: none; }
 
 /* board caption */

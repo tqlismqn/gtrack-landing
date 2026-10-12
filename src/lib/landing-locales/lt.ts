@@ -18,7 +18,7 @@ export const lt: LandingDict = {
   meta: {
     title: "G-Track — EU atitiktis ir reisų planavimas vežėjams",
     description:
-      "Vairuotojų dokumentai, reisai ir atostogos, remontas ir TA — vienoje naršyklės programoje vežėjams su 50+ vilkikų. 30 dienų nemokamai, kainos — puslapyje.",
+      "Vairuotojų dokumentai, reisai ir atostogos, remontas ir TA — vienoje naršyklės programoje vežėjams su 20+ vilkikų. 30 dienų nemokamai, kainos — puslapyje.",
   },
 
   nav: {
@@ -41,16 +41,25 @@ export const lt: LandingDict = {
     kicker: "EU atitiktis · planavimas · parkas ir servisas",
     h1: "Kiekvienas vairuotojas pasirengęs reisui.",
     h1dim: "Visada.",
-    sub: " — EU atitikties ir planavimo sistema vežėjams, turintiems 50 ir daugiau transporto priemonių. Vairuotojų dokumentai, reisai ir atostogos, remontas ir TA — naršyklėje, be papildomos įrangos ir diegimo konsultantų. Ką šiandien reikia spręsti, sistema parodo pati.",
+    phA: "Patvirtinote atostogas —",
+    phAdim: "skambinti nereikia.",
+    phB: "Kuris vilkikas stovi —",
+    phBdim: "matote be skambučių.",
+    phC: "Vairuotojui baigiasi viza —",
+    phCdim: "matote iš anksto.",
+    sub: " — EU atitikties ir planavimo sistema vežėjams, turintiems 20 ir daugiau transporto priemonių. Vizų, Kodo 95 ir techninės apžiūros terminai, reisai ir atostogos, remontas ir TA — naršyklėje, be papildomos įrangos ir diegimo konsultantų. Ką šiandien reikia spręsti, sistema parodo pati.",
     ctaTrial: "Išbandyti 30 dienų",
     ctaPricing: "Pamatyti kainas",
     micro1: "Be banko kortelės",
     micro2: "Registracija per 2 minutes",
     micro3: "Duomenys saugomi ES",
     boardAria:
-      "G-Track dispečerinė lenta: jūs įkeliate dokumento skeną, sistema atpažįsta numerį bei galiojimo terminą, jūs patikrinate ir išsaugote įrašą",
+      "G-Track lenta trijose scenose. Vairuotojas per Telegram pateikia atostogų prašymą, dispečeris jį patvirtina lentoje, vairuotojas gauna atsakymą. Telematika · vilkikų su prijungtu sekikliu greitis, stovėjimas arba duomenų trūkumas matyti šalia plano. Viza, kurios galiojimas baigiasi: jūs įkeliate skeną, sistema atpažįsta numerį bei galiojimo terminą, jūs patikrinate ir išsaugote.",
     boardCaption:
       "Įkeliate skeną → G-Track atpažįsta numerį ir terminą → jūs patikrinate ir išsaugote",
+    trackerCaption: "Vilkikams, kurių sekiklis prijungtas prie G-Track",
+    toastNotified: "Vairuotojui pranešta per Telegram",
+    colVehicle: "Vilkikas",
   },
 
   /* Полоса под первым экраном (TrustStrip): чипы-ссылки на модули, решение владельца 03.10.
@@ -66,7 +75,7 @@ export const lt: LandingDict = {
     c4: "Rotacija · 3 mėnesiams į priekį",
     c5: "Transportas · vilkikai ir priekabos",
     c6: "Remontas ir TA",
-    c7: "Telematika · jūsų transporto stebėjimo sistema",
+    c7: "Telematika · jūsų sekiklis, jei jis palaikomas",
     c8: "Telegram vairuotojams · prašymai ir priminimai",
     c9: "12 sąsajos kalbų",
   },
@@ -110,6 +119,7 @@ export const lt: LandingDict = {
     c4h: "Vilkikas turi savo terminus",
     c4p: "Techninė apžiūra baigs galioti vairuotojui atostogaujant — dar yra laiko užrašyti vilkiką į apžiūrą.",
     foot: "Viskas šiuose ekranuose veikia be telematikos.",
+    telMoving: "{speed} km/h", telStopped: "Stovi", telStale: "nėra duomenų {n} d.", /* дословно planning.telematics.* приложения */
     /* водители макетов (выдуманные) */
     marek: "Hájek Marek",
     marekFirst: "Marek",
@@ -254,7 +264,7 @@ export const lt: LandingDict = {
       drivers: { t: "Vairuotojai ir dokumentai", d: "Kortelės, 16 dokumentų tipų, 8 šalių taisyklės" },
       planning: { t: "Planavimas ir autopilotas", d: "Lenta, Sprendimų centras, rotacija, tacho kortelės autopilotas" },
       fleet: { t: "Transportas ir servisas", d: "Autoparkas, remontas ir TA, borto duomenys" },
-      telematics: { t: "Telematikos integracija", d: "Prijungiame jūsų transporto stebėjimo sistemą — duomenys apie automobilius ateina patys, planavimui ir TA skaičiavimui. Galima ir rankiniu būdu." },
+      telematics: { t: "Telematikos integracija", d: "Jei jūsų sekiklis palaikomas, jį prijungiame — duomenys apie automobilius ateina patys, planavimui ir TA skaičiavimui. Galima ir rankiniu būdu." },
       telegram: { t: "Telegram vairuotojams", d: "Prašymai dėl atostogų ir nedarbingumo, šiandienos pamaina, priminimai apie dokumentų terminus" },
       reports: { t: "Ataskaitos ir pranešimai", d: "Savaitės ataskaita, pranešimų centras, tacho failų terminai" },
       companies: { t: "Susietos įmonės", d: "Kelios vieno savininko įmonės: kiekviena su savo prenumerata, viena kitos transportą ir vairuotojus mato tik peržiūros režimu" },
@@ -366,7 +376,10 @@ export const lt: LandingDict = {
     a9: "Ne ES pilietybę turintiems vairuotojams privalomas sąrašas ilgesnis: prie paso, vairuotojo pažymėjimo ir tachografo kortelės prisideda viza, transporto licencija ir Kodas 95. Pasirengimas reisui skaičiuojamas būtent pagal šį išplėstą sąrašą — vairuotojas nebus rodomas parengtas, kol neuždaryti būtent jo dokumentai, o ne bendras šablonas.",
 
     q12: "Telematiką jau turime. Ar ji būtina norint naudotis G-Track?",
-    a12: "Nebūtina: dokumentai, lenta, rotacija, remontas ir TA veikia ir be jos, o rida įvedama rankiniu būdu. Prijungiame jūsų transporto stebėjimo sistemą — ir rida ateina tiesiai iš borto, G-Track mato, kieno kortelė tachografe, ir pastebi automobilį, kuris važiuoja be plano.",
+    a12: "Nebūtina: dokumentai, lenta, rotacija, remontas ir TA veikia ir be jos, o rida įvedama rankiniu būdu. Jei jūsų sekiklis palaikomas, jį prijungiame — ir rida ateina tiesiai iš borto, G-Track mato, kieno kortelė tachografe, ir pastebi automobilį, kuris važiuoja be plano.",
+
+    q13: "Kokiems vežėjams skirtas G-Track ir kokiomis kalbomis jis veikia?",
+    a13: "Vežėjams, turintiems 20 ir daugiau transporto priemonių ir dirbantiems su vairuotojais iš ES ir trečiųjų šalių. G-Track stebi vairuotojų dokumentų terminus — pasas, vairuotojo pažymėjimas, tachografo kortelė, viza, Kodas 95 — ir transporto priemonių terminus: techninė apžiūra, tachografo kalibravimas ir duomenų nuskaitymas. Sąsaja pateikiama 12 kalbų: anglų, rusų, vokiečių, prancūzų, čekų, lenkų, italų, latvių, lietuvių, ukrainiečių, ispanų ir rumunų.",
 
     q10: "Kiek tai kainuoja parkui iš 40 transporto priemonių ir 45 priekabų? Ar mokėti už kiekvieną naudotoją?",
     a10: "Starter planas — 150 € per mėnesį, mokant už metus 125 €. Į jį įeina 50 transporto priemonių, 100 vairuotojų ir 75 priekabos, tad jūsų parkas įsitalpina su atsarga. Dispečerių ir HR vietos neskaičiuojamos: įveskite visus, kam reikia.",
@@ -395,6 +408,8 @@ export const lt: LandingDict = {
     privacy: "Privatumas",
     terms: "Naudojimo sąlygos",
     dpa: "Duomenų tvarkymas",
+    impressum: "Rekvizitai",
+    social: "Privatumas socialiniuose tinkluose",
     securityHeading: "Duomenų sauga",
     trust1: "Duomenys saugomi ES",
     trust2: "Atitiktis BDAR",
@@ -416,7 +431,7 @@ export const lt: LandingDict = {
     d1: "Pr 08", d2: "An 09", d3: "Tr 10", d4: "Kt 11", d5: "Pn 12",
     kpiTrip: "Šiandien reise", kpiVac: "Atostogose", kpiFree: "Laisvi",
     stActive: "Aktyvus", stTrip: "Kelyje", ready: "parengtis",
-    vacUntil: "Atostogos iki 15.06", sick: "Nedarbingumas",
+    sick: "Nedarbingumas",
     toastWarnT: "Suvestinė el. paštu: viza baigia galioti 12.07", toastWarnD: "P. Savchenko · liko 32 dienos",
     mcH: "Viza · P. Savchenko",
     mc1: "Įkeltas naujas vizos skenas",

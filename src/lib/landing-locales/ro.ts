@@ -16,7 +16,7 @@ export const ro: LandingDict = {
   meta: {
     title: "G-Track — conformitate UE și planificare de curse",
     description:
-      "Documentele șoferilor, curse și concedii, reparații și mentenanță — într-o aplicație web pentru flote de 50+ camioane. 30 de zile gratuit, prețuri pe pagină.",
+      "Documentele șoferilor, curse și concedii, reparații și mentenanță — într-o aplicație web pentru flote de la 20 de camioane în sus. 30 de zile gratuit, prețuri pe pagină.",
   },
 
   nav: {
@@ -39,16 +39,25 @@ export const ro: LandingDict = {
     kicker: "Conformitate UE · planificare · flotă și service",
     h1: "Fiecare șofer pregătit de cursă.",
     h1dim: "Mereu.",
-    sub: " — sistem de conformitate UE și planificare pentru transportatori de la 50 de camioane în sus. Documentele șoferilor, curse și concedii, reparații și mentenanță — în browser, fără hardware și fără consultanți de implementare. Sistemul îți arată singur ce trebuie decis azi.",
+    phA: "Aprobi concediul —",
+    phAdim: "șoferul află fără să-l suni.",
+    phB: "Care camion stă pe loc —",
+    phBdim: "vezi fără să dai telefoane.",
+    phC: "Viza șoferului expiră —",
+    phCdim: "o vezi din timp.",
+    sub: " — sistem de conformitate UE și planificare pentru transportatori de la 20 de camioane în sus. Termenele pentru vize, Code 95 și inspecția tehnică, curse și concedii, reparații și mentenanță — în browser, fără hardware și fără consultanți de implementare. Sistemul îți arată singur ce trebuie decis azi.",
     ctaTrial: "Încearcă 30 de zile",
     ctaPricing: "Vezi prețurile",
     micro1: "Fără card",
     micro2: "Înregistrare în 2 minute",
     micro3: "Date în UE",
     boardAria:
-      "Panoul de dispecerat G-Track: încarci scanul unui document, sistemul recunoaște numărul și data de expirare, tu verifici și salvezi evidența",
+      "Panoul G-Track în trei scene. Șoferul cere concediu pe Telegram, dispecerul îl aprobă pe panou, șoferul primește răspunsul. Telematică · la camioanele cu tracker conectat, lângă plan se văd viteza, staționarea sau lipsa datelor. Viză care expiră curând: încarci scanul, sistemul recunoaște numărul și data de expirare, tu verifici și salvezi.",
     boardCaption:
       "Încarci un scan → G-Track recunoaște numărul și data de expirare → verifici și salvezi",
+    trackerCaption: "Pentru camioanele al căror tracker e conectat la G-Track",
+    toastNotified: "Șoferul a fost anunțat pe Telegram",
+    colVehicle: "Camion",
   },
 
   trust: {
@@ -59,7 +68,7 @@ export const ro: LandingDict = {
     c4: "Rotație · pe 3 luni înainte",
     c5: "Vehicule · capete tractor și remorci",
     c6: "Reparații și mentenanță",
-    c7: "Telematică · sistemul tău de monitorizare a flotei",
+    c7: "Telematică · trackerul tău, dacă e compatibil",
     c8: "Șoferul pe Telegram · cereri și mementouri",
     c9: "12 limbi de interfață",
   },
@@ -101,6 +110,7 @@ export const ro: LandingDict = {
     c4h: "Camionul are propriile termene",
     c4p: "ITP-ul expiră cât timp șoferul e în concediu — mai e timp să faci programarea.",
     foot: "Tot ce vezi pe aceste ecrane funcționează fără telematică.",
+    telMoving: "{speed} km/h", telStopped: "Parcat", telStale: "fără date {n} z", /* дословно planning.telematics.* приложения */
     /* водители макетов (выдуманные) */
     marek: "Hájek Marek",
     marekFirst: "Marek",
@@ -247,7 +257,7 @@ export const ro: LandingDict = {
       drivers: { t: "Șoferi și documente", d: "Profiluri, 16 tipuri de documente, reguli din 8 țări" },
       planning: { t: "Planificare și pilot automat", d: "Panou, Centru de decizii, rotație, pilot automat după cardul de tahograf" },
       fleet: { t: "Vehicule și service", d: "Flotă, reparații și mentenanță, date de la bord" },
-      telematics: { t: "Integrare telematică", d: "Conectăm sistemul tău de monitorizare a flotei — datele despre vehicule vin singure, pentru planificare și calculul reviziilor. Merge și manual." },
+      telematics: { t: "Integrare telematică", d: "Dacă trackerul tău e compatibil, îl conectăm — datele despre vehicule vin singure, pentru planificare și calculul reviziilor. Merge și manual." },
       telegram: { t: "Șoferul pe Telegram", d: "Cereri de concediu și concediu medical, tura de azi, mementouri despre expirarea documentelor" },
       reports: { t: "Rapoarte și notificări", d: "Raport săptămânal, centru de notificări, termene fișiere tahograf" },
       companies: { t: "Companii conectate", d: "Mai multe firme ale aceluiași proprietar: fiecare cu abonamentul său și acces doar în citire la vehiculele și șoferii celorlalte" },
@@ -358,7 +368,10 @@ export const ro: LandingDict = {
     a9: "Pentru cetățenii non-UE lista obligatorie e mai lungă: pe lângă pașaport, permis de conducere și cardul de tahograf, se adaugă viza, licența de transport și Code 95. Pregătirea pentru cursă se calculează exact după lista extinsă — un șofer nu apare ca pregătit până nu îi sunt în regulă documentele lui, nu un șablon general.",
 
     q12: "Avem deja telematică. G-Track are nevoie de ea?",
-    a12: "Nu e obligatorie: documentele, panoul, rotația, reparațiile și mentenanța funcționează și fără ea, iar kilometrajul se introduce manual. Conectăm sistemul tău de monitorizare a flotei — și kilometrajul vine de la camion, G-Track vede al cui card e în tahograf și observă dacă un camion merge fără plan.",
+    a12: "Nu e obligatorie: documentele, panoul, rotația, reparațiile și mentenanța funcționează și fără ea, iar kilometrajul se introduce manual. Dacă trackerul tău e compatibil, îl conectăm — și kilometrajul vine de la camion, G-Track vede al cui card e în tahograf și observă dacă un camion merge fără plan.",
+
+    q13: "Pentru ce transportatori e gândit G-Track și în ce limbi e disponibil?",
+    a13: "Pentru transportatori de la 20 de camioane în sus, cu șoferi din UE și din țări terțe. G-Track urmărește termenele documentelor șoferilor — pașaport, permis de conducere, card de tahograf, viză, Code 95 — și ale vehiculelor: inspecția tehnică, calibrarea tahografului și descărcarea datelor din el. Interfața e disponibilă în 12 limbi: engleză, rusă, germană, franceză, cehă, poloneză, italiană, letonă, lituaniană, ucraineană, spaniolă și română.",
 
     q10: "Cât costă pentru 40 de vehicule și 45 de remorci? Se plătește pentru fiecare utilizator?",
     a10: "Planul Starter — 150 € pe lună, iar la plata anuală 125 €. Include 50 de vehicule, 100 de șoferi și 75 de remorci, deci flota ta încape cu rezervă. Locurile de dispecer și de HR nu se numără: adaugă pe toți cei care au nevoie.",
@@ -387,6 +400,8 @@ export const ro: LandingDict = {
     privacy: "Confidențialitate",
     terms: "Termeni de utilizare",
     dpa: "Prelucrarea datelor",
+    impressum: "Date de identificare",
+    social: "Confidențialitate pe rețelele sociale",
     securityHeading: "Securitatea datelor",
     trust1: "Date stocate în UE",
     trust2: "Conform GDPR",
@@ -408,7 +423,7 @@ export const ro: LandingDict = {
     d1: "Lun 08", d2: "Mar 09", d3: "Mie 10", d4: "Joi 11", d5: "Vin 12",
     kpiTrip: "În cursă astăzi", kpiVac: "În concediu", kpiFree: "Liberi",
     stActive: "Activ", stTrip: "În cursă", ready: "pregătit",
-    vacUntil: "Concediu până la 15.06", sick: "Concediu medical",
+    sick: "Concediu medical",
     toastWarnT: "Rezumat pe e-mail: viza expiră pe 12.07", toastWarnD: "P. Savchenko · mai sunt 32 de zile",
     mcH: "Viză · P. Savchenko",
     mc1: "S-a încărcat un scan nou al vizei",

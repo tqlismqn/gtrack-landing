@@ -16,7 +16,7 @@ export const it: LandingDict = {
   meta: {
     title: "G-Track — EU-compliance e pianificazione per vettori",
     description:
-      "Documenti degli autisti, viaggi e ferie, riparazioni e manutenzione — un’unica app web per vettori da 50 veicoli in su. 30 giorni gratis, prezzi in pagina.",
+      "Documenti degli autisti, viaggi e ferie, riparazioni e manutenzione — un’unica app web per vettori da 20 veicoli in su. 30 giorni gratis, prezzi in pagina.",
   },
 
   nav: {
@@ -39,16 +39,25 @@ export const it: LandingDict = {
     kicker: "EU-compliance · pianificazione · flotta e manutenzione",
     h1: "Ogni autista pronto per il viaggio.",
     h1dim: "Sempre.",
-    sub: " — il sistema di EU-compliance e pianificazione per vettori da 50 veicoli in su. Documenti degli autisti, viaggi e ferie, riparazioni e manutenzione — nel browser, senza hardware né consulenti d’implementazione. Il sistema ti mostra da solo cosa va deciso oggi.",
+    phA: "Approvi le ferie —",
+    phAdim: "l’autista lo sa senza telefonate.",
+    phB: "Quali mezzi sono fermi —",
+    phBdim: "lo vedi senza chiamare gli autisti.",
+    phC: "Il visto dell’autista è in scadenza —",
+    phCdim: "lo vedi per tempo.",
+    sub: " — il sistema di EU-compliance e pianificazione per vettori da 20 veicoli in su. Scadenze di visti, Codice 95 e revisione tecnica, viaggi e ferie, riparazioni e manutenzione — nel browser, senza hardware né consulenti d’implementazione. Il sistema ti mostra da solo cosa va deciso oggi.",
     ctaTrial: "Prova 30 giorni",
     ctaPricing: "Guarda i prezzi",
     micro1: "Senza carta di credito",
     micro2: "Registrazione in 2 minuti",
     micro3: "Dati nell’UE",
     boardAria:
-      "Lavagna di disposizione G-Track: carichi la scansione di un documento, il sistema ne riconosce numero e scadenza, tu controlli e salvi la scheda",
+      "Lavagna G-Track in tre scene. L’autista chiede le ferie su Telegram, il dispatcher le approva sulla lavagna, l’autista riceve la risposta. Telematica · per i mezzi con localizzatore collegato, accanto al piano si vedono velocità, sosta o assenza di dati. Visto in scadenza: carichi la scansione, il sistema ne riconosce numero e scadenza, tu controlli e salvi.",
     boardCaption:
       "Carichi una scansione → G-Track riconosce numero e scadenza → controlli e salvi",
+    trackerCaption: "Per i mezzi il cui localizzatore è collegato a G-Track",
+    toastNotified: "Autista avvisato su Telegram",
+    colVehicle: "Mezzo",
   },
 
   trust: {
@@ -59,7 +68,7 @@ export const it: LandingDict = {
     c4: "Rotazione · 3 mesi in anticipo",
     c5: "Veicoli · trattori e rimorchi",
     c6: "Riparazioni e manutenzione",
-    c7: "Telematica · il tuo sistema di monitoraggio flotta",
+    c7: "Telematica · il tuo localizzatore, se supportato",
     c8: "L’autista su Telegram · richieste e promemoria",
     c9: "12 lingue dell’interfaccia",
   },
@@ -101,6 +110,7 @@ export const it: LandingDict = {
     c4h: "Il mezzo ha le sue scadenze",
     c4p: "La revisione scadrà mentre l’autista è in ferie — c’è ancora tempo per prenotarla.",
     foot: "Tutto ciò che vedi in queste schermate funziona senza telematica.",
+    telMoving: "{speed} km/h", telStopped: "Parcheggiato", telStale: "nessun dato {n} g", /* дословно planning.telematics.* приложения */
     /* водители макетов (выдуманные) */
     marek: "Hájek Marek",
     marekFirst: "Marek",
@@ -247,7 +257,7 @@ export const it: LandingDict = {
       drivers: { t: "Autisti e documenti", d: "Profili, 16 tipi di documento, regole di 8 paesi" },
       planning: { t: "Pianificazione e pilota automatico", d: "Lavagna, Centro decisioni, rotazione, pilota automatico da carta" },
       fleet: { t: "Veicoli e manutenzione", d: "Flotta, riparazioni e manutenzione, dati di bordo" },
-      telematics: { t: "Integrazione telematica", d: "Colleghiamo il tuo sistema di monitoraggio flotta: i dati dei veicoli arrivano da soli, per la pianificazione e il calcolo dei tagliandi. Funziona anche in manuale." },
+      telematics: { t: "Integrazione telematica", d: "Colleghiamo il tuo localizzatore, se è supportato: i dati dei veicoli arrivano da soli, per la pianificazione e il calcolo dei tagliandi. Funziona anche in manuale." },
       telegram: { t: "L’autista su Telegram", d: "Richieste di ferie e malattia, turno di oggi, promemoria sulle scadenze dei documenti" },
       reports: { t: "Report e notifiche", d: "Report settimanale, centro notifiche, scadenze scarico tachigrafo" },
       companies: { t: "Aziende collegate", d: "Più aziende dello stesso titolare: ognuna con il proprio abbonamento, veicoli e autisti delle altre visibili in sola lettura" },
@@ -354,7 +364,10 @@ export const it: LandingDict = {
     a9: "Per i non cittadini UE l’elenco obbligatorio è più lungo: a passaporto, patente di guida e carta tachigrafica si aggiungono visto, licenza di trasporto e Codice 95. La preparazione al viaggio si calcola proprio su quell’elenco esteso — un autista non risulta pronto finché non sono a posto i suoi documenti, non quelli di un modello generico.",
 
     q12: "La telematica ce l’abbiamo già. Serve anche a G-Track?",
-    a12: "Non è obbligatoria: documenti, lavagna, rotazione, riparazioni e manutenzione funzionano anche senza, e i chilometri si inseriscono a mano. Colleghiamo il tuo sistema di monitoraggio flotta e i chilometri arrivano dal mezzo; G-Track vede di chi è la carta nel tachigrafo e si accorge se un mezzo viaggia senza piano.",
+    a12: "Non è obbligatoria: documenti, lavagna, rotazione, riparazioni e manutenzione funzionano anche senza, e i chilometri si inseriscono a mano. Se il tuo localizzatore è supportato, lo colleghiamo e i chilometri arrivano dal mezzo; G-Track vede di chi è la carta nel tachigrafo e si accorge se un mezzo viaggia senza piano.",
+
+    q13: "Per quali vettori è pensato G-Track e in quali lingue è disponibile?",
+    a13: "Per vettori da 20 veicoli in su, con autisti dell’UE e di paesi terzi. G-Track tiene d’occhio le scadenze dei documenti degli autisti — passaporto, patente di guida, carta tachigrafica, visto, Codice 95 — e dei veicoli: revisione tecnica, taratura del tachigrafo e scarico dei suoi dati. L’interfaccia è disponibile in 12 lingue: inglese, russo, tedesco, francese, ceco, polacco, italiano, lettone, lituano, ucraino, spagnolo e rumeno.",
 
     q10: "Quanto costa per 40 veicoli e 45 rimorchi? Si paga per ogni utente?",
     a10: "Il piano Starter costa 150 € al mese, 125 € con pagamento annuale. Comprende 50 veicoli, 100 autisti e 75 rimorchi, quindi la tua flotta ci sta con margine. Le postazioni di dispatcher e HR non si contano: registra tutti quelli che servono.",
@@ -379,10 +392,12 @@ export const it: LandingDict = {
 
   footer: {
     tagline: "EU-compliance, pianificazione, flotta e manutenzione per vettori",
-    legalHeading: "Note legali",
+    legalHeading: "Informazioni legali",
     privacy: "Privacy",
     terms: "Termini di servizio",
     dpa: "Trattamento dei dati",
+    impressum: "Note legali",
+    social: "Privacy sui social media",
     securityHeading: "Sicurezza dei dati",
     trust1: "Dati archiviati nell'UE",
     trust2: "Conforme al GDPR",
@@ -404,7 +419,7 @@ export const it: LandingDict = {
     d1: "Lun 08", d2: "Mar 09", d3: "Mer 10", d4: "Gio 11", d5: "Ven 12",
     kpiTrip: "In viaggio oggi", kpiVac: "In ferie", kpiFree: "Liberi",
     stActive: "Attivo", stTrip: "In viaggio", ready: "pronto",
-    vacUntil: "Ferie fino al 15.06", sick: "Malattia",
+    sick: "Malattia",
     toastWarnT: "Riepilogo via email: il visto scade il 12.07", toastWarnD: "P. Savchenko · mancano 32 giorni",
     mcH: "Visto · P. Savchenko",
     mc1: "Caricata una nuova scansione del visto",

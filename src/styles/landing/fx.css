@@ -8,7 +8,10 @@
    Только transform/opacity/clip-path; всё гейтится html.motion-ok.
    ============================================================================ */
 
-/* ---- 1. ghost cursor + minicard на hero-борде ------------------------------- */
+/* ---- 1. ghost cursor + minicard на hero-борде -------------------------------
+   Курсор — в каждом слое свой, цели меряет Hero.tsx и пишет на слой: A — полоса
+   Новака (--cx/--cy) и кнопка «Одобрить» (--cx2/--cy2), C — чип визы (--cx/--cy).
+   Старт (--cx0/--cy0) — правый нижний угол слоя, внутри доски. */
 .gcursor {
   position: absolute; left: 0; top: 0; z-index: 5; pointer-events: none;
   width: 18px; height: 18px; opacity: 0;
@@ -22,16 +25,21 @@
   border-radius: 999px; border: 2px solid var(--p-trip);
   opacity: 0; transform: scale(0.3);
 }
-.hero-board[data-phase="2"] .gcursor,
-.hero-board[data-phase="3"] .gcursor,
-.hero-board[data-phase="4"] .gcursor { opacity: 1; transform: translate(var(--cx, 200px), var(--cy, 120px)); }
-.hero-board[data-phase="3"] .gcursor svg.ptr { animation: gc-click 500ms var(--ease-pop); }
-.hero-board[data-phase="3"] .gcursor .ripple { animation: gc-ripple 550ms var(--ease-soft); }
+.hero-board:is([data-phase="a3"], [data-phase="a4"], [data-phase="c2"], [data-phase="c3"], [data-phase="c4"]) .gcursor {
+  opacity: 1; transform: translate(var(--cx, 200px), var(--cy, 120px));
+}
+.hero-board:is([data-phase="a5"], [data-phase="a6"]) .gcursor { opacity: 1; transform: translate(var(--cx2, 300px), var(--cy2, 220px)); }
+/* щелчок: по полосе (a4), по «Одобрить» (a6), по чипу визы (c3) */
+.hero-board:is([data-phase="a4"], [data-phase="a6"], [data-phase="c3"]) .gcursor svg.ptr { animation: gc-click 500ms var(--ease-pop); }
+.hero-board:is([data-phase="a4"], [data-phase="a6"], [data-phase="c3"]) .gcursor .ripple { animation: gc-ripple 550ms var(--ease-soft); }
 @keyframes gc-click { 0%,100% { transform: scale(1); } 40% { transform: scale(0.82); } }
 @keyframes gc-ripple { 0% { opacity: 0.8; transform: scale(0.3); } 100% { opacity: 0; transform: scale(1.6); } }
 
+/* Ширина — не больше слоя без полей по 10 px: на 320 слой 274 px, и карточка 272 px от left 10
+   выходила за правый край на 8 px во всех 12 локалях (замер r2 11.10, шаг c4). Левый край
+   ставит замер (--mx в Hero.tsx) по настоящей ширине карточки. */
 .minicard {
-  position: absolute; z-index: 4; width: 272px;
+  position: absolute; z-index: 4; width: min(272px, calc(100% - 20px));
   left: var(--mx, 40px); top: var(--my, 150px);
   background: var(--p-raised); border: 1px solid var(--p-border); border-radius: 12px;
   padding: 11px 13px; box-shadow: 0 18px 44px -14px rgb(0 0 0 / 0.55), 0 0 0 1px rgb(0 0 0 / 0.04);
@@ -53,15 +61,15 @@
 .mc-row.rec .tic { color: var(--p-violet); }
 .mc-row.ok .tic { color: var(--p-ok); }
 .mc-row .mono-sub { display: block; font-family: var(--font-mono); font-size: 9.5px; color: var(--p-t3); margin-top: 2px; }
-.hero-board[data-phase="4"] .minicard { opacity: 1; transform: none; }
-.hero-board[data-phase="4"] .mc-row { opacity: 1; transform: none; }
-.hero-board[data-phase="4"] .mc-row:nth-child(2) { transition-delay: 250ms; }
-.hero-board[data-phase="4"] .mc-row:nth-child(3) { transition-delay: 1050ms; }
-.hero-board[data-phase="4"] .mc-row:nth-child(4) { transition-delay: 1900ms; }
+.hero-board[data-phase="c4"] .minicard { opacity: 1; transform: none; }
+.hero-board[data-phase="c4"] .mc-row { opacity: 1; transform: none; }
+.hero-board[data-phase="c4"] .mc-row:nth-child(2) { transition-delay: 250ms; }
+.hero-board[data-phase="c4"] .mc-row:nth-child(3) { transition-delay: 1050ms; }
+.hero-board[data-phase="c4"] .mc-row:nth-child(4) { transition-delay: 1900ms; }
 html:not(.motion-ok) .gcursor, html:not(.motion-ok) .minicard { display: none; }
 
-/* warn-тост виден в фазах 1–2 (определения в hero.css перекрываем тут) */
-.hero-board[data-phase="2"] .btoast.warn { opacity: 1; transform: translateY(0); }
+/* warn-тост виден в шагах c1–c2 (c1 — в hero.css, c2 дописан тут, после базы тоста) */
+.hero-board[data-phase="c2"] .btoast.warn { opacity: 1; transform: translateY(0); }
 
 /* ---- 3. «Вся Европа на одной доске» ------------------------------------------ */
 .euro { background: var(--sunken); border-top: 1px solid var(--border-1); border-bottom: 1px solid var(--border-1); overflow: hidden; }
