@@ -53,6 +53,17 @@ export const CSP_REPORT_ONLY = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
+  /* Кеш Turbopack для `next build` выключен. С Next 16.3 он включён по умолчанию
+     (`.next/cache/turbopack`), а Vercel восстанавливает `.next/cache` от прошлого
+     деплоя. Превью ворот 1 (12.10, c99919b, «Restored build cache…», компиляция 7,9 с)
+     собралось с правками старых CSS-файлов, но без двух новых из `@import` в
+     `styles/landing/index.css` — `hero-scenes.css` и `legal.css`: hero и юр-страницы
+     без стилей. Локально с тем же кешем не воспроизвелось. Сборка без кеша дольше
+     на десятки секунд; страховка от повтора — `scripts/check-css-imports.mjs`
+     после `next build` (package.json). */
+  experimental: {
+    turbopackFileSystemCacheForBuild: false,
+  },
   /* /privacy и /terms лендинга теперь редиректят на app-legal (единый источник
      юридического контента; решение Thomas 06-15). Старые URL сохранены ради
      внешних ссылок и Google OAuth verification — 307 temporary, чтобы оставаться
