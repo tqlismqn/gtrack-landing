@@ -18,7 +18,6 @@ export const impressum: ImpressumDict = {
     register: "Prekybos registras",
     registerValue:
       "{court} (Prahos miesto teismas), skyrius {section}, įrašas {insert}",
-    director: "Direktorius (jednatel)",
     email: "El. paštas",
     privacy: "Duomenų apsauga",
     legalDocs: "Teisiniai dokumentai",

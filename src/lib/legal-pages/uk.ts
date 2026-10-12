@@ -18,7 +18,6 @@ export const impressum: ImpressumDict = {
     register: "Торговий реєстр",
     registerValue:
       "{court} (Міський суд у Празі), розділ {section}, вкладка {insert}",
-    director: "Виконавчий директор (jednatel)",
     email: "Електронна пошта",
     privacy: "Захист персональних даних",
     legalDocs: "Правові документи",

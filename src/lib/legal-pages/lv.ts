@@ -18,7 +18,6 @@ export const impressum: ImpressumDict = {
     register: "Komercreģistrs",
     registerValue:
       "{court} (Prāgas pilsētas tiesa), sadaļa {section}, ieraksts {insert}",
-    director: "Valdes loceklis (jednatel)",
     email: "E-pasts",
     privacy: "Datu aizsardzība",
     legalDocs: "Juridiskie dokumenti",

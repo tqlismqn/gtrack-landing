@@ -18,7 +18,6 @@ export const impressum: ImpressumDict = {
     register: "Registro delle imprese",
     registerValue:
       "{court} (Tribunale municipale di Praga), sezione {section}, inserto {insert}",
-    director: "Amministratore (jednatel)",
     email: "E-mail",
     privacy: "Protezione dei dati",
     legalDocs: "Documenti legali",

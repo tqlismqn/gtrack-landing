@@ -2,9 +2,11 @@
    Реквизиты оператора сайта (и ниже — сторон уведомления о соцсетях:
    Mesartim, профили, Meta Ireland) — константы, не переводятся.
    Источник — ARES (основная запись и выписка из obchodního rejstříku), сверено
-   11.10.2026: IČO 14237890, Městský soud v Praze, oddíl C, vložka 362529,
-   jednatel Thomas Gradinar. Адрес — с «Žižkov», как в ARES и в юр-текстах
-   приложения.
+   11.10.2026: IČO 14237890, Městský soud v Praze, oddíl C, vložka 362529.
+   Адрес — с «Žižkov», как в ARES и в юр-текстах приложения.
+   Имени директора (jednatel) на сайте нет — решение владельца 12.10 (Г40): § 435 OZ
+   его не требует, а «Vertretungsberechtigter» из § 5 DDG обязателен только для
+   провайдеров с местом в Германии; кому нужно — выписка obchodního rejstříku.
    DIČ и статуса DPH здесь нет намеренно — решение владельца 12.10 (Г29):
    на сайте статус НДС не указываем, пока нет оборотов. От сайта § 435 OZ
    требует фирму, сидло, IČO и запись в реестре — DIČ не требуется. DIČ
@@ -26,7 +28,6 @@ export const COMPANY = {
   court: "Městský soud v Praze",
   section: "C",
   insert: "362529",
-  director: "Thomas Gradinar",
   email: "sales@g-track.eu",
   privacyEmail: "privacy@g-track.eu",
 } as const;
