@@ -1,0 +1,84 @@
+/* ============================================================================
+   Страница заявки /{lang}/demo (ворота 2): раскладка «текст | форма», поля,
+   выбор размера парка, ловушка для ботов. Отступ сверху и заголовок —
+   общие с юр-страницами (.lg-page, .lg-h1 в legal.css).
+   Поля — свой :focus-visible: в base.css кольцо фокуса есть только у a и button.
+   ============================================================================ */
+
+.demo-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; align-items: start; }
+@media (width >= theme(--breakpoint-l)) {
+  .demo-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 520px); gap: 56px; }
+}
+
+.demo-next {
+  margin-top: 20px; max-width: 52ch; padding-left: 14px;
+  border-left: 2px solid var(--info); color: var(--text-2); font-size: 15px; line-height: 1.5;
+}
+
+.demo-card {
+  background: var(--card); border: 1px solid var(--border-1); border-radius: 16px;
+  padding: 24px; box-shadow: var(--shadow-lift);
+}
+@media (width <= theme(--breakpoint-s)) {
+  .demo-card { padding: 18px; }
+}
+
+.demo-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+@media (width >= theme(--breakpoint-m)) {
+  .demo-form { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 14px; }
+  .demo-form > .demo-fleet,
+  .demo-form > .demo-check,
+  .demo-form > .demo-error,
+  .demo-form > .demo-submit,
+  .demo-form > .demo-gdpr { grid-column: 1 / -1; }
+}
+
+/* align-content: start — соседнее поле с подсказкой (телефон) делает строку сетки выше,
+   и без него поле e-mail растягивалось и съезжало вниз (кадр 1280, 12.10) */
+.demo-field { display: grid; gap: 6px; min-width: 0; align-content: start; }
+.demo-brand { white-space: nowrap; }
+.demo-field > label,
+.demo-fleet legend { font-size: 13px; color: var(--text-2); }
+.demo-field input,
+.demo-field select {
+  width: 100%; min-width: 0; height: 44px; padding: 0 12px; border-radius: 10px;
+  border: 1px solid var(--border-2); background: var(--sunken); color: var(--text-1);
+  font: inherit; font-size: 15px;
+}
+.demo-field input:focus-visible,
+.demo-field select:focus-visible,
+.demo-check input:focus-visible,
+.demo-seg-opt input:focus-visible + span { outline: 2px solid var(--brand); outline-offset: 2px; }
+.demo-field input[aria-invalid="true"],
+.demo-field select[aria-invalid="true"],
+.demo-fleet[aria-invalid="true"] .demo-seg-opt span { border-color: var(--bad); }
+.demo-hint { font-size: 12px; line-height: 1.45; color: var(--text-3); }
+
+.demo-fleet { margin: 0; padding: 0; border: 0; min-width: 0; }
+.demo-fleet legend { padding: 0; margin-bottom: 6px; }
+.demo-seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.demo-seg-opt { position: relative; }
+.demo-seg-opt input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.demo-seg-opt span {
+  display: inline-flex; align-items: center; height: 38px; padding: 0 14px; border-radius: 99px;
+  border: 1px solid var(--border-2); color: var(--text-2); font-size: 14px; font-variant-numeric: tabular-nums;
+  transition: border-color 140ms, color 140ms, background 140ms;
+}
+.demo-seg-opt input:checked + span {
+  border-color: var(--info); color: var(--info); background: color-mix(in oklch, var(--info) 10%, transparent);
+}
+
+.demo-check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--text-2); cursor: pointer; }
+.demo-check input { flex: none; width: 18px; height: 18px; margin-top: 2px; accent-color: var(--info); }
+
+/* ловушка для ботов: вне экрана и вне фокуса, но в DOM — роботы её заполняют */
+.demo-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+.demo-error { font-size: 14px; color: var(--bad); }
+.demo-submit { justify-self: start; }
+.demo-submit:disabled { opacity: 0.7; cursor: progress; }
+.demo-gdpr { font-size: 12px; line-height: 1.5; color: var(--text-3); }
+.demo-gdpr a { color: var(--info); }
+
+.demo-done-title { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+.demo-done p { margin-top: 8px; color: var(--text-2); }

@@ -2,8 +2,9 @@
 # G-Track Landing
 
 Публичный сайт g-track.eu — маркетинговый лендинг Transport SaaS G-Track. Next.js 16 App Router,
-React 19, Tailwind 4, TypeScript strict, Node 22, деплой на Vercel. 12 локалей статикой, бэкенда
-и форм нет: единственное действие посетителя — уход на app.g-track.eu.
+React 19, Tailwind 4, TypeScript strict, Node 22, деплой на Vercel. 12 локалей статикой. Своего
+бэкенда нет; единственная форма — заявка на показ `/{lang}/demo` (ворота 2, с 12.10): она шлёт JSON
+в функцию `demo-intake` на Supabase (исходник и SQL — в vault, не здесь), остальное — уход на app.g-track.eu.
 
 ## Команды
 
@@ -11,11 +12,11 @@ React 19, Tailwind 4, TypeScript strict, Node 22, деплой на Vercel. 12 �
 |---|---|
 | `npm install` | Установить зависимости |
 | `npm run dev` | Дев-сервер на :3000 |
-| `npm test` | vitest, 600 тестов в 10 файлах, ~0,3 с |
+| `npm test` | vitest, 617 тестов в 11 файлах, ~0,3 с |
 | `npx vitest run test/showcase.test.ts` | Один файл тестов |
 | `npx tsc --noEmit` | Проверка типов |
 | `npm run lint` | ESLint (eslint-config-next: core-web-vitals + typescript) |
-| `npm run build` | Прод-сборка: `Compiled successfully`, 56 статических страниц по счётчику Next: 48 из них — главная, `/roadmap`, `/impressum`, `/social-media-privacy` × 12 локалей, остальное служебное (`_not-found`, иконки, `robots`, `sitemap`, OG) |
+| `npm run build` | Прод-сборка: `Compiled successfully`, 68 статических страниц по счётчику Next: 60 из них — главная, `/roadmap`, `/impressum`, `/social-media-privacy`, `/demo` × 12 локалей, остальное служебное (`_not-found`, иконки, `robots`, `sitemap`, OG) |
 
 `npm run build` пишет в тот же `.next`, что и дев-сервер: если на :3000 кто-то висит — сначала гаси его.
 
@@ -30,9 +31,10 @@ src/components/landing/  секции страницы, по файлу на с�
 src/lib/                 hero-data, showcase-data, cta-variant, analytics, company, landing-metadata, og-image, roadmap-content, словари ru+en
 src/lib/landing-locales/ 10 остальных словарей, по файлу на локаль
 src/lib/legal-pages/     Impressum и уведомление о соцсетях, по файлу на локаль
+src/lib/demo-page/       тексты страницы заявки /demo, по файлу на локаль (+ demo-form.ts — логика формы)
 src/styles/landing/      CSS по смысловым областям, порядок сборки — в index.css
 src/hooks/               useInViewport
-test/                    vitest, 10 файлов (список — в «Тестах»)
+test/                    vitest, 11 файлов (список — в «Тестах»)
 public/                  видео с постером, `llms.txt`, значок для писем
 docs/adr/                несущие решения с числами замеров, 13 записей
 .autopilot/              состояние сборки навыком /autopilot
@@ -86,7 +88,7 @@ CookieScript — публичные идентификаторы и живут �
 
 ## Тесты
 
-vitest без конфига и без глобалов (каждый файл начинается с `import { describe, expect, it } from "vitest"`), окружение node — DOM не нужен. Импорты в модулях, которые тест тянет, — относительные: алиас `@/` vitest не знает (в `import type` можно). Файлы (`npm test`, 600):
+vitest без конфига и без глобалов (каждый файл начинается с `import { describe, expect, it } from "vitest"`), окружение node — DOM не нужен. Импорты в модулях, которые тест тянет, — относительные: алиас `@/` vitest не знает (в `import type` можно). Файлы (`npm test`, 617):
 
 - `showcase.test.ts` (119) — арифметика макетов витрины: суммы плиток, проценты шапки, дни до срока как в приложении, геометрия полос; словари витрины 12 локалей (подстановки, инициалы, запрет «AI»).
 - `legal-pages.test.ts` (194) — Impressum и уведомление о соцсетях (`company.ts` и `legal-pages/`), 12 локалей.
@@ -98,6 +100,7 @@ vitest без конфига и без глобалов (каждый файл �
 - `llms.test.ts` (13) — `public/llms.txt` против `Pricing.tsx` и JSON-LD.
 - `hero.test.ts` (21) — мир, шаги и телематика hero (инварианты данных: «сейчас» вне рейса больного, `HERO_STATIC`); минимумы шагов читаются из `fx.css` и `hero-scenes.css`; дни и дата визы ×12 против `VISA_EXPIRY`.
 - `csp.test.ts` (7) — состав CSP Report-Only, без `'unsafe-eval'`.
+- `demo.test.ts` (17) — страница заявки `/demo` (ворота 2): тело запроса и метки из адреса, `generate_lead` только при `counted:true`, словарь ×12 (запреты, без обещания звонка — Г8), noindex, `/demo` нет в sitemap и `llms.txt`. Поведение в браузере (двойной клик, ошибка сети, редирект с метками, ширины) — `demo-e2e.cjs` в vault (`.session-context/2026-10-12-gate2/`) на `next start`.
 
 Ожидания вписаны литералами,
 разобранными вручную по словарям: тест не считает результат тем же способом, что код, иначе он
