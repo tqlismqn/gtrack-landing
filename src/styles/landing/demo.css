@@ -51,8 +51,9 @@
 .demo-seg-opt input:focus-visible + span { outline: 2px solid var(--brand); outline-offset: 2px; }
 .demo-field input[aria-invalid="true"],
 .demo-field select[aria-invalid="true"],
-.demo-fleet[aria-invalid="true"] .demo-seg-opt span { border-color: var(--bad); }
-.demo-hint { font-size: 12px; line-height: 1.45; color: var(--text-3); }
+.demo-fleet.is-invalid .demo-seg-opt span { border-color: var(--bad); }
+/* --text-2, не --text-3: 12 px на карточке в тёмной теме давали ≈4,46:1 (< 4,5) — финальное ревью 12.10 */
+.demo-hint { font-size: 12px; line-height: 1.45; color: var(--text-2); }
 
 .demo-fleet { margin: 0; padding: 0; border: 0; min-width: 0; }
 .demo-fleet legend { padding: 0; margin-bottom: 6px; }
@@ -77,8 +78,10 @@
 .demo-error { font-size: 14px; color: var(--bad); }
 .demo-submit { justify-self: start; }
 .demo-submit:disabled { opacity: 0.7; cursor: progress; }
-.demo-gdpr { font-size: 12px; line-height: 1.5; color: var(--text-3); }
+.demo-gdpr { font-size: 12px; line-height: 1.5; color: var(--text-2); }
 .demo-gdpr a { color: var(--info); }
 
 .demo-done-title { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+.demo-done-title:focus { outline: none; }
+.demo-done-title:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; border-radius: 6px; }
 .demo-done p { margin-top: 8px; color: var(--text-2); }

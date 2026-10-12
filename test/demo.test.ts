@@ -83,6 +83,17 @@ describe("demo-form: атрибуция и тело запроса", () => {
     expect(q.consent_version).toBe(NEWSLETTER_CONSENT_VERSION);
   });
 
+  it("payload_normalizes_phone_separators", () => {
+    expect(buildDemoPayload({ ...input, phone: "0171/1234567" }, "", 4000, "x").phone).toBe("0171 1234567");
+    expect(buildDemoPayload({ ...input, phone: "+420\u00a0777\u202f000 111" }, "", 4000, "x").phone).toBe("+420 777 000 111");
+  });
+
+  it("payload_strips_invisible_characters", () => {
+    const p = buildDemoPayload({ ...input, name: "Pe\u00adtr\u200b Novák\t", company: "\u2060Doprava\ufeff  Novák" }, "", 4000, "x");
+    expect(p.name).toBe("Petr Novák");
+    expect(p.company).toBe("Doprava Novák");
+  });
+
   it("payload_carries_hp_and_t_ms", () => {
     const p = buildDemoPayload({ ...input, hp: "spam" }, "?gclid=g1", 4200.7, "x");
     expect(p.hp).toBe("spam");

@@ -42,6 +42,22 @@ export const NEWSLETTER_CONSENT_VERSION = "nl-2026-10";
 
 const ATTR_MAX = 200;
 
+/* Вставка из подписи письма или документа несёт невидимые символы (мягкий перенос, нулевой
+   пробел, BOM) и табуляцию; сервер такие символы отвергает, а человек их не видит и не может
+   исправить поле (финальное ревью 12.10). Неразрывные пробелы — в обычный пробел. */
+function clean(value: string): string {
+  return value
+    .replace(/[\u00ad\u200b-\u200d\u2060\ufeff]/g, "")
+    .replace(/[\t\u00a0\u202f]/g, " ")
+    .replace(/ {2,}/g, " ")
+    .trim();
+}
+
+/* «0171/1234567» (DE/AT) и узкие пробелы из подписей — к формату, который принимает сервер. */
+function cleanPhone(value: string): string {
+  return clean(value.replace(/\//g, " "));
+}
+
 export type DemoFormInput = {
   name: string;
   company: string;
@@ -89,11 +105,11 @@ export function buildDemoPayload(
   elapsedMs: number,
   consentText: string,
 ): DemoPayload {
-  const phone = input.phone.trim();
+  const phone = cleanPhone(input.phone);
   return {
-    name: input.name.trim(),
-    company: input.company.trim(),
-    email: input.email.trim(),
+    name: clean(input.name),
+    company: clean(input.company),
+    email: clean(input.email),
     phone: phone === "" ? null : phone,
     country: input.country,
     fleet_bucket: input.fleet_bucket,
