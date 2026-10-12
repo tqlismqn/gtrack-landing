@@ -52,27 +52,26 @@ describe("сторожа запретов умеют краснеть", () => {
 });
 
 describe("hero: три фразы", () => {
-  it("ru — точные строки из плана", () => {
+  /* Фразы — выбор владельца 12.10 (Г31): A и B из набора «Без обзвона», C из набора
+     «Событие — ваш ход» (шорт-лист второго исследования hero). */
+  it("ru — точные строки выбора владельца", () => {
     const h = LANDING_DICT.ru.hero;
-    expect(`${h.phA} ${h.phAdim}`).toBe("Отпуск не на словах — из Telegram на доску.");
-    expect(`${h.phB} ${h.phBdim}`).toBe("Кто едет, кто стоит — видно рядом с планом.");
-    expect(`${h.phC} ${h.phCdim}`).toBe("Сроки не в голове — что горит, видно заранее.");
+    expect(`${h.phA} ${h.phAdim}`).toBe("Одобрили отпуск — водитель узнаёт без звонка.");
+    expect(`${h.phB} ${h.phBdim}`).toBe("Какая машина стоит — видно без обзвона.");
+    expect(`${h.phC} ${h.phCdim}`).toBe("Виза водителя истекает — видно заранее.");
     expect(h.trackerCaption).toBe("Для машин, чей трекер подключён к G-Track");
     expect(h.toastNotified).toBe("Водитель уведомлён в Telegram");
     expect(h.colVehicle).toBe("Машина");
   });
 
-  /* Апостроф типографский (’), как во всём словаре en; в плане он набран прямым.
-     Фраза A — не из плана: «Leave requests, not hallway talk —» после склейки « —» неразрывным
-     пробелом занимала на 1280/1440 пять строк против четырёх у B и C (H1 +70,7 px, пустая
-     строка под H1 в сценах B и C канонического en). «in writing» — родное «не на словах»,
-     «Leave requests» — слово приложения (раздел заявок бота, en.ts `sectionTitle`); варианты
-     с «Vacation requests» не влезают в четыре строки (замер r2 11.10, r2-en-phA.json). */
-  it("en — точные строки из плана (фраза A — раунд 2)", () => {
+  /* Апостроф типографский (’), как во всём словаре en. Фразы Г31 (12.10): «Vacation», а не
+     «Leave» — слово макета сцены A (tgVac, barPending «⏳ Vacation», popTitle «Vacation request»);
+     B без «every driver» (запрет «каждый водитель»), C — «you see it in advance»: статус, а не напоминание. */
+  it("en — точные строки выбора владельца (Г31)", () => {
     const h = LANDING_DICT.en.hero;
-    expect(`${h.phA} ${h.phAdim}`).toBe("Leave requests in writing — from Telegram to the board.");
-    expect(`${h.phB} ${h.phBdim}`).toBe("Who’s moving, who’s parked — right next to the plan.");
-    expect(`${h.phC} ${h.phCdim}`).toBe("Deadlines out of your head — what’s urgent shows up early.");
+    expect(`${h.phA} ${h.phAdim}`).toBe("Vacation approved — the driver finds out without a call.");
+    expect(`${h.phB} ${h.phBdim}`).toBe("Which truck is parked — no need to call the drivers.");
+    expect(`${h.phC} ${h.phCdim}`).toBe("A driver’s visa is expiring — you see it in advance.");
     expect(h.trackerCaption).toBe("For trucks whose tracker is connected to G-Track");
     expect(h.toastNotified).toBe("Driver notified in Telegram");
     expect(h.colVehicle).toBe("Truck");
