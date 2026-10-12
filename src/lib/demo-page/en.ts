@@ -1,7 +1,7 @@
 import type { DemoDict } from "./types";
 
-/* Мастер-текст EN (план ворот 2, Task 5). «Звонка» не обещаем: созвон только на русском (Г8);
-   «за рабочий день» — решение Г37. */
+/* Мастер-текст EN (план ворот 2, Task 5). «Звонка» не обещаем: созвон только на русском (Г8),
+   и о созвоне страница не пишет ни на одном языке (владелец 12.10, Г38); «за рабочий день» — Г37. */
 export const demo: DemoDict = {
   metaTitle: "Request a demo · G-Track",
   metaDescription: "Tell us about your fleet. We reply within one working day and show G-Track on your own data.",
@@ -13,7 +13,7 @@ export const demo: DemoDict = {
     company: "Company",
     email: "Work e-mail",
     phone: "Phone (optional)",
-    phoneHint: "We reply in writing in your language. A call is possible in Russian.",
+    phoneHint: "We reply in writing in your language.",
     country: "Country",
     countryPlaceholder: "Choose a country",
     countryOther: "Other",

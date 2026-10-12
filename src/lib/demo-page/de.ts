@@ -12,7 +12,7 @@ export const demo: DemoDict = {
     company: "Unternehmen",
     email: "Geschäftliche E-Mail",
     phone: "Telefon (optional)",
-    phoneHint: "Wir antworten schriftlich in Ihrer Sprache. Ein Telefonat ist auf Russisch möglich.",
+    phoneHint: "Wir antworten schriftlich in Ihrer Sprache.",
     country: "Land",
     countryPlaceholder: "Land auswählen",
     countryOther: "Anderes",

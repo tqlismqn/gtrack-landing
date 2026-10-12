@@ -12,7 +12,7 @@ export const demo: DemoDict = {
     company: "Uzņēmums",
     email: "Darba e-pasts",
     phone: "Tālrunis (neobligāti)",
-    phoneHint: "Atbildam rakstiski tavā valodā. Saruna pa tālruni iespējama krievu valodā.",
+    phoneHint: "Atbildam rakstiski tavā valodā.",
     country: "Valsts",
     countryPlaceholder: "Izvēlies valsti",
     countryOther: "Cita",

@@ -12,7 +12,7 @@ export const demo: DemoDict = {
     company: "Firma",
     email: "Pracovní e-mail",
     phone: "Telefon (nepovinné)",
-    phoneHint: "Odpovídáme písemně ve vašem jazyce. Hovor je možný v ruštině.",
+    phoneHint: "Odpovídáme písemně ve vašem jazyce.",
     country: "Země",
     countryPlaceholder: "Vyberte zemi",
     countryOther: "Jiná",

@@ -146,6 +146,12 @@ describe("словарь страницы заявки ×12", () => {
     for (const l of LOCALES) for (const [p, s] of leaves(DEMO_DICT[l])) expect(call.test(s), `${l}.${p}`).toBe(false);
   });
 
+  // Г38 (владелец 12.10): о созвоне на русском страница не пишет ни на одном языке — только «отвечаем письменно».
+  it("dict_never_mentions_russian_call", () => {
+    const ru = /russ|ruštin|rusk|ruso|rusa|rusă|rusų|rosyjsk|krievu|російськ|русск/i;
+    for (const l of LOCALES) for (const [p, s] of leaves(DEMO_DICT[l])) expect(ru.test(s), `${l}.${p}: ${s}`).toBe(false);
+  });
+
   it("обещание «за рабочий день» (Г37) в en и ru", () => {
     expect(DEMO_DICT.en.next).toContain("one working day");
     expect(DEMO_DICT.ru.next).toContain("за рабочий день");
