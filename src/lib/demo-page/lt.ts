@@ -19,6 +19,12 @@ export const demo: DemoDict = {
     fleet: "Parko dydis",
     lang: "Mūsų atsakymo kalba",
     newsletter: "Siųsti man G-Track naujienas el. paštu (neprivaloma)",
+    interests: "Ką paruošti demonstracijai? (neprivaloma)",
+    interestExcel: "Nemokamai perkelsime jūsų vairuotojus ir transporto priemones iš Excel — ankstyviesiems klientams",
+    interestTelematics: "Jei jūsų sekiklis palaikomas, jį prijungsime — susitarsime su jūsų IT skyriumi arba sekiklio tiekėju",
+    interestDemo: "Demo prieiga su pavyzdiniais duomenimis — išbandysite patys",
+    message: "Komentaras (neprivaloma)",
+    messagePlaceholder: "Pavyzdžiui: 35 vilkikai, dokumentai kol kas Excel lentelėse",
   },
   fleetOptions: { lt20: "mažiau nei 20", "20_50": "20–50", "50_200": "50–200", "200_plus": "200+" },
   submit: "Siųsti užklausą",
@@ -27,6 +33,7 @@ export const demo: DemoDict = {
   errors: {
     invalid: "Patikrinkite pažymėtus laukus.",
     network: "Užklausos išsiųsti nepavyko. Pabandykite dar kartą arba rašykite sales@g-track.eu.",
+    link: "Pašalinkite nuorodą — užtenka svetainės adreso be https://.",
   },
   success: { title: "Užklausa gauta", text: "Atsakysime el. paštu per vieną darbo dieną." },
   gdpr: {

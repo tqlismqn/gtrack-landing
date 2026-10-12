@@ -13,6 +13,8 @@
    - После успеха фокус и прокрутка — на заголовок благодарности; после 400 — на
      первое неверное поле, ошибка связана с полями через aria-describedby.
    - generate_lead — только для засчитанной заявки (leadEvent), без личных полей.
+   - Необязательные «что подготовить» (три флажка) и комментарий уходят в теле запроса как
+     interests и message; нормализация и предел 1000 символов — в demo-form.ts, не здесь.
    - Состояние формы нигде не сохраняется (сторож хранилищ analytics.test.ts):
      при сбое сети значения остаются в полях, и человек может нажать ещё раз.
    ============================================================================ */
@@ -23,10 +25,14 @@ import {
   DEFAULT_COUNTRY,
   DEMO_ENDPOINT,
   FLEET_BUCKETS,
+  INTERESTS,
+  MESSAGE_MAX,
   buildDemoPayload,
   leadEvent,
+  linkFields,
   type DemoResponse,
   type FleetBucket,
+  type Interest,
 } from "@/lib/demo-form";
 import type { DemoDict } from "@/lib/demo-page";
 import { LANG_NAMES, LOCALES, type Lang } from "@/lib/landing-i18n";
@@ -44,6 +50,8 @@ const FIELD_INPUT: Record<string, string> = {
   country: "demo-country",
   lang: "demo-lang",
   fleet_bucket: "demo-fleet-lt20",
+  interests: "demo-interest-excel",
+  message: "demo-message",
   newsletter: "demo-newsletter",
   consent_text: "demo-newsletter",
   consent_version: "demo-newsletter",
@@ -57,6 +65,8 @@ export function DemoForm({ locale, t, privacyHref }: { locale: Lang; t: DemoDict
   const [country, setCountry] = useState(DEFAULT_COUNTRY[locale]);
   const [fleet, setFleet] = useState<FleetBucket | "">("");
   const [replyLang, setReplyLang] = useState<Lang>(locale);
+  const [interests, setInterests] = useState<Interest[]>([]);
+  const [message, setMessage] = useState("");
   const [newsletter, setNewsletter] = useState(false);
   const [hp, setHp] = useState("");
   const [status, setStatus] = useState<Status>("idle");
@@ -85,6 +95,14 @@ export function DemoForm({ locale, t, privacyHref }: { locale: Lang; t: DemoDict
       .concat({ code: "ZZ", label: t.fields.countryOther });
   }, [locale, t.fields.countryOther]);
 
+  const interestLabel: Record<Interest, string> = {
+    excel: t.fields.interestExcel,
+    telematics: t.fields.interestTelematics,
+    demo_access: t.fields.interestDemo,
+  };
+  const toggleInterest = (i: Interest, on: boolean) =>
+    setInterests((prev) => (on ? [...prev.filter((x) => x !== i), i] : prev.filter((x) => x !== i)));
+
   const invalid = (field: string) => badFields.includes(field);
   /* aria-describedby: своя подсказка (если есть) + текст ошибки, когда поле неверно */
   const describedBy = (field: string, hint?: string) =>
@@ -93,6 +111,14 @@ export function DemoForm({ locale, t, privacyHref }: { locale: Lang; t: DemoDict
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (sending.current || fleet === "") return;
+    /* ссылка в тексте: сервер отбросит заявку молча (так режется спам ботов) — человеку говорим сразу */
+    const linked = linkFields({ name, company, message });
+    if (linked.length) {
+      setBadFields(linked);
+      setErrorText(t.errors.link);
+      setStatus("error");
+      return;
+    }
     sending.current = true;
     setStatus("sending");
     setErrorText("");
@@ -100,7 +126,7 @@ export function DemoForm({ locale, t, privacyHref }: { locale: Lang; t: DemoDict
     const wait = MIN_ON_PAGE_MS - performance.now();
     if (wait > 0) await new Promise((resolve) => setTimeout(resolve, wait));
     const payload = buildDemoPayload(
-      { name, company, email, phone, country, fleet_bucket: fleet, lang: replyLang, newsletter, hp },
+      { name, company, email, phone, country, fleet_bucket: fleet, lang: replyLang, newsletter, hp, message, interests },
       window.location.search,
       performance.now(),
       t.fields.newsletter,
@@ -200,6 +226,23 @@ export function DemoForm({ locale, t, privacyHref }: { locale: Lang; t: DemoDict
           ))}
         </div>
       </fieldset>
+      <fieldset className="demo-interests">
+        <legend>{t.fields.interests}</legend>
+        {INTERESTS.map((i) => (
+          <label key={i} className="demo-check">
+            <input type="checkbox" id={`demo-interest-${i}`} name="interests" value={i}
+              checked={interests.includes(i)} onChange={(e) => toggleInterest(i, e.target.checked)}
+              aria-describedby={describedBy("interests")} />
+            <span>{interestLabel[i]}</span>
+          </label>
+        ))}
+      </fieldset>
+      <div className="demo-field demo-comment">
+        <label htmlFor="demo-message">{t.fields.message}</label>
+        <textarea id="demo-message" name="message" rows={4} maxLength={MESSAGE_MAX} placeholder={t.fields.messagePlaceholder}
+          value={message} onChange={(e) => setMessage(e.target.value)}
+          aria-invalid={invalid("message") || undefined} aria-describedby={describedBy("message")} />
+      </div>
       <label className="demo-check">
         <input type="checkbox" id="demo-newsletter" name="newsletter" checked={newsletter}
           onChange={(e) => setNewsletter(e.target.checked)} aria-describedby={describedBy("newsletter")} />

@@ -13,14 +13,17 @@ import {
   DEFAULT_COUNTRY,
   DEMO_ENDPOINT,
   FLEET_BUCKETS,
+  INTERESTS,
+  MESSAGE_MAX,
   NEWSLETTER_CONSENT_VERSION,
   attributionFromSearch,
   buildDemoPayload,
   leadEvent,
+  linkFields,
   type DemoFormInput,
 } from "../src/lib/demo-form";
 import { DEMO_DICT } from "../src/lib/demo-page";
-import { LOCALES, demoPath } from "../src/lib/landing-i18n";
+import { LOCALES, demoPath, type Lang } from "../src/lib/landing-i18n";
 import { SITE_ORIGIN, demoMetadata } from "../src/lib/landing-metadata";
 import sitemap from "../src/app/sitemap";
 import { BANNED, aiPattern } from "./banned";
@@ -35,6 +38,8 @@ const input: DemoFormInput = {
   lang: "cs",
   newsletter: false,
   hp: "",
+  message: "",
+  interests: [],
 };
 
 function leaves(v: unknown, path = ""): Array<[string, string]> {
@@ -50,6 +55,10 @@ describe("demo-form: адрес функции и константы", () => {
     expect(DEMO_ENDPOINT).toBe("https://qawvvbjmfimpyilaqsrj.supabase.co/functions/v1/demo-intake"));
   it("корзины парка — как в базе", () =>
     expect([...FLEET_BUCKETS]).toEqual(["lt20", "20_50", "50_200", "200_plus"]));
+  it("интересы и предел комментария — как в контракте приёма", () => {
+    expect([...INTERESTS]).toEqual(["excel", "telematics", "demo_access"]);
+    expect(MESSAGE_MAX).toBe(1000);
+  });
   it("default_country_valid", () => {
     for (const c of COUNTRY_CODES) expect(c).toMatch(/^[A-Z]{2}$/);
     expect(COUNTRY_CODES).toContain("ZZ");
@@ -102,6 +111,66 @@ describe("demo-form: атрибуция и тело запроса", () => {
   });
 });
 
+describe("demo-form: комментарий и «что подготовить» (контракт приёма от 12.10)", () => {
+  const body = (message: string, interests: readonly string[] = []) =>
+    buildDemoPayload({ ...input, message, interests }, "", 4000, "x");
+
+  it("пусто → message \"\" и interests []", () => {
+    const p = buildDemoPayload(input, "", 4000, "x");
+    expect(p.message).toBe("");
+    expect(p.interests).toEqual([]);
+    expect(body("  \n\t \r\n ").message).toBe("");
+  });
+
+  it("CRLF и одинокий CR → LF, края обрезаны, абзацы целы", () => {
+    expect(body("  Нужен перенос.\r\nСейчас 35 тягачей.\rТретья строка\n\n\nПятая  \r\n ").message).toBe(
+      "Нужен перенос.\nСейчас 35 тягачей.\nТретья строка\n\n\nПятая",
+    );
+  });
+
+  it("1000 символов проходят целиком, 1001 → 1000", () => {
+    expect(body("a".repeat(1000)).message).toBe("a".repeat(1000));
+    const cut = body("a".repeat(1001)).message;
+    expect(cut).toHaveLength(1000);
+    expect(cut).toBe("a".repeat(1000));
+  });
+
+  it("предел — в символах Юникода: эмодзи считается за один", () => {
+    const full = body("😀".repeat(1000)).message;
+    expect([...full]).toHaveLength(1000);
+    expect(full).toHaveLength(2000); // UTF-16: две единицы на эмодзи
+    expect(body("😀".repeat(1001)).message).toBe("😀".repeat(1000));
+    expect(body("я".repeat(1000) + "😀").message).toBe("я".repeat(1000));
+  });
+
+  it("после среза хвост снова обрезается (на границе остался пробел или перенос)", () => {
+    expect(body(`${"a".repeat(999)} b`).message).toBe("a".repeat(999));
+    expect(body(`${"a".repeat(999)}\r\nb`).message).toBe("a".repeat(999));
+  });
+
+  it("невидимые символы и табуляция из вставки убираются, как в остальных полях", () => {
+    expect(body("Pe\u00adtr\u200b\tNovák\u00a0s.r.o.\ufeff").message).toBe("Petr Novák s.r.o.");
+  });
+
+  it("interests: чужие значения выброшены, повторы убраны, порядок всегда excel → telematics → demo_access", () => {
+    expect(body("", ["demo_access", "excel"]).interests).toEqual(["excel", "demo_access"]);
+    expect(body("", ["telematics", "demo_access", "excel"]).interests).toEqual(["excel", "telematics", "demo_access"]);
+    expect(body("", ["excel", "excel", "bogus", "EXCEL", ""]).interests).toEqual(["excel"]);
+    expect(body("", ["bogus", "demo-access"]).interests).toEqual([]);
+    expect(body("", []).interests).toEqual([]);
+  });
+
+  it("в JSON тела оба ключа на месте, interests — массив строк", () => {
+    const sent = JSON.parse(JSON.stringify(body("Нужен перенос.\nСейчас 35 тягачей.", ["demo_access", "excel"])));
+    expect(sent.message).toBe("Нужен перенос.\nСейчас 35 тягачей.");
+    expect(sent.interests).toEqual(["excel", "demo_access"]);
+    expect(Object.keys(sent).sort()).toEqual([
+      "attribution", "company", "consent_text", "consent_version", "country", "email", "fleet_bucket", "hp",
+      "interests", "lang", "message", "name", "newsletter", "phone", "t_ms",
+    ]);
+  });
+});
+
 describe("demo-form: событие generate_lead", () => {
   it("lead_event_only_when_counted_with_id", () => {
     expect(leadEvent({ ok: true, id: "t-1", counted: true }, "20_50", "cs")).toEqual({
@@ -132,6 +201,34 @@ describe("словарь страницы заявки ×12", () => {
     }
   });
 
+  it("dict_has_interest_and_message_keys", () => {
+    const keys = ["interests", "interestExcel", "interestTelematics", "interestDemo", "message", "messagePlaceholder"] as const;
+    for (const l of LOCALES) {
+      for (const k of keys) expect(DEMO_DICT[l].fields[k].trim().length, `${l}.fields.${k}`).toBeGreaterThan(5);
+      expect(DEMO_DICT[l].fields.interestExcel, l).toContain("Excel");
+    }
+  });
+
+  // Г16: телематика — всегда с условием «если поддерживается», без названия поставщика
+  it("interest_telematics_keeps_the_conditional_g16", () => {
+    const conditional: Record<Lang, string> = {
+      en: "if it is supported",
+      ru: "если он поддерживается",
+      uk: "якщо він підтримується",
+      cs: "pokud je podporovaný",
+      pl: "jeśli jest obsługiwany",
+      de: "sofern er unterstützt wird",
+      fr: "s’il est compatible",
+      it: "se è supportato",
+      lt: "Jei jūsų sekiklis palaikomas",
+      lv: "Ja tavs izsekotājs tiek atbalstīts",
+      es: "si es compatible",
+      ro: "Dacă trackerul tău e compatibil",
+    };
+    expect(Object.keys(conditional).sort()).toEqual([...LOCALES].sort());
+    for (const l of LOCALES) expect(DEMO_DICT[l].fields.interestTelematics, l).toContain(conditional[l]);
+  });
+
   it("dict_strings_pass_banned", () => {
     for (const l of LOCALES) {
       for (const [p, s] of leaves(DEMO_DICT[l])) {
@@ -154,6 +251,22 @@ describe("словарь страницы заявки ×12", () => {
       expect(g.link.length, l).toBeGreaterThan(5);
       expect(s, l).not.toMatch(/G-Track Software|s\.r\.o\.|24/);
       expect(s.length, l).toBeLessThan(140);
+    }
+  });
+
+  /* M2 (ревью безопасности 12.10): те же примеры, что в core.test.ts функции приёма — выражения совпадают */
+  it("link_fields_match_server_spam_rule", () => {
+    const at = (message: string, company = "Doprava s.r.o.", name = "Petr") => linkFields({ name, company, message });
+    for (const s of ["see https://x.y", "HTTP://x.y", "ftp://x.y/a", "file:///c:/x", "smb://h/s", "\\\\host\\share", "< A href=x>", "[url=x]a[/url]"])
+      expect(at(s), s).toEqual(["message"]);
+    for (const s of ["www.firma.cz/stranka", "HTTP Logistik", "máme 3 auta", ""]) expect(at(s), s).toEqual([]);
+    expect(at("", "<a href=x>F</a>", "[url]P")).toEqual(["name", "company"]);
+  });
+
+  it("link_hint_x12", () => {
+    for (const l of LOCALES) {
+      expect(DEMO_DICT[l].errors.link, l).toContain("https://");
+      expect(DEMO_DICT[l].errors.link.length, l).toBeGreaterThan(20);
     }
   });
 

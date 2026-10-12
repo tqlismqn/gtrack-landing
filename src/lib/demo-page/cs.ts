@@ -19,6 +19,12 @@ export const demo: DemoDict = {
     fleet: "Velikost vozového parku",
     lang: "Jazyk naší odpovědi",
     newsletter: "Zasílat novinky o G-Track e-mailem (nepovinné)",
+    interests: "Co máme připravit na ukázku? (nepovinné)",
+    interestExcel: "Zdarma vám převedeme řidiče a vozidla z Excelu — pro první zákazníky",
+    interestTelematics: "Napojíme váš tracker, pokud je podporovaný — domluvíme se s vaším IT nebo dodavatelem trackeru",
+    interestDemo: "Demo přístup s ukázkovými daty — proklikáte si ho sami",
+    message: "Komentář (nepovinné)",
+    messagePlaceholder: "Například: 35 tahačů, dokumenty jsou zatím v Excelu",
   },
   fleetOptions: { lt20: "méně než 20", "20_50": "20–50", "50_200": "50–200", "200_plus": "200+" },
   submit: "Odeslat žádost",
@@ -27,6 +33,7 @@ export const demo: DemoDict = {
   errors: {
     invalid: "Zkontrolujte prosím označená pole.",
     network: "Žádost se nepodařilo odeslat. Zkuste to prosím znovu nebo napište na sales@g-track.eu.",
+    link: "Odstraňte prosím odkaz — stačí adresa webu bez https://.",
   },
   success: { title: "Žádost přijata", text: "Odpovíme vám e-mailem do jednoho pracovního dne." },
   gdpr: {

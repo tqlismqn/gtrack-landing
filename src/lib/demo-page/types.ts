@@ -18,12 +18,19 @@ export type DemoDict = {
     fleet: string;
     lang: string;
     newsletter: string;
+    /* что подготовить к показу: легенда группы флажков, три флажка и комментарий (12.10, раунд 2) */
+    interests: string;
+    interestExcel: string;
+    interestTelematics: string;
+    interestDemo: string;
+    message: string;
+    messagePlaceholder: string;
   };
   fleetOptions: { lt20: string; "20_50": string; "50_200": string; "200_plus": string };
   submit: string;
   sending: string;
   required: string;
-  errors: { invalid: string; network: string };
+  errors: { invalid: string; network: string; link: string };
   success: { title: string; text: string };
   /* Г40 (владелец 12.10): под кнопкой одна строка со ссылкой на политику — данные оператора, цель
      и срок живут в самой политике (§ 4.3 и таблица сроков на app.g-track.eu/legal/privacy) */

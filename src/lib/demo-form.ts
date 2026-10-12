@@ -19,6 +19,26 @@ import type { Lang } from "./landing-i18n";
 
 export const DEMO_ENDPOINT = "https://qawvvbjmfimpyilaqsrj.supabase.co/functions/v1/demo-intake";
 
+/* Что подготовить к показу: три флажка. Порядок фиксирован и совпадает с тем, что ждёт
+   функция приёма (контракт 12.10): в теле запроса interests всегда в этом порядке, без повторов. */
+export const INTERESTS = ["excel", "telematics", "demo_access"] as const;
+export type Interest = (typeof INTERESTS)[number];
+
+/* Предел комментария — 1000 символов Юникода (контракт 12.10): эмодзи считается за один.
+   maxLength у textarea считает кодовыми единицами UTF-16 (эмодзи = 2), то есть строже сервера:
+   он не даёт набрать лишнее, а точный предел держит normalizeMessage — вставка и автозаполнение
+   до maxLength доходят не всегда. */
+export const MESSAGE_MAX = 1000;
+
+/* G42 / ревью безопасности 12.10 (M2): сервер молча отбрасывает заявку со ссылкой (так режется спам
+   ботов), поэтому человеку, вставившему адрес своего сайта, форма говорит об этом ДО отправки — боты
+   JS не выполняют. Выражение — то же, что SPAM_RE в demo-intake/core.ts (vault): меняются вместе. */
+export const LINK_RE = /(?:https?|ftp|file|smb):\/\/|\\\\[\w.-]+\\|<\s*a[\s>]|\[url/i;
+
+export function linkFields(v: { name: string; company: string; message: string }): Array<"name" | "company" | "message"> {
+  return (["name", "company", "message"] as const).filter((k) => LINK_RE.test(v[k]));
+}
+
 export const FLEET_BUCKETS = ["lt20", "20_50", "50_200", "200_plus"] as const;
 export type FleetBucket = (typeof FLEET_BUCKETS)[number];
 
@@ -58,6 +78,27 @@ function cleanPhone(value: string): string {
   return clean(value.replace(/\//g, " "));
 }
 
+/* Комментарий: CRLF и одинокий CR — в LF, края без пробелов, не более MESSAGE_MAX символов
+   Юникода (срез по кодовым точкам не рвёт суррогатную пару), пусто — "". Переносы строк в тексте
+   законны и остаются. Невидимые символы подписей и писем (мягкий перенос, нулевой пробел, BOM)
+   и табуляцию убираем так же, как в остальных полях (см. clean): такие символы сервер в полях
+   отвергает, и для комментария безопаснее предположить то же — человек их не видит и поправить
+   не может. Срез идёт после trim, а хвост после среза
+   обрезается снова: на границе 1000 мог остаться пробел или перенос. */
+export function normalizeMessage(value: string): string {
+  const text = value
+    .replace(/\r\n?/g, "\n")
+    .replace(/[\u00ad\u200b-\u200d\u2060\ufeff]/g, "")
+    .replace(/[\t\u00a0\u202f]/g, " ")
+    .trim();
+  return [...text].slice(0, MESSAGE_MAX).join("").trim();
+}
+
+/* Любой список → подмножество INTERESTS в фиксированном порядке, без повторов и чужих значений. */
+export function normalizeInterests(values: readonly string[]): Interest[] {
+  return INTERESTS.filter((i) => values.includes(i));
+}
+
 export type DemoFormInput = {
   name: string;
   company: string;
@@ -68,10 +109,13 @@ export type DemoFormInput = {
   lang: Lang;
   newsletter: boolean;
   hp: string;
+  message: string;
+  interests: readonly string[];
 };
 
-export type DemoPayload = Omit<DemoFormInput, "phone"> & {
+export type DemoPayload = Omit<DemoFormInput, "phone" | "interests"> & {
   phone: string | null;
+  interests: Interest[];
   consent_text: string | null;
   consent_version: string | null;
   attribution: Record<string, string>;
@@ -116,6 +160,8 @@ export function buildDemoPayload(
     lang: input.lang,
     newsletter: input.newsletter,
     hp: input.hp,
+    message: normalizeMessage(input.message),
+    interests: normalizeInterests(input.interests),
     consent_text: input.newsletter ? consentText : null,
     consent_version: input.newsletter ? NEWSLETTER_CONSENT_VERSION : null,
     attribution: attributionFromSearch(search),

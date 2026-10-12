@@ -19,6 +19,12 @@ export const demo: DemoDict = {
     fleet: "Flottengröße",
     lang: "Sprache unserer Antwort",
     newsletter: "G-Track-Neuigkeiten per E-Mail erhalten (optional)",
+    interests: "Was sollen wir für die Demo vorbereiten? (optional)",
+    interestExcel: "Wir migrieren Ihre Fahrer und Fahrzeuge kostenlos aus Excel — für frühe Kunden",
+    interestTelematics: "Wir binden Ihren Tracker an, sofern er unterstützt wird — wir stimmen uns mit Ihrer IT oder Ihrem Tracker-Anbieter ab",
+    interestDemo: "Demo-Zugang mit Beispieldaten — Sie klicken sich selbst durch",
+    message: "Kommentar (optional)",
+    messagePlaceholder: "Zum Beispiel: 35 Lkw, die Dokumente liegen heute in Excel",
   },
   fleetOptions: { lt20: "unter 20", "20_50": "20–50", "50_200": "50–200", "200_plus": "200+" },
   submit: "Anfrage senden",
@@ -27,6 +33,7 @@ export const demo: DemoDict = {
   errors: {
     invalid: "Bitte prüfen Sie die markierten Felder.",
     network: "Die Anfrage wurde nicht gesendet. Bitte versuchen Sie es erneut oder schreiben Sie an sales@g-track.eu.",
+    link: "Bitte entfernen Sie den Link — die Website-Adresse ohne https:// genügt.",
   },
   success: { title: "Anfrage erhalten", text: "Wir antworten Ihnen innerhalb eines Arbeitstags per E-Mail." },
   gdpr: {

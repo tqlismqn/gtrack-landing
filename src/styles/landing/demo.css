@@ -7,8 +7,9 @@
 
 /* Раскладка (Г41, 12.10): ниже xl — одна колонка: текст → форма → доска (форма остаётся
    наверху, доска — «что увидите»). От xl — слева текст и под ним доска первого экрана,
-   справа форма на обе строки, прижата к верху: на 1440×1000 форма видна целиком без
-   прокрутки (кадр с доской над формой уводил её низ за край экрана). Колонке доски там
+   справа форма на обе строки, прижата к верху: до блока «что подготовить» (12.10) на 1440×1000
+   форма была видна целиком без прокрутки (низ 726–743), с ним низ карточки — 1029–1086 px по
+   12 локалям, то есть карточка выходит за 1000 px на 29–86. Колонке доски там
    532 px (контент 1100 − форма 520 − зазор 48) — ширина её колонки на главной (520,8 px
    на 1440, минимум 456): наклон и поля доски включаются тем же контейнером hero-board-col.
    На l (980–1279) колонке осталось бы 332–452 px — меньше минимума, поэтому две колонки от xl. */
@@ -22,6 +23,11 @@
 @media (width >= theme(--breakpoint-xl)) {
   .demo-grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 520px); column-gap: 48px; row-gap: 36px;
+    /* 1fr у второй дорожки: форма с блоком «что подготовить» (853–910 px) стала выше левой колонки
+       (текст 279 + зазор 36 + доска 434 = 749 px), и без этого лишнее делилось поровну между
+       дорожками — между текстом и доской вместо 36 px было 89–117 (замер ru/fr/en/cs, 1280–1440,
+       12.10); с 1fr зазор ровно 36, весь запас уходит под доску. */
+    grid-template-rows: auto 1fr;
     grid-template-areas: "intro form" "board form";
   }
   .demo-grid > .demo-card { max-width: none; }
@@ -62,6 +68,8 @@
 @media (width >= theme(--breakpoint-m)) {
   .demo-form { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 14px; }
   .demo-form > .demo-fleet,
+  .demo-form > .demo-interests,
+  .demo-form > .demo-comment,
   .demo-form > .demo-check,
   .demo-form > .demo-error,
   .demo-form > .demo-submit,
@@ -73,7 +81,8 @@
 .demo-field { display: grid; gap: 6px; min-width: 0; align-content: start; }
 .demo-brand { white-space: nowrap; }
 .demo-field > label,
-.demo-fleet legend { font-size: 13px; color: var(--text-2); }
+.demo-fleet legend,
+.demo-interests legend { font-size: 13px; color: var(--text-2); }
 .demo-field input,
 .demo-field select {
   width: 100%; min-width: 0; height: 44px; padding: 0 12px; border-radius: 10px;
@@ -82,16 +91,35 @@
 }
 .demo-field input:focus-visible,
 .demo-field select:focus-visible,
+.demo-field textarea:focus-visible,
 .demo-check input:focus-visible,
 .demo-seg-opt input:focus-visible + span { outline: 2px solid var(--brand); outline-offset: 2px; }
 .demo-field input[aria-invalid="true"],
 .demo-field select[aria-invalid="true"],
+.demo-field textarea[aria-invalid="true"],
 .demo-fleet.is-invalid .demo-seg-opt span { border-color: var(--bad); }
 /* --text-2, не --text-3: 12 px на карточке в тёмной теме давали ≈4,46:1 (< 4,5) — финальное ревью 12.10 */
 .demo-hint { font-size: 12px; line-height: 1.45; color: var(--text-2); }
 
 .demo-fleet { margin: 0; padding: 0; border: 0; min-width: 0; }
 .demo-fleet legend { padding: 0; margin-bottom: 6px; }
+
+/* «Что подготовить к показу» и комментарий (12.10, необязательные). Группа флажков — те же строки
+   .demo-check, что у согласия на новости: колонка с зазором 10 px, подпись переносится. Замер на
+   12 локалях × 5 ширин: подпись — не больше 2 строк на 1440, до 4 на 390 (fr, es) и на 320,
+   переполнения нет. Комментарий — textarea с рамкой, фоном, скруглением и кольцом фокуса полей
+   выше; высоту задают rows=4 (4 × 21,75 + 22 = 109 px), min-height 96 — только нижняя планка;
+   тянется вниз, вширь resize ломал бы колонку формы. Плейсхолдер — --text-3: ≈ 4,8:1 к фону
+   поля в обеих темах (выведено из L* замеренных цветов, порог 4,5). Оба блока добавляют
+   к карточке ≈ 321 px (ru, 1440: 550 → 871), низ карточки на 1440 уходит с 726 на 1029–1086 px. */
+.demo-interests { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: 10px; }
+.demo-interests legend { padding: 0; margin-bottom: 6px; }
+.demo-field textarea {
+  display: block; width: 100%; min-width: 0; min-height: 96px; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid var(--border-2); background: var(--sunken); color: var(--text-1);
+  font: inherit; font-size: 15px; line-height: 1.45; resize: vertical;
+}
+.demo-field textarea::placeholder { color: var(--text-3); opacity: 1; }
 .demo-seg { display: flex; flex-wrap: wrap; gap: 8px; }
 .demo-seg-opt { position: relative; }
 .demo-seg-opt input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
