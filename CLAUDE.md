@@ -12,7 +12,7 @@ React 19, Tailwind 4, TypeScript strict, Node 22, деплой на Vercel. 12 �
 |---|---|
 | `npm install` | Установить зависимости |
 | `npm run dev` | Дев-сервер на :3000 |
-| `npm test` | vitest, 634 теста в 11 файлах, ~0,3 с |
+| `npm test` | vitest, 633 теста в 11 файлах, ~0,3 с |
 | `npx vitest run test/showcase.test.ts` | Один файл тестов |
 | `npx tsc --noEmit` | Проверка типов |
 | `npm run lint` | ESLint (eslint-config-next: core-web-vitals + typescript) |
@@ -46,6 +46,7 @@ docs/adr/                несущие решения с числами зам�
 - `src/components/landing/MotionRoot.tsx` — единственный цикл скролла и владелец класса `motion-ok`.
 - `src/components/landing/Showcase.tsx` + `ShowcaseScreens.tsx` — витрина «Одна заявка» (`#product`): пять макетов экранов, нарисованных кодом; выше неё полоса `BeforeAfter.tsx`. Раскладка трёх кадров — `styles/landing/showcase.css`, решение и числа — ADR 0012.
 - `src/components/landing/Hero.tsx` + `HeroScenes.tsx` — первый экран из трёх сцен (A отпуск из Telegram, B телематика рядом с планом, C срок визы; фразы H1 — Г31 от 12.10): `Hero.tsx` — H1 из трёх фраз и цикл, `HeroScenes.tsx` — `SceneA/B/C`. CSS — `styles/landing/hero-scenes.css` (раскладка сцен, шаги A и B), шаги C — в `hero.css` и `fx.css`. Решение и числа замера — ADR 0013.
+- `src/components/landing/useHeroCycle.ts` — цикл сцен доски первого экрана и замер целей курсора (вынесен из `Hero.tsx` 12.10, Г41). Хозяин `data-hs` — `<section class="hero">` на главной и обёртка `.hero.demo-hero` в `DemoBoard.tsx` на `/demo`: та же доска со сценами A/B/C слева от формы заявки (от `xl`; ниже — под формой). Правишь сцены или `hero*.css` — смотри обе страницы.
 - `src/lib/hero-data.ts` — «мир» hero (ср 10.06.2026 15:04), `HERO_STEPS` (22 шага, цикл 28 050 мс), `HERO_STATIC` (`a2`), машины сцены B, срок визы (`VISA_EXPIRY`: на странице 32 и 12.07 — литералы словарей ×12, тест `hero.test.ts` сверяет их с ним во всех локалях); чистый модуль, TZ-независим.
 - `src/lib/showcase-data.ts` — ВСЕ числа и даты макетов витрины (парк, окно доски, заявка, ротация, карточка машины) и геометрия полос; компоненты и словари цифр не знают.
 - `src/components/landing/Europe.tsx` — карта Европы; контур суши в `europe-land-path.ts`, проекция и формула — комментарием там же.
@@ -88,7 +89,7 @@ CookieScript — публичные идентификаторы и живут �
 
 ## Тесты
 
-vitest без конфига и без глобалов (каждый файл начинается с `import { describe, expect, it } from "vitest"`), окружение node — DOM не нужен. Импорты в модулях, которые тест тянет, — относительные: алиас `@/` vitest не знает (в `import type` можно). Файлы (`npm test`, 634):
+vitest без конфига и без глобалов (каждый файл начинается с `import { describe, expect, it } from "vitest"`), окружение node — DOM не нужен. Импорты в модулях, которые тест тянет, — относительные: алиас `@/` vitest не знает (в `import type` можно). Файлы (`npm test`, 633):
 
 - `showcase.test.ts` (119) — арифметика макетов витрины: суммы плиток, проценты шапки, дни до срока как в приложении, геометрия полос; словари витрины 12 локалей (подстановки, инициалы, запрет «AI»).
 - `legal-pages.test.ts` (206) — Impressum и уведомление о соцсетях (`company.ts` и `legal-pages/`), 12 локалей; имени директора на сайте нет (Г40, сторож ×12).
@@ -100,7 +101,7 @@ vitest без конфига и без глобалов (каждый файл �
 - `llms.test.ts` (13) — `public/llms.txt` против `Pricing.tsx` и JSON-LD.
 - `hero.test.ts` (21) — мир, шаги и телематика hero (инварианты данных: «сейчас» вне рейса больного, `HERO_STATIC`); минимумы шагов читаются из `fx.css` и `hero-scenes.css`; дни и дата визы ×12 против `VISA_EXPIRY`.
 - `csp.test.ts` (7) — состав CSP Report-Only, без `'unsafe-eval'`.
-- `demo.test.ts` (22) — страница заявки `/demo` (ворота 2): тело запроса и метки из адреса, `generate_lead` только при `counted:true`, словарь ×12 (запреты, без обещания звонка — Г8, без упоминания созвона — Г38, строка под кнопкой — только ссылка на политику и три остановки дороги — Г40), noindex, `/demo` нет в sitemap и `llms.txt`. Поведение в браузере (двойной клик, ошибка сети, редирект с метками, ширины) — `demo-e2e.cjs` в vault (`.session-context/2026-10-12-gate2/`) на `next start`.
+- `demo.test.ts` (21) — страница заявки `/demo` (ворота 2): тело запроса и метки из адреса, `generate_lead` только при `counted:true`, словарь ×12 (запреты, без обещания звонка — Г8, без упоминания созвона — Г38, строка под кнопкой — только ссылка на политику — Г40), noindex, `/demo` нет в sitemap и `llms.txt`. Поведение в браузере (двойной клик, ошибка сети, редирект с метками, ширины) — `demo-e2e.cjs` в vault (`.session-context/2026-10-12-gate2/`) на `next start`.
 
 Ожидания вписаны литералами,
 разобранными вручную по словарям: тест не считает результат тем же способом, что код, иначе он

@@ -28,6 +28,5 @@ export type DemoDict = {
   /* Г40 (владелец 12.10): под кнопкой одна строка со ссылкой на политику — данные оператора, цель
      и срок живут в самой политике (§ 4.3 и таблица сроков на app.g-track.eu/legal/privacy) */
   gdpr: { before: string; link: string; after: string };
-  /* дорога «что дальше» слева от формы: три остановки, по ним едет грузовик */
-  steps: { label: string; request: string; reply: string; demo: string };
+  next: string;
 };

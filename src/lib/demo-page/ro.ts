@@ -34,10 +34,5 @@ export const demo: DemoDict = {
     link: "politica de confidențialitate",
     after: ".",
   },
-  steps: {
-    label: "Ce urmează",
-    request: "Cerere",
-    reply: "Răspuns în cel mult o zi lucrătoare",
-    demo: "Demo pe datele tale",
-  },
+  next: "Ce urmează: răspundem în cel mult o zi lucrătoare și îți arătăm G-Track pe datele tale.",
 };

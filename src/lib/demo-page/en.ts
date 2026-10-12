@@ -35,10 +35,5 @@ export const demo: DemoDict = {
     link: "Privacy Policy",
     after: ".",
   },
-  steps: {
-    label: "What happens next",
-    request: "Request",
-    reply: "Reply within one working day",
-    demo: "Demo on your data",
-  },
+  next: "What happens next: we reply within one working day and show G-Track on your data.",
 };

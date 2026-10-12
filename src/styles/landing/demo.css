@@ -5,87 +5,38 @@
    Поля — свой :focus-visible: в base.css кольцо фокуса есть только у a и button.
    ============================================================================ */
 
-.demo-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; align-items: start; }
-@media (width >= theme(--breakpoint-l)) {
-  .demo-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 520px); gap: 56px; }
+/* Раскладка (Г41, 12.10): ниже xl — одна колонка: текст → форма → доска (форма остаётся
+   наверху, доска — «что увидите»). От xl — слева текст и под ним доска первого экрана,
+   справа форма на обе строки, прижата к верху: на 1440×1000 форма видна целиком без
+   прокрутки (кадр с доской над формой уводил её низ за край экрана). Колонке доски там
+   532 px (контент 1100 − форма 520 − зазор 48) — ширина её колонки на главной (520,8 px
+   на 1440, минимум 456): наклон и поля доски включаются тем же контейнером hero-board-col.
+   На l (980–1279) колонке осталось бы 332–452 px — меньше минимума, поэтому две колонки от xl. */
+.demo-grid {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; align-items: start;
+  grid-template-areas: "intro" "form" "board";
+}
+.demo-intro { grid-area: intro; }
+.demo-grid > .demo-card { grid-area: form; width: 100%; max-width: 680px; }
+.demo-grid > .demo-hero { grid-area: board; width: 100%; max-width: 680px; }
+@media (width >= theme(--breakpoint-xl)) {
+  .demo-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 520px); column-gap: 48px; row-gap: 36px;
+    grid-template-areas: "intro form" "board form";
+  }
+  .demo-grid > .demo-card { max-width: none; }
+  .demo-grid > .demo-hero { max-width: none; }
 }
 
-/* Дорога «что дальше» (Г40, 12.10): заполняет колонку слева от формы. Геометрия: грузовик 64 px,
-   его центр ходит от 32 px до (100% − 32 px); точки стоят ровно там же — 32 px, 50 %, 100% − 32 px.
-   Машина — обёртка шириной (100% − 64 px): translateX(50 % / 100 %) её собственной ширины ставит
-   центр грузовика на среднюю и правую точки без JS и без анимации left/width.
-   От l колонка текста тянется на высоту формы, дорога прижата к низу: обе колонки кончаются
-   на одной линии (кадр 1440, 12.10: без этого под дорогой оставалось ≈140 px пустоты). */
-.demo-road {
-  margin-top: 28px; max-width: 520px; padding: 24px 26px 22px;
-  border: 1px solid var(--border-1); border-radius: 16px; background: var(--card);
-}
-@media (width >= theme(--breakpoint-l)) {
-  .demo-intro { align-self: stretch; display: flex; flex-direction: column; }
-  .demo-intro > .sect-sub { margin-bottom: 28px; }
-  .demo-intro > .demo-road { margin-top: auto; }
-}
-.demo-road-label {
-  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--text-2);
-}
-.demo-road-track { position: relative; height: 62px; margin-top: 18px; }
-.demo-road-line,
-.demo-road-fill { position: absolute; left: 32px; right: 32px; bottom: 8px; height: 3px; border-radius: 3px; }
-.demo-road-line { background: repeating-linear-gradient(90deg, var(--border-2) 0 12px, transparent 12px 22px); }
-.demo-road-fill { background: var(--info); transform-origin: left center; transform: scaleX(0); }
-.demo-road-dot {
-  position: absolute; bottom: 2px; width: 15px; height: 15px; margin-left: -7.5px; border-radius: 50%;
-  background: var(--card); border: 2px solid var(--border-2);
-}
-.demo-road-dot.is-0 { left: 32px; border-color: var(--info); background: var(--info); }
-.demo-road-dot.is-1 { left: 50%; }
-.demo-road-dot.is-2 { left: calc(100% - 32px); }
-.demo-road-car { position: absolute; left: 0; bottom: 16px; width: calc(100% - 64px); pointer-events: none; }
-.demo-road-truck { display: block; width: 64px; height: 32px; color: var(--text-1); }
-.demo-road-steps {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 14px 0 0; padding: 0;
-  list-style: none; font-size: 15px; line-height: 1.35; color: var(--text-1);
-}
-.demo-road-steps li:nth-child(2) { text-align: center; }
-.demo-road-steps li:nth-child(3) { text-align: right; }
-@media (width <= theme(--breakpoint-s)) {
-  .demo-road { padding: 18px 16px 16px; }
-  .demo-road-track { height: 52px; }
-  .demo-road-truck { width: 52px; height: 26px; }
-  .demo-road-line, .demo-road-fill { left: 26px; right: 26px; }
-  .demo-road-dot.is-0 { left: 26px; }
-  .demo-road-dot.is-2 { left: calc(100% - 26px); }
-  .demo-road-car { width: calc(100% - 52px); bottom: 15px; }
-  .demo-road-steps { font-size: 13px; gap: 8px; }
-}
+/* Доска первого экрана (DemoBoard.tsx): обёртка несёт класс hero ради переключения сцен
+   (.hero[data-hs=…] в hero-scenes.css); отступы секции главной и её обрезку снимаем —
+   (0,2,0) перебивает .hero и мобильный .hero { padding-top } без оглядки на порядок файлов. */
+.hero.demo-hero { padding: 0; overflow: visible; }
+.demo-hero-col { min-width: 0; container: hero-board-col / inline-size; }
 
-/* Цикл 10 с: стоит на «Заявке» → едет к «Ответу» → стоит → едет к «Показу» → стоит → гаснет.
-   Точки загораются, когда грузовик до них доезжает; линия за ним заливается. */
-html.motion-ok .demo-road-car { animation: demo-road-car 10s cubic-bezier(0.45, 0, 0.25, 1) infinite; }
-html.motion-ok .demo-road-fill { animation: demo-road-fill 10s cubic-bezier(0.45, 0, 0.25, 1) infinite; }
-html.motion-ok .demo-road-dot.is-1 { animation: demo-road-dot1 10s linear infinite; }
-html.motion-ok .demo-road-dot.is-2 { animation: demo-road-dot2 10s linear infinite; }
-@keyframes demo-road-car {
-  0% { transform: translateX(0); opacity: 0; }
-  4%, 12% { transform: translateX(0); opacity: 1; }
-  40%, 56% { transform: translateX(50%); opacity: 1; }
-  84%, 94% { transform: translateX(100%); opacity: 1; }
-  100% { transform: translateX(100%); opacity: 0; }
-}
-@keyframes demo-road-fill {
-  0%, 12% { transform: scaleX(0); opacity: 1; }
-  40%, 56% { transform: scaleX(0.5); opacity: 1; }
-  84%, 94% { transform: scaleX(1); opacity: 1; }
-  100% { transform: scaleX(1); opacity: 0; }
-}
-@keyframes demo-road-dot1 {
-  0%, 39.9% { border-color: var(--border-2); background: var(--card); }
-  40%, 99.9% { border-color: var(--info); background: var(--info); }
-}
-@keyframes demo-road-dot2 {
-  0%, 83.9% { border-color: var(--border-2); background: var(--card); }
-  84%, 99.9% { border-color: var(--info); background: var(--info); }
+.demo-next {
+  margin-top: 20px; max-width: 60ch; padding-left: 14px;
+  border-left: 2px solid var(--info); color: var(--text-2); font-size: 15px; line-height: 1.5;
 }
 
 /* Стрелка списков (Г40): своя, с отступом 14 px от края — нативная стояла в ≈9 px от угла поля.

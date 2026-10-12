@@ -34,10 +34,5 @@ export const demo: DemoDict = {
     link: "política de privacidad",
     after: ".",
   },
-  steps: {
-    label: "Qué ocurre después",
-    request: "Solicitud",
-    reply: "Respuesta en un día laborable",
-    demo: "Demo con sus datos",
-  },
+  next: "Qué ocurre después: respondemos en un día laborable y le mostramos G-Track con sus datos.",
 };

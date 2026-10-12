@@ -34,10 +34,5 @@ export const demo: DemoDict = {
     link: "Datenschutzerklärung",
     after: " gelesen haben.",
   },
-  steps: {
-    label: "So geht es weiter",
-    request: "Anfrage",
-    reply: "Antwort innerhalb eines Arbeitstags",
-    demo: "Demo an Ihren Daten",
-  },
+  next: "So geht es weiter: Wir antworten innerhalb eines Arbeitstags und zeigen G-Track an Ihren Daten.",
 };

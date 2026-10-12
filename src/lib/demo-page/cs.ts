@@ -34,10 +34,5 @@ export const demo: DemoDict = {
     link: "zásadami ochrany osobních údajů",
     after: ".",
   },
-  steps: {
-    label: "Co bude dál",
-    request: "Žádost",
-    reply: "Odpověď do jednoho pracovního dne",
-    demo: "Ukázka na vašich datech",
-  },
+  next: "Co bude dál: odpovíme do jednoho pracovního dne a ukážeme vám G-Track na vašich datech.",
 };

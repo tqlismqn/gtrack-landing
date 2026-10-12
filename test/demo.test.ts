@@ -157,13 +157,6 @@ describe("словарь страницы заявки ×12", () => {
     }
   });
 
-  it("road_has_three_stops_x12", () => {
-    for (const l of LOCALES) {
-      const s = DEMO_DICT[l].steps;
-      for (const v of [s.label, s.request, s.reply, s.demo]) expect(v.trim().length, l).toBeGreaterThan(2);
-    }
-  });
-
   // Г38 (владелец 12.10): о созвоне на русском страница не пишет ни на одном языке — только «отвечаем письменно».
   it("dict_never_mentions_russian_call", () => {
     const ru = /russ|ruštin|rusk|ruso|rusa|rusă|rusų|rosyjsk|krievu|російськ|русск/i;
@@ -171,8 +164,8 @@ describe("словарь страницы заявки ×12", () => {
   });
 
   it("обещание «за рабочий день» (Г37) в en и ru", () => {
-    expect(DEMO_DICT.en.steps.reply).toContain("one working day");
-    expect(DEMO_DICT.ru.steps.reply).toContain("за рабочий день");
+    expect(DEMO_DICT.en.next).toContain("one working day");
+    expect(DEMO_DICT.ru.next).toContain("за рабочий день");
   });
 
   it("e-mail для связи в тексте ошибки сети — sales@", () => {
