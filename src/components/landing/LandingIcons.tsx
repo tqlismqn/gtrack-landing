@@ -50,7 +50,6 @@ export function LandingIcons() {
             (VehicleResourceLabel.tsx) */}
         <symbol id="i-radio" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9" /><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5" /><circle cx="12" cy="12" r="2" /><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5" /><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19" /></symbol>
         <symbol id="i-cursor" viewBox="0 0 24 24"><path fill="#FFFFFF" stroke="#1A1D21" strokeWidth="1.4" strokeLinejoin="round" d="M5 3l13 7.6-5.6 1.4 2.8 6.1-2.9 1.3-2.8-6.1L5 17.5z" /></symbol>
-        <symbol id="i-trucksil" viewBox="0 0 40 20" fill="currentColor"><path d="M1 3.5h21a1 1 0 0 1 1 1V14H1z" /><path d="M25 7h5.2a2 2 0 0 1 1.5.68l3.8 3.4a2 2 0 0 1 .5 1.32V14H25z" /><circle cx="8" cy="16" r="2.4" /><circle cx="16" cy="16" r="2.4" /><circle cx="30.5" cy="16" r="2.4" /></symbol>
         <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18M3 12h18M3 18h18" /></symbol>
         <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18M6 6l12 12" /></symbol>
 

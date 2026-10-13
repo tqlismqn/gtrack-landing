@@ -214,29 +214,33 @@ html:not(.motion-ok) .euro-board { opacity: 1; transform: none; }
   .euro-map .city:not(.city-story) { display: none; }
 }
 
-/* ---- 4. лого-морф G-Track ↔ G-Truck ------------------------------------------ */
-.wm { position: relative; display: inline-block; white-space: nowrap; }
-.wm-m { display: inline-grid; vertical-align: baseline; }
-.wm-m .g {
-  grid-area: 1 / 1;
-  transition: opacity 360ms var(--ease-soft), transform 360ms var(--ease-soft);
+/* ---- 4. лого шапки: проезд грузовика G-Track → G-Truck → G-Track (Г50) ------ */
+/* Один проход 2,3 с (запуск — NavLogo.tsx): грузовик 0–1,25 с; a уходит
+   .40–.56 с, u приходит .50–.74 с (G-Truck); u уходит 1,52–1,68 с, a
+   приходит 1,63–1,93 с (G-Track). Буквы приходят сверху и уходят вниз
+   сквозь строку (клип gth-floor в SVG). Тайминги и кривые — дословно из
+   stage2/header/gtrack-header-logo.css (vault маркетинга). Без motion-ok
+   анимации нет: лого стоит в покое (base.css). Конец gth-a = конец прохода. */
+html.motion-ok .gth.is-playing .gth-truck { animation: gth-drive 1.25s cubic-bezier(.45, 0, .35, 1) both; }
+html.motion-ok .gth.is-playing .gth-a { animation: gth-a 2.3s linear both; }
+html.motion-ok .gth.is-playing .gth-u { animation: gth-u 2.3s linear both; }
+@keyframes gth-drive {
+  0% { transform: translateX(var(--x0)); opacity: 1; }
+  62% { opacity: 1; }
+  100% { transform: translateX(var(--x1)); opacity: 0; }
 }
-.wm-m .g.u { opacity: 0; transform: translateY(34%); }
-.wm.as-u .g.a { opacity: 0; transform: translateY(-34%); }
-.wm.as-u .g.u { opacity: 1; transform: none; }
-.wm-truck {
-  position: absolute; left: 0; bottom: -0.18em; width: 1.15em; height: auto;
-  color: var(--info); opacity: 0; pointer-events: none;
+@keyframes gth-a {
+  0%, 17.4% { transform: none; opacity: 1; animation-timing-function: cubic-bezier(.5, 0, .9, .4); }
+  24.3% { transform: translateY(14px); opacity: .2; }
+  24.4%, 70.9% { transform: translateY(-12px); opacity: 0; animation-timing-function: cubic-bezier(.2, .7, .3, 1); }
+  83.9%, 100% { transform: none; opacity: 1; }
 }
-html.motion-ok .wm.driving .wm-truck { animation: wm-drive 820ms linear; }
-@keyframes wm-drive {
-  0% { transform: translateX(-1.4em); opacity: 0; }
-  18% { opacity: 1; }
-  82% { opacity: 1; }
-  100% { transform: translateX(4.6em); opacity: 0; }
+@keyframes gth-u {
+  0%, 21.7% { transform: translateY(-12px); opacity: 0; animation-timing-function: cubic-bezier(.2, .7, .3, 1); }
+  32.2%, 66.1% { transform: none; opacity: 1; animation-timing-function: cubic-bezier(.5, 0, .9, .4); }
+  73% { transform: translateY(14px); opacity: .2; }
+  73.1%, 100% { transform: translateY(-12px); opacity: 0; }
 }
-html:not(.motion-ok) .wm .g.u, html:not(.motion-ok) .wm-truck { opacity: 0 !important; }
-html:not(.motion-ok) .wm .g.a { opacity: 1 !important; transform: none !important; }
 
 /* ---- 5. видео-постер: диагональные фары + зерно ------------------------------ */
 .vid-beam {
