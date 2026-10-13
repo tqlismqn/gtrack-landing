@@ -1,9 +1,9 @@
 "use client";
 
 /* ============================================================================
-   NAV — порт хедера прототипа. Лого-морф G-Track ↔ G-Truck (fx.js):
-   единственное место, где остался .wm-морф (hover); из hero-sub убран
-   сознательно при порте. Тема/язык — из LandingProvider.
+   NAV — порт хедера прототипа. Лого с проездом грузовика G-Track → G-Truck
+   → G-Track — отдельный NavLogo (этап 2 логотипа, Г50, 13.10; прежний
+   .wm-морф из fx.js снят). Тема/язык — из LandingProvider.
    Мобильный (ниже ступени l): ссылки/язык/«Войти» уходят в бургер-панель;
    CTA и тема остаются в баре.
    ============================================================================ */
@@ -17,6 +17,7 @@ import {
   type Lang,
 } from "@/lib/landing-i18n";
 import { useLanding } from "./LandingProvider";
+import { NavLogo } from "./NavLogo";
 import { appLoginUrl, appSignupUrl } from "./urls";
 
 /* язык → код страны флага в SVG-спрайте (#f-…): en→GB, uk→UA, cs→CZ */
@@ -39,36 +40,10 @@ export function Nav() {
   const { d, lang, setLang, toggleTheme, homeAnchor } = useLanding();
   const [langOpen, setLangOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const wmRef = useRef<HTMLSpanElement>(null);
   const langWrapRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLElement>(null);
   const burgerRef = useRef<HTMLButtonElement>(null);
   const menuWasOpen = useRef(false);
-
-  /* лого-морф: hover на nav-лого (порт morph() из fx.js) */
-  const morphTimers = useRef<number[]>([]);
-  function morph(toU: boolean) {
-    const wm = wmRef.current;
-    if (!wm || !document.documentElement.classList.contains("motion-ok")) return;
-    wm.classList.add("driving");
-    morphTimers.current.push(
-      window.setTimeout(() => wm.classList.toggle("as-u", toU), 280),
-      window.setTimeout(() => wm.classList.remove("driving"), 880),
-    );
-  }
-
-  useEffect(() => {
-    const timers = morphTimers.current;
-    const onMotion = (e: Event) => {
-      const ok = (e as CustomEvent<{ ok: boolean }>).detail?.ok;
-      if (!ok) wmRef.current?.classList.remove("as-u", "driving");
-    };
-    window.addEventListener("gt-motion-applied", onMotion);
-    return () => {
-      window.removeEventListener("gt-motion-applied", onMotion);
-      timers.forEach((t) => clearTimeout(t));
-    };
-  }, []);
 
   /* закрытие языкового меню по клику вне (порт делегирования mock-i18n.js) */
   useEffect(() => {
@@ -135,26 +110,7 @@ export function Nav() {
   return (
     <header className={`nav${menuOpen ? " menu-open" : ""}`} data-screen-label="Nav" ref={navRef}>
       <div className="nav-inner">
-        <a
-          className="logo"
-          href="#top"
-          onMouseEnter={() => morph(true)}
-          onMouseLeave={() => morph(false)}
-        >
-          <span className="logo-mark">GT</span>
-          <span className="wm" ref={wmRef}>
-            G-Tr
-            <span className="wm-m">
-              <span className="g a">a</span>
-              <span className="g u">u</span>
-            </span>
-            ck
-            <svg className="wm-truck" viewBox="0 0 40 20" aria-hidden="true">
-              <use href="#i-trucksil" />
-            </svg>
-          </span>
-          <span className="logo-tms">TMS</span>
-        </a>
+        <NavLogo />
         <nav className="nav-links">
           <a className="nav-link" href={homeAnchor("#product")}>{d.nav.product}</a>
           <a className="nav-link" href={homeAnchor("#pricing")}>{d.nav.pricing}</a>
