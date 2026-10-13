@@ -46,7 +46,6 @@ export type ImpressumDict = {
     ico: string;
     register: string;
     registerValue: string;
-    director: string;
     /* Строки о DPH / DIČ нет намеренно — решение владельца 12.10 (Г29):
        статус плательщика НДС не указываем, пока нет оборотов. § 435 OZ
        требует от сайта фирму, сидло, IČO и запись в реестре, DIČ — нет
@@ -88,7 +87,6 @@ export function impressumRows(lang: Lang): ImpressumRow[] {
     { dt: l.seat, dd: `${seatOf(COMPANY)}, ${l.country}` },
     { dt: l.ico, dd: COMPANY.ico },
     { dt: l.register, dd: fill(l.registerValue, COMPANY) },
-    { dt: l.director, dd: COMPANY.director },
     { dt: l.email, dd: COMPANY.email, mailto: true },
     { dt: l.privacy, dd: COMPANY.privacyEmail, mailto: true },
   ];

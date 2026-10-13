@@ -1,0 +1,45 @@
+import type { DemoDict } from "./types";
+
+/* Перевод мастера EN, ворота 2. Обращение — «vous»; перед «:» неразрывный пробел (как в словаре сайта). */
+export const demo: DemoDict = {
+  metaTitle: "Demander une démo · G-Track",
+  metaDescription: "Parlez-nous de votre flotte. Nous répondons sous un jour ouvré et présentons G-Track sur vos propres données.",
+  overline: "Demande de démo",
+  h1: "Nous vous montrons G-Track sur vos données",
+  lead: "Pour les transporteurs dès 20 camions : documents conducteurs, trajets et congés au même endroit.",
+  fields: {
+    name: "Votre nom",
+    company: "Entreprise",
+    email: "E-mail professionnel",
+    phone: "Téléphone (facultatif)",
+    phoneHint: "Nous répondons par écrit, dans votre langue.",
+    country: "Pays",
+    countryPlaceholder: "Choisissez un pays",
+    countryOther: "Autre",
+    fleet: "Taille de la flotte",
+    lang: "Langue de notre réponse",
+    newsletter: "Recevoir les actualités de G-Track par e-mail (facultatif)",
+    interests: "Que devons-nous préparer pour la démo ? (facultatif)",
+    interestExcel: "Migration gratuite de vos conducteurs et véhicules depuis Excel — pour les premiers clients",
+    interestTelematics: "Nous connectons votre traceur s’il est compatible — nous nous coordonnons avec votre service IT ou le fournisseur du traceur",
+    interestDemo: "Accès démo avec des données d’exemple — vous le parcourez vous-même",
+    message: "Commentaire (facultatif)",
+    messagePlaceholder: "Par exemple : 35 camions, les documents sont aujourd’hui dans Excel",
+  },
+  fleetOptions: { lt20: "moins de 20", "20_50": "20–50", "50_200": "50–200", "200_plus": "200+" },
+  submit: "Envoyer la demande",
+  sending: "Envoi en cours…",
+  required: "Obligatoire",
+  errors: {
+    invalid: "Veuillez vérifier les champs signalés.",
+    network: "La demande n’a pas pu être envoyée. Veuillez réessayer ou écrire à sales@g-track.eu.",
+    link: "Veuillez retirer le lien — l’adresse du site sans https:// suffit.",
+  },
+  success: { title: "Demande reçue", text: "Nous vous répondrons par e-mail sous un jour ouvré." },
+  gdpr: {
+    before: "En envoyant la demande, vous confirmez avoir pris connaissance de notre ",
+    link: "politique de confidentialité",
+    after: ".",
+  },
+  next: "Et ensuite : nous répondons sous un jour ouvré et vous montrons G-Track sur vos données.",
+};

@@ -18,7 +18,6 @@ export const impressum: ImpressumDict = {
     register: "Rejestr handlowy",
     registerValue:
       "{court} (Sąd Miejski w Pradze), dział {section}, wkładka {insert}",
-    director: "Członek zarządu (jednatel)",
     email: "E-mail",
     privacy: "Ochrona danych osobowych",
     legalDocs: "Dokumenty prawne",

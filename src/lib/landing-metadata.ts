@@ -6,6 +6,7 @@
 
 import type { Metadata } from "next";
 import {
+  demoPath,
   impressumPath,
   LANDING_DICT,
   LOCALES,
@@ -15,6 +16,7 @@ import {
   type Lang,
 } from "./landing-i18n";
 import { IMPRESSUM, SOCIAL_NOTICE } from "./legal-pages";
+import { DEMO_DICT } from "./demo-page";
 
 export const SITE_ORIGIN = "https://www.g-track.eu";
 
@@ -198,6 +200,34 @@ export function socialPrivacyMetadata(locale: Lang): Metadata {
     twitter: {
       card: "summary_large_image",
       title,
+      description: p.metaDescription,
+    },
+  };
+}
+
+/* Страница заявки /{lang}/demo (ворота 2) — тот же шаблон, что у уведомления
+   о соцсетях: noindex, follow, canonical на себя, без hreflang и вне sitemap.
+   Индексацию и ссылки на неё включают ворота 5.5 — после публикации юр-пакета
+   (форма заявки должна быть описана в Политике раньше, чем её найдут). */
+export function demoMetadata(locale: Lang): Metadata {
+  const p = DEMO_DICT[locale];
+  const url = `${SITE_ORIGIN}${demoPath(locale)}`;
+  return {
+    title: p.metaTitle,
+    description: p.metaDescription,
+    robots: { index: false, follow: true },
+    alternates: { canonical: url },
+    openGraph: {
+      title: p.metaTitle,
+      description: p.metaDescription,
+      url,
+      siteName: "G-Track",
+      type: "website",
+      locale: OG_LOCALE[locale],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: p.metaTitle,
       description: p.metaDescription,
     },
   };

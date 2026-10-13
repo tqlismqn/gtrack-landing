@@ -17,7 +17,6 @@ export const impressum: ImpressumDict = {
     ico: "IČO",
     register: "Obchodní rejstřík",
     registerValue: "{court}, oddíl {section}, vložka {insert}",
-    director: "Jednatel",
     email: "E-mail",
     privacy: "Ochrana osobních údajů",
     legalDocs: "Právní dokumenty",

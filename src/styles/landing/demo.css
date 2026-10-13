@@ -1,0 +1,150 @@
+/* ============================================================================
+   Страница заявки /{lang}/demo (ворота 2): раскладка «текст | форма», поля,
+   выбор размера парка, ловушка для ботов. Отступ сверху и заголовок —
+   общие с юр-страницами (.lg-page, .lg-h1 в legal.css).
+   Поля — свой :focus-visible: в base.css кольцо фокуса есть только у a и button.
+   ============================================================================ */
+
+/* Раскладка (Г41, 12.10): ниже xl — одна колонка: текст → форма → доска (форма остаётся
+   наверху, доска — «что увидите»). От xl — слева текст и под ним доска первого экрана,
+   справа форма на обе строки, прижата к верху: до блока «что подготовить» (12.10) на 1440×1000
+   форма была видна целиком без прокрутки (низ 726–743), с ним низ карточки — 1029–1086 px по
+   12 локалям, то есть карточка выходит за 1000 px на 29–86. Колонке доски там
+   532 px (контент 1100 − форма 520 − зазор 48) — ширина её колонки на главной (520,8 px
+   на 1440, минимум 456): наклон и поля доски включаются тем же контейнером hero-board-col.
+   На l (980–1279) колонке осталось бы 332–452 px — меньше минимума, поэтому две колонки от xl. */
+.demo-grid {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; align-items: start;
+  grid-template-areas: "intro" "form" "board";
+}
+.demo-intro { grid-area: intro; }
+.demo-grid > .demo-card { grid-area: form; width: 100%; max-width: 680px; }
+.demo-grid > .demo-hero { grid-area: board; width: 100%; max-width: 680px; }
+@media (width >= theme(--breakpoint-xl)) {
+  .demo-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 520px); column-gap: 48px; row-gap: 36px;
+    /* 1fr у второй дорожки: форма с блоком «что подготовить» (853–910 px) стала выше левой колонки
+       (текст 279 + зазор 36 + доска 434 = 749 px), и без этого лишнее делилось поровну между
+       дорожками — между текстом и доской вместо 36 px было 89–117 (замер ru/fr/en/cs, 1280–1440,
+       12.10); с 1fr зазор ровно 36, весь запас уходит под доску. */
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "intro form" "board form";
+  }
+  .demo-grid > .demo-card { max-width: none; }
+  .demo-grid > .demo-hero { max-width: none; }
+}
+
+/* Доска первого экрана (DemoBoard.tsx): обёртка несёт класс hero ради переключения сцен
+   (.hero[data-hs=…] в hero-scenes.css); отступы секции главной и её обрезку снимаем —
+   (0,2,0) перебивает .hero и мобильный .hero { padding-top } без оглядки на порядок файлов. */
+.hero.demo-hero { padding: 0; overflow: visible; }
+.demo-hero-col { min-width: 0; container: hero-board-col / inline-size; }
+
+.demo-next {
+  margin-top: 20px; max-width: 60ch; padding-left: 14px;
+  border-left: 2px solid var(--info); color: var(--text-2); font-size: 15px; line-height: 1.5;
+}
+
+/* Стрелка списков (Г40): своя, с отступом 14 px от края — нативная стояла в ≈9 px от угла поля.
+   select без системного вида, стрелка — псевдоэлемент обёртки (у select своего ::after нет),
+   цвет — маской от токена, поэтому верна в обеих темах. */
+.demo-select { position: relative; display: block; min-width: 0; }
+.demo-select::after {
+  content: ""; position: absolute; right: 14px; top: 50%; width: 12px; height: 12px; margin-top: -6px;
+  background: var(--text-2); pointer-events: none;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 12px 12px no-repeat;
+}
+.demo-field .demo-select select { appearance: none; -webkit-appearance: none; padding-right: 40px; cursor: pointer; }
+
+.demo-card {
+  background: var(--card); border: 1px solid var(--border-1); border-radius: 16px;
+  padding: 24px; box-shadow: var(--shadow-lift);
+}
+@media (width <= theme(--breakpoint-s)) {
+  .demo-card { padding: 18px; }
+}
+
+.demo-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+@media (width >= theme(--breakpoint-m)) {
+  .demo-form { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 14px; }
+  .demo-form > .demo-fleet,
+  .demo-form > .demo-interests,
+  .demo-form > .demo-comment,
+  .demo-form > .demo-check,
+  .demo-form > .demo-error,
+  .demo-form > .demo-submit,
+  .demo-form > .demo-gdpr { grid-column: 1 / -1; }
+}
+
+/* align-content: start — соседнее поле с подсказкой (телефон) делает строку сетки выше,
+   и без него поле e-mail растягивалось и съезжало вниз (кадр 1280, 12.10) */
+.demo-field { display: grid; gap: 6px; min-width: 0; align-content: start; }
+.demo-brand { white-space: nowrap; }
+.demo-field > label,
+.demo-fleet legend,
+.demo-interests legend { font-size: 13px; color: var(--text-2); }
+.demo-field input,
+.demo-field select {
+  width: 100%; min-width: 0; height: 44px; padding: 0 12px; border-radius: 10px;
+  border: 1px solid var(--border-2); background: var(--sunken); color: var(--text-1);
+  font: inherit; font-size: 15px;
+}
+.demo-field input:focus-visible,
+.demo-field select:focus-visible,
+.demo-field textarea:focus-visible,
+.demo-check input:focus-visible,
+.demo-seg-opt input:focus-visible + span { outline: 2px solid var(--brand); outline-offset: 2px; }
+.demo-field input[aria-invalid="true"],
+.demo-field select[aria-invalid="true"],
+.demo-field textarea[aria-invalid="true"],
+.demo-fleet.is-invalid .demo-seg-opt span { border-color: var(--bad); }
+/* --text-2, не --text-3: 12 px на карточке в тёмной теме давали ≈4,46:1 (< 4,5) — финальное ревью 12.10 */
+.demo-hint { font-size: 12px; line-height: 1.45; color: var(--text-2); }
+
+.demo-fleet { margin: 0; padding: 0; border: 0; min-width: 0; }
+.demo-fleet legend { padding: 0; margin-bottom: 6px; }
+
+/* «Что подготовить к показу» и комментарий (12.10, необязательные). Группа флажков — те же строки
+   .demo-check, что у согласия на новости: колонка с зазором 10 px, подпись переносится. Замер на
+   12 локалях × 5 ширин: подпись — не больше 2 строк на 1440, до 4 на 390 (fr, es) и на 320,
+   переполнения нет. Комментарий — textarea с рамкой, фоном, скруглением и кольцом фокуса полей
+   выше; высоту задают rows=4 (4 × 21,75 + 22 = 109 px), min-height 96 — только нижняя планка;
+   тянется вниз, вширь resize ломал бы колонку формы. Плейсхолдер — --text-3: ≈ 4,8:1 к фону
+   поля в обеих темах (выведено из L* замеренных цветов, порог 4,5). Оба блока добавляют
+   к карточке ≈ 321 px (ru, 1440: 550 → 871), низ карточки на 1440 уходит с 726 на 1029–1086 px. */
+.demo-interests { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: 10px; }
+.demo-interests legend { padding: 0; margin-bottom: 6px; }
+.demo-field textarea {
+  display: block; width: 100%; min-width: 0; min-height: 96px; padding: 10px 12px; border-radius: 10px;
+  border: 1px solid var(--border-2); background: var(--sunken); color: var(--text-1);
+  font: inherit; font-size: 15px; line-height: 1.45; resize: vertical;
+}
+.demo-field textarea::placeholder { color: var(--text-3); opacity: 1; }
+.demo-seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.demo-seg-opt { position: relative; }
+.demo-seg-opt input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.demo-seg-opt span {
+  display: inline-flex; align-items: center; height: 38px; padding: 0 14px; border-radius: 99px;
+  border: 1px solid var(--border-2); color: var(--text-2); font-size: 14px; font-variant-numeric: tabular-nums;
+  transition: border-color 140ms, color 140ms, background 140ms;
+}
+.demo-seg-opt input:checked + span {
+  border-color: var(--info); color: var(--info); background: color-mix(in oklch, var(--info) 10%, transparent);
+}
+
+.demo-check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--text-2); cursor: pointer; }
+.demo-check input { flex: none; width: 18px; height: 18px; margin-top: 2px; accent-color: var(--info); }
+
+/* ловушка для ботов: вне экрана и вне фокуса, но в DOM — роботы её заполняют */
+.demo-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+.demo-error { font-size: 14px; color: var(--bad); }
+.demo-submit { justify-self: start; }
+.demo-submit:disabled { opacity: 0.7; cursor: progress; }
+.demo-gdpr { font-size: 12px; line-height: 1.5; color: var(--text-2); }
+.demo-gdpr a { color: var(--info); }
+
+.demo-done-title { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+.demo-done-title:focus { outline: none; }
+.demo-done-title:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; border-radius: 6px; }
+.demo-done p { margin-top: 8px; color: var(--text-2); }

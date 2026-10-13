@@ -31,7 +31,13 @@ describe("Impressum", () => {
     expect(COMPANY.ico).toBe("14237890");
     expect(COMPANY.insert).toBe("362529");
     expect(COMPANY.section).toBe("C");
-    expect(COMPANY.director).toBe("Thomas Gradinar");
+  });
+
+  /* Г40 (владелец 12.10): имени директора на сайте нет — ни в константах, ни в строках ×12 */
+  it.each(LOCALES)("%s: Impressum без имени директора", (l) => {
+    expect("director" in COMPANY).toBe(false);
+    const all = impressumRows(l).map((r) => r.dt + " " + r.dd).join("\n");
+    expect(all).not.toMatch(/Gradinar|jednatel/i);
   });
 
   it("пути", () => {
@@ -141,8 +147,8 @@ describe("Impressum", () => {
     expect(
       Object.keys(IMPRESSUM[l].labels).filter((k) => /vat|dic|tax/i.test(k)),
     ).toEqual([]);
-    /* 8 строк реквизитов + строка правовых документов = 9 на странице */
-    expect(impressumRows(l)).toHaveLength(8);
+    /* 7 строк реквизитов (без директора — Г40) + строка правовых документов = 8 на странице */
+    expect(impressumRows(l)).toHaveLength(7);
     for (const s of [impressumText(l), JSON.stringify(IMPRESSUM[l])]) {
       expect(s).not.toMatch(VAT_ABBR);
       expect(s).not.toMatch(re);
@@ -161,7 +167,6 @@ describe("Impressum", () => {
       COMPANY.ico,
       COMPANY.court,
       COMPANY.insert,
-      COMPANY.director,
       COMPANY.email,
       COMPANY.privacyEmail,
     ]) {
