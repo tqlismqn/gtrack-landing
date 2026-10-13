@@ -13,6 +13,7 @@
    ============================================================================ */
 
 import { impressumPath, roadmapPath, socialPrivacyPath } from "@/lib/landing-i18n";
+import { GtMark } from "./GtMark";
 import { useLanding } from "./LandingProvider";
 import { SALES_MAILTO, SALES_EMAIL, legalUrl } from "./urls";
 
@@ -42,7 +43,7 @@ export function Footer() {
         <div className="footer-top">
           <div className="footer-brand">
             <a className="logo" href="#top">
-              <span className="logo-mark">GT</span>G-Track
+              <GtMark className="gt-mark" />G-Track
               <span className="logo-tms">TMS</span>
             </a>
             <p className="footer-tagline">{d.footer.tagline}</p>

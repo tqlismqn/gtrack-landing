@@ -322,12 +322,9 @@ html[data-theme="light"] .btn.accent:hover { background: color-mix(in oklch, var
    край 164) — числа исходника этапа 2; на телефоне конец короче (mobile.css) */
 .gth-truck { --x0: -25.58px; --x1: 120.42px; opacity: 0; transform: translateX(var(--x0)); }
 .gth-u { opacity: 0; transform: translateY(-12px); }
-.logo-mark {
-  width: 26px; height: 26px; border-radius: 7px; flex: none;
-  background: linear-gradient(135deg, var(--brand-deep), var(--info));
-  display: grid; place-items: center; color: #fff;
-  font-family: var(--font-mono); font-size: 13px; font-weight: 600;
-}
+/* знак GT мастера в подвале (GtMark.tsx): 26 px — размер прежнего CSS-знака,
+   столько же, сколько знак шапки на телефоне; градиент и буквы — как в шапке */
+.gt-mark { display: block; width: 26px; height: 26px; flex: none; }
 .nav-links { display: none; align-items: center; gap: 4px; flex: 1; }
 /* было 880 → l: десктоп-навигация включается там же, где двухколоночные сетки.
    Парное правило «показать бургер» — mobile.css, (width < l). */

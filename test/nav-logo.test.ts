@@ -137,3 +137,28 @@ describe("лого шапки: проход", () => {
     for (const name of Object.keys(runs)) expect(plainFx).toContain(`@keyframes ${name} {`);
   });
 });
+
+describe("знак GT мастера: шапка и подвал", () => {
+  const MARK_TSX = readFileSync(new URL("../src/components/landing/GtMark.tsx", import.meta.url), "utf8");
+  const FOOTER_TSX = readFileSync(new URL("../src/components/landing/Footer.tsx", import.meta.url), "utf8");
+  const stops = (src: string) => [...src.matchAll(/stopColor="(#[0-9a-fA-F]{6})"/g)].map((m) => m[1].toLowerCase());
+  const gradId = (src: string) => src.match(/<linearGradient id="([\w-]+)"/)?.[1];
+
+  it("подвал рисует знак мастера (GtMark), прежнего CSS-знака .logo-mark нет", () => {
+    expect(FOOTER_TSX).toContain('<GtMark className="gt-mark" />');
+    expect(FOOTER_TSX).not.toContain("logo-mark");
+    expect(BASE_CSS).not.toMatch(/\.logo-mark\b/);
+  });
+
+  it("буквы GT — один путь на шапку и подвал, градиент — мастера (#1e3a8a → #0ea5e9) в обоих", () => {
+    expect(LOGO_TSX).toContain("d={GT_MARK_D}");
+    expect(stops(MARK_TSX)).toEqual(["#1e3a8a", "#0ea5e9"]);
+    expect(stops(LOGO_TSX).slice(0, 2)).toEqual(["#1e3a8a", "#0ea5e9"]);
+  });
+
+  it("id градиентов шапки и подвала различны (оба на одной странице); знак подвала декоративный", () => {
+    expect(gradId(MARK_TSX)).toBeTruthy();
+    expect(gradId(MARK_TSX)).not.toBe(gradId(LOGO_TSX));
+    expect(MARK_TSX).toMatch(/<svg[^>]*aria-hidden="true"/);
+  });
+});
