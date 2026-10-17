@@ -338,7 +338,7 @@ export const lv: LandingDict = {
     g3: "Piekļuve, autoparks, cena",
 
     q1: "Kā sistēma atgādinās, ka vadītājam beidzas dokuments?",
-    a1: "Katru rītu G-Track pārbauda visu vadītāju dokumentus. Pase nonāk kopsavilkumā 180 dienas iepriekš, pārējie dokumenti — 90 dienas iepriekš. Birojs saņem e-pastu, lietotnē pie dokumenta parādās atzīme „Beidzas derīgums”, bet vadītājs, kurš pieslēdzies Telegram botam, saņem atgādinājumu.",
+    a1: "Katru rītu G-Track pārbauda visu vadītāju dokumentus. Pase nonāk kopsavilkumā 180 dienas iepriekš, pārējie dokumenti — 90 dienas iepriekš. Birojs saņem e-pastu, lietotnē pie dokumenta parādās atzīme „Beidzas derīgums” (deklarācijai — 60 dienas iepriekš), bet vadītājs, kurš pieslēdzies Telegram botam, saņem atgādinājumu.",
     a1b: "Kopsavilkuma e-pastus ieslēdz pats un izvēlies, kam tie tiek sūtīti: tikai īpašniekam, administratoriem vai visiem dalībniekiem. Tāpēc atgādinājums nekarājas uz viena cilvēka un nepazūd, kamēr HR ir atvaļinājumā.",
 
     q2: "Kas atbild, ja vadītājs izbrauc reisā ar dokumentu, kuram beidzies termiņš?",

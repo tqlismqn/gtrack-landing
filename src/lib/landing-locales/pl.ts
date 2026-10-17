@@ -15,7 +15,7 @@ import type { LandingDict } from "../landing-i18n";
 
 export const pl: LandingDict = {
   meta: {
-    title: "G-Track — zarządzanie kierowcami i planowanie tras",
+    title: "G-Track — zarządzanie kierowcami, przejazdy i urlopy",
     description:
       "Dokumenty kierowców, przejazdy i urlopy, naprawy i serwis — w jednej aplikacji w przeglądarce dla przewoźników od 20 pojazdów. 30 dni za darmo, ceny na stronie.",
   },
@@ -340,7 +340,7 @@ export const pl: LandingDict = {
     g3: "Dostępy, flota, cena",
 
     q1: "Jak system przypomni, że kierowcy kończy się dokument?",
-    a1: "Codziennie rano G-Track sprawdza dokumenty wszystkich kierowców. Paszport trafia do podsumowania 180 dni wcześniej, pozostałe dokumenty — 90 dni wcześniej. Biuro dostaje e-mail, w aplikacji dokument zostaje oznaczony jako wygasający, a kierowca, który podłączył bota w Telegramie, dostaje przypomnienie.",
+    a1: "Codziennie rano G-Track sprawdza dokumenty wszystkich kierowców. Paszport trafia do podsumowania 180 dni wcześniej, pozostałe dokumenty — 90 dni wcześniej. Biuro dostaje e-mail, w aplikacji dokument zostaje oznaczony jako wygasający (oświadczenie — 60 dni wcześniej), a kierowca, który podłączył bota w Telegramie, dostaje przypomnienie.",
     a1b: "E-maile z podsumowaniem włączasz sam i wybierasz, kto je dostaje: tylko właściciel, administratorzy albo wszyscy członkowie. Przypomnienie nie wisi więc na jednej osobie i nie ginie, kiedy kadry są na urlopie.",
 
     q2: "Kto odpowiada, jeśli kierowca wyjedzie w trasę z nieważnym dokumentem?",

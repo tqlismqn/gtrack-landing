@@ -343,7 +343,7 @@ export const lt: LandingDict = {
     g3: "Prieiga, parkas, kaina",
 
     q1: "Kaip sistema primins, kad vairuotojui baigia galioti dokumentas?",
-    a1: "Kiekvieną rytą G-Track patikrina visų vairuotojų dokumentus. Pasas į suvestinę patenka likus 180 dienų, kiti dokumentai — likus 90. Biuras gauna el. laišką, programoje prie dokumento atsiranda žyma „Baigiasi galiojimas“, o vairuotojas, prisijungęs prie Telegram boto, gauna priminimą.",
+    a1: "Kiekvieną rytą G-Track patikrina visų vairuotojų dokumentus. Pasas į suvestinę patenka likus 180 dienų, kiti dokumentai — likus 90. Biuras gauna el. laišką, programoje prie dokumento atsiranda žyma „Baigiasi galiojimas“ (deklaracijai — likus 60 dienų), o vairuotojas, prisijungęs prie Telegram boto, gauna priminimą.",
     a1b: "Suvestinės el. laiškus įjungiate patys ir pasirenkate, kam jie siunčiami: tik savininkui, administratoriams ar visiems nariams. Todėl priminimas nekabo ant vieno žmogaus ir nepražūva, kol HR atostogauja.",
 
     q2: "Kas atsako, jei vairuotojas išvyko į reisą su nebegaliojančiu dokumentu?",

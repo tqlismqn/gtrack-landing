@@ -12,10 +12,11 @@ React 19, Tailwind 4, TypeScript strict, Node 22, деплой на Vercel. 12 �
 |---|---|
 | `npm install` | Установить зависимости |
 | `npm run dev` | Дев-сервер на :3000 |
-| `npm test` | vitest, 661 тест в 12 файлах, ~0,3 с |
+| `npm test` | vitest, 725 тестов в 14 файлах, ~0,8 с |
 | `npx vitest run test/showcase.test.ts` | Один файл тестов |
 | `npx tsc --noEmit` | Проверка типов |
 | `npm run lint` | ESLint (eslint-config-next: core-web-vitals + typescript) |
+| `npm run indexnow:dry` / `npm run indexnow` | IndexNow после выкатки в прод: сухой прогон печатает тело запроса; боевой сначала проверяет, что `https://www.g-track.eu/<ключ>.txt` отвечает, затем шлёт адреса из живого `sitemap.xml` на `api.indexnow.org`. Только вручную, из сборки и CI не вызывается |
 | `npm run build` | Прод-сборка: `Compiled successfully`, 68 статических страниц по счётчику Next: 60 из них — главная, `/roadmap`, `/impressum`, `/social-media-privacy`, `/demo` × 12 локалей, остальное служебное (`_not-found`, иконки, `robots`, `sitemap`, OG) |
 
 `npm run build` пишет в тот же `.next`, что и дев-сервер: если на :3000 кто-то висит — сначала гаси его.
@@ -34,8 +35,8 @@ src/lib/legal-pages/     Impressum и уведомление о соцсетях
 src/lib/demo-page/       тексты страницы заявки /demo, по файлу на локаль (+ demo-form.ts — логика формы)
 src/styles/landing/      CSS по смысловым областям, порядок сборки — в index.css
 src/hooks/               useInViewport
-test/                    vitest, 12 файлов (список — в «Тестах»)
-public/                  видео с постером, `llms.txt`, значок для писем
+test/                    vitest, 14 файлов (список — в «Тестах»)
+public/                  видео с постером, `llms.txt`, значок для писем, файл ключа IndexNow `<32 hex>.txt` (ключ публичен по протоколу)
 docs/adr/                несущие решения с числами замеров, 14 записей
 .autopilot/              состояние сборки навыком /autopilot
 ```
@@ -57,7 +58,9 @@ docs/adr/                несущие решения с числами зам�
 - `src/lib/analytics.ts` — GTM ID, Consent Mode v2, first-touch метки (`MARKETING_PARAMS`: utm_*, gclid, gbraid, wbraid, fbclid, msclkid …). Метки живут в памяти страницы (`LandingProvider`, `useRef`), в хранилище не пишутся; к ссылке дописываются кликом (capture на `document`) только для целей из белого списка: `/register`, `/login`, `/roadmap` приложения и страница `/demo` своего хоста (`shouldAttribute`). Порядок загрузки хрупкий и описан в шапке файла.
 - `src/lib/company.ts` — реквизиты G-Track Software s.r.o. и стороны уведомления о соцсетях (Mesartim, профили, Meta Ireland); константы, не переводятся. `src/lib/legal-pages/` — тексты Impressum и уведомления о соцсетях на 12 языках, реквизиты в них не живут.
 - `src/lib/landing-metadata.ts` — `title` / `description` / canonical / hreflang по локали, `SITE_ORIGIN` = `https://www.g-track.eu`.
-- `public/llms.txt` — факты о продукте для ИИ-поиска; цены и пороги сверяет `test/llms.test.ts` с `Pricing.tsx`, правка тарифа без файла краснит тест.
+- `public/llms.txt` — факты о продукте для ИИ-поиска; цены и пороги сверяет `test/llms.test.ts` с `Pricing.tsx`, правка тарифа без файла краснит тест. Строки про A1 и бесплатный перенос из Excel тест сверяет со словарём сайта: снимешь оффер на сайте — тест напомнит снять строку.
+- `src/lib/organization-jsonld.ts` — узел Organization главной: `legalName`, IČO, адрес и `sameAs` берутся из `company.ts`. Вынесен из `JsonLd.tsx`, потому что тест не знает алиас `@/`. FAQPage в разметку не добавляется (решение в `Faq.tsx`).
+- `scripts/indexnow.mjs` — пинг IndexNow; ключ находит сам (единственный `public/<32 hex>.txt`, имя = содержимое). Смена ключа: заменить файл, остальное не трогать.
 - `next.config.ts` — CSP в Report-Only (с 11.10 в списке Meta Pixel и Google Ads — `connect.facebook.net`, `facebook.com`, `googleadservices`, `doubleclick`, `googlesyndication`, `www.google.<страна>` — и один хост функции приёма заявок `qawvvbjmfimpyilaqsrj.supabase.co`, без `*.supabase.co`; `form-action` — `'self'` и `www.facebook.com`: длинные события пиксель шлёт POST-формой; `'unsafe-eval'` не даём; в enforcing — отдельным PR), security headers, редиректы `/privacy` и `/terms` на app-legal, `/en` → `/` и `/en/:path+` → `/:path+` (307, метки Next переносит сам; два правила, потому что одно `/en/:path*` на голом `/en` даёт петлю).
 
 ## Архитектура
@@ -90,7 +93,7 @@ CookieScript — публичные идентификаторы и живут �
 
 ## Тесты
 
-vitest без конфига и без глобалов (каждый файл начинается с `import { describe, expect, it } from "vitest"`), окружение node — DOM не нужен. Импорты в модулях, которые тест тянет, — относительные: алиас `@/` vitest не знает (в `import type` можно). Файлы (`npm test`, 661):
+vitest без конфига и без глобалов (каждый файл начинается с `import { describe, expect, it } from "vitest"`), окружение node — DOM не нужен. Импорты в модулях, которые тест тянет, — относительные: алиас `@/` vitest не знает (в `import type` можно). Файлы (`npm test`, 725):
 
 - `showcase.test.ts` (119) — арифметика макетов витрины: суммы плиток, проценты шапки, дни до срока как в приложении, геометрия полос; словари витрины 12 локалей (подстановки, инициалы, запрет «AI»).
 - `legal-pages.test.ts` (206) — Impressum и уведомление о соцсетях (`company.ts` и `legal-pages/`), 12 локалей; имени директора на сайте нет (Г40, сторож ×12).
@@ -99,7 +102,9 @@ vitest без конфига и без глобалов (каждый файл �
 - `hero-copy.test.ts` (53) — три фразы hero в 12 локалях (в словарях обычный пробел перед тире; склейка — в `lead()`), запреты и их пробы «умеют краснеть», «EU-compliance» на месте (Г18).
 - `analytics.test.ts` (28) — метки атрибуции, `shouldAttribute`, `/demo`, редиректы `/en` из `next.config`; сторож по исходнику `LandingProvider` (авто-редирект несёт query и хеш, клик — через `shouldAttribute`) и хранилища во всём `src/` (метки не пишутся никуда). Правишь `LandingProvider` — перезапусти и `attr.cjs` в vault на `next start`.
 - `roadmap.test.ts` (20) — Гант `/roadmap`: проценты оси по датам, UTC-день, инварианты полос.
-- `llms.test.ts` (13) — `public/llms.txt` против `Pricing.tsx` и JSON-LD.
+- `llms.test.ts` (17) — `public/llms.txt` против `Pricing.tsx` и JSON-LD; строки про A1 и перенос из Excel против словаря.
+- `geo-consistency.test.ts` (48) — GEO-аудит 18.10: в `meta.title` / `meta.description` ×12 нет маршрутов и карт (сторож с пробами по семьям языков); окна FAQ `a1` 180 / 90 / 60 ×12 против порогов приложения; поля Organization в JSON-LD (legalName, IČO, адрес, sameAs, чего нет намеренно, FAQPage нет).
+- `indexnow.test.ts` (12) — файл ключа IndexNow (один, имя = содержимое), тело запроса, разбор sitemap, отказы (чужой хост, пусто, > 10 000), сухой прогон скрипта без сети; сборка скрипт не вызывает.
 - `hero.test.ts` (21) — мир, шаги и телематика hero (инварианты данных: «сейчас» вне рейса больного, `HERO_STATIC`); минимумы шагов читаются из `fx.css` и `hero-scenes.css`; дни и дата визы ×12 против `VISA_EXPIRY`.
 - `csp.test.ts` (7) — состав CSP Report-Only, без `'unsafe-eval'`.
 - `nav-logo.test.ts` (15) — лого шапки этапа 2 (ADR 0014): связи между `NavLogo.tsx`, `base.css`, `mobile.css` и `fx.css` §4 — viewBox ↔ `aspect-ratio`, высота SVG и рамка клипа = одна `--gth-h`, знак 24–40 px, поле клипа < зазора строки, пробег грузовика на телефоне до плашки, проход только под `html.motion-ok`, конец прохода = `gth-a`; знак подвала — `GtMark`, путь букв и градиент мастера общие с шапкой, id градиентов разные. Поведение и геометрия в браузере (12 локалей × 9 ширин, кадры прохода, reduced motion, касание) — скрипты в vault `.session-context/2026-10-13-header-logo/` на `next start`.
@@ -125,6 +130,7 @@ vitest без конфига и без глобалов (каждый файл �
 - **Данные во всех макетах выдуманные** — ни одного имени, номера или маршрута клиента STL Express. Города маршрута двигать нельзя (продукт продаёт точность), кадр карты — можно.
 - **Территория — только `gtrack-landing`.** Соседний `gtrack-tms` — репозиторий Lovable, туда не писать; родительская папка — Obsidian-vault, кода там нет. Git-команды — всегда с явным `-C` на каталог лендинга.
 - **Имя класса сверяй с утилитами Tailwind.** Слой `gt-landing` стоит НИЖЕ `utilities`: класс `.inline` молча получил `display: inline` и перебил `display: none` (витрина, 04.10) — ни сборка, ни линтер этого не видят. `ring` и `overline` заглушены в `globals.css` тем же способом, каким ловится и следующий.
+- **Окна «скоро истечёт» в FAQ `a1` — три разных числа.** Паспорт 180, остальные 90 — это утренняя сводка (прод: `send_doc_expiry_alerts`) и напоминания водителю в Telegram; метка «истекает» в приложении у декларации ставится за 60 (`gtrack-tms` `src/lib/documents/expiryStatus.ts:24–29`, триггер `compute_driver_document_status`). Поэтому 60 стоит в скобках при слове «в приложении», а не при сводке. Меняешь окно — смотри оба места и `geo-consistency.test.ts`.
 - **Строки макетов витрины не правь руками и не переводи.** Они дословные (словари `gtrack-tms` и `driver-dash-telegram`); числа в них — подстановки `{n}` / `{date}` из `showcase-data.ts`. Правка «для красоты» ломает тест и правду разом.
 - **Известные остатки, не дефекты волны** (числа — ADR 0012 и 0013): подпись пунктирной полосы заявки режется многоточием на 320 во всех локалях и на 390 / 768 в шести; пилюля статуса с датой у `es` и `ro` ставит многоточие на кадре `m`. Hero (ADR 0013): подписи полос доски режутся на 320 во всех 12 локалях (на 390 — только «⏳ Atvaļinājums» lv и «⏳ Vacaciones» es), пилюля «Baja por enfermedad» (es) — на 320 и 390, WebKit локально не мерили. **Фразы H1 (Г31, 12.10):** слово длиннее строки H1 вылезает за колонку (переноса внутри слова нет) — новую фразу мерь `hero-measure.mjs`, а не только числом строк; впритык на 320 — pl B «obdzwaniania.» 94 %, lv A «atvaļinājumu —» 96 %.
 

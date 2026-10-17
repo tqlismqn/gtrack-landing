@@ -331,7 +331,7 @@ export const it: LandingDict = {
     g3: "Accessi, flotta, prezzo",
 
     q1: "Come mi avvisa il sistema che a un autista sta scadendo un documento?",
-    a1: "Ogni mattina G-Track controlla i documenti di tutti gli autisti. Il passaporto compare nel riepilogo 180 giorni prima della scadenza, gli altri documenti 90 giorni prima. L’ufficio riceve una email, nell’app il documento viene segnato come in scadenza e l’autista che ha collegato il bot Telegram riceve un promemoria.",
+    a1: "Ogni mattina G-Track controlla i documenti di tutti gli autisti. Il passaporto compare nel riepilogo 180 giorni prima della scadenza, gli altri documenti 90 giorni prima. L’ufficio riceve una email, nell’app il documento viene segnato come in scadenza (una dichiarazione — 60 giorni prima) e l’autista che ha collegato il bot Telegram riceve un promemoria.",
     a1b: "Le email con il riepilogo le attivi tu e scegli a chi arrivano: solo al proprietario, agli amministratori o a tutti i membri. Così il promemoria non resta appeso a una sola persona e non svanisce mentre l’HR è in ferie.",
 
     q2: "Chi risponde se un autista parte in viaggio con un documento scaduto?",

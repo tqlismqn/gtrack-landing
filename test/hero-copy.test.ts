@@ -129,7 +129,9 @@ const G18: Record<Lang, { title: string; kicker: string; tagline: string }> = {
     tagline: "EU-compliance, планирование, парк и сервис для перевозчиков",
   },
   de: {
-    title: "G-Track — EU-Compliance und Tourenplanung für Spediteure",
+    /* GEO-аудит 18.10.2026: «Tourenplanung» в немецкой логистике — планирование маршрутов
+       (а карт и маршрутов в продукте нет); было «…Tourenplanung für Spediteure». */
+    title: "G-Track — EU-Compliance und Planung für Spediteure",
     kicker: "EU-Compliance · Planung · Flotte & Wartung",
     tagline: "EU-Compliance, Planung, Flotte und Wartung für Transportunternehmen",
   },
@@ -144,7 +146,9 @@ const G18: Record<Lang, { title: string; kicker: string; tagline: string }> = {
     tagline: "EU compliance, plánování, vozidla a servis pro dopravce",
   },
   pl: {
-    title: "G-Track — zarządzanie kierowcami i planowanie tras",
+    /* GEO-аудит 18.10.2026: «planowanie tras» = планирование маршрутов, а маршрутов в продукте нет;
+       слова «przejazdy i urlopy» — из meta.description той же локали; было «…i planowanie tras». */
+    title: "G-Track — zarządzanie kierowcami, przejazdy i urlopy",
     kicker: "EU-compliance · planowanie · flota i serwis",
     tagline: "Zgodność z UE, planowanie, flota i serwis dla przewoźników",
   },

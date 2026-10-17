@@ -1,0 +1,54 @@
+/* ============================================================================
+   Узел Organization в JSON-LD главной — отдельным чистым модулем, чтобы его
+   поля проверял тест (JsonLd.tsx тянет алиас `@/`, которого vitest не знает).
+
+   Зачем юрлицо, адрес и sameAs (GEO-аудит 18.10.2026, раздел 2 п. 8 и 15):
+   по запросу «G-Track» рядом с нами выходят gtrack.ai и g-track.co.za
+   (телематика, ЮАР). Без юридического имени, IČO, адреса и профилей
+   ассистент может склеить компании; с ними сущность однозначна.
+
+   Все значения — из company.ts (реквизиты сверены с ARES 11.10, те же, что в
+   Impressum), ничего не придумано. Сознательно НЕТ: taxID / vatID (Г29 — статус
+   НДС на сайте не указываем), founder / имени директора (Г40), foundingDate
+   (даты основания в репозитории нет), aggregateRating (отзывов нет).
+   FAQPage не добавляется — решение записано в Faq.tsx.
+   ============================================================================ */
+
+import { COMPANY, SOCIAL } from "./company";
+import { SITE_ORIGIN } from "./landing-metadata";
+import { SALES_EMAIL } from "../components/landing/urls";
+
+export function organizationNode(opts: { description: string; availableLanguage: string[] }) {
+  return {
+    "@type": "Organization",
+    "@id": `${SITE_ORIGIN}/#organization`,
+    name: "G-Track",
+    legalName: COMPANY.name,
+    url: SITE_ORIGIN,
+    logo: `${SITE_ORIGIN}/icon.svg`,
+    email: SALES_EMAIL,
+    description: opts.description,
+    identifier: {
+      "@type": "PropertyValue",
+      propertyID: "IČO",
+      value: COMPANY.ico,
+    },
+    /* как в Impressum: «street, district, zip city»; страна — код ISO (в Impressum она словом) */
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: `${COMPANY.street}, ${COMPANY.district}`,
+      addressLocality: COMPANY.city,
+      postalCode: COMPANY.zip,
+      addressCountry: "CZ",
+    },
+    /* профили из company.ts (SOCIAL); LinkedIn и каталоги — когда появятся */
+    sameAs: [SOCIAL.facebook, SOCIAL.instagram],
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: SALES_EMAIL,
+      contactType: "sales",
+      areaServed: "EU",
+      availableLanguage: opts.availableLanguage,
+    },
+  };
+}
