@@ -8,6 +8,7 @@ import {
   HOST,
   MAX_URLS,
   buildPayload,
+  explainRefusal,
   findKey,
   keyLocation,
   parseSitemap,
@@ -104,6 +105,21 @@ describe("IndexNow: тело запроса", () => {
     expect(() => buildPayload({ key, urls: many })).toThrow(/> 10000/);
     expect(() => parseSitemap("<urlset></urlset>")).toThrow(/ни одного/);
     expect(() => parseSitemap("<urlset><url><loc>https://example.com/</loc></url></urlset>")).toThrow(/не с https/);
+  });
+});
+
+describe("IndexNow: отказы поисковика", () => {
+  it("403, 422 и 429 печатают тело ответа и понятную подсказку; 200 и 202 — ничего", () => {
+    expect(explainRefusal(403, "key not valid")).toEqual(["key not valid", expect.stringMatching(/^403 — ключ не отдаётся на проде/)]);
+    expect(explainRefusal(422, "")).toEqual([expect.stringMatching(/^422 — адрес не с www\.g-track\.eu/)]);
+    expect(explainRefusal(429, " slow down \n")).toEqual(["slow down", expect.stringMatching(/^429 — слишком часто/)]);
+    expect(explainRefusal(500, "oops")).toEqual(["oops"]);
+    expect(explainRefusal(200, "ok")).toEqual([]);
+    expect(explainRefusal(202, "")).toEqual([]);
+  });
+
+  it("в шапке скрипта: не гонять повторно в тот же день", () => {
+    expect(readFileSync(SCRIPT, "utf8")).toMatch(/Не гонять повторно в тот же день/);
   });
 });
 

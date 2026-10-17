@@ -23,6 +23,8 @@
      node scripts/indexnow.mjs --sitemap ./sitemap.xml --dry-run
                                            взять адреса из локального файла (или другого URL)
    Код выхода: 0 — принято (или сухой прогон), 1 — отказ, ошибка сети или данных.
+   Не гонять повторно в тот же день без правок страниц: IndexNow отвечает 429 на частые повторы
+   одних и тех же адресов.
    ============================================================================ */
 
 import { readFileSync, readdirSync } from "node:fs";
@@ -32,6 +34,12 @@ export const HOST = "www.g-track.eu";
 export const ENDPOINT = "https://api.indexnow.org/indexnow";
 export const DEFAULT_SITEMAP = `https://${HOST}/sitemap.xml`;
 export const MAX_URLS = 10000;
+/* что значит отказ (протокол, проверено 18.10.2026) */
+const REFUSAL_HINTS = {
+  403: "403 — ключ не отдаётся на проде (файл не выкачен или содержимое не совпадает с ключом)",
+  422: "422 — адрес не с www.g-track.eu или ключ не по схеме протокола",
+  429: "429 — слишком часто: тот же адрес повторяли много раз за день",
+};
 const PUBLIC_DIR = new URL("../public/", import.meta.url);
 const KEY_FILE_RE = /^[0-9a-f]{32}\.txt$/;
 
@@ -97,6 +105,21 @@ export function buildPayload({ key, urls }) {
   return { host: HOST, key, keyLocation: keyLocation(key), urlList: urls };
 }
 
+/**
+ * Строки для stderr при отказе: тело ответа (если есть) и что означает код.
+ * @param {number} status
+ * @param {string} body
+ * @returns {string[]}
+ */
+export function explainRefusal(status, body) {
+  if (status < 400) return [];
+  const lines = [];
+  if (body.trim()) lines.push(body.trim());
+  const hint = /** @type {Record<number, string>} */ (REFUSAL_HINTS)[status];
+  if (hint) lines.push(hint);
+  return lines;
+}
+
 function parseArgs(argv) {
   const opts = { dryRun: false, sitemap: DEFAULT_SITEMAP, urls: [] };
   for (let i = 0; i < argv.length; i++) {
@@ -144,6 +167,9 @@ export async function main(argv) {
     body: JSON.stringify(payload),
   });
   console.log(`IndexNow: ${urls.length} адресов → HTTP ${res.status}`);
+  if (res.status >= 400) {
+    for (const line of explainRefusal(res.status, await res.text())) console.error(line);
+  }
   return res.status === 200 || res.status === 202 ? 0 : 1;
 }
 

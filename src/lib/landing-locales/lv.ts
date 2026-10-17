@@ -345,7 +345,7 @@ export const lv: LandingDict = {
     a2: "Lielākajā daļā ES valstu — pārvadātājs, nevis tikai vadītājs: sodu uzraksta firmai, un vairākās valstīs atsevišķi arī par transportu atbildīgajai personai. Konkrētās summas un kārtība atkarīgas no pārbaudes valsts. Tieši tāpēc G-Track vispirms atgādina birojam — tam, kas ieliek reisu plānā, — bet vadītājam, kurš pieslēdzies botam, atgādinājumu papildus nosūta Telegram.",
 
     q3: "Vai dispečerpultī ir redzams, kas nevar izbraukt dokumenta dēļ?",
-    a3: "Jā, dispečerpults saved cilvēkus, mašīnas un termiņus vienā vietā: kas ir atvaļinājumā, kas uz slimības lapas, kam nav mašīnas, kam dokuments nav kārtībā. Katra plāna izmaiņa nonāk audita žurnālā — redzama ne tikai pašreizējā aina, bet arī tas, kas un kad to mainījis.",
+    a3: "Jā, dispečerpults savieno cilvēkus, mašīnas un termiņus vienā vietā: kas ir atvaļinājumā, kas uz slimības lapas, kam nav mašīnas, kam dokuments nav kārtībā. Katra plāna izmaiņa nonāk audita žurnālā — redzama ne tikai pašreizējā aina, bet arī tas, kas un kad to mainījis.",
 
     q11: "Ko G-Track dara pats un ko izlemj dispečers?",
     a11: "Pamana pats: kurš atgriežas no atvaļinājuma, kura reiss beidzas bez turpinājuma, kuriem jaunajiem vadītājiem nav plāna — tas viss tiek apkopots Lēmumu centrā. Vai sistēma mainīs plānu tavā vietā, nosaka režīms, ko izvēlies: „Manuāls”, „Centrs” vai „Automātisks”. Pēc noklusējuma sistēma tikai jautā. Katra tās veiktā plāna izmaiņa tiek ierakstīta žurnālā.",

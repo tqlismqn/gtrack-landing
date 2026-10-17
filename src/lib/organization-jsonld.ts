@@ -18,6 +18,11 @@ import { COMPANY, SOCIAL } from "./company";
 import { SITE_ORIGIN } from "./landing-metadata";
 import { SALES_EMAIL } from "../components/landing/urls";
 
+/* Каноническая форма адреса страницы: profile.php?id=… (SOCIAL.facebook в company.ts) отвечает
+   301 именно сюда (curl 18.10.2026), а сравнивать sameAs будут строкой. Числовой id тот же;
+   company.ts не трогаем — юр-тексты ссылаются на прежнюю форму. */
+export const FACEBOOK_PAGE_CANONICAL = "https://www.facebook.com/people/G-Track/61595506131584/";
+
 export function organizationNode(opts: { description: string; availableLanguage: string[] }) {
   return {
     "@type": "Organization",
@@ -41,8 +46,8 @@ export function organizationNode(opts: { description: string; availableLanguage:
       postalCode: COMPANY.zip,
       addressCountry: "CZ",
     },
-    /* профили из company.ts (SOCIAL); LinkedIn и каталоги — когда появятся */
-    sameAs: [SOCIAL.facebook, SOCIAL.instagram],
+    /* Facebook — каноническая форма (см. выше), Instagram — из company.ts; LinkedIn и каталоги — когда появятся */
+    sameAs: [FACEBOOK_PAGE_CANONICAL, SOCIAL.instagram],
     contactPoint: {
       "@type": "ContactPoint",
       email: SALES_EMAIL,

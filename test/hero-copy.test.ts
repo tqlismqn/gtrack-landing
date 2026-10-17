@@ -130,8 +130,9 @@ const G18: Record<Lang, { title: string; kicker: string; tagline: string }> = {
   },
   de: {
     /* GEO-аудит 18.10.2026: «Tourenplanung» в немецкой логистике — планирование маршрутов
-       (а карт и маршрутов в продукте нет); было «…Tourenplanung für Spediteure». */
-    title: "G-Track — EU-Compliance und Planung für Spediteure",
+       (а карт и маршрутов в продукте нет); было «…Tourenplanung für Spediteure». Вычитка PR #37:
+       «Spediteure» — экспедиторы, аудитория — перевозчики; остальной немецкий текст говорит «Transportunternehmen». */
+    title: "G-Track — EU-Compliance und Planung für Transportunternehmen",
     kicker: "EU-Compliance · Planung · Flotte & Wartung",
     tagline: "EU-Compliance, Planung, Flotte und Wartung für Transportunternehmen",
   },
@@ -147,8 +148,9 @@ const G18: Record<Lang, { title: string; kicker: string; tagline: string }> = {
   },
   pl: {
     /* GEO-аудит 18.10.2026: «planowanie tras» = планирование маршрутов, а маршрутов в продукте нет;
-       слова «przejazdy i urlopy» — из meta.description той же локали; было «…i planowanie tras». */
-    title: "G-Track — zarządzanie kierowcami, przejazdy i urlopy",
+       было «…i planowanie tras». Вычитка PR #37: рейс по-польски — «kurs» («przejazd» — калька),
+       «zarządzanie» требует творительного — «kursami i urlopami». */
+    title: "G-Track — zarządzanie kierowcami, kursami i urlopami",
     kicker: "EU-compliance · planowanie · flota i serwis",
     tagline: "Zgodność z UE, planowanie, flota i serwis dla przewoźników",
   },

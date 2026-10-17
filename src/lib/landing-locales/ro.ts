@@ -335,7 +335,7 @@ export const ro: LandingDict = {
     g3: "Acces, flotă, preț",
 
     q1: "Cum mă anunță sistemul că unui șofer îi expiră un document?",
-    a1: "În fiecare dimineață G-Track verifică documentele tuturor șoferilor. Pașaportul intră în rezumat cu 180 de zile înainte de expirare, celelalte documente — cu 90. Biroul primește un e-mail, în aplicație documentul e marcat ca fiind pe cale să expire (declarația — cu 60 de zile înainte), iar șoferul care a conectat botul de Telegram primește un memento.",
+    a1: "În fiecare dimineață G-Track verifică documentele tuturor șoferilor. Pașaportul intră în rezumat cu 180 de zile înainte de expirare, celelalte documente — cu 90. Biroul primește un e-mail, în aplicație documentul e marcat ca fiind pe cale să expire (pentru declarație — cu 60 de zile înainte), iar șoferul care a conectat botul de Telegram primește un memento.",
     a1b: "E-mailurile cu rezumatul le activezi singur și tot tu alegi cui ajung: doar proprietarului, administratorilor sau tuturor membrilor. Astfel, memento-ul nu atârnă de un singur om și nu dispare cât timp colegul de la HR e în concediu.",
 
     q2: "Cine răspunde dacă un șofer pleacă în cursă cu un document expirat?",

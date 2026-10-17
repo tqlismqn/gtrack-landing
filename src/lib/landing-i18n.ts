@@ -426,7 +426,7 @@ const ru = {
     g3: "Доступ, парк, цена",
 
     q1: "Как система напомнит, что у водителя истекает документ?",
-    a1: "Каждое утро G-Track проверяет документы всех водителей. Паспорт попадает в сводку за 180 дней, остальные документы — за 90. Офис получает письмо, в приложении документ помечается как истекающий (декларация — за 60 дней), а водителю, который подключил Telegram-бота, приходит напоминание.",
+    a1: "Каждое утро G-Track проверяет документы всех водителей. Паспорт попадает в сводку за 180 дней, остальные документы — за 90. Офис получает письмо, в приложении документ помечается как истекающий (для декларации — за 60 дней), а водителю, который подключил Telegram-бота, приходит напоминание.",
     a1b: "Письма со сводкой включаете сами и выбираете, кому они уходят: только владельцу, администраторам или всем участникам. Поэтому напоминание не висит на одном человеке и не пропадает, пока кадровик в отпуске.",
 
     q2: "Кто отвечает, если водитель уехал в рейс с просроченным документом?",
@@ -846,7 +846,7 @@ const en: LandingDict = {
     g3: "Access, fleet, price",
 
     q1: "How does the system warn me that a driver’s document is expiring?",
-    a1: "Every morning G-Track checks every driver’s documents. A passport shows up in the digest 180 days ahead, other documents 90 days ahead. The office gets an email, the document is marked as expiring in the app (a declaration — 60 days ahead), and a driver who has connected the Telegram bot gets a reminder.",
+    a1: "Every morning G-Track checks every driver’s documents. A passport shows up in the digest 180 days ahead, other documents 90 days ahead. The office gets an email, the document is marked as expiring in the app (declarations: 60 days ahead), and a driver who has connected the Telegram bot gets a reminder.",
     a1b: "You switch the digest emails on yourself and choose who gets them: the owner only, the admins, or every member. So the reminder doesn’t hang on one person and doesn’t vanish while your HR manager is on holiday.",
 
     q2: "Who is liable if a driver leaves on a trip with an expired document?",

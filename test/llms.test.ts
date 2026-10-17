@@ -66,6 +66,8 @@ describe("llms.txt: A1 и бесплатный перенос из Excel", () =>
     const [mig, ...rest] = lineStarting(txt, "- Migration:");
     expect(rest).toHaveLength(0);
     expect(mig).toMatch(/early customers/);
+    // как у цен: срок оффера не вечный, ассистент не должен процитировать его как постоянный
+    expect(mig).toMatch(/as of October 2026/);
     expect(mig).toMatch(/Excel/);
     expect(mig).toMatch(/for free/);
     // оффер на сайте именно такой: снимут его там — тест напомнит снять строку здесь

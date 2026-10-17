@@ -4,6 +4,7 @@ import { LANDING_DICT, LOCALES } from "../src/lib/landing-i18n";
 import type { Lang } from "../src/lib/landing-i18n";
 import { COMPANY, SOCIAL, seatOf } from "../src/lib/company";
 import { organizationNode } from "../src/lib/organization-jsonld";
+import { DEMO_DICT } from "../src/lib/demo-page";
 
 /* ============================================================================
    Согласованность фактов для ИИ-ассистентов (GEO-аудит 18.10.2026, раздел 5 п. 2 и 6):
@@ -21,11 +22,13 @@ const L1 = "(?![\\p{L}])";
 const ROUTE_OR_MAP = new RegExp(
   [
     `${L0}route`, "routing", `${L0}Routen`, "Tourenplan", // en, de
-    `${L0}tras${L1}`, `${L0}trasa`, `${L0}trasy`, // pl, cs
+    `${L0}tras(?:a|ę|y|ie|ach|u|e)?${L1}`, // pl, cs: trasa, trasę, trasy, trasie, trasach, trasu
     "маршрут", "maršrut", "itinér", "itinerar", "percors", // ru/uk, lt/lv, fr, it
     `${L0}rutas?${L1}`, `${L0}rută`, `${L0}rute${L1}`, // es, ro
-    `${L0}map${L1}`, `${L0}mapa${L1}`, `${L0}mapě`, `${L0}mappa${L1}`, `${L0}Karte${L1}`, `${L0}carte${L1}`,
-    `${L0}hartă`, `${L0}harta${L1}`, "žemėlap", `${L0}kartē`, `${L0}карт[аиуі]${L1}`,
+    `${L0}map(?:a|ę|y|ie|u|ě|as)?${L1}`, `${L0}mapp(?:a|e|as)${L1}`, // en, pl, cs, es, it
+    `${L0}Karten?${L1}`, `${L0}cartes?${L1}`, // de, fr
+    `${L0}hăr[tțţ]`, `${L0}hartă`, `${L0}harta${L1}`, // ro: hartă, hărți
+    "žemėlap", `${L0}kart(?:e|es|i|ē)${L1}`, `${L0}карт[аиуі]${L1}`, // lt, lv, ru/uk
   ].join("|"),
   "iu",
 );
@@ -50,24 +53,31 @@ describe("meta: нет маршрутов и карт", () => {
       "route planning", "Routenplanung", "planificación de rutas", "planification d’itinéraires",
       "pianificazione dei percorsi", "planificare de rute", "планирование маршрутов", "planování tras",
       "maršrutų planavimas", "maršrutu plānošana", "mapa tras", "Karte der Flotte", "hartă", "карта Европы",
+      // падежные и множественные формы (вычитка PR #37)
+      "mapę", "mapy", "na mapie", "trasę", "w trasie", "mapu", "trasu", "cartes", "mapas", "mappe", "Karten", "hărți", "kartes", "karti",
     ]) {
       expect(probe, probe).toMatch(ROUTE_OR_MAP);
     }
-    // законное не краснит: «рейсы», «trips», «przejazdy», «reisų», «curse»
-    for (const ok of ["рейсы и отпуска", "trips and leave", "przejazdy i urlopy", "reisų planavimas", "planificare de curse", "plánování jízd"]) {
+    // законное не краснит: «рейсы», «trips», «kursy», «reisų», «curse»
+    for (const ok of ["рейсы и отпуска", "trips and leave", "kursy i urlopy", "kursami i urlopami", "reisų planavimas", "planificare de curse", "plánování jízd"]) {
       expect(ok, ok).not.toMatch(ROUTE_OR_MAP);
     }
   });
 
-  it("pl: title говорит словами description — «przejazdy i urlopy»", () => {
+  /* вычитка PR #37: по-польски рейс = «kurs» («przejazd» — проезд, калька), а «trasa» обещает маршрут;
+     в meta слово одно и то же, в рекламе тоже «kursy» */
+  it("pl: title и description говорят «kurs», слова «przejazd*» в польских строках нет", () => {
     const m = LANDING_DICT.pl.meta;
-    expect(m.title).toBe("G-Track — zarządzanie kierowcami, przejazdy i urlopy");
-    expect(m.description.toLowerCase()).toContain("przejazdy i urlopy");
+    expect(m.title).toBe("G-Track — zarządzanie kierowcami, kursami i urlopami");
+    expect(m.description).toContain("Dokumenty kierowców, kursy i urlopy,");
     expect(m.title).not.toBe(OLD_META_TITLE.pl);
+    expect(JSON.stringify(LANDING_DICT.pl)).not.toMatch(/przejazd/i);
+    expect(DEMO_DICT.pl.lead).toContain("kursy i urlopy");
+    expect(DEMO_DICT.pl.lead).not.toMatch(/przejazd/i);
   });
 
   it("de: title без «Tourenplanung»", () => {
-    expect(LANDING_DICT.de.meta.title).toBe("G-Track — EU-Compliance und Planung für Spediteure");
+    expect(LANDING_DICT.de.meta.title).toBe("G-Track — EU-Compliance und Planung für Transportunternehmen");
     expect(LANDING_DICT.de.meta.title).not.toBe(OLD_META_TITLE.de);
   });
 
@@ -93,12 +103,12 @@ const DECLARATION_STEM: Record<Lang, RegExp> = {
   de: /Erklärung/,
   fr: /déclaration/i,
   cs: /deklarace/i,
-  pl: /oświadczenie/i,
-  it: /dichiarazione/i,
+  pl: /oświadczeni/i,
+  it: /dichiarazion/i,
   lv: /deklarācij/i,
   lt: /deklaracij/i,
   uk: /декларац/i,
-  es: /declaración/i,
+  es: /declaraci/i,
   ro: /declarați/i,
 };
 
@@ -111,8 +121,11 @@ function windowsOk(a1: string, stem: RegExp): boolean {
   const i90 = a1.search(/\b90\b/);
   const i60 = a1.search(/\b60\b/);
   const iDecl = a1.search(stem);
+  // предложение про сводку («…180…, остальные — 90.») кончается раньше, чем встретится 60: иначе 60
+  // относили бы к сводке, а у сводки декларация тоже 90
+  const end = a1.indexOf(". ", i90);
   // порядок: паспорт 180 → остальные 90 → (метка в приложении) декларация 60; слово «декларация» рядом с 60
-  return i180 >= 0 && i90 > i180 && i60 > i90 && iDecl > i90 && iDecl < i60 && i60 - iDecl < 40;
+  return i180 >= 0 && i90 > i180 && end > 0 && i60 > end && iDecl > i90 && iDecl < i60 && i60 - iDecl < 40;
 }
 
 describe("FAQ a1: окна 180 / 90 / 60 как в приложении", () => {
@@ -129,8 +142,19 @@ describe("FAQ a1: окна 180 / 90 / 60 как в приложении", () => 
     expect(windowsOk(LANDING_DICT.en.faq.a1, DECLARATION_STEM.en)).toBe(true);
   });
 
-  it("a1 изменён во всех 12 локалях (в каждой появилась метка 60)", () => {
-    for (const l of LOCALES) expect(LANDING_DICT[l].faq.a1, l).toMatch(/\b60\b/);
+  /* вычитка PR #37: перенос скобки с 60 в предложение про сводку должен краснеть в КАЖДОЙ локали, не только в en */
+  function moveWindowIntoDigest(a1: string): string {
+    const paren = a1.match(/ ?\([^)]*\b60\b[^)]*\)/)![0];
+    const without = a1.replace(paren, "");
+    const at = without.search(/\b90\b/) + 2;
+    return without.slice(0, at) + (paren.startsWith(" ") ? paren : ` ${paren}`) + without.slice(at);
+  }
+
+  it.each(LOCALES)("%s: сторож краснеет, если 60 перенесли в предложение про сводку", (l) => {
+    const a1 = LANDING_DICT[l].faq.a1;
+    const moved = moveWindowIntoDigest(a1);
+    expect(moved).not.toBe(a1);
+    expect(windowsOk(moved, DECLARATION_STEM[l]), moved).toBe(false);
   });
 
   it("сводка не переписана: «остальные 90» стоит до «60» и не относит 60 к сводке", () => {
@@ -163,12 +187,16 @@ describe("JSON-LD Organization", () => {
     expect(`${org.address.streetAddress}, ${org.address.postalCode} ${org.address.addressLocality}`).toBe(seatOf(COMPANY));
   });
 
-  it("sameAs — Facebook-страница и Instagram @gtrack.eu (литералы из PROFILE.md 12.10)", () => {
+  /* Facebook — каноническая форма: profile.php?id=… отвечает 301 сюда (curl 18.10), id тот же,
+     что в company.ts; Instagram — литерал из PROFILE.md 12.10 */
+  it("sameAs — Facebook-страница (каноническая форма) и Instagram @gtrack.eu", () => {
     expect(org.sameAs).toEqual([
-      "https://www.facebook.com/profile.php?id=61595506131584",
+      "https://www.facebook.com/people/G-Track/61595506131584/",
       "https://www.instagram.com/gtrack.eu/",
     ]);
-    expect(org.sameAs).toEqual([SOCIAL.facebook, SOCIAL.instagram]);
+    expect(SOCIAL.facebook).toBe("https://www.facebook.com/profile.php?id=61595506131584");
+    expect(org.sameAs[0]).toContain("/61595506131584/");
+    expect(org.sameAs[1]).toBe(SOCIAL.instagram);
   });
 
   it("прежние поля на месте: @id, url, logo, email, contactPoint", () => {
@@ -193,6 +221,15 @@ describe("JSON-LD Organization", () => {
     expect(ld).not.toContain('"Organization"');
     expect(ld).not.toMatch(/FAQPage/);
     expect(faq).not.toMatch(/["']@type["']:\s*["']FAQPage["']/);
-    expect(faq).toContain("JSON-LD FAQPage сознательно НЕ добавляется");
+  });
+});
+
+/* --- 4. Опечатки, найденные носителями при вычитке PR #37 */
+describe("lv: опечатка «saved» → «savieno»", () => {
+  it("a3 говорит «savieno cilvēkus…», а сырого «saved» в латышском словаре нет", () => {
+    expect(LANDING_DICT.lv.faq.a3).toContain("dispečerpults savieno cilvēkus, mašīnas un termiņus vienā vietā");
+    expect(JSON.stringify(LANDING_DICT.lv)).not.toMatch(/\bsaved\b/i);
+    // сторож умеет краснеть
+    expect("dispečerpults saved cilvēkus").toMatch(/\bsaved\b/i);
   });
 });

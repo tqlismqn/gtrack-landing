@@ -333,7 +333,7 @@ export const fr: LandingDict = {
     g3: "Accès, flotte, prix",
 
     q1: "Comment le système prévient-il qu’un document de conducteur arrive à expiration ?",
-    a1: "Chaque matin, G-Track contrôle les documents de tous les conducteurs. Le passeport entre dans le résumé quotidien 180 jours avant l’échéance, les autres documents 90 jours avant. Le bureau reçoit un e-mail, le document passe en « Expire bientôt » dans l’application (une déclaration — 60 jours avant) et, si le conducteur a connecté le bot Telegram, il reçoit un rappel.",
+    a1: "Chaque matin, G-Track contrôle les documents de tous les conducteurs. Le passeport entre dans le résumé quotidien 180 jours avant l’échéance, les autres documents 90 jours avant. Le bureau reçoit un e-mail, le document passe en « Expire bientôt » dans l’application (pour une déclaration : 60 jours avant) et, si le conducteur a connecté le bot Telegram, il reçoit un rappel.",
     a1b: "Vous activez vous-même l’envoi du résumé par e-mail et choisissez ses destinataires : le propriétaire seul, les administrateurs ou tous les membres. Le rappel ne repose donc pas sur une seule personne et ne disparaît pas pendant que les RH sont en congés.",
 
     q2: "Qui est responsable si un conducteur part en tournée avec un document expiré ?",

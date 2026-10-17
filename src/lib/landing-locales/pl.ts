@@ -15,9 +15,9 @@ import type { LandingDict } from "../landing-i18n";
 
 export const pl: LandingDict = {
   meta: {
-    title: "G-Track — zarządzanie kierowcami, przejazdy i urlopy",
+    title: "G-Track — zarządzanie kierowcami, kursami i urlopami",
     description:
-      "Dokumenty kierowców, przejazdy i urlopy, naprawy i serwis — w jednej aplikacji w przeglądarce dla przewoźników od 20 pojazdów. 30 dni za darmo, ceny na stronie.",
+      "Dokumenty kierowców, kursy i urlopy, naprawy i serwis — w jednej aplikacji w przeglądarce dla przewoźników od 20 pojazdów. 30 dni za darmo, ceny na stronie.",
   },
 
   nav: {
@@ -46,7 +46,7 @@ export const pl: LandingDict = {
     phBdim: "widać bez obdzwaniania.",
     phC: "Wiza kierowcy wygasa —",
     phCdim: "widać to zawczasu.",
-    sub: " — system EU-compliance i planowania dla przewoźników z flotą od 20 pojazdów. Terminy wiz, Kodu 95 i przeglądów technicznych, przejazdy i urlopy, naprawy i serwis — w przeglądarce, bez sprzętu i bez wdrożeniowców. To, co dziś wymaga decyzji, system pokazuje sam.",
+    sub: " — system EU-compliance i planowania dla przewoźników z flotą od 20 pojazdów. Terminy wiz, Kodu 95 i przeglądów technicznych, kursy i urlopy, naprawy i serwis — w przeglądarce, bez sprzętu i bez wdrożeniowców. To, co dziś wymaga decyzji, system pokazuje sam.",
     ctaTrial: "Wypróbuj 30 dni",
     ctaPricing: "Zobacz cennik",
     micro1: "Bez karty",
@@ -63,12 +63,12 @@ export const pl: LandingDict = {
 
   /* Полоса под первым экраном (TrustStrip): чипы-ссылки на модули, решение владельца 03.10.
      Термины — из app-локали pl: nav (Kierowcy, Planowanie, Centrum decyzji, Pojazdy,
-     Naprawy i serwis, Wnioski), vehicles_sub (Ciągniki / Naczepy), рейс = «trasa»;
+     Naprawy i serwis, Wnioski), vehicles_sub (Ciągniki / Naczepy), рейс = «trasa» в приложении, но на сайте — «kurs» (GEO-вычитка 18.10: «trasa» обещает маршруты, «przejazd» — калька);
      c7 — фраза из roadmap.tracks.telematics.d, c9 = vid.chip6. «W trakcie» у c6 — d.roadmap.wip. */
   trust: {
     aria: "Co już działa w G-Track",
     c1: "Kierowcy · 16 typów dokumentów",
-    c2: "Planowanie · tablica i przejazdy",
+    c2: "Planowanie · tablica i kursy",
     c3: "Centrum decyzji",
     c4: "Rotacja · na 3 miesiące naprzód",
     c5: "Pojazdy · ciągniki i naczepy",
@@ -323,7 +323,7 @@ export const pl: LandingDict = {
     anchorOverline: "Rachunek",
     anchorBig: "≈ 2,25 €",
     anchorUnit: "za pojazd/mies. · flota 200 pojazdów",
-    anchorArg: "Jeden kierowca z przeterminowanym Kodem 95 — do 20 000 € kary w Niemczech. Jedna przeterminowana wiza — wstrzymany przejazd. G-Track trzyma całą flotę pod kontrolą taniej, niż kosztuje jedno takie potknięcie.",
+    anchorArg: "Jeden kierowca z przeterminowanym Kodem 95 — do 20 000 € kary w Niemczech. Jedna przeterminowana wiza — wstrzymany kurs. G-Track trzyma całą flotę pod kontrolą taniej, niż kosztuje jedno takie potknięcie.",
   },
 
   /* FAQ: nazwy typów dokumentów i „Gotowość do trasy” — z app-locale pl.
@@ -340,17 +340,17 @@ export const pl: LandingDict = {
     g3: "Dostępy, flota, cena",
 
     q1: "Jak system przypomni, że kierowcy kończy się dokument?",
-    a1: "Codziennie rano G-Track sprawdza dokumenty wszystkich kierowców. Paszport trafia do podsumowania 180 dni wcześniej, pozostałe dokumenty — 90 dni wcześniej. Biuro dostaje e-mail, w aplikacji dokument zostaje oznaczony jako wygasający (oświadczenie — 60 dni wcześniej), a kierowca, który podłączył bota w Telegramie, dostaje przypomnienie.",
+    a1: "Codziennie rano G-Track sprawdza dokumenty wszystkich kierowców. Paszport trafia do podsumowania 180 dni wcześniej, pozostałe dokumenty — 90 dni wcześniej. Biuro dostaje e-mail, w aplikacji dokument zostaje oznaczony jako wygasający (w przypadku oświadczenia — 60 dni wcześniej), a kierowca, który podłączył bota w Telegramie, dostaje przypomnienie.",
     a1b: "E-maile z podsumowaniem włączasz sam i wybierasz, kto je dostaje: tylko właściciel, administratorzy albo wszyscy członkowie. Przypomnienie nie wisi więc na jednej osobie i nie ginie, kiedy kadry są na urlopie.",
 
     q2: "Kto odpowiada, jeśli kierowca wyjedzie w trasę z nieważnym dokumentem?",
-    a2: "W większości krajów UE przewoźnik, a nie tylko kierowca: kara trafia do firmy, a w części krajów dodatkowo do osoby zarządzającej transportem. Konkretne kwoty i tryb zależą od kraju kontroli. Właśnie dlatego G-Track przypomina przede wszystkim biuru — temu, kto wstawia przejazd do planu — a kierowcy, który podłączył bota, dodatkowo wysyła przypomnienie w Telegramie.",
+    a2: "W większości krajów UE przewoźnik, a nie tylko kierowca: kara trafia do firmy, a w części krajów dodatkowo do osoby zarządzającej transportem. Konkretne kwoty i tryb zależą od kraju kontroli. Właśnie dlatego G-Track przypomina przede wszystkim biuru — temu, kto wstawia kurs do planu — a kierowcy, który podłączył bota, dodatkowo wysyła przypomnienie w Telegramie.",
 
     q3: "Czy na tablicy planowania widać, kto nie może wyjechać z powodu dokumentu?",
     a3: "Tak, tablica zbiera ludzi, pojazdy i terminy w jednym miejscu: kto jest na urlopie, kto na zwolnieniu, kto bez pojazdu, komu nie zgadza się dokument. Każda zmiana planu trafia do historii — widzisz nie tylko obecny stan, ale i kto go kiedy zmienił.",
 
     q11: "Co G-Track robi sam, a o czym decyduje dyspozytor?",
-    a11: "Sam zauważa: kto wraca z urlopu, czyj przejazd się kończy, a dalej nic nie zaplanowano, którzy nowi kierowcy nie mają planu — wszystko to trafia do Centrum decyzji. Czy system może zmieniać plan za ciebie, zależy od wybranego trybu: „Ręczny”, „Centrum” lub „Automatyczny”. Domyślnie tylko pyta. Każda jego zmiana w planie zapisuje się w dzienniku.",
+    a11: "Sam zauważa: kto wraca z urlopu, czyj kurs się kończy, a dalej nic nie zaplanowano, którzy nowi kierowcy nie mają planu — wszystko to trafia do Centrum decyzji. Czy system może zmieniać plan za ciebie, zależy od wybranego trybu: „Ręczny”, „Centrum” lub „Automatyczny”. Domyślnie tylko pyta. Każda jego zmiana w planie zapisuje się w dzienniku.",
 
     q4: "Mam 40–60 kierowców i lata skanów w Excelu i w teczkach. Kto to przeniesie?",
     a4: "Można zacząć bez archiwum: wprowadź kierowców i te dokumenty, którym termin mija najbliżej — przypomnienia działają już od tego. Stare skany dogrywasz na bieżąco i nic nie blokują.",

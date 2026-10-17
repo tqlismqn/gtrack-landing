@@ -328,7 +328,7 @@ export const es: LandingDict = {
     g3: "Acceso, flota, precio",
 
     q1: "¿Cómo me avisa el sistema de que a un conductor le caduca un documento?",
-    a1: "Cada mañana G-Track revisa los documentos de todos los conductores. El pasaporte entra en el resumen 180 días antes del vencimiento; el resto de documentos, 90 días antes. La oficina recibe un correo, el documento aparece como «Por caducar» en la aplicación (una declaración, 60 días antes) y, si el conductor ha conectado el bot de Telegram, le llega un recordatorio.",
+    a1: "Cada mañana G-Track revisa los documentos de todos los conductores. El pasaporte entra en el resumen 180 días antes del vencimiento; el resto de documentos, 90 días antes. La oficina recibe un correo, el documento aparece como «Por caducar» en la aplicación (en las declaraciones, 60 días antes) y, si el conductor ha conectado el bot de Telegram, le llega un recordatorio.",
     a1b: "Usted mismo activa los correos con el resumen y elige quién los recibe: solo el propietario, los administradores o todos los miembros. Así el recordatorio no depende de una sola persona y no se pierde mientras RR. HH. está de vacaciones.",
 
     q2: "¿Quién responde si un conductor sale de viaje con un documento caducado?",

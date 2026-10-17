@@ -12,7 +12,7 @@ React 19, Tailwind 4, TypeScript strict, Node 22, деплой на Vercel. 12 �
 |---|---|
 | `npm install` | Установить зависимости |
 | `npm run dev` | Дев-сервер на :3000 |
-| `npm test` | vitest, 725 тестов в 14 файлах, ~0,8 с |
+| `npm test` | vitest, 739 тестов в 14 файлах, ~0,8 с |
 | `npx vitest run test/showcase.test.ts` | Один файл тестов |
 | `npx tsc --noEmit` | Проверка типов |
 | `npm run lint` | ESLint (eslint-config-next: core-web-vitals + typescript) |
@@ -93,7 +93,7 @@ CookieScript — публичные идентификаторы и живут �
 
 ## Тесты
 
-vitest без конфига и без глобалов (каждый файл начинается с `import { describe, expect, it } from "vitest"`), окружение node — DOM не нужен. Импорты в модулях, которые тест тянет, — относительные: алиас `@/` vitest не знает (в `import type` можно). Файлы (`npm test`, 725):
+vitest без конфига и без глобалов (каждый файл начинается с `import { describe, expect, it } from "vitest"`), окружение node — DOM не нужен. Импорты в модулях, которые тест тянет, — относительные: алиас `@/` vitest не знает (в `import type` можно). Файлы (`npm test`, 739):
 
 - `showcase.test.ts` (119) — арифметика макетов витрины: суммы плиток, проценты шапки, дни до срока как в приложении, геометрия полос; словари витрины 12 локалей (подстановки, инициалы, запрет «AI»).
 - `legal-pages.test.ts` (206) — Impressum и уведомление о соцсетях (`company.ts` и `legal-pages/`), 12 локалей; имени директора на сайте нет (Г40, сторож ×12).
@@ -103,8 +103,8 @@ vitest без конфига и без глобалов (каждый файл �
 - `analytics.test.ts` (28) — метки атрибуции, `shouldAttribute`, `/demo`, редиректы `/en` из `next.config`; сторож по исходнику `LandingProvider` (авто-редирект несёт query и хеш, клик — через `shouldAttribute`) и хранилища во всём `src/` (метки не пишутся никуда). Правишь `LandingProvider` — перезапусти и `attr.cjs` в vault на `next start`.
 - `roadmap.test.ts` (20) — Гант `/roadmap`: проценты оси по датам, UTC-день, инварианты полос.
 - `llms.test.ts` (17) — `public/llms.txt` против `Pricing.tsx` и JSON-LD; строки про A1 и перенос из Excel против словаря.
-- `geo-consistency.test.ts` (48) — GEO-аудит 18.10: в `meta.title` / `meta.description` ×12 нет маршрутов и карт (сторож с пробами по семьям языков); окна FAQ `a1` 180 / 90 / 60 ×12 против порогов приложения; поля Organization в JSON-LD (legalName, IČO, адрес, sameAs, чего нет намеренно, FAQPage нет).
-- `indexnow.test.ts` (12) — файл ключа IndexNow (один, имя = содержимое), тело запроса, разбор sitemap, отказы (чужой хост, пусто, > 10 000), сухой прогон скрипта без сети; сборка скрипт не вызывает.
+- `geo-consistency.test.ts` (60) — GEO-аудит 18.10: в `meta.title` / `meta.description` ×12 нет маршрутов и карт (сторож с пробами по семьям языков и по падежным формам); в польском рейс = «kurs», слова «przejazd*» нет нигде; окна FAQ `a1` 180 / 90 / 60 ×12 против порогов приложения (60 обязано стоять после конца предложения про сводку, проверка мутацией в каждой локали); опечатка lv «saved»; поля Organization в JSON-LD (legalName, IČO, адрес, sameAs, чего нет намеренно, FAQPage нет).
+- `indexnow.test.ts` (14) — файл ключа IndexNow (один, имя = содержимое), тело запроса, разбор sitemap, отказы (чужой хост, пусто, > 10 000), подсказки на 403 / 422 / 429, сухой прогон скрипта без сети; сборка скрипт не вызывает.
 - `hero.test.ts` (21) — мир, шаги и телематика hero (инварианты данных: «сейчас» вне рейса больного, `HERO_STATIC`); минимумы шагов читаются из `fx.css` и `hero-scenes.css`; дни и дата визы ×12 против `VISA_EXPIRY`.
 - `csp.test.ts` (7) — состав CSP Report-Only, без `'unsafe-eval'`.
 - `nav-logo.test.ts` (15) — лого шапки этапа 2 (ADR 0014): связи между `NavLogo.tsx`, `base.css`, `mobile.css` и `fx.css` §4 — viewBox ↔ `aspect-ratio`, высота SVG и рамка клипа = одна `--gth-h`, знак 24–40 px, поле клипа < зазора строки, пробег грузовика на телефоне до плашки, проход только под `html.motion-ok`, конец прохода = `gth-a`; знак подвала — `GtMark`, путь букв и градиент мастера общие с шапкой, id градиентов разные. Поведение и геометрия в браузере (12 локалей × 9 ширин, кадры прохода, reduced motion, касание) — скрипты в vault `.session-context/2026-10-13-header-logo/` на `next start`.

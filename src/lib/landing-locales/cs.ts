@@ -340,7 +340,7 @@ export const cs: LandingDict = {
     g3: "Přístupy, vozový park, cena",
 
     q1: "Jak systém upozorní, že řidiči končí platnost dokumentu?",
-    a1: "Každé ráno G-Track prověří dokumenty všech řidičů. Pas se v souhrnu objeví 180 dní předem, ostatní dokumenty 90 dní předem. Kancelář dostane e-mail, v aplikaci se dokument označí jako končící (deklarace — 60 dní předem) a řidiči, který má v Telegramu připojeného bota, přijde připomínka.",
+    a1: "Každé ráno G-Track prověří dokumenty všech řidičů. Pas se v souhrnu objeví 180 dní předem, ostatní dokumenty 90 dní předem. Kancelář dostane e-mail, v aplikaci se dokument označí jako končící (u deklarace 60 dní předem) a řidiči, který má v Telegramu připojeného bota, přijde připomínka.",
     a1b: "E-maily se souhrnem si zapnete sami a vyberete, komu chodí: jen vlastníkovi, administrátorům nebo všem členům. Připomínka tak nevisí na jednom člověku a nezmizí, když je personalista na dovolené.",
 
     q2: "Kdo nese odpovědnost, když řidič vyjede na cestu s propadlým dokumentem?",
