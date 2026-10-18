@@ -11,8 +11,8 @@
 
 import { LANDING_DICT, localePath, type Lang } from "@/lib/landing-i18n";
 import { SITE_ORIGIN } from "@/lib/landing-metadata";
+import { organizationNode } from "@/lib/organization-jsonld";
 import { trackGroups } from "@/lib/roadmap-content";
-import { SALES_EMAIL } from "./urls";
 
 const FEATURE_IDS = trackGroups().shipped;
 
@@ -30,22 +30,10 @@ export function JsonLd({ locale }: { locale: Lang }) {
   const graph = {
     "@context": "https://schema.org",
     "@graph": [
-      {
-        "@type": "Organization",
-        "@id": `${SITE_ORIGIN}/#organization`,
-        name: "G-Track",
-        url: SITE_ORIGIN,
-        logo: `${SITE_ORIGIN}/icon.svg`,
-        email: SALES_EMAIL,
+      organizationNode({
         description: d.meta.description,
-        contactPoint: {
-          "@type": "ContactPoint",
-          email: SALES_EMAIL,
-          contactType: "sales",
-          areaServed: "EU",
-          availableLanguage: [...Object.keys(LANDING_DICT)],
-        },
-      },
+        availableLanguage: [...Object.keys(LANDING_DICT)],
+      }),
       {
         "@type": "WebSite",
         "@id": `${SITE_ORIGIN}/#website`,

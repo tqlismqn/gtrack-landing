@@ -13,7 +13,7 @@ import type { LandingDict } from "../landing-i18n";
 
 export const de: LandingDict = {
   meta: {
-    title: "G-Track — EU-Compliance und Tourenplanung für Spediteure",
+    title: "G-Track — EU-Compliance und Planung für Transportunternehmen",
     description:
       "Fahrerdokumente, Touren und Urlaub, Reparaturen & Wartung — in einer Browser-App für Transportunternehmen ab 20 Lkw. 30 Tage gratis, Preise auf der Seite.",
   },
@@ -330,7 +330,7 @@ export const de: LandingDict = {
     g3: "Zugriff, Flotte, Preis",
 
     q1: "Wie erinnert das System daran, dass bei einem Fahrer ein Dokument abläuft?",
-    a1: "Jeden Morgen prüft G-Track die Dokumente aller Fahrer. Ein Reisepass erscheint 180 Tage vor Ablauf in der Morgenübersicht, alle übrigen Dokumente 90 Tage vorher. Das Büro bekommt eine E-Mail, in der App wird das Dokument als ablaufend markiert, und der Fahrer erhält eine Erinnerung, sofern er den Telegram-Bot verbunden hat.",
+    a1: "Jeden Morgen prüft G-Track die Dokumente aller Fahrer. Ein Reisepass erscheint 180 Tage vor Ablauf in der Morgenübersicht, alle übrigen Dokumente 90 Tage vorher. Das Büro bekommt eine E-Mail, in der App wird das Dokument als ablaufend markiert (bei der Erklärung: 60 Tage vorher), und der Fahrer erhält eine Erinnerung, sofern er den Telegram-Bot verbunden hat.",
     a1b: "Die E-Mails mit der Morgenübersicht aktivieren Sie selbst und legen fest, wer sie erhält: nur der Inhaber, die Administratoren oder alle Mitglieder. So hängt die Erinnerung nicht an einer einzigen Person und verschwindet nicht, solange HR im Urlaub ist.",
 
     q2: "Wer haftet, wenn ein Fahrer mit einem abgelaufenen Dokument auf Tour geht?",

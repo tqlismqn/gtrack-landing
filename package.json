@@ -7,7 +7,9 @@
     "build": "next build && node scripts/check-css-imports.mjs",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "indexnow": "node scripts/indexnow.mjs",
+    "indexnow:dry": "node scripts/indexnow.mjs --dry-run"
   },
   "dependencies": {
     "@next/third-parties": "16.3.6",

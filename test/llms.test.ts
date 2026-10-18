@@ -43,6 +43,54 @@ describe("JSON-LD", () => {
   });
 });
 
+/* GEO-аудит 18.10.2026 (раздел 2 п. 9): на сайте есть A1 и бесплатный перенос из Excel, в файле их не было.
+   Источники фактов: A1 — `gtrack-tms` src/config/documentTypes.ts:15 (`posted_worker_certificate_a1`,
+   `expiryRequired: true`), в Telegram-напоминаниях и в утренней сводке (прод: get_due_driver_doc_reminders,
+   send_doc_expiry_alerts); перенос — faq.a4b и pricing.noteC на сайте («ранним клиентам»). */
+describe("llms.txt: A1 и бесплатный перенос из Excel", () => {
+  const lineStarting = (t: string, start: string) => t.split("\n").filter((l) => l.startsWith(start));
+
+  it("A1 назван отслеживаемым документом со сроком, в той же сводке и напоминаниях", () => {
+    const [a1, ...rest] = lineStarting(txt, "- A1 certificate");
+    expect(rest).toHaveLength(0);
+    expect(a1).toBeDefined();
+    expect(a1).toMatch(/driver document with an expiry date/);
+    expect(a1).toMatch(/digest/);
+    expect(a1).toMatch(/reminders/);
+    // согласовано с сайтом: чип «A1» и подзаголовок про сроки A1 в блоке видео
+    expect(LANDING_DICT.en.vid.chip2).toBe("A1");
+    expect(LANDING_DICT.en.vid.sub).toMatch(/\bA1\b/);
+  });
+
+  it("перенос из Excel — бесплатно и только ранним клиентам, как в FAQ и в тарифах", () => {
+    const [mig, ...rest] = lineStarting(txt, "- Migration:");
+    expect(rest).toHaveLength(0);
+    expect(mig).toMatch(/early customers/);
+    // как у цен: срок оффера не вечный, ассистент не должен процитировать его как постоянный
+    expect(mig).toMatch(/as of October 2026/);
+    expect(mig).toMatch(/Excel/);
+    expect(mig).toMatch(/for free/);
+    // оффер на сайте именно такой: снимут его там — тест напомнит снять строку здесь
+    expect(LANDING_DICT.en.faq.a4b).toMatch(/early customers.*Excel.*for free/);
+    expect(LANDING_DICT.en.pricing.noteC).toMatch(/Free data migration from Excel for early customers/);
+    // «бесплатно для всех» файл не обещает
+    expect(mig).not.toMatch(/\b(all|every) customers\b/i);
+  });
+
+  it("негативный контроль: без этих строк проверки краснеют", () => {
+    const stripped = txt.split("\n").filter((l) => !l.startsWith("- A1 certificate") && !l.startsWith("- Migration:")).join("\n");
+    expect(lineStarting(stripped, "- A1 certificate")).toHaveLength(0);
+    expect(lineStarting(stripped, "- Migration:")).toHaveLength(0);
+    expect(stripped).not.toMatch(/early customers we migrate/);
+  });
+
+  it("новые строки в разделе фактов — до первого H2, а не среди ссылок", () => {
+    const h2 = txt.search(/^## /m);
+    expect(txt.indexOf("- A1 certificate")).toBeLessThan(h2);
+    expect(txt.indexOf("- Migration:")).toBeLessThan(h2);
+  });
+});
+
 describe("llms.txt", () => {
   it("начинается с H1 «G-Track»", () => {
     expect(txt.startsWith("# G-Track\n")).toBe(true);

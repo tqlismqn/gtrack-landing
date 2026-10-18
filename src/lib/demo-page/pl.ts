@@ -6,7 +6,7 @@ export const demo: DemoDict = {
   metaDescription: "Opowiedz nam o swojej flocie. Odpowiadamy w ciągu jednego dnia roboczego i pokazujemy G-Track na twoich własnych danych.",
   overline: "Zapytanie o demo",
   h1: "Pokażemy G-Track na twoich danych",
-  lead: "Dla przewoźników od 20 pojazdów: dokumenty kierowców, przejazdy i urlopy w jednym miejscu.",
+  lead: "Dla przewoźników od 20 pojazdów: dokumenty kierowców, kursy i urlopy w jednym miejscu.",
   fields: {
     name: "Imię i nazwisko",
     company: "Firma",
