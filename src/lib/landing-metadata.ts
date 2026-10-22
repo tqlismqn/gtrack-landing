@@ -20,6 +20,13 @@ import { DEMO_DICT } from "./demo-page";
 
 export const SITE_ORIGIN = "https://www.g-track.eu";
 
+/* WebSite.alternateName (Г174, 22.10): Google показывает в выдаче имя сайта «g-track.eu»,
+   а не «G-Track» — имя не уникально (g-tracking.com, gtrack.ai, g-track.co.za и GPS-приложения
+   GTrack). Справка Google (site-names, сверено 22.10.2026): запасные имена — по убыванию
+   предпочтения, домен — последним и строчными. «G-Track TMS» — как в шапке (знак + бейдж TMS, Г50)
+   и в applicationSubCategory. На позицию в выдаче не влияет — только на подпись сайта. */
+export const SITE_ALTERNATE_NAMES = ["G-Track TMS", "g-track.eu"] as const;
+
 /* Общая часть метаданных обоих root-layout'ов. Раньше лежала в app/layout.tsx;
    после разделения на route-группы её нужно объявить в каждой группе. */
 export function baseMetadata(): Metadata {

@@ -10,7 +10,7 @@
    ============================================================================ */
 
 import { LANDING_DICT, localePath, type Lang } from "@/lib/landing-i18n";
-import { SITE_ORIGIN } from "@/lib/landing-metadata";
+import { SITE_ALTERNATE_NAMES, SITE_ORIGIN } from "@/lib/landing-metadata";
 import { organizationNode } from "@/lib/organization-jsonld";
 import { trackGroups } from "@/lib/roadmap-content";
 
@@ -39,6 +39,7 @@ export function JsonLd({ locale }: { locale: Lang }) {
         "@id": `${SITE_ORIGIN}/#website`,
         url: SITE_ORIGIN,
         name: "G-Track",
+        alternateName: [...SITE_ALTERNATE_NAMES],
         inLanguage: locale,
         publisher: { "@id": `${SITE_ORIGIN}/#organization` },
       },

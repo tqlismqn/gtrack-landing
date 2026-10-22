@@ -8,6 +8,7 @@ import {
   roadmapPath,
 } from "../lib/landing-i18n";
 import { SITE_ORIGIN } from "../lib/landing-metadata";
+import { CONTENT_UPDATED_AT } from "../lib/content-dates";
 
 /* hreflang-связка одной страницы во всех локалях. Связки главной и карты
    раздельные: смешивать их нельзя — hreflang заявляет «то же содержание
@@ -27,12 +28,13 @@ function languagesFor(
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // Дату сборки нельзя выдавать за дату изменения каждой страницы.
-  // Вернём lastModified, когда появятся достоверные даты обновления контента.
+  /* lastModified — дата последнего изменения страницы из content-dates.ts,
+     не дата сборки: сборку нельзя выдавать за изменение каждой страницы. */
 
   const homeLanguages = languagesFor(localePath, SITE_ORIGIN);
   const landingPages: MetadataRoute.Sitemap = LOCALES.map((l) => ({
     url: `${SITE_ORIGIN}${localePath(l)}`,
+    lastModified: CONTENT_UPDATED_AT.home,
     changeFrequency: "monthly",
     priority: l === "en" ? 1 : 0.8,
     alternates: { languages: homeLanguages },
@@ -47,6 +49,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
   const roadmapPages: MetadataRoute.Sitemap = LOCALES.map((l) => ({
     url: `${SITE_ORIGIN}${roadmapPath(l)}`,
+    lastModified: CONTENT_UPDATED_AT.roadmap,
     changeFrequency: "monthly",
     priority: l === "en" ? 0.9 : 0.7,
     alternates: { languages: roadmapLanguages },
@@ -60,6 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   );
   const impressumPages: MetadataRoute.Sitemap = LOCALES.map((l) => ({
     url: `${SITE_ORIGIN}${impressumPath(l)}`,
+    lastModified: CONTENT_UPDATED_AT.impressum,
     changeFrequency: "yearly",
     priority: 0.3,
     alternates: { languages: impressumLanguages },
