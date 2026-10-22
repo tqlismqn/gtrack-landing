@@ -12,7 +12,7 @@ React 19, Tailwind 4, TypeScript strict, Node 22, деплой на Vercel. 12 �
 |---|---|
 | `npm install` | Установить зависимости |
 | `npm run dev` | Дев-сервер на :3000 |
-| `npm test` | vitest, 748 тестов в 15 файлах, ~0,8 с |
+| `npm test` | vitest, 749 тестов в 15 файлах, ~0,8 с |
 | `npx vitest run test/showcase.test.ts` | Один файл тестов |
 | `npx tsc --noEmit` | Проверка типов |
 | `npm run lint` | ESLint (eslint-config-next: core-web-vitals + typescript) |
@@ -57,7 +57,7 @@ docs/adr/                несущие решения с числами зам�
 - `src/lib/roadmap-content.ts` — состав Ганта `/roadmap` (9 направлений, даты выпусков приложения, вехи); модель строится на сервере в `RoadmapPage`, «Сейчас» = день сборки. Те же `TRACKS` через `trackGroups()` дают секцию «Работает сейчас» на главной (`Modules.tsx`) и `featureList` в `JsonLd.tsx`: появление `since` у направления меняет главную и разметку.
 - `src/lib/analytics.ts` — GTM ID, Consent Mode v2, first-touch метки (`MARKETING_PARAMS`: utm_*, gclid, gbraid, wbraid, fbclid, msclkid …). Метки живут в памяти страницы (`LandingProvider`, `useRef`), в хранилище не пишутся; к ссылке дописываются кликом (capture на `document`) только для целей из белого списка: `/register`, `/login`, `/roadmap` приложения и страница `/demo` своего хоста (`shouldAttribute`). Порядок загрузки хрупкий и описан в шапке файла.
 - `src/lib/company.ts` — реквизиты G-Track Software s.r.o. и стороны уведомления о соцсетях (Mesartim, профили, Meta Ireland); константы, не переводятся. `src/lib/legal-pages/` — тексты Impressum и уведомления о соцсетях на 12 языках, реквизиты в них не живут.
-- `src/lib/landing-metadata.ts` — `title` / `description` / canonical / hreflang по локали, `SITE_ORIGIN` = `https://www.g-track.eu`, `SITE_ALTERNATE_NAMES` — запасные имена сайта для `WebSite.alternateName` (Г174: Google подписывает нас «g-track.eu», домен — последним).
+- `src/lib/landing-metadata.ts` — `title` / `description` / canonical / hreflang по локали, `SITE_ORIGIN` = `https://www.g-track.eu`, `SITE_ALTERNATE_NAMES` — запасные имена сайта для `WebSite.alternateName` (Г174: Google подписывает нас «g-track.eu», домен — последним), `SEZNAM_WMT_TOKEN` — meta `seznam-wmt` только на корне `/` (подтверждение Seznam Webmaster, Г179; токен не менять и в кабинете заново не генерировать — новый аннулирует действующий).
 - `src/lib/content-dates.ts` — `<lastmod>` sitemap: дата последнего изменения главной, `/roadmap` и `/impressum` (одна на 12 локалей) и файлы-источники каждой страницы. **Меняешь тексты, цены, числа макетов или разметку страницы — подними её дату в том же PR, датой слияния.** Дата сборки не годится (Google верит lastmod, только если он точен; PR #27). Строки `d.roadmap` лежат в общих словарях — правишь их, подними `roadmap` сам.
 - `public/llms.txt` — факты о продукте для ИИ-поиска; цены и пороги сверяет `test/llms.test.ts` с `Pricing.tsx`, правка тарифа без файла краснит тест. Строки про A1 и бесплатный перенос из Excel тест сверяет со словарём сайта: снимешь оффер на сайте — тест напомнит снять строку.
 - `src/lib/organization-jsonld.ts` — узел Organization главной: `legalName`, IČO, адрес и `sameAs` берутся из `company.ts`. Вынесен из `JsonLd.tsx`, потому что тест не знает алиас `@/`. FAQPage в разметку не добавляется (решение в `Faq.tsx`).
@@ -94,7 +94,7 @@ CookieScript — публичные идентификаторы и живут �
 
 ## Тесты
 
-vitest без конфига и без глобалов (каждый файл начинается с `import { describe, expect, it } from "vitest"`), окружение node — DOM не нужен. Импорты в модулях, которые тест тянет, — относительные: алиас `@/` vitest не знает (в `import type` можно). Файлы (`npm test`, 748):
+vitest без конфига и без глобалов (каждый файл начинается с `import { describe, expect, it } from "vitest"`), окружение node — DOM не нужен. Импорты в модулях, которые тест тянет, — относительные: алиас `@/` vitest не знает (в `import type` можно). Файлы (`npm test`, 749):
 
 - `showcase.test.ts` (119) — арифметика макетов витрины: суммы плиток, проценты шапки, дни до срока как в приложении, геометрия полос; словари витрины 12 локалей (подстановки, инициалы, запрет «AI»).
 - `legal-pages.test.ts` (206) — Impressum и уведомление о соцсетях (`company.ts` и `legal-pages/`), 12 локалей; имени директора на сайте нет (Г40, сторож ×12).
@@ -104,7 +104,7 @@ vitest без конфига и без глобалов (каждый файл �
 - `analytics.test.ts` (28) — метки атрибуции, `shouldAttribute`, `/demo`, редиректы `/en` из `next.config`; сторож по исходнику `LandingProvider` (авто-редирект несёт query и хеш, клик — через `shouldAttribute`) и хранилища во всём `src/` (метки не пишутся никуда). Правишь `LandingProvider` — перезапусти и `attr.cjs` в vault на `next start`.
 - `roadmap.test.ts` (20) — Гант `/roadmap`: проценты оси по датам, UTC-день, инварианты полос.
 - `llms.test.ts` (17) — `public/llms.txt` против `Pricing.tsx` и JSON-LD; строки про A1 и перенос из Excel против словаря.
-- `geo-consistency.test.ts` (60) — GEO-аудит 18.10: в `meta.title` / `meta.description` ×12 нет маршрутов и карт (сторож с пробами по семьям языков и по падежным формам); в польском рейс = «kurs», слова «przejazd*» нет нигде; окна FAQ `a1` 180 / 90 / 60 ×12 против порогов приложения (60 обязано стоять после конца предложения про сводку, проверка мутацией в каждой локали); опечатка lv «saved»; поля Organization в JSON-LD (legalName, IČO, адрес, sameAs, чего нет намеренно, FAQPage нет).
+- `geo-consistency.test.ts` (61) — GEO-аудит 18.10: в `meta.title` / `meta.description` ×12 нет маршрутов и карт (сторож с пробами по семьям языков и по падежным формам); в польском рейс = «kurs», слова «przejazd*» нет нигде; окна FAQ `a1` 180 / 90 / 60 ×12 против порогов приложения (60 обязано стоять после конца предложения про сводку, проверка мутацией в каждой локали); опечатка lv «saved»; поля Organization в JSON-LD (legalName, IČO, адрес, sameAs, чего нет намеренно, FAQPage нет); meta `seznam-wmt` — точный токен на `/`, в 11 локалях нет.
 - `sitemap-lastmod.test.ts` (9) — `<lastmod>` у всех 36 адресов sitemap = дата своей страницы из `content-dates.ts`, даты настоящие и не из будущего; на полной истории git — сторож: дата не старше последнего коммита в источниках страницы (допуск 3 дня на слияние) и `content-dates.ts` правился в том же коммите или позже (проба «умеет краснеть»); `WebSite.alternateName` в `JsonLd.tsx`, домен последним. В мелком клоне git-часть пропускается.
 - `indexnow.test.ts` (14) — файл ключа IndexNow (один, имя = содержимое), тело запроса, разбор sitemap, отказы (чужой хост, пусто, > 10 000), подсказки на 403 / 422 / 429, сухой прогон скрипта без сети; сборка скрипт не вызывает.
 - `hero.test.ts` (21) — мир, шаги и телематика hero (инварианты данных: «сейчас» вне рейса больного, `HERO_STATIC`); минимумы шагов читаются из `fx.css` и `hero-scenes.css`; дни и дата визы ×12 против `VISA_EXPIRY`.

@@ -5,6 +5,7 @@ import type { Lang } from "../src/lib/landing-i18n";
 import { COMPANY, SOCIAL, seatOf } from "../src/lib/company";
 import { organizationNode } from "../src/lib/organization-jsonld";
 import { DEMO_DICT } from "../src/lib/demo-page";
+import { landingMetadata } from "../src/lib/landing-metadata";
 
 /* ============================================================================
    Согласованность фактов для ИИ-ассистентов (GEO-аудит 18.10.2026, раздел 5 п. 2 и 6):
@@ -231,5 +232,18 @@ describe("lv: опечатка «saved» → «savieno»", () => {
     expect(JSON.stringify(LANDING_DICT.lv)).not.toMatch(/\bsaved\b/i);
     // сторож умеет краснеть
     expect("dispečerpults saved cilvēkus").toMatch(/\bsaved\b/i);
+  });
+});
+
+/* --- 5. Подтверждение сайта в Seznam Webmaster (Г179, задание Codex №30, 22.10) */
+describe("Seznam Webmaster: meta seznam-wmt только на корне /", () => {
+  it("у en (корень /) — точный токен из кабинета; у остальных 11 локалей тега нет", () => {
+    // литерал из seo/2026-10-22/SEZNAM_VERIFICATION.md (Codex), не из кода
+    expect(landingMetadata("en").verification).toEqual({
+      other: { "seznam-wmt": "kFALhPpFk3I8tf7cSiEHNBuHCpZrkyBs" },
+    });
+    for (const l of LOCALES.filter((x) => x !== "en")) {
+      expect(landingMetadata(l).verification, l).toBeUndefined();
+    }
   });
 });
