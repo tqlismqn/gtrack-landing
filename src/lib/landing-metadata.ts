@@ -27,6 +27,12 @@ export const SITE_ORIGIN = "https://www.g-track.eu";
    и в applicationSubCategory. На позицию в выдаче не влияет — только на подпись сайта. */
 export const SITE_ALTERNATE_NAMES = ["G-Track TMS", "g-track.eu"] as const;
 
+/* Подтверждение сайта в Seznam Webmaster (Г179, задание Codex №30, токен сгенерирован 22.10.2026
+   17:32 Prague): Seznam проверяет meta-тег в <head> главной https://www.g-track.eu/. Токен публичный,
+   не секрет. Seznam принимает только последний сгенерированный тег — новый аннулирует этот, поэтому
+   значение не менять и в кабинете заново не генерировать. Только на корне `/`, локалям он не нужен. */
+export const SEZNAM_WMT_TOKEN = "kFALhPpFk3I8tf7cSiEHNBuHCpZrkyBs";
+
 /* Общая часть метаданных обоих root-layout'ов. Раньше лежала в app/layout.tsx;
    после разделения на route-группы её нужно объявить в каждой группе. */
 export function baseMetadata(): Metadata {
@@ -108,6 +114,10 @@ export function landingMetadata(locale: Lang): Metadata {
       title: d.meta.title,
       description: d.meta.description,
     },
+    /* Next выводит other как <meta name="seznam-wmt" content="…"> */
+    ...(locale === "en"
+      ? { verification: { other: { "seznam-wmt": SEZNAM_WMT_TOKEN } } }
+      : {}),
   };
 }
 

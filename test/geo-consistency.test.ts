@@ -5,6 +5,7 @@ import type { Lang } from "../src/lib/landing-i18n";
 import { COMPANY, SOCIAL, seatOf } from "../src/lib/company";
 import { organizationNode } from "../src/lib/organization-jsonld";
 import { DEMO_DICT } from "../src/lib/demo-page";
+import { landingMetadata } from "../src/lib/landing-metadata";
 
 /* ============================================================================
    Согласованность фактов для ИИ-ассистентов (GEO-аудит 18.10.2026, раздел 5 п. 2 и 6):
@@ -189,10 +190,12 @@ describe("JSON-LD Organization", () => {
 
   /* Facebook — каноническая форма: profile.php?id=… отвечает 301 сюда (curl 18.10), id тот же,
      что в company.ts; Instagram — литерал из PROFILE.md 12.10 */
-  it("sameAs — Facebook-страница (каноническая форма) и Instagram @gtrack.eu", () => {
+  /* firmy.cz — литерал адреса опубликованной карточки (Codex №30, 22.10) */
+  it("sameAs — Facebook-страница (каноническая форма), Instagram @gtrack.eu и карточка firmy.cz", () => {
     expect(org.sameAs).toEqual([
       "https://www.facebook.com/people/G-Track/61595506131584/",
       "https://www.instagram.com/gtrack.eu/",
+      "https://www.firmy.cz/detail/14088113-g-track-praha-zizkov.html",
     ]);
     expect(SOCIAL.facebook).toBe("https://www.facebook.com/profile.php?id=61595506131584");
     expect(org.sameAs[0]).toContain("/61595506131584/");
@@ -231,5 +234,18 @@ describe("lv: опечатка «saved» → «savieno»", () => {
     expect(JSON.stringify(LANDING_DICT.lv)).not.toMatch(/\bsaved\b/i);
     // сторож умеет краснеть
     expect("dispečerpults saved cilvēkus").toMatch(/\bsaved\b/i);
+  });
+});
+
+/* --- 5. Подтверждение сайта в Seznam Webmaster (Г179, задание Codex №30, 22.10) */
+describe("Seznam Webmaster: meta seznam-wmt только на корне /", () => {
+  it("у en (корень /) — точный токен из кабинета; у остальных 11 локалей тега нет", () => {
+    // литерал из seo/2026-10-22/SEZNAM_VERIFICATION.md (Codex), не из кода
+    expect(landingMetadata("en").verification).toEqual({
+      other: { "seznam-wmt": "kFALhPpFk3I8tf7cSiEHNBuHCpZrkyBs" },
+    });
+    for (const l of LOCALES.filter((x) => x !== "en")) {
+      expect(landingMetadata(l).verification, l).toBeUndefined();
+    }
   });
 });
