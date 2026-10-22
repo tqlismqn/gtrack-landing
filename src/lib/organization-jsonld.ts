@@ -23,6 +23,11 @@ import { SALES_EMAIL } from "../components/landing/urls";
    company.ts не трогаем — юр-тексты ссылаются на прежнюю форму. */
 export const FACEBOOK_PAGE_CANONICAL = "https://www.facebook.com/people/G-Track/61595506131584/";
 
+/* Карточка фирмы в каталоге Seznam (Г175/Г179, задание Codex №30, опубликована 22.10.2026): первый
+   внешний профиль сущности — в GSC Links на 22.10 внешних ссылок 0. Адрес — как в выдаче firmy.cz
+   (curl 22.10: 200, G-Track, IČO 14237890, sídlo, sales@, ссылка на g-track.eu). */
+export const FIRMY_CZ_PROFILE = "https://www.firmy.cz/detail/14088113-g-track-praha-zizkov.html";
+
 export function organizationNode(opts: { description: string; availableLanguage: string[] }) {
   return {
     "@type": "Organization",
@@ -46,8 +51,9 @@ export function organizationNode(opts: { description: string; availableLanguage:
       postalCode: COMPANY.zip,
       addressCountry: "CZ",
     },
-    /* Facebook — каноническая форма (см. выше), Instagram — из company.ts; LinkedIn и каталоги — когда появятся */
-    sameAs: [FACEBOOK_PAGE_CANONICAL, SOCIAL.instagram],
+    /* Facebook — каноническая форма (см. выше), Instagram — из company.ts, firmy.cz — каталог Seznam;
+       LinkedIn и другие каталоги — когда появятся */
+    sameAs: [FACEBOOK_PAGE_CANONICAL, SOCIAL.instagram, FIRMY_CZ_PROFILE],
     contactPoint: {
       "@type": "ContactPoint",
       email: SALES_EMAIL,

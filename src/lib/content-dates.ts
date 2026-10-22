@@ -23,7 +23,7 @@
 export type ContentPage = "home" | "roadmap" | "impressum";
 
 export const CONTENT_UPDATED_AT: Record<ContentPage, string> = {
-  /* WebSite.alternateName в JSON-LD (Г174) и meta seznam-wmt на `/` (Г179) — 22.10;
+  /* WebSite.alternateName в JSON-LD (Г174), meta seznam-wmt на `/` и firmy.cz в sameAs (Г179) — 22.10;
      тексты — 18.10, PR #37 (meta, окна FAQ ×12) */
   home: "2026-10-22",
   /* ворота 1, PR #33: строки d.roadmap ×12; состав Ганта (roadmap-content.ts) — 03.10 */

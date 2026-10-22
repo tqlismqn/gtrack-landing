@@ -190,10 +190,12 @@ describe("JSON-LD Organization", () => {
 
   /* Facebook — каноническая форма: profile.php?id=… отвечает 301 сюда (curl 18.10), id тот же,
      что в company.ts; Instagram — литерал из PROFILE.md 12.10 */
-  it("sameAs — Facebook-страница (каноническая форма) и Instagram @gtrack.eu", () => {
+  /* firmy.cz — литерал адреса опубликованной карточки (Codex №30, 22.10) */
+  it("sameAs — Facebook-страница (каноническая форма), Instagram @gtrack.eu и карточка firmy.cz", () => {
     expect(org.sameAs).toEqual([
       "https://www.facebook.com/people/G-Track/61595506131584/",
       "https://www.instagram.com/gtrack.eu/",
+      "https://www.firmy.cz/detail/14088113-g-track-praha-zizkov.html",
     ]);
     expect(SOCIAL.facebook).toBe("https://www.facebook.com/profile.php?id=61595506131584");
     expect(org.sameAs[0]).toContain("/61595506131584/");
