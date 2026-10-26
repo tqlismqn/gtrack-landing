@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync, readdirSync } from "node:fs";
 import { MARKETING_PARAMS, withMarketingParams, isAttributionTarget,
-         isDemoPath, shouldAttribute, keepQuery } from "../src/lib/analytics";
+         isDemoPath, shouldAttribute, keepQuery,
+         ENTRY_PARAM, entryPathFrom, linkKind, decorateHref, withEntryParam } from "../src/lib/analytics";
 import { LOCALES, demoPath } from "../src/lib/landing-i18n";
 import nextConfig from "../next.config";
 
@@ -52,6 +53,42 @@ describe("keepQuery", () => {
     expect(keepQuery("/cs", "?gclid=G1&utm_source=x", "#faq")).toBe("/cs?gclid=G1&utm_source=x#faq"));
   it("пустые хвосты", () => expect(keepQuery("/cs", "", "")).toBe("/cs"));
 });
+describe("gt_entry: вход в визит", () => {
+  const page = (p: string) => new URL(`https://www.g-track.eu${p}`);
+  const L = LOCALES;
+  it("ENTRY_PARAM", () => expect(ENTRY_PARAM).toBe("gt_entry"));
+  it("entryPathFrom: валидный gt_entry, иначе путь страницы", () => {
+    expect(entryPathFrom("?gt_entry=%2Fuk", "/uk/roadmap")).toBe("/uk");
+    expect(entryPathFrom("", "/cs")).toBe("/cs");
+    expect(entryPathFrom("?gt_entry=%2F%2Fevil.com", "/cs")).toBe("/cs");
+    expect(entryPathFrom("?gt_entry=" + "a".repeat(5), "/cs")).toBe("/cs");
+    expect(entryPathFrom("?gt_entry=%2F" + "a".repeat(200), "/cs")).toBe("/cs");
+    expect(entryPathFrom("?gt_entry=%2Fa%0Ab", "/cs")).toBe("/cs");
+    expect(entryPathFrom("?gt_entry=%2F" + "a".repeat(199), "/cs")).toHaveLength(200);
+  });
+  it("linkKind", () => {
+    expect(linkKind(new URL("https://app.g-track.eu/register"), page("/uk"), L)).toBe("app");
+    expect(linkKind(new URL("https://app.g-track.eu/legal"), page("/uk"), L)).toBeNull();
+    expect(linkKind(new URL("https://www.g-track.eu/uk/roadmap"), page("/uk"), L)).toBe("internal");
+    expect(linkKind(new URL("https://www.g-track.eu/uk/demo#form"), page("/uk"), L)).toBe("internal");
+    expect(linkKind(new URL("https://www.g-track.eu/uk#pricing"), page("/uk"), L)).toBeNull();
+    expect(linkKind(new URL("https://www.g-track.eu/uk"), page("/uk"), L)).toBeNull();
+    expect(linkKind(new URL("https://example.com/"), page("/uk"), L)).toBeNull();
+    expect(linkKind(new URL("mailto:a@b.cz"), page("/uk"), L)).toBeNull();
+  });
+  it("decorateHref", () => {
+    const a = decorateHref("https://app.g-track.eu/register?lng=uk", {}, "/uk", "app");
+    expect(a).toContain("lng=uk"); expect(a).toContain("gt_entry=%2Fuk"); expect(a).not.toContain("utm_");
+    const b = decorateHref("/uk/demo", { utm_source: "instagram" }, "/uk", "internal");
+    expect(b).toContain("utm_source=instagram"); expect(b).toContain("gt_entry=%2Fuk");
+    expect(decorateHref("/uk/roadmap?gt_entry=%2Fcs#x", {}, "/uk", "internal")).toBe("/uk/roadmap?gt_entry=%2Fcs#x");
+  });
+  it("withEntryParam: не перетирает существующий gt_entry", () => {
+    expect(withEntryParam("?utm_source=a", "/uk")).toBe("?utm_source=a&gt_entry=%2Fuk");
+    expect(withEntryParam("", "/uk")).toBe("?gt_entry=%2Fuk");
+    expect(withEntryParam("?gt_entry=%2Fcs", "/uk")).toBe("?gt_entry=%2Fcs");
+  });
+});
 it("редиректы /en: два правила, без петли", async () => {
   const r = await nextConfig.redirects!();
   expect(r).toContainEqual({ source: "/en", destination: "/", permanent: false });
@@ -82,12 +119,12 @@ function providerProblems(src: string): string[] {
   const out: string[] = [];
   if (!/router\.replace\( ?keepQuery\( ?pathFor\(hit\), ?window\.location\.search, ?window\.location\.hash ?\)/.test(s))
     out.push("авто-редирект по языку теряет query или хеш");
-  if (!/router\.push\( ?keepQuery\( ?pathFor\(next\), ?window\.location\.search, ?"" ?\)/.test(s))
+  if (!/router\.push\( ?keepQuery\( ?pathFor\(next\), ?withEntryParam\(window\.location\.search, ?entry\.current ?\), ?"",? ?\)/.test(s))
     out.push("смена языка теряет метки");
   const click = s.slice(Math.max(0, s.indexOf("function onDocumentClick")));
-  const guard = click.indexOf("if (!shouldAttribute(parsed, window.location.host, LOCALES)) return;");
-  const write = click.indexOf("withMarketingParams(");
-  if (guard < 0 || write < 0 || guard > write) out.push("клик дописывает метки мимо shouldAttribute");
+  const guard = click.indexOf("if (!kind) return;");
+  const write = click.indexOf("decorateHref(");
+  if (guard < 0 || write < 0 || guard > write) out.push("клик дописывает метки мимо linkKind");
   if (!s.includes('document.addEventListener("click", onDocumentClick, true)')) out.push("нет слушателя клика в capture-фазе");
   return out;
 }
@@ -112,7 +149,7 @@ function storageProblems(files: Record<string, string>): string[] {
 }
 
 describe("LandingProvider: связка по исходнику", () => {
-  it("редирект и смена языка несут метки, клик — через shouldAttribute", () => {
+  it("редирект и смена языка несут метки, клик — через linkKind", () => {
     expect(providerProblems(PROVIDER)).toEqual([]);
     expect(PROVIDER).toContain('const LANG_COOKIE = "gt-landing-lang";');
   });
@@ -124,7 +161,7 @@ describe("LandingProvider: связка по исходнику", () => {
 
   it("негативный контроль: сторожа краснеют на мутациях", () => {
     expect(providerProblems(PROVIDER.replace(/keepQuery\(\s*pathFor\(hit\),[^)]*\)/, "pathFor(hit)"))).toHaveLength(1);
-    expect(providerProblems(PROVIDER.replace("if (!shouldAttribute(parsed, window.location.host, LOCALES)) return;", ""))).toHaveLength(1);
+    expect(providerProblems(PROVIDER.replace("if (!kind) return;", ""))).toHaveLength(1);
     const mut = (line: string) => storageProblems({ "lib/analytics.ts": `${SRC_FILES["lib/analytics.ts"]}\n${line}\n` });
     expect(SRC_FILES["lib/analytics.ts"]).toBeDefined();
     expect(mut('sessionStorage.setItem("gt-attr", "x");')).toHaveLength(1);

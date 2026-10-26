@@ -22,10 +22,12 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 import {
+  decorateHref,
+  entryPathFrom,
   keepQuery,
+  linkKind,
   MARKETING_PARAMS,
-  shouldAttribute,
-  withMarketingParams,
+  withEntryParam,
 } from "@/lib/analytics";
 import {
   demoPath,
@@ -135,7 +137,20 @@ export function LandingProvider({
   ------------------------------------------------------------------------ */
   const attribution = useRef<Record<string, string>>({});
 
+  /* Вход визита (gt_entry): первая страница, которую увидел посетитель. На своей
+     странице — её путь; на следующей — то, что принесла ссылка в ?gt_entry=.
+     Тоже только в памяти, в URL едет сам. Пусто до монтирования: window на сервере нет. */
+  const entry = useRef("");
+
   useEffect(() => {
+    try {
+      entry.current = entryPathFrom(
+        window.location.search,
+        window.location.pathname,
+      );
+    } catch {
+      /* сломанный URL не должен ронять страницу */
+    }
     try {
       const search = new URLSearchParams(window.location.search);
       const found: Record<string, string> = {};
@@ -159,10 +174,13 @@ export function LandingProvider({
        в новой рано или поздно забудут. Capture-фаза — чтобы href был готов
        до навигации, включая Cmd+click и «открыть в новой вкладке». Поэтому
        ссылки на /demo — только обычный <a>, не next/link: Link навигирует по
-       своему пропу и мимо правки href. */
+       своему пропу и мимо правки href.
+       Метки несём и на ДРУГИЕ страницы своего хоста: каждая страница монтирует
+       свой провайдер, и без этого набор терялся бы при первом же переходе.
+       Дописываем и при пустых метках — ради gt_entry. Ссылка на ту же страницу
+       (якорь #pricing) не трогается: query превратил бы прокрутку в перезагрузку. */
     function onDocumentClick(event: MouseEvent) {
       const params = attribution.current;
-      if (Object.keys(params).length === 0) return;
 
       const target = event.target as Element | null;
       const anchor = target?.closest?.("a[href]") as HTMLAnchorElement | null;
@@ -174,9 +192,15 @@ export function LandingProvider({
       } catch {
         return;
       }
-      if (!shouldAttribute(parsed, window.location.host, LOCALES)) return;
+      const kind = linkKind(parsed, new URL(window.location.href), LOCALES);
+      if (!kind) return;
 
-      anchor.href = withMarketingParams(anchor.href, params);
+      anchor.href = decorateHref(
+        anchor.href,
+        params,
+        entry.current || entryPathFrom(window.location.search, window.location.pathname),
+        kind,
+      );
     }
 
     document.addEventListener("click", onDocumentClick, true);
@@ -209,10 +233,16 @@ export function LandingProvider({
   const setLang = useCallback(
     (next: Lang) => {
       writeLangCookie(next);
-      /* хеш не несём: он про секцию прежней страницы; метки (search) — несём */
-      router.push(keepQuery(pathFor(next), window.location.search, ""), {
-        scroll: false,
-      });
+      /* хеш не несём: он про секцию прежней страницы; метки (search) — несём,
+         и вход визита (gt_entry) тоже, если его ещё нет в URL */
+      router.push(
+        keepQuery(
+          pathFor(next),
+          withEntryParam(window.location.search, entry.current),
+          "",
+        ),
+        { scroll: false },
+      );
     },
     [router, pathFor],
   );
