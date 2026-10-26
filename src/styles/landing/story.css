@@ -43,7 +43,7 @@
   height: 1px; background: linear-gradient(90deg, transparent, oklch(60% 0.08 250 / 0.5), transparent);
   filter: blur(0.5px);
 }
-/* прод-ролик фур (дрон, Mixkit): muted/loop, poster до загрузки */
+/* прод-ролик фур (дрон сверху, Pexels 15978611): muted/loop, poster до загрузки */
 .vid-video {
   position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; opacity: 1;
