@@ -156,3 +156,66 @@ export function withMarketingParams(
   const qs = search.toString();
   return `${path}${qs ? `?${qs}` : ""}${hash ? `#${hash}` : ""}`;
 }
+
+/* ----------------------------------------------------------------------------
+   gt_entry: первая страница визита.
+
+   Приложению нужно знать, с какой страницы сайта человек пришёл, а сам визит
+   начинается на лендинге: каждая страница монтирует свой LandingProvider,
+   внутренние ссылки — обычные <a> с полной перезагрузкой, и память вкладки
+   между страницами не живёт. Поэтому вход, как и метки, едет в URL — в память
+   и никуда больше (ePrivacy, см. шапку LandingProvider).
+---------------------------------------------------------------------------- */
+export const ENTRY_PARAM = "gt_entry";
+
+/** Допустимый gt_entry: путь сайта с `/`, не `//` (не протокол-относительный URL), ≤ 200, без управляющих. */
+function isValidEntry(value: string): boolean {
+  return (
+    value.startsWith("/") &&
+    !value.startsWith("//") &&
+    value.length <= 200 &&
+    // eslint-disable-next-line no-control-regex
+    !/[\u0000-\u001f\u007f]/.test(value)
+  );
+}
+
+/** Вход визита: валидный `gt_entry` из query, иначе путь самой страницы. */
+export function entryPathFrom(search: string, pathname: string): string {
+  const value = new URLSearchParams(search).get(ENTRY_PARAM);
+  return value !== null && isValidEntry(value) ? value : pathname;
+}
+
+/** Дописывает `gt_entry` к `?query`-строке, если его там ещё нет (существующий не трогаем). */
+export function withEntryParam(search: string, entry: string): string {
+  const params = new URLSearchParams(search);
+  if (!params.has(ENTRY_PARAM)) params.set(ENTRY_PARAM, entry);
+  const qs = params.toString();
+  return qs ? `?${qs}` : "";
+}
+
+/**
+ * Что за ссылка. `app` — белый список путей приложения; `internal` — тот же хост,
+ * но ДРУГАЯ страница (в т. ч. /xx/demo). Тот же pathname — null, даже с хешем:
+ * добавленный query превратил бы прокрутку к секции в полную перезагрузку.
+ * `locales` оставлен в сигнатуре ради симметрии с shouldAttribute.
+ */
+export function linkKind(
+  url: URL,
+  page: URL,
+  _locales: readonly string[],
+): "app" | "internal" | null {
+  if (url.protocol !== "https:" && url.protocol !== "http:") return null;
+  if (url.host === APP_HOST) return isAttributionTarget(url.pathname) ? "app" : null;
+  if (url.host === page.host && url.pathname !== page.pathname) return "internal";
+  return null;
+}
+
+/** Метки + `gt_entry` к ссылке обоих видов; уже имеющиеся параметры не перетираются. */
+export function decorateHref(
+  href: string,
+  params: Readonly<Record<string, string>>,
+  entry: string,
+  _kind: "app" | "internal",
+): string {
+  return withMarketingParams(href, { ...params, [ENTRY_PARAM]: entry });
+}
