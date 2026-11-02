@@ -194,7 +194,7 @@ export const lv: LandingDict = {
     vehTitle: "Transportlīdzekļi",
     vehType: "Vilcējs",
     vehFuel: "Dīzelis",
-    vehOnTrip: "Braucienā",
+    vehOnTrip: "Reisā",
     vehTabOverview: "Pārskats",
     vehTabDocs: "Dokumenti",
     vehTabService: "Serviss",
