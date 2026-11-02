@@ -367,7 +367,7 @@ export const cs: LandingDict = {
     a7b: "Aplikace potřebuje internet. Originály dokumentů v kabině to nenahrazuje.",
 
     q8: "Může dispečer vidět rozvrh, ale ne pas a lékařskou prohlídku?",
-    a8: "Ano. Práva se přidělují jednotlivě — je jich 36. Číslo a sken pasu, víza a občanského průkazu ve výchozím nastavení vidí jen zaměstnanci s právem na důvěrné údaje, ostatní jen stav a platnost. Jakýkoli jiný typ dokumentu, třeba lékařskou prohlídku, může firma stejným způsobem skrýt v nastavení. Identifikační číslo a číslo bankovního účtu chrání samostatné právo a zobrazují se maskovaná.",
+    a8: "Ano. Práva se přidělují jednotlivě — je jich 36. Číslo a sken pasu, víza a občanského průkazu ve výchozím nastavení vidí jen zaměstnanci s právem na důvěrné údaje, ostatní jen stav a platnost. Jakýkoli jiný typ dokumentu, třeba lékařskou prohlídku, může firma stejným způsobem skrýt v nastavení. Osobní identifikační číslo (rodné číslo) a číslo bankovního účtu chrání samostatné právo a zobrazují se maskovaná.",
 
     q9: "Jak jste na tom s řidiči ze třetích zemí — Ukrajina, Srbsko, Uzbekistán?",
     a9: "Pro občany mimo EU je povinný seznam delší: kromě pasu, řidičského průkazu a karty tachografu k němu patří i vízum, licence dopravce a Kód 95. Připravenost na cestu se počítá podle tohoto rozšířeného seznamu, ne podle obecné šablony: dokud řidiči chybí jeho dokumenty, jako připravený se neukáže.",

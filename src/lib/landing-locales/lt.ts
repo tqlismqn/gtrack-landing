@@ -198,7 +198,7 @@ export const lt: LandingDict = {
     vehTitle: "Transportas",
     vehType: "Vilkikas",
     vehFuel: "Dyzelinas",
-    vehOnTrip: "Reise",
+    vehOnTrip: "Kelyje",
     vehTabOverview: "Apžvalga",
     vehTabDocs: "Dokumentai",
     vehTabService: "Servisas",
@@ -429,7 +429,7 @@ export const lt: LandingDict = {
   mock: {
     planning: "Planavimas", week24: "24 savaitė · birželio 8–13", colDriver: "Vairuotojas",
     d1: "Pr 08", d2: "An 09", d3: "Tr 10", d4: "Kt 11", d5: "Pn 12",
-    kpiTrip: "Šiandien reise", kpiVac: "Atostogose", kpiFree: "Laisvi",
+    kpiTrip: "Šiandien kelyje", kpiVac: "Atostogose", kpiFree: "Laisvi",
     stActive: "Aktyvus", stTrip: "Kelyje", ready: "parengtis",
     sick: "Nedarbingumas",
     toastWarnT: "Suvestinė el. paštu: viza baigia galioti 12.07", toastWarnD: "P. Savchenko · liko 32 dienos",
