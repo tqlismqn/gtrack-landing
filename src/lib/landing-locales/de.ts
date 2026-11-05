@@ -311,7 +311,7 @@ export const de: LandingDict = {
     founding: " Neukunden zahlen nach dem Launch mehr — Sie nicht.",
     noteA: "Ein Jahr heißt ",
     noteB: "„2 Monate gratis“",
-    noteC: ". Kostenlose Datenmigration aus Excel für frühe Kunden.",
+    noteC: ". Kostenlose Datenmigration aus Excel für die ersten 10 Unternehmen.",
     anchorOverline: "Die Rechnung",
     anchorBig: "≈ 2,25 €",
     anchorUnit: "pro Lkw/Monat · Flotte 200 Lkw",
@@ -331,7 +331,7 @@ export const de: LandingDict = {
 
     q1: "Wie erinnert das System daran, dass bei einem Fahrer ein Dokument abläuft?",
     a1: "Jeden Morgen prüft G-Track die Dokumente aller Fahrer. Ein Reisepass erscheint 180 Tage vor Ablauf in der Morgenübersicht, alle übrigen Dokumente 90 Tage vorher. Das Büro bekommt eine E-Mail, in der App wird das Dokument als ablaufend markiert (bei der Erklärung: 60 Tage vorher), und der Fahrer erhält eine Erinnerung, sofern er den Telegram-Bot verbunden hat.",
-    a1b: "Die E-Mails mit der Morgenübersicht aktivieren Sie selbst und legen fest, wer sie erhält: nur der Inhaber, die Administratoren oder alle Mitglieder. So hängt die Erinnerung nicht an einer einzigen Person und verschwindet nicht, solange HR im Urlaub ist.",
+    a1b: "Die E-Mail mit der Morgenübersicht ist vom ersten Tag an aktiv: Jeden Morgen, wenn es etwas zu zeigen gibt, geht sie an die Administratoren. Unter „Einstellungen → Benachrichtigungen“ können Sie sie abschalten oder die Empfänger wählen: nur der Inhaber, die Administratoren oder alle Mitglieder. So hängt die Erinnerung nicht an einer einzigen Person und verschwindet nicht, solange HR im Urlaub ist.",
 
     q2: "Wer haftet, wenn ein Fahrer mit einem abgelaufenen Dokument auf Tour geht?",
     a2: "In den meisten EU-Ländern das Verkehrsunternehmen, nicht nur der Fahrer: das Bußgeld trifft die Firma, in mehreren Ländern zusätzlich den Verkehrsleiter persönlich. Höhe und Verfahren richten sich nach dem Land, in dem kontrolliert wird. Genau deshalb erinnert G-Track in erster Linie das Büro — diejenigen, die die Tour einplanen — und schickt dem Fahrer, der den Bot verbunden hat, die Erinnerung zusätzlich per Telegram.",
@@ -344,7 +344,7 @@ export const de: LandingDict = {
 
     q4: "Ich habe 40–60 Fahrer und Jahre voller Scans in Excel und Ordnern. Wer überträgt das?",
     a4: "Sie können ohne das Archiv anfangen: Legen Sie die Fahrer an und die Dokumente, deren Fristen am nächsten liegen — die Erinnerungen laufen bereits damit. Alte Scans kommen unterwegs dazu und blockieren nichts.",
-    a4b: "Frühen Kunden migrieren wir die Daten aus Excel kostenlos. Schicken Sie die Datei so, wie sie ist — mit Anmerkungen, leeren Zellen und „??“ in der Datumsspalte.",
+    a4b: "Den ersten 10 Unternehmen migrieren wir die Daten aus Excel kostenlos. Schicken Sie die Datei so, wie sie ist — mit Anmerkungen, leeren Zellen und „??“ in der Datumsspalte.",
 
     q5: "Wo liegen die Daten und die Scans physisch? Unterschreiben Sie ein DPA?",
     a5: "Daten und Dateien liegen in der Europäischen Union, im Rechenzentrum in Irland. Das Dokument zur Datenverarbeitung ist veröffentlicht — der Link steht im Fuß dieser Seite — und wir unterschreiben es. Der Zugriff auf sensible Felder innerhalb Ihres Unternehmens ist über Rollen begrenzt, nicht über einen globalen Schalter.",
@@ -386,7 +386,7 @@ export const de: LandingDict = {
     h2: "Starten Sie jetzt — der Preis fährt mit.",
     ctaTrial: "30 Tage testen",
     ctaPricing: "Preise ansehen",
-    migrate: "Daten in Excel? Wir migrieren kostenlos — ",
+    migrate: "Daten in Excel? Für die ersten 10 Unternehmen migrieren wir kostenlos — ",
   },
 
   footer: {

@@ -20,7 +20,7 @@ export const demo: DemoDict = {
     lang: "Jazyk naší odpovědi",
     newsletter: "Zasílat novinky o G-Track e-mailem (nepovinné)",
     interests: "Co máme připravit na ukázku? (nepovinné)",
-    interestExcel: "Zdarma vám převedeme řidiče a vozidla z Excelu — pro první zákazníky",
+    interestExcel: "Zdarma vám převedeme řidiče a vozidla z Excelu — pro prvních 10 firem",
     interestTelematics: "Napojíme váš tracker, pokud je podporovaný — domluvíme se s vaším IT nebo dodavatelem trackeru",
     interestDemo: "Demo přístup s ukázkovými daty — proklikáte si ho sami",
     message: "Komentář (nepovinné)",

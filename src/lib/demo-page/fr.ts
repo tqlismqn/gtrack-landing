@@ -20,7 +20,7 @@ export const demo: DemoDict = {
     lang: "Langue de notre réponse",
     newsletter: "Recevoir les actualités de G-Track par e-mail (facultatif)",
     interests: "Que devons-nous préparer pour la démo ? (facultatif)",
-    interestExcel: "Migration gratuite de vos conducteurs et véhicules depuis Excel — pour les premiers clients",
+    interestExcel: "Migration gratuite de vos conducteurs et véhicules depuis Excel — pour les 10 premières entreprises",
     interestTelematics: "Nous connectons votre traceur s’il est compatible — nous nous coordonnons avec votre service IT ou le fournisseur du traceur",
     interestDemo: "Accès démo avec des données d’exemple — vous le parcourez vous-même",
     message: "Commentaire (facultatif)",

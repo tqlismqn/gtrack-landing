@@ -312,7 +312,7 @@ export const ro: LandingDict = {
     founding: " Clienții noi de după lansare vor plăti mai mult — tu nu.",
     noteA: "Un an înseamnă ",
     noteB: "„2 luni gratuite”",
-    noteC: ". Migrare gratuită a datelor din Excel pentru primii clienți.",
+    noteC: ". Migrare gratuită a datelor din Excel pentru primele 10 companii.",
     anchorOverline: "Calculul",
     anchorBig: "≈ 2,25 €",
     anchorUnit: "pe vehicul/lună · flotă de 200 vehicule",
@@ -336,7 +336,7 @@ export const ro: LandingDict = {
 
     q1: "Cum mă anunță sistemul că unui șofer îi expiră un document?",
     a1: "În fiecare dimineață G-Track verifică documentele tuturor șoferilor. Pașaportul intră în rezumat cu 180 de zile înainte de expirare, celelalte documente — cu 90. Biroul primește un e-mail, în aplicație documentul e marcat ca fiind pe cale să expire (pentru declarație — cu 60 de zile înainte), iar șoferul care a conectat botul de Telegram primește un memento.",
-    a1b: "E-mailurile cu rezumatul le activezi singur și tot tu alegi cui ajung: doar proprietarului, administratorilor sau tuturor membrilor. Astfel, memento-ul nu atârnă de un singur om și nu dispare cât timp colegul de la HR e în concediu.",
+    a1b: "E-mailul cu rezumatul e activ din prima zi: în fiecare dimineață, când există ceva de arătat, ajunge la administratori. În „Setări → Notificări” îl poți dezactiva sau poți alege cui ajunge: doar proprietarului, administratorilor sau tuturor membrilor. Astfel, memento-ul nu atârnă de un singur om și nu dispare cât timp colegul de la HR e în concediu.",
 
     q2: "Cine răspunde dacă un șofer pleacă în cursă cu un document expirat?",
     a2: "În majoritatea statelor UE — transportatorul, nu doar șoferul: amenda se dă firmei, iar în unele țări separat și managerului de transport. Cuantumul și procedura depind de țara în care are loc controlul. Exact de asta G-Track îi amintește în primul rând biroului, celui care pune cursa în plan, iar șoferului care a conectat botul îi trimite același memento pe Telegram.",
@@ -349,7 +349,7 @@ export const ro: LandingDict = {
 
     q4: "Am 40–60 de șoferi și ani de scanuri în Excel și dosare. Cine mută toate astea?",
     a4: "Poți începe fără arhivă: introdu șoferii și documentele cu termenele cele mai apropiate — mementourile pornesc deja de la atât. Scanurile vechi se încarcă pe parcurs și nu blochează nimic.",
-    a4b: "Migrarea din Excel o facem gratuit pentru primii clienți. Trimite fișierul așa cum e — cu observații, celule goale și „??” în coloana cu date.",
+    a4b: "Migrarea din Excel o facem gratuit pentru primele 10 companii. Trimite fișierul așa cum e — cu observații, celule goale și „??” în coloana cu date.",
 
     q5: "Unde stau fizic datele și scanurile? Semnați un DPA?",
     a5: "Datele și fișierele stau în Uniunea Europeană, în centrul de date din Irlanda. Documentul privind prelucrarea datelor este publicat — linkul e în josul paginii — și îl semnăm. Accesul la câmpurile sensibile din interiorul firmei tale este limitat prin roluri, nu printr-o bifă generală.",
@@ -391,7 +391,7 @@ export const ro: LandingDict = {
     h2: "Începe acum — prețul călătorește cu tine.",
     ctaTrial: "Încearcă 30 de zile",
     ctaPricing: "Vezi prețurile",
-    migrate: "Date în Excel? Le migrăm gratuit — ",
+    migrate: "Date în Excel? Pentru primele 10 companii le migrăm gratuit — ",
   },
 
   footer: {

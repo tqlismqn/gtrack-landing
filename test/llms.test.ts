@@ -46,7 +46,7 @@ describe("JSON-LD", () => {
 /* GEO-аудит 18.10.2026 (раздел 2 п. 9): на сайте есть A1 и бесплатный перенос из Excel, в файле их не было.
    Источники фактов: A1 — `gtrack-tms` src/config/documentTypes.ts:15 (`posted_worker_certificate_a1`,
    `expiryRequired: true`), в Telegram-напоминаниях и в утренней сводке (прод: get_due_driver_doc_reminders,
-   send_doc_expiry_alerts); перенос — faq.a4b и pricing.noteC на сайте («ранним клиентам»). */
+   send_doc_expiry_alerts); перенос — faq.a4b и pricing.noteC на сайте («первым 10 компаниям», MARKETING Г725). */
 describe("llms.txt: A1 и бесплатный перенос из Excel", () => {
   const lineStarting = (t: string, start: string) => t.split("\n").filter((l) => l.startsWith(start));
 
@@ -62,26 +62,33 @@ describe("llms.txt: A1 и бесплатный перенос из Excel", () =>
     expect(LANDING_DICT.en.vid.sub).toMatch(/\bA1\b/);
   });
 
-  it("перенос из Excel — бесплатно и только ранним клиентам, как в FAQ и в тарифах", () => {
+  it("перенос из Excel — бесплатно и только первым 10 компаниям, как в FAQ и в тарифах", () => {
     const [mig, ...rest] = lineStarting(txt, "- Migration:");
     expect(rest).toHaveLength(0);
-    expect(mig).toMatch(/early customers/);
+    expect(mig).toMatch(/first 10 companies/);
     // как у цен: срок оффера не вечный, ассистент не должен процитировать его как постоянный
-    expect(mig).toMatch(/as of October 2026/);
+    expect(mig).toMatch(/as of November 2026/);
     expect(mig).toMatch(/Excel/);
     expect(mig).toMatch(/for free/);
     // оффер на сайте именно такой: снимут его там — тест напомнит снять строку здесь
-    expect(LANDING_DICT.en.faq.a4b).toMatch(/early customers.*Excel.*for free/);
-    expect(LANDING_DICT.en.pricing.noteC).toMatch(/Free data migration from Excel for early customers/);
+    expect(LANDING_DICT.en.faq.a4b).toMatch(/first 10 companies.*Excel.*for free/);
+    expect(LANDING_DICT.en.pricing.noteC).toMatch(/Free data migration from Excel for the first 10 companies/);
     // «бесплатно для всех» файл не обещает
     expect(mig).not.toMatch(/\b(all|every) customers\b/i);
+  });
+
+  it("оффер с числом стоит во всех трёх строках сайта в 12 локалях: снимая после 10-й компании, правь все", () => {
+    for (const lang of LOCALES) {
+      const d = LANDING_DICT[lang];
+      for (const line of [d.pricing.noteC, d.faq.a4b, d.final.migrate]) expect(line, lang).toMatch(/\b10\b/);
+    }
   });
 
   it("негативный контроль: без этих строк проверки краснеют", () => {
     const stripped = txt.split("\n").filter((l) => !l.startsWith("- A1 certificate") && !l.startsWith("- Migration:")).join("\n");
     expect(lineStarting(stripped, "- A1 certificate")).toHaveLength(0);
     expect(lineStarting(stripped, "- Migration:")).toHaveLength(0);
-    expect(stripped).not.toMatch(/early customers we migrate/);
+    expect(stripped).not.toMatch(/first 10 companies we migrate/);
   });
 
   it("новые строки в разделе фактов — до первого H2, а не среди ссылок", () => {
