@@ -20,7 +20,7 @@ export const demo: DemoDict = {
     lang: "Atbildes valoda",
     newsletter: "Sūtīt man G-Track jaunumus e-pastā (neobligāti)",
     interests: "Ko sagatavot demonstrācijai? (neobligāti)",
-    interestExcel: "Bez maksas pārnesīsim tavus vadītājus un mašīnas no Excel — agrīnajiem klientiem",
+    interestExcel: "Bez maksas pārnesīsim tavus vadītājus un mašīnas no Excel — pirmajiem 10 uzņēmumiem",
     interestTelematics: "Ja tavs izsekotājs tiek atbalstīts, pieslēdzam to — vienosimies ar tavu IT nodaļu vai izsekotāja piegādātāju",
     interestDemo: "Demo piekļuve ar piemēru datiem — izklikšķini visu savā tempā",
     message: "Komentārs (neobligāti)",

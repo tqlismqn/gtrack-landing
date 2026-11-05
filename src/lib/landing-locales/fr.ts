@@ -314,7 +314,7 @@ export const fr: LandingDict = {
     founding: " Les nouveaux clients après le lancement paieront plus — pas vous.",
     noteA: "L’année, c’est ",
     noteB: "« 2 mois offerts »",
-    noteC: ". Migration gratuite des données depuis Excel pour les premiers clients.",
+    noteC: ". Migration gratuite des données depuis Excel pour les 10 premières entreprises.",
     anchorOverline: "Le calcul",
     anchorBig: "≈ 2,25 €",
     anchorUnit: "par camion/mois · flotte de 200 camions",
@@ -334,7 +334,7 @@ export const fr: LandingDict = {
 
     q1: "Comment le système prévient-il qu’un document de conducteur arrive à expiration ?",
     a1: "Chaque matin, G-Track contrôle les documents de tous les conducteurs. Le passeport entre dans le résumé quotidien 180 jours avant l’échéance, les autres documents 90 jours avant. Le bureau reçoit un e-mail, le document passe en « Expire bientôt » dans l’application (pour une déclaration : 60 jours avant) et, si le conducteur a connecté le bot Telegram, il reçoit un rappel.",
-    a1b: "Vous activez vous-même l’envoi du résumé par e-mail et choisissez ses destinataires : le propriétaire seul, les administrateurs ou tous les membres. Le rappel ne repose donc pas sur une seule personne et ne disparaît pas pendant que les RH sont en congés.",
+    a1b: "L’e-mail de résumé est actif dès le premier jour : chaque matin, lorsqu’il y a quelque chose à signaler, il part aux administrateurs. Dans « Paramètres → Notifications », vous pouvez le désactiver ou choisir ses destinataires : le propriétaire seul, les administrateurs ou tous les membres. Le rappel ne repose donc pas sur une seule personne et ne disparaît pas pendant que les RH sont en congés.",
 
     q2: "Qui est responsable si un conducteur part en tournée avec un document expiré ?",
     a2: "Dans la plupart des pays de l’UE, c’est le transporteur et pas seulement le conducteur : l’amende est adressée à l’entreprise et, dans plusieurs pays, également au gestionnaire de transport à titre personnel. Les montants et la procédure dépendent du pays où a lieu le contrôle. C’est précisément pour cela que G-Track alerte d’abord le bureau — celui qui inscrit la tournée au planning — et relaie aussi le rappel sur Telegram au conducteur qui a connecté le bot.",
@@ -347,7 +347,7 @@ export const fr: LandingDict = {
 
     q4: "J’ai 40–60 conducteurs et des années de scans dans Excel et des classeurs. Qui va tout reprendre ?",
     a4: "Vous pouvez démarrer sans l’archive : saisissez les conducteurs et les documents dont les échéances sont les plus proches — les rappels fonctionnent déjà avec cela seul. Les anciens scans se téléversent en chemin et ne bloquent rien.",
-    a4b: "Pour les premiers clients, la migration depuis Excel est gratuite. Envoyez le fichier tel quel — avec les notes, les cellules vides et les « ?? » dans la colonne des dates.",
+    a4b: "Pour les 10 premières entreprises, la migration depuis Excel est gratuite. Envoyez le fichier tel quel — avec les notes, les cellules vides et les « ?? » dans la colonne des dates.",
 
     q5: "Où se trouvent physiquement les données et les scans ? Signez-vous un DPA ?",
     a5: "Les données et les fichiers sont dans l’Union européenne, dans un centre de données en Irlande. Le document relatif au traitement des données est publié — le lien est en pied de page — et nous le signons. À l’intérieur de votre entreprise, l’accès aux champs sensibles est limité par les rôles, pas par une seule case à cocher globale.",
@@ -389,7 +389,7 @@ export const fr: LandingDict = {
     h2: "Commencez maintenant — le prix fait la route avec vous.",
     ctaTrial: "Essayer 30 jours",
     ctaPricing: "Voir les tarifs",
-    migrate: "Des données dans Excel ? Nous les migrons gratuitement — ",
+    migrate: "Des données dans Excel ? Pour les 10 premières entreprises, nous les migrons gratuitement — ",
   },
 
   footer: {

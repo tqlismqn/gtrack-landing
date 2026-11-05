@@ -312,7 +312,7 @@ export const it: LandingDict = {
     founding: " I nuovi clienti dopo il lancio pagheranno di più — tu no.",
     noteA: "Un anno vale ",
     noteB: "«2 mesi gratis»",
-    noteC: ". Migrazione gratuita dei dati da Excel per i primi clienti.",
+    noteC: ". Migrazione gratuita dei dati da Excel per le prime 10 aziende.",
     anchorOverline: "I conti",
     anchorBig: "≈ 2,25 €",
     anchorUnit: "per veicolo/mese · flotta da 200 veicoli",
@@ -332,7 +332,7 @@ export const it: LandingDict = {
 
     q1: "Come mi avvisa il sistema che a un autista sta scadendo un documento?",
     a1: "Ogni mattina G-Track controlla i documenti di tutti gli autisti. Il passaporto compare nel riepilogo 180 giorni prima della scadenza, gli altri documenti 90 giorni prima. L’ufficio riceve una email, nell’app il documento viene segnato come in scadenza (per le dichiarazioni, 60 giorni prima) e l’autista che ha collegato il bot Telegram riceve un promemoria.",
-    a1b: "Le email con il riepilogo le attivi tu e scegli a chi arrivano: solo al proprietario, agli amministratori o a tutti i membri. Così il promemoria non resta appeso a una sola persona e non svanisce mentre l’HR è in ferie.",
+    a1b: "L’email con il riepilogo è attiva dal primo giorno: ogni mattina, quando c’è qualcosa da segnalare, arriva agli amministratori. In «Impostazioni → Notifiche» puoi disattivarla o scegliere a chi arriva: solo al proprietario, agli amministratori o a tutti i membri. Così il promemoria non resta appeso a una sola persona e non svanisce mentre l’HR è in ferie.",
 
     q2: "Chi risponde se un autista parte in viaggio con un documento scaduto?",
     a2: "Nella maggior parte dei paesi UE il vettore, non solo l’autista: la sanzione arriva all’azienda e in diversi paesi anche al gestore dei trasporti in prima persona. Importi e procedura dipendono dal paese in cui avviene il controllo. Proprio per questo G-Track avvisa prima di tutto l’ufficio — chi mette il viaggio in programma — e ripete il promemoria su Telegram all’autista che ha collegato il bot.",
@@ -345,7 +345,7 @@ export const it: LandingDict = {
 
     q4: "Ho 40–60 autisti e anni di scansioni tra Excel e cartelle di carta. Chi le trasferisce?",
     a4: "Si può partire senza l’archivio: inserisci gli autisti e i documenti con le scadenze più vicine — i promemoria funzionano già solo con questo. Le vecchie scansioni si caricano strada facendo e non bloccano nulla.",
-    a4b: "Ai primi clienti la migrazione da Excel la facciamo gratis. Mandaci il file com’è — con le note, le celle vuote e i «??» nelle date.",
+    a4b: "Alle prime 10 aziende la migrazione da Excel la facciamo gratis. Mandaci il file com’è — con le note, le celle vuote e i «??» nelle date.",
 
     q5: "Dove stanno fisicamente i dati e le scansioni? Firmate un DPA?",
     a5: "Dati e file stanno nell’Unione europea, in un data center in Irlanda. Il documento sul trattamento dei dati è pubblicato, il link è nel piè di pagina; lo firmiamo. L’accesso ai campi riservati dentro la tua azienda è limitato dai ruoli, non da un’unica spunta generale.",
@@ -387,7 +387,7 @@ export const it: LandingDict = {
     h2: "Inizia adesso — il prezzo viaggia con te.",
     ctaTrial: "Prova 30 giorni",
     ctaPricing: "Guarda i prezzi",
-    migrate: "I dati sono in Excel? Li migriamo gratis — ",
+    migrate: "I dati sono in Excel? Alle prime 10 aziende li migriamo gratis — ",
   },
 
   footer: {

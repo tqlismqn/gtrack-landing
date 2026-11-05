@@ -309,7 +309,7 @@ export const es: LandingDict = {
     founding: " Los nuevos clientes pagarán más después del lanzamiento — usted no.",
     noteA: "Un año significa ",
     noteB: "«2 meses gratis»",
-    noteC: ". Migración gratuita de datos desde Excel para los primeros clientes.",
+    noteC: ". Migración gratuita de datos desde Excel para las primeras 10 empresas.",
     anchorOverline: "Las cuentas",
     anchorBig: "≈ 2,25 €",
     anchorUnit: "por vehículo/mes · flota de 200 vehículos",
@@ -329,7 +329,7 @@ export const es: LandingDict = {
 
     q1: "¿Cómo me avisa el sistema de que a un conductor le caduca un documento?",
     a1: "Cada mañana G-Track revisa los documentos de todos los conductores. El pasaporte entra en el resumen 180 días antes del vencimiento; el resto de documentos, 90 días antes. La oficina recibe un correo, el documento aparece como «Por caducar» en la aplicación (en las declaraciones, 60 días antes) y, si el conductor ha conectado el bot de Telegram, le llega un recordatorio.",
-    a1b: "Usted mismo activa los correos con el resumen y elige quién los recibe: solo el propietario, los administradores o todos los miembros. Así el recordatorio no depende de una sola persona y no se pierde mientras RR. HH. está de vacaciones.",
+    a1b: "El correo con el resumen está activo desde el primer día: cada mañana, cuando hay algo que mostrar, llega a los administradores. En «Configuración → Notificaciones» puede desactivarlo o elegir quién lo recibe: solo el propietario, los administradores o todos los miembros. Así el recordatorio no depende de una sola persona y no se pierde mientras RR. HH. está de vacaciones.",
 
     q2: "¿Quién responde si un conductor sale de viaje con un documento caducado?",
     a2: "En la mayoría de los países de la UE, el transportista y no solo el conductor: la sanción recae en la empresa y en varios países también en el gestor de transporte a título personal. Los importes y el procedimiento dependen del país donde se haga el control. Precisamente por eso G-Track avisa ante todo a la oficina — a quien pone el viaje en el plan — y repite el recordatorio por Telegram al conductor que ha conectado el bot.",
@@ -342,7 +342,7 @@ export const es: LandingDict = {
 
     q4: "Tengo 40–60 conductores y años de escaneos en Excel y carpetas de papel. ¿Quién traslada todo eso?",
     a4: "Puede empezar sin el archivo: dé de alta a los conductores y los documentos con los plazos más cercanos — los recordatorios ya funcionan solo con eso. Los escaneos antiguos se van subiendo por el camino y no bloquean nada.",
-    a4b: "A los primeros clientes les hacemos la migración desde Excel gratis. Envíe el archivo tal como está — con notas, celdas vacías y «??» en las fechas.",
+    a4b: "A las primeras 10 empresas les hacemos la migración desde Excel gratis. Envíe el archivo tal como está — con notas, celdas vacías y «??» en las fechas.",
 
     q5: "¿Dónde están físicamente los datos y los escaneos? ¿Firman un DPA?",
     a5: "Los datos y los archivos están en la Unión Europea, en un centro de datos en Irlanda. El documento de tratamiento de datos está publicado, con el enlace en el pie de la página; lo firmamos. El acceso a los campos confidenciales dentro de su empresa se limita por roles, no con una casilla general.",
@@ -384,7 +384,7 @@ export const es: LandingDict = {
     h2: "Empiece ahora — el precio viaja con usted.",
     ctaTrial: "Pruébelo 30 días",
     ctaPricing: "Ver precios",
-    migrate: "¿Sus datos están en Excel? Los migramos gratis — ",
+    migrate: "¿Sus datos están en Excel? A las primeras 10 empresas se los migramos gratis — ",
   },
 
   footer: {

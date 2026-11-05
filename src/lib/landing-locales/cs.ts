@@ -319,7 +319,7 @@ export const cs: LandingDict = {
     founding: " Noví zákazníci po spuštění zaplatí víc — vy ne.",
     noteA: "Rok znamená ",
     noteB: "„2 měsíce zdarma“",
-    noteC: ". Bezplatná migrace dat z Excelu pro první zákazníky.",
+    noteC: ". Bezplatná migrace dat z Excelu pro prvních 10 firem.",
     anchorOverline: "Spočítáno",
     anchorBig: "≈ 2,25 €",
     anchorUnit: "za vůz/měsíc · vozový park 200 vozů",
@@ -341,7 +341,7 @@ export const cs: LandingDict = {
 
     q1: "Jak systém upozorní, že řidiči končí platnost dokumentu?",
     a1: "Každé ráno G-Track prověří dokumenty všech řidičů. Pas se v souhrnu objeví 180 dní předem, ostatní dokumenty 90 dní předem. Kancelář dostane e-mail, v aplikaci se dokument označí jako končící (u deklarace 60 dní předem) a řidiči, který má v Telegramu připojeného bota, přijde připomínka.",
-    a1b: "E-maily se souhrnem si zapnete sami a vyberete, komu chodí: jen vlastníkovi, administrátorům nebo všem členům. Připomínka tak nevisí na jednom člověku a nezmizí, když je personalista na dovolené.",
+    a1b: "E-mail se souhrnem je zapnutý od prvního dne: každé ráno, když je co ukázat, přijde administrátorům. V „Nastavení → Oznámení“ ho můžete vypnout nebo vybrat příjemce: jen vlastník, administrátoři nebo všichni členové. Připomínka tak nevisí na jednom člověku a nezmizí, když je personalista na dovolené.",
 
     q2: "Kdo nese odpovědnost, když řidič vyjede na cestu s propadlým dokumentem?",
     a2: "Ve většině zemí EU dopravce, ne jen řidič: pokutu dostane firma a v řadě zemí navíc i odpovědný zástupce pro dopravu. Konkrétní výše i postup se liší podle země kontroly. Právě proto G-Track připomíná především kanceláři — tomu, kdo zařazuje jízdu do plánu — a řidiči, který si připojil bota, posílá připomínku navíc do Telegramu.",
@@ -354,7 +354,7 @@ export const cs: LandingDict = {
 
     q4: "Mám 40–60 řidičů a roky skenů v Excelu a ve složkách. Kdo to převede?",
     a4: "Začít se dá i bez archivu: založte řidiče a ty dokumenty, kterým běží nejbližší termín — připomínky fungují už jen z toho. Staré skeny doplníte postupně a nic neblokují.",
-    a4b: "Převod z Excelu prvním zákazníkům děláme zdarma. Pošlete soubor tak, jak je — s poznámkami, prázdnými buňkami a „??“ v datech.",
+    a4b: "Prvním 10 firmám převedeme data z Excelu zdarma. Pošlete soubor tak, jak je — s poznámkami, prázdnými buňkami a „??“ v datech.",
 
     q5: "Kde fyzicky leží data a skeny? Podepíšete DPA?",
     a5: "Data i soubory jsou v Evropské unii, datové centrum v Irsku. Dokument o zpracování údajů je zveřejněný, odkaz najdete v patičce stránky; podepisujeme ho. Přístup k citlivým polím uvnitř vaší firmy je omezený rolemi, ne jedním společným přepínačem.",
@@ -396,7 +396,7 @@ export const cs: LandingDict = {
     h2: "Začněte hned teď — cena jede s vámi.",
     ctaTrial: "Vyzkoušet na 30 dní",
     ctaPricing: "Zobrazit ceník",
-    migrate: "Data v Excelu? Zmigrujeme je zdarma — ",
+    migrate: "Data v Excelu? Prvním 10 firmám je převedeme zdarma — ",
   },
 
   footer: {

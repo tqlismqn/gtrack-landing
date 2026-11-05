@@ -315,7 +315,7 @@ export const lv: LandingDict = {
     founding: " Jaunie klienti pēc palaišanas maksās vairāk — tu ne.",
     noteA: "Gads — tie ir ",
     noteB: "„2 mēneši bez maksas”",
-    noteC: ". Bezmaksas datu migrācija no Excel agrīnajiem klientiem.",
+    noteC: ". Bezmaksas datu migrācija no Excel pirmajiem 10 uzņēmumiem.",
     anchorOverline: "Aprēķins",
     anchorBig: "≈ 2,25 €",
     anchorUnit: "par vienību/mēn. · 200 vienību parks",
@@ -339,7 +339,7 @@ export const lv: LandingDict = {
 
     q1: "Kā sistēma atgādinās, ka vadītājam beidzas dokuments?",
     a1: "Katru rītu G-Track pārbauda visu vadītāju dokumentus. Pase nonāk kopsavilkumā 180 dienas iepriekš, pārējie dokumenti — 90 dienas iepriekš. Birojs saņem e-pastu, lietotnē pie dokumenta parādās atzīme „Beidzas derīgums” (deklarācijai — 60 dienas iepriekš), bet vadītājs, kurš pieslēdzies Telegram botam, saņem atgādinājumu.",
-    a1b: "Kopsavilkuma e-pastus ieslēdz pats un izvēlies, kam tie tiek sūtīti: tikai īpašniekam, administratoriem vai visiem dalībniekiem. Tāpēc atgādinājums nekarājas uz viena cilvēka un nepazūd, kamēr HR ir atvaļinājumā.",
+    a1b: "Kopsavilkuma e-pasts ir ieslēgts no pirmās dienas: katru rītu, kad ir ko rādīt, tas tiek sūtīts administratoriem. Sadaļā „Iestatījumi → Paziņojumi” vari to izslēgt vai izvēlēties saņēmējus: tikai īpašnieks, administratori vai visi dalībnieki. Tāpēc atgādinājums nekarājas uz viena cilvēka un nepazūd, kamēr HR ir atvaļinājumā.",
 
     q2: "Kas atbild, ja vadītājs izbrauc reisā ar dokumentu, kuram beidzies termiņš?",
     a2: "Lielākajā daļā ES valstu — pārvadātājs, nevis tikai vadītājs: sodu uzraksta firmai, un vairākās valstīs atsevišķi arī par transportu atbildīgajai personai. Konkrētās summas un kārtība atkarīgas no pārbaudes valsts. Tieši tāpēc G-Track vispirms atgādina birojam — tam, kas ieliek reisu plānā, — bet vadītājam, kurš pieslēdzies botam, atgādinājumu papildus nosūta Telegram.",
@@ -352,7 +352,7 @@ export const lv: LandingDict = {
 
     q4: "Man ir 40–60 vadītāju un gadiem krāti skenējumi Excel un mapēs. Kas to pārnesīs?",
     a4: "Sākt var arī bez arhīva: ievadi vadītājus un tos dokumentus, kuriem termiņš ir vistuvāk — atgādinājumi sāks strādāt jau no tā. Vecie skenējumi tiek augšupielādēti pa ceļam un neko nebloķē.",
-    a4b: "Pārnešanu no Excel agrīnajiem klientiem darām bez maksas. Sūti failu tādu, kāds tas ir — ar piezīmēm, tukšām šūnām un „??” datumu vietā.",
+    a4b: "Pirmajiem 10 uzņēmumiem datus no Excel pārnesam bez maksas. Sūti failu tādu, kāds tas ir — ar piezīmēm, tukšām šūnām un „??” datumu vietā.",
 
     q5: "Kur fiziski atrodas dati un skenējumi? Vai parakstīsiet DPA?",
     a5: "Dati un faili — Eiropas Savienībā, datu centrs Īrijā. Datu apstrādes dokuments ir publicēts, saite lapas kājenē; parakstām. Piekļuvi sensitīviem laukiem tavā uzņēmumā ierobežo lomas, nevis viens kopējs ķeksītis.",
@@ -394,7 +394,7 @@ export const lv: LandingDict = {
     h2: "Sāc tagad — cena brauc tev līdzi.",
     ctaTrial: "Izmēģināt 30 dienas",
     ctaPricing: "Apskatīt cenas",
-    migrate: "Dati ir Excel? Migrēsim bez maksas — ",
+    migrate: "Dati ir Excel? Pirmajiem 10 uzņēmumiem migrēsim bez maksas — ",
   },
 
   footer: {

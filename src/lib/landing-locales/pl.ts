@@ -319,7 +319,7 @@ export const pl: LandingDict = {
     founding: " Nowi klienci po starcie zapłacą więcej — ty nie.",
     noteA: "Rok to ",
     noteB: "„2 miesiące gratis”",
-    noteC: ". Bezpłatna migracja danych z Excel dla wczesnych klientów.",
+    noteC: ". Bezpłatna migracja danych z Excela dla pierwszych 10 firm.",
     anchorOverline: "Rachunek",
     anchorBig: "≈ 2,25 €",
     anchorUnit: "za pojazd/mies. · flota 200 pojazdów",
@@ -341,7 +341,7 @@ export const pl: LandingDict = {
 
     q1: "Jak system przypomni, że kierowcy kończy się dokument?",
     a1: "Codziennie rano G-Track sprawdza dokumenty wszystkich kierowców. Paszport trafia do podsumowania 180 dni wcześniej, pozostałe dokumenty — 90 dni wcześniej. Biuro dostaje e-mail, w aplikacji dokument zostaje oznaczony jako wygasający (w przypadku oświadczenia — 60 dni wcześniej), a kierowca, który podłączył bota w Telegramie, dostaje przypomnienie.",
-    a1b: "E-maile z podsumowaniem włączasz sam i wybierasz, kto je dostaje: tylko właściciel, administratorzy albo wszyscy członkowie. Przypomnienie nie wisi więc na jednej osobie i nie ginie, kiedy kadry są na urlopie.",
+    a1b: "E-mail z podsumowaniem jest włączony od pierwszego dnia: każdego ranka, gdy jest co pokazać, trafia do administratorów. W „Ustawienia → Powiadomienia” możesz go wyłączyć lub wybrać odbiorców: tylko właściciel, administratorzy albo wszyscy członkowie. Przypomnienie nie wisi więc na jednej osobie i nie ginie, kiedy kadry są na urlopie.",
 
     q2: "Kto odpowiada, jeśli kierowca wyjedzie w trasę z nieważnym dokumentem?",
     a2: "W większości krajów UE przewoźnik, a nie tylko kierowca: kara trafia do firmy, a w części krajów dodatkowo do osoby zarządzającej transportem. Konkretne kwoty i tryb zależą od kraju kontroli. Właśnie dlatego G-Track przypomina przede wszystkim biuru — temu, kto wstawia kurs do planu — a kierowcy, który podłączył bota, dodatkowo wysyła przypomnienie w Telegramie.",
@@ -354,7 +354,7 @@ export const pl: LandingDict = {
 
     q4: "Mam 40–60 kierowców i lata skanów w Excelu i w teczkach. Kto to przeniesie?",
     a4: "Można zacząć bez archiwum: wprowadź kierowców i te dokumenty, którym termin mija najbliżej — przypomnienia działają już od tego. Stare skany dogrywasz na bieżąco i nic nie blokują.",
-    a4b: "Przeniesienie z Excela pierwszym klientom robimy bezpłatnie. Przyślij plik taki, jaki jest — z uwagami, pustymi komórkami i „??” w datach.",
+    a4b: "Pierwszym 10 firmom przeniesiemy dane z Excela bezpłatnie. Przyślij plik taki, jaki jest — z uwagami, pustymi komórkami i „??” w datach.",
 
     q5: "Gdzie fizycznie leżą dane i skany? Podpiszecie DPA?",
     a5: "Dane i pliki są w Unii Europejskiej, centrum danych w Irlandii. Dokument o przetwarzaniu danych jest opublikowany, link w stopce strony; podpisujemy go. Dostęp do wrażliwych pól wewnątrz twojej firmy ograniczają role, a nie jeden wspólny przełącznik.",
@@ -396,7 +396,7 @@ export const pl: LandingDict = {
     h2: "Zacznij teraz — cena jedzie z tobą.",
     ctaTrial: "Wypróbuj 30 dni",
     ctaPricing: "Zobacz cennik",
-    migrate: "Dane w Excel? Zmigrujemy bezpłatnie — ",
+    migrate: "Dane w Excelu? Pierwszym 10 firmom przeniesiemy je bezpłatnie — ",
   },
 
   footer: {

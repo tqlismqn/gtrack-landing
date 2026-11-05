@@ -403,7 +403,7 @@ const ru = {
     founding: " Новые клиенты после запуска будут платить больше — вы нет.",
     noteA: "Год — это ",
     noteB: "«2 месяца в подарок»",
-    noteC: ". Бесплатная миграция данных из Excel для ранних клиентов.",
+    noteC: ". Бесплатная миграция данных из Excel для первых 10 компаний.",
     anchorOverline: "Цена вопроса",
     anchorBig: "≈ 2,25 €",
     anchorUnit: "за машину в месяц · парк 200 машин",
@@ -427,7 +427,7 @@ const ru = {
 
     q1: "Как система напомнит, что у водителя истекает документ?",
     a1: "Каждое утро G-Track проверяет документы всех водителей. Паспорт попадает в сводку за 180 дней, остальные документы — за 90. Офис получает письмо, в приложении документ помечается как истекающий (для декларации — за 60 дней), а водителю, который подключил Telegram-бота, приходит напоминание.",
-    a1b: "Письма со сводкой включаете сами и выбираете, кому они уходят: только владельцу, администраторам или всем участникам. Поэтому напоминание не висит на одном человеке и не пропадает, пока кадровик в отпуске.",
+    a1b: "Письмо со сводкой включено с первого дня: каждое утро, если есть что показать, оно приходит администраторам. В разделе «Настройки → Уведомления» его можно отключить или выбрать получателей: только владелец, администраторы или все участники. Поэтому напоминание не висит на одном человеке и не пропадает, пока кадровик в отпуске.",
 
     q2: "Кто отвечает, если водитель уехал в рейс с просроченным документом?",
     a2: "В большинстве стран EU — перевозчик, а не только водитель: штраф выписывают фирме, а в ряде стран отдельно и ответственному за транспорт. Конкретные суммы и порядок зависят от страны проверки. Именно поэтому G-Track напоминает прежде всего офису — тому, кто ставит рейс в план, — а водителю, подключившему бота, дублирует напоминание в Telegram.",
@@ -440,7 +440,7 @@ const ru = {
 
     q4: "У меня 40–60 водителей и годы сканов в Excel и папках. Кто это перенесёт?",
     a4: "Начать можно без архива: заведите водителей и те документы, у которых срок ближе всего — напоминания заработают уже с этого. Старые сканы догружаются по ходу и ничего не блокируют.",
-    a4b: "Перенос из Excel ранним клиентам делаем бесплатно. Присылайте файл каким он есть — с примечаниями, пустыми ячейками и «??» в датах.",
+    a4b: "Первым 10 компаниям перенесём данные из Excel бесплатно. Присылайте файл каким он есть — с примечаниями, пустыми ячейками и «??» в датах.",
 
     q5: "Где физически лежат данные и сканы? Подпишете DPA?",
     a5: "Данные и файлы — в Европейском союзе, дата-центр в Ирландии. Документ об обработке данных опубликован, ссылка в подвале страницы; подписываем. Доступ к чувствительным полям внутри вашей компании ограничен ролями, а не общей галочкой.",
@@ -482,7 +482,7 @@ const ru = {
     h2: "Начните сейчас — цена едет с вами.",
     ctaTrial: "Попробовать 30 дней",
     ctaPricing: "Смотреть тарифы",
-    migrate: "Данные в Excel? Мигрируем бесплатно — ",
+    migrate: "Данные в Excel? Первым 10 компаниям перенесём бесплатно — ",
   },
 
   footer: {
@@ -827,7 +827,7 @@ const en: LandingDict = {
     founding: " New customers will pay more after launch — you won’t.",
     noteA: "A year means ",
     noteB: "“2 months free”",
-    noteC: ". Free data migration from Excel for early customers.",
+    noteC: ". Free data migration from Excel for the first 10 companies.",
     anchorOverline: "The math",
     anchorBig: "≈ 2.25 €",
     anchorUnit: "per truck/mo · 200-truck fleet",
@@ -847,7 +847,7 @@ const en: LandingDict = {
 
     q1: "How does the system warn me that a driver’s document is expiring?",
     a1: "Every morning G-Track checks every driver’s documents. A passport shows up in the digest 180 days ahead, other documents 90 days ahead. The office gets an email, the document is marked as expiring in the app (declarations: 60 days ahead), and a driver who has connected the Telegram bot gets a reminder.",
-    a1b: "You switch the digest emails on yourself and choose who gets them: the owner only, the admins, or every member. So the reminder doesn’t hang on one person and doesn’t vanish while your HR manager is on holiday.",
+    a1b: "The digest email is on from day one: every morning, when there is something to show, it goes to the admins. In “Settings → Notifications” you can switch it off or choose who gets it: the owner only, the admins, or every member. So the reminder doesn’t hang on one person and doesn’t vanish while your HR manager is on holiday.",
 
     q2: "Who is liable if a driver leaves on a trip with an expired document?",
     a2: "In most EU countries it is the carrier, not only the driver: the fine goes to the company, and in several countries to the transport manager personally as well. Exact amounts and procedure depend on the country of the check. That is why G-Track reminds the office first — the people who put the trip into the plan — and repeats the reminder in Telegram to a driver who has connected the bot.",
@@ -860,7 +860,7 @@ const en: LandingDict = {
 
     q4: "I have 40–60 drivers and years of scans in Excel and folders. Who moves all that?",
     a4: "You can start without the archive: enter the drivers and the documents whose deadlines are closest — reminders start working from that alone. Old scans get uploaded along the way and block nothing.",
-    a4b: "For early customers we migrate from Excel for free. Send the file as it is — with notes, empty cells and “??” in the date column.",
+    a4b: "For the first 10 companies we migrate from Excel for free. Send the file as it is — with notes, empty cells and “??” in the date column.",
 
     q5: "Where is the data and where are the scans? Will you sign a DPA?",
     a5: "Data and files sit in the European Union, in a data centre in Ireland. The data processing document is published — the link is in the page footer — and we do sign it. Access to sensitive fields inside your company is limited by roles, not by one global switch.",
@@ -902,7 +902,7 @@ const en: LandingDict = {
     h2: "Start now — the price rides with you.",
     ctaTrial: "Try 30 days",
     ctaPricing: "See pricing",
-    migrate: "Data in Excel? We’ll migrate it for free — ",
+    migrate: "Data in Excel? We’ll migrate it for free for the first 10 companies — ",
   },
 
   footer: {

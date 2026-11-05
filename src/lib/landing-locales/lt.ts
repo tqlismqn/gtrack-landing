@@ -319,7 +319,7 @@ export const lt: LandingDict = {
     founding: " Nauji klientai po paleidimo mokės daugiau — jūs ne.",
     noteA: "Metai — tai ",
     noteB: "„2 mėnesiai nemokamai“",
-    noteC: ". Nemokama duomenų migracija iš Excel ankstyviesiems klientams.",
+    noteC: ". Nemokama duomenų migracija iš Excel pirmoms 10 įmonių.",
     anchorOverline: "Skaičiavimas",
     anchorBig: "≈ 2,25 €",
     anchorUnit: "už vienetą/mėn. · 200 vienetų parkas",
@@ -344,7 +344,7 @@ export const lt: LandingDict = {
 
     q1: "Kaip sistema primins, kad vairuotojui baigia galioti dokumentas?",
     a1: "Kiekvieną rytą G-Track patikrina visų vairuotojų dokumentus. Pasas į suvestinę patenka likus 180 dienų, kiti dokumentai — likus 90. Biuras gauna el. laišką, programoje prie dokumento atsiranda žyma „Baigiasi galiojimas“ (deklaracijai — likus 60 dienų), o vairuotojas, prisijungęs prie Telegram boto, gauna priminimą.",
-    a1b: "Suvestinės el. laiškus įjungiate patys ir pasirenkate, kam jie siunčiami: tik savininkui, administratoriams ar visiems nariams. Todėl priminimas nekabo ant vieno žmogaus ir nepražūva, kol HR atostogauja.",
+    a1b: "Suvestinės el. laiškas įjungtas nuo pirmos dienos: kiekvieną rytą, kai yra ką parodyti, jis siunčiamas administratoriams. Skiltyje „Nustatymai → Pranešimai“ galite jį išjungti arba pasirinkti gavėjus: tik savininkas, administratoriai ar visi nariai. Todėl priminimas nekabo ant vieno žmogaus ir nepražūva, kol HR atostogauja.",
 
     q2: "Kas atsako, jei vairuotojas išvyko į reisą su nebegaliojančiu dokumentu?",
     a2: "Daugumoje ES šalių — vežėjas, o ne vien vairuotojas: bauda skiriama įmonei, o kai kuriose šalyse atskirai ir už transportą atsakingam vadovui. Konkrečios sumos ir tvarka priklauso nuo tikrinančios šalies. Būtent todėl G-Track pirmiausia primena biurui — tam, kas įrašo reisą į planą, — o vairuotojui, prisijungusiam prie boto, priminimą papildomai atsiunčia per Telegram.",
@@ -357,7 +357,7 @@ export const lt: LandingDict = {
 
     q4: "Turiu 40–60 vairuotojų ir metais kauptus skenus Excel bei aplankuose. Kas visa tai perkels?",
     a4: "Pradėti galima ir be archyvo: įveskite vairuotojus ir tuos dokumentus, kurių terminai arčiausiai — priminimai pradės veikti jau vien iš to. Seni skenai keliami pakeliui ir nieko neblokuoja.",
-    a4b: "Perkėlimą iš Excel ankstyviesiems klientams atliekame nemokamai. Atsiųskite failą tokį, kokį turite — su pastabomis, tuščiais laukais ir „??“ datų vietoje.",
+    a4b: "Pirmoms 10 įmonių duomenis iš Excel perkeliame nemokamai. Atsiųskite failą tokį, kokį turite — su pastabomis, tuščiais laukais ir „??“ datų vietoje.",
 
     q5: "Kur fiziškai laikomi duomenys ir skenai? Ar pasirašysite DPA?",
     a5: "Duomenys ir failai — Europos Sąjungoje, duomenų centras Airijoje. Duomenų apdorojimo dokumentas paskelbtas, nuoroda — puslapio apačioje; pasirašome. Prieigą prie jautrių laukų jūsų įmonės vidyje riboja vaidmenys, o ne viena bendra varnelė.",
@@ -399,7 +399,7 @@ export const lt: LandingDict = {
     h2: "Pradėkite dabar — kaina keliauja su jumis.",
     ctaTrial: "Išbandyti 30 dienų",
     ctaPricing: "Pamatyti kainas",
-    migrate: "Duomenys Excel lentelėse? Perkelsime nemokamai — ",
+    migrate: "Duomenys Excel lentelėse? Pirmoms 10 įmonių perkelsime nemokamai — ",
   },
 
   footer: {
