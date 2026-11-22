@@ -72,3 +72,6 @@
 }
 .start-final .hero-ctas { margin-top: 28px; }
 .start-note { margin-top: 16px; font-size: 14px; color: var(--text-2); }
+
+/* Мелкая строка под кнопкой здесь — довод рекламной страницы, а не подпись: --text-2 читается на тёмном фоне. */
+.start-hero .hero-micro { color: var(--text-2); }
