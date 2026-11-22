@@ -6,7 +6,7 @@
    из серверной страницы; переключение языка = навигация на другой путь
    (cookie `gt-landing-lang` запоминает выбор).
    Авто-редирект по языку браузера — один раз, только на английских страницах
-   (/, /roadmap, /impressum, /demo), только если выбор ещё не сохранён; query и хеш
+   (/, /roadmap, /impressum, /demo, /start), только если выбор ещё не сохранён; query и хеш
    сохраняются.
    Тема: html[data-theme], дефолт dark; инлайн-скрипт в layout.tsx применяет
    сохранённую тему до hydration.
@@ -40,6 +40,7 @@ import {
   type Lang,
   type LandingDict,
 } from "@/lib/landing-i18n";
+import { startPath } from "@/lib/start-page/path";
 
 const LANG_COOKIE = "gt-landing-lang";
 
@@ -80,7 +81,7 @@ function applyCmpLang(lang: Lang) {
    в другой локали (переключатель языка и авто-редирект по языку браузера
    обязаны оставлять посетителя там, где он был) и то, чем стать якорям
    главной за её пределами. */
-export type LandingPageKind = "home" | "roadmap" | "impressum" | "social" | "demo";
+export type LandingPageKind = "home" | "roadmap" | "impressum" | "social" | "demo" | "start";
 
 /* Путь каждой страницы в любой локали. Таблица, а не тернарник: прежний
    тернарник «roadmap или главная» отправил бы посетителя /cs/impressum при
@@ -92,6 +93,7 @@ const PAGE_PATH: Record<LandingPageKind, (lang: Lang) => string> = {
   impressum: impressumPath,
   social: socialPrivacyPath,
   demo: demoPath,
+  start: startPath,
 };
 
 interface LandingCtxValue {

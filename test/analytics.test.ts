@@ -154,6 +154,11 @@ describe("LandingProvider: связка по исходнику", () => {
     expect(PROVIDER).toContain('const LANG_COOKIE = "gt-landing-lang";');
   });
 
+  it("/start: вид страницы и путь в таблице — смена языка остаётся на рекламной странице, метки несутся", () => {
+    expect(PROVIDER).toContain('"demo" | "start"');
+    expect(flat(PROVIDER)).toContain("start: startPath,");
+  });
+
   it("хранилище в src/ — только ключи интерфейса, метки не пишутся", () => {
     expect(Object.keys(SRC_FILES).length).toBeGreaterThan(20);
     expect(storageProblems(SRC_FILES)).toEqual([]);

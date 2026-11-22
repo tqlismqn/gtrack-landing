@@ -1,0 +1,74 @@
+/* ============================================================================
+   Рекламная страница /{lang}/start (StartPage.tsx): короткий первый экран на тех же
+   .hero / .atmo / .hero-sub / .hero-ctas / .hero-micro, что у главной, три карточки
+   выгод и финальный блок со второй кнопкой. Своих цветов и теней нет — только токены
+   (--card, --border-1, --info, --text-*) и шкала брейкпоинтов; карточка — тот же
+   вид, что .demo-card.
+   Классы start-* сверены с утилитами Tailwind: утилит start-* нет.
+   ============================================================================ */
+
+/* Первый экран: главная держит под hero доску и ряд сцен, здесь за ним сразу карточки,
+   поэтому нижний запас короче. (0,2,0) перебивает .hero без оглядки на порядок файлов. */
+.hero.start-hero { padding-bottom: clamp(36px, 5vw, 64px); }
+/* relative — как у .hero-grid: без него атмосфера (.atmo, абсолютная) ложится поверх текста и кнопки */
+.start-wrap { position: relative; display: flex; flex-direction: column; align-items: flex-start; }
+
+/* Заголовок — семейство «не режет секцию длинным словом» (base.css, overflow-wrap:
+   anywhere лечит min-content; break-word не лечит). Список в base.css — перечисление,
+   поэтому правило повторено здесь для новых заголовков. */
+.start-hero h1, .start-card-h, .start-final-h { overflow-wrap: anywhere; }
+.start-hero h1 { max-width: 16ch; }
+
+/* Главная кнопка страницы чуть крупнее обычной: она здесь единственное действие. */
+.start-hero .btn.accent, .start-final .btn.accent { height: 54px; padding: 0 34px; font-size: 16px; }
+
+/* Тихая ссылка на форму заявки: меньше и без кнопочного вида — не спорит с главным действием.
+   Цвет — --text-2: 14 px на фоне страницы держит ≥ 4,5:1 в обеих темах (--text-3 не держит). */
+.start-demo {
+  display: inline-block; margin-top: 18px; font-size: 14px; line-height: 1.4;
+  color: var(--text-2); text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-color: var(--border-2);
+}
+.start-demo:hover { color: var(--text-1); text-decoration-color: currentColor; }
+
+/* ---- три выгоды ----------------------------------------------------------- */
+.start-benefits { padding: 0 0 clamp(48px, 6vw, 88px); }
+.start-cards {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px;
+}
+@media (width >= theme(--breakpoint-l)) {
+  .start-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+}
+.start-card {
+  background: var(--card); border: 1px solid var(--border-1); border-radius: 16px;
+  padding: 24px; box-shadow: var(--shadow-lift); min-width: 0;
+}
+@media (width <= theme(--breakpoint-s)) {
+  .start-card { padding: 20px 18px; }
+}
+.start-ic {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 11px; color: var(--info);
+  background: color-mix(in oklch, var(--info) 14%, transparent);
+}
+.start-ic svg { width: 20px; height: 20px; }
+.start-card-h {
+  margin-top: 16px; font-size: clamp(19px, 2vw, 22px); font-weight: 600;
+  letter-spacing: -0.02em; line-height: 1.25; text-wrap: balance;
+}
+.start-card-h .dim { color: var(--text-3); }
+.start-card p { margin-top: 10px; font-size: 15px; line-height: 1.55; color: var(--text-2); }
+
+/* ---- финальный блок ------------------------------------------------------- */
+.start-final { padding: 0 0 clamp(72px, 9vw, 128px); }
+.start-final-inner {
+  display: flex; flex-direction: column; align-items: flex-start;
+  border-top: 1px solid var(--border-1); padding-top: clamp(40px, 5vw, 64px);
+}
+.start-final-h {
+  font-size: clamp(28px, 3.6vw, 44px); font-weight: 600; letter-spacing: -0.028em;
+  line-height: 1.1; text-wrap: balance; max-width: 20ch;
+}
+.start-final .hero-ctas { margin-top: 28px; }
+.start-note { margin-top: 16px; font-size: 14px; color: var(--text-2); }
