@@ -8,5 +8,4 @@ export const start: StartDict = {
   lead: "G-Track sujungia vairuotojų atostogas, dokumentų terminus ir reisų planavimą vienoje lentoje, naršyklėje.",
   cta: "Registruotis",
   excel: "Dirbote su Excel? Padėsime pradėti.",
-  demoLink: "Norite pirmiau pamatyti? Pateikite demo užklausą",
 };

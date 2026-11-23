@@ -22,15 +22,6 @@
 /* Главная кнопка страницы чуть крупнее обычной: она здесь единственное действие. */
 .start-hero .btn.accent, .start-final .btn.accent { height: 54px; padding: 0 34px; font-size: 16px; }
 
-/* Тихая ссылка на форму заявки: меньше и без кнопочного вида — не спорит с главным действием.
-   Цвет — --text-2: 14 px на фоне страницы держит ≥ 4,5:1 в обеих темах (--text-3 не держит). */
-.start-demo {
-  display: inline-block; margin-top: 18px; font-size: 14px; line-height: 1.4;
-  color: var(--text-2); text-decoration: underline; text-underline-offset: 3px;
-  text-decoration-color: var(--border-2);
-}
-.start-demo:hover { color: var(--text-1); text-decoration-color: currentColor; }
-
 /* ---- три выгоды ----------------------------------------------------------- */
 .start-benefits { padding: 0 0 clamp(48px, 6vw, 88px); }
 .start-cards {

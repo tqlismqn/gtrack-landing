@@ -8,5 +8,4 @@ export const start: StartDict = {
   lead: "G-Track puts driver leave, document deadlines and trip planning on one board, in your browser.",
   cta: "Sign up",
   excel: "Worked in Excel? We’ll help you get started.",
-  demoLink: "Want to see it first? Request a demo",
 };

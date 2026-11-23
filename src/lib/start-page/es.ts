@@ -8,5 +8,4 @@ export const start: StartDict = {
   lead: "G-Track reúne las vacaciones de los conductores, los plazos de los documentos y la planificación de viajes en un solo tablero, en el navegador.",
   cta: "Registrarse",
   excel: "¿Trabajaba con Excel? Le ayudamos a empezar.",
-  demoLink: "¿Prefiere verlo primero? Solicite una demo",
 };

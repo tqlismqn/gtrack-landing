@@ -28,7 +28,7 @@ import { BANNED, aiPattern } from "./banned";
 vi.mock("next/navigation", () => ({ useRouter: () => ({ push: () => {}, replace: () => {} }) }));
 
 const ROOT = join(__dirname, "..");
-const KEYS = ["metaTitle", "metaDescription", "h1", "lead", "cta", "excel", "demoLink"] as const;
+const KEYS = ["metaTitle", "metaDescription", "h1", "lead", "cta", "excel"] as const;
 
 describe("словарь /start", () => {
   it("ключи полны и непусты во всех 12 локалях", () => {
@@ -181,14 +181,14 @@ describe("страница /start в разметке", () => {
   }
   const signups = (html: string) => [...html.matchAll(/<a [^>]*href="(https:\/\/app\.g-track\.eu\/register[^"]*)"/g)].map((m) => m[1]);
 
-  it("en: один h1, три кнопки регистрации (шапка, первый экран, низ) с lng=en, ссылка на /demo", async () => {
+  it("en: один h1, три кнопки регистрации (шапка, первый экран, низ) с lng=en, без ссылки на /demo", async () => {
     const html = await render("en");
     expect(html.match(/<h1[ >]/g)).toHaveLength(1);
     expect(html).toContain("Sign up and get to work");
     expect(signups(html)).toEqual(Array(3).fill("https://app.g-track.eu/register?lng=en"));
     expect(html).toContain('data-cta-location="start_hero"');
     expect(html).toContain('data-cta-location="start_footer"');
-    expect(html).toContain('href="/demo"');
+    expect(html).not.toContain('/demo"');
     expect(html).toContain("No credit card");
     expect(html).toContain("30 days free");
   });
@@ -199,11 +199,11 @@ describe("страница /start в разметке", () => {
     expect(ru).toContain("Регистрируйтесь и работайте");
     expect(ru).toContain(">Зарегистрироваться<");
     expect(ru).toContain("Работали в Excel? Поможем начать.");
-    expect(ru).toContain('href="/ru/demo"');
+    expect(ru).not.toContain('/demo"');
     const pl = await render("pl");
     expect(signups(pl)).toEqual(Array(3).fill("https://app.g-track.eu/register?lng=pl"));
     expect(pl).toContain("Zarejestruj się i pracuj");
-    expect(pl).toContain('href="/pl/demo"');
+    expect(pl).not.toContain('/demo"');
   });
 });
 

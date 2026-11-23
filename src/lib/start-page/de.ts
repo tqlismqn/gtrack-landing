@@ -8,5 +8,4 @@ export const start: StartDict = {
   lead: "G-Track bringt Fahrerurlaub, Dokumentenfristen und Tourenplanung auf ein Board — im Browser.",
   cta: "Registrieren",
   excel: "Bisher mit Excel gearbeitet? Wir helfen beim Einstieg.",
-  demoLink: "Erst ansehen? Demo anfragen",
 };

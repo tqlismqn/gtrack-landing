@@ -12,7 +12,6 @@
    ============================================================================ */
 
 import { LANDING_DICT, type Lang } from "@/lib/landing-i18n";
-import { demoPath } from "@/lib/landing-i18n";
 import { START_DICT } from "@/lib/start-page";
 import { CtaLink } from "./CtaLink";
 import { Footer } from "./Footer";
@@ -91,8 +90,6 @@ export function StartPage({ locale }: { locale: Lang }) {
               <CtaLink className="btn accent" href={signup} location="start_footer">{t.cta}</CtaLink>
             </div>
             <p className="start-note">{d.nav.ctaShort} · {d.hero.micro1}</p>
-            {/* тихая ссылка на форму заявки: обычный <a>, чтобы слушатель LandingProvider дописал метки */}
-            <a className="start-demo" href={demoPath(locale)}>{t.demoLink}</a>
           </div>
         </section>
       </main>

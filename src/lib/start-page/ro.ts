@@ -8,5 +8,4 @@ export const start: StartDict = {
   lead: "G-Track adună concediile șoferilor, termenele documentelor și planificarea curselor pe un singur panou, în browser.",
   cta: "Înregistrează-te",
   excel: "Lucrai în Excel? Te ajutăm să începi.",
-  demoLink: "Vrei să vezi mai întâi? Cere un demo",
 };
