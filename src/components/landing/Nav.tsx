@@ -16,6 +16,7 @@ import {
   roadmapPath,
   type Lang,
 } from "@/lib/landing-i18n";
+import { trackRegisterClick } from "@/lib/start-page/track";
 import { useLanding } from "./LandingProvider";
 import { NavLogo } from "./NavLogo";
 import { appLoginUrl, appSignupUrl } from "./urls";
@@ -37,7 +38,7 @@ function Flag({ lang }: { lang: Lang }) {
 export function Nav() {
   /* homeAnchor: на главной это чистый "#pricing", на карте — путь главной
      той же локали плюс якорь. Иначе на /roadmap якоря шапки ведут в пустоту. */
-  const { d, lang, setLang, toggleTheme, homeAnchor } = useLanding();
+  const { d, lang, setLang, toggleTheme, homeAnchor, page } = useLanding();
   const [langOpen, setLangOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const langWrapRef = useRef<HTMLDivElement>(null);
@@ -159,7 +160,13 @@ export function Nav() {
               Все три пролёта считаются на сервере и рендерятся сразу —
               видимость переключает CSS (mobile.css), поэтому после гидрации
               вёрстка не прыгает и надпись не зависит от ширины окна в JS. */}
-          <a className="btn accent sm" href={appSignupUrl(lang)}>
+          {/* на рекламной странице /start клик по кнопке шапки — тоже регистрация: считаем его
+              тем же событием, что кнопки страницы (CtaLink); на остальных страницах onClick нет */}
+          <a
+            className="btn accent sm"
+            href={appSignupUrl(lang)}
+            onClick={page === "start" ? () => trackRegisterClick(window, "start_nav", lang) : undefined}
+          >
             <span className="cta-full">{pickCta(d.nav, "wide")}</span>
             <span className="cta-short">{pickCta(d.nav, "mid")}</span>
             <span className="cta-tiny">{pickCta(d.nav, "narrow")}</span>
